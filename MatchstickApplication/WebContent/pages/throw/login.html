@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="UTF-8">
+	<title>Experiments - Login</title>
+	
+	<link rel="stylesheet" type="text/css" href="style/language-page.css">
+	<link rel="stylesheet" type="text/css" href="style/buttons.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/input.css">	
+
+	<script src="scripts/subject_data.js" type="text/javascript"></script>
+	<script>
+		// default-data
+		// subject-data-holder-marker
+	</script>
+	
+	<script src="scripts/translate.js" type="text/javascript"></script>
+	<script src="scripts/page_functions.js" type="text/javascript"></script>
+	<script src="scripts/send.js" type="text/javascript"></script>
+	
+</head>
+<body class="background">
+
+	<div id="language">
+		<span onclick="goChangeLanguage('/login')">
+			<img id="lang_ball" src="images/languages/flag-en.png" alt="language" 
+				class="circle" style="float:right;width:30px;height:30px;"/>
+		</span>
+	</div>
+
+	<div class="centered">
+		<div class="vertical-layout">
+			<div>
+		    	<p id="m_welcome" class="white">Welcome</p>
+		    </div>
+			<div class="horizontal-layout">
+				<input type="text" id="m_nameInput" name="name" placeholder="Write your name" 
+						oninput="nameInputChange()" onchange="nameInputChange()">
+						<!-- Maybe needed also onpropertychange="nameInputChange()"  -->
+				<div id="buffer-zone" style="padding: 0px 10px;"></div>
+		    	<div>
+		    		<span id="loginButton" class="greenButton" onclick="sendLogin()" ><span class="permanentLabel"></span></span>
+		    	</div>
+		    </div>
+		    <div id="existing_part" class="horizontal-layout">
+				<p id="m_repeatedLogin" class="white" style="width:50%;"> Are you logging in for the first time? </p>
+				<div id="buffer-zone" style="padding: 0px 10px;"></div>
+		    	<div id="check_repeated_button">
+		    		<span id="reloginButton_yes" class="blueButton" onclick="sendRelogin_yes()" >Yes</span>
+		    		<span id="reloginButton_no" class="blueButton" onclick="sendRelogin_no()" >No</span>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+  
+	<script>
+		translate("m_welcome");
+		translate("m_nameInput", "placeholder");
+		translate("m_repeatedLogin");
+		setLanguageBall();
+		
+		hideElementWithId("loginButton");
+		hideElementWithId("existing_part");
+		
+		function sendLogin() {
+			subjectData_subjectName = document.getElementById("m_nameInput").value;
+			post("/", buildSubjectData());
+		}
+		
+		function sendRelogin_yes() {
+			subjectData_subjectName = document.getElementById("m_nameInput").value;
+			
+			var data = buildSubjectData();
+			data.forceSelectedUser = true;
+			data.existingUser = false;
+			post("/", data);
+		}
+		
+		function sendRelogin_no() {
+			subjectData_subjectName = document.getElementById("m_nameInput").value;
+			
+			var data = buildSubjectData();
+			data.forceSelectedUser = true;
+			data.existingUser = true;
+			post("/", data);
+		}
+		
+		function nameInputChange() {
+			showElementWithId("loginButton");
+			hideElementWithId("existing_part");
+		}
+		
+		// Send on enter
+		document.getElementById("m_nameInput")
+		    .addEventListener("keyup", function(event) {
+		    event.preventDefault();
+		    if (event.keyCode === 13) {
+		        document.getElementById("loginButton").click();
+		    }
+		});
+		
+		// Repeated name
+		function askForRepeated() {
+			hideElementWithId("loginButton");
+			showElementWithId("existing_part");
+		}
+		
+		function insertExistingName(existingName) {
+			document.getElementById("m_nameInput").value = existingName
+		}
+	</script>
+	<script>
+		// suspect-for-repeated-subject-marker
+		// put-existing-name-if-exists
+	</script>
+</body>
+</html>

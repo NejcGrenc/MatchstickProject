@@ -1,0 +1,42 @@
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  padding-right: 50px;  /* Little exra space after text */
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 18px;
+  font-family: Arial;
+  margin-left: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: initial;
+}
+
+.collapsible:hover {
+  background-color: #ccc;
+}
+
+.collapsible:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+}
+
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.collapsible_content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  font-size: 18px;
+  text-align: left;
+  font-family: Arial;
+  margin-left: 18px;
+}

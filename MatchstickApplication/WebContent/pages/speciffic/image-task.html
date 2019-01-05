@@ -1,0 +1,75 @@
+<!-- Extra header with experiment title -->
+<div id="header">
+    <h1>Matching familiar figures test</h1>
+    <hr />
+</div>
+
+<!-- Main body -->
+<div class="body">
+
+    <!-- Task header (contains status information -->
+    <div id="task-header" class="horizontal-layout" style="justify-content: space-between;">
+        <h2 id="taskCounter" style="margin-left:30px">Solving task: ...</h2>
+      </div>
+
+     <!-- Application space -->
+    <div class="centered horizontal-layout">
+        <div id="canvas-container">
+            <canvas id="canvas" width="2000" height="750"></canvas>	
+        </div>
+        <!--
+        <div id="buffer-zone" style="width: 20px;"></div>
+        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between;">
+            <div class="vertical-layout">
+                <div id="timer"></div>
+                <span id="button-pause" class="blueButton" onclick="startExperiment()"><img src="../../images/ic_pause_white_48px.svg" alt="Pause" /></span>
+                <span id="button-stop" class="blueButton" onclick="finish()"><img src="../../images/ic_stop_white_48px.svg" alt="Stop" /></span>
+            </div>
+        </div>
+        -->
+        
+        <!-- Success (& continue) button -->
+            <div>
+                <div id="sucessButton" style="display:none">
+                	<span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
+                </div>
+            </div>
+    </div>
+</div>
+
+<script>
+
+	start();
+
+	var taskWrapup_url = "/taskWrapup";
+
+    function onSucessSend()
+    {
+        console.log();
+    	console.log("Done");
+
+        // Get data from action, like action.report()
+        var data = mapScoresToJson(totalScore, totalTimer);
+
+        post(taskWrapup_url, {scores: JSON.stringify(data)});
+        
+    	console.log();
+    }
+
+
+    function mapScoresToJson(totalScore, totalTimer)
+    {
+        var data = {};
+        
+        data.images = [];
+        for (i = 0; i < tasks.length; i++) 
+        {
+        	data.images.push(tasks[i].figure.src);
+        }
+
+        data.scores = totalScore;
+        data.times = totalTimer;
+        return data;        
+    }
+	
+</script>

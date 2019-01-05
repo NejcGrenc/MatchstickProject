@@ -1,0 +1,14 @@
+<div id="credits" class="blueBallButton bottom_left" onclick="goToCredits()">
+	<p>Credits</p>
+</div>
+<script>
+	function goToCredits()
+	{		
+		if (post)
+		{
+			post("/credits");
+		}
+		else
+		{ console.log("Failed at forward to /credits. Post function missing."); }
+	}
+</script>

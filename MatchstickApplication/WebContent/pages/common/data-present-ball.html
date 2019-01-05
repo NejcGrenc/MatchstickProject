@@ -1,0 +1,22 @@
+<div id="data-present" class="right">
+    <span id="dataPresentButton" class="blueButton" onclick="goSeeData(currentPage)"><img src="images/baseline_warning_white_48dp.png" alt="Show current data" /></span>
+</div>
+<script>
+	function goSeeData(returnCallUrl)
+	{
+		var selectedReturnUrl = "/login";
+		if (returnCallUrl !== undefined && returnCallUrl !== null)
+		{
+			selectedReturnUrl = returnCallUrl;
+		}
+		else
+		{ console.log("Using default return call to /intro"); }
+		
+		if (post)
+		{
+			post("/presentTaskData", {returnUrl: selectedReturnUrl});
+		}
+		else
+		{ console.log("Failed at language change. Post function missing."); }
+	}
+</script>

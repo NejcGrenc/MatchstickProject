@@ -1,0 +1,49 @@
+function post(path, params, method) 
+{
+    // Set default if not specified.
+    method = method || "post"; 
+    params = params || {};
+    path = path || '/';
+
+    // Set destination
+    previousUrl = currUrl;
+    forwardUrl = path;
+    path = '/';
+    params.previousUrl = previousUrl;
+    params.forwardUrl = forwardUrl;
+
+    // Set userSession value (if not defined)
+    params.session = userSession;
+    
+    // Append app name to path
+    console.log("Append MatchstickApplication to path " + path);
+    path = "/MatchstickApplication" + path;
+    
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) 
+    {
+        if(params.hasOwnProperty(key)) 
+        {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    
+    console.log("Sending " + method + " message to " + path);
+    form.submit();
+}
+
+
+
+

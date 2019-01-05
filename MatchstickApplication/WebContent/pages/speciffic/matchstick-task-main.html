@@ -1,0 +1,139 @@
+
+<!-- Extra header with experiment title -->
+<div id="header">
+    <h1>Matchstick experiment</h1>
+    <hr />
+</div>
+
+<!-- Main body -->
+<div class="body">
+
+    <!-- Task header (contains status information -->
+    <div id="task-header" class="horizontal-layout" style="justify-content: space-between;">
+        <h2 id="taskCounter" style="margin-left:30px">Solving task: ...</h2>
+    </div>
+
+    <!-- Application space -->
+    <div class="centered horizontal-layout" style="align-items: normal;">
+        <div id="canvas-container">
+            <canvas id="canvas" width="1000" height="500"></canvas>	
+        </div>
+        <div id="buffer-zone" style="width: 20px;"></div>
+        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center;">
+            <div class="vertical-layout">
+                <div id="timer"></div>
+                <span id="button-pause" class="blueButton" onclick="onPauseSend()"><img src="images/ic_pause_white_48px.svg" alt="Pause" /></span>
+                <span id="button-stop" class="blueButton" onclick="onRestartSend()"><img src="images/ic_stop_white_48px.svg" alt="Stop" /></span> 
+            </div> 
+
+            <!-- Success (& continue) button -->
+            <div>
+                <div id="sucessButton">
+                <span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
+                </div>
+                 <div id="failureButton">
+                <span id="button-notDone" class="redButton" title=""><span class="label"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	var matchstick_url = "/matchstickTask";
+
+    function onSucessSend()
+    {
+        console.log();
+    	console.log("Done");
+
+        var data = mapAllActionsToJson();
+        post(matchstick_url, {actions: JSON.stringify(data)});
+        
+    	console.log();
+
+    	// For now just
+    	//reset();
+    }
+
+    function mapAllActionsToJson()
+    {
+        // Get data from action, like action.report()
+    	var data = [];
+        for (act in actionList)
+        {
+            data.push(mapActionObjectToJson(actionList[act]));
+        }
+        return data;
+    }
+    
+    function mapActionObjectToJson(action)
+    {
+        var data = {};
+        data.type = "normal";
+        data.startEquation = action.startEquation;
+        data.endEquation = action.endEquation;
+        data.startMatchstickLoc = action.startMatchstickLoc;
+        data.endMatchstickLoc = action.endMatchstickLoc;
+        data.startTime = action.startTime;
+        data.endTime = action.endTime;
+        return data;        
+    }
+    
+    function onPauseSend()
+    {
+        console.log();
+    	console.log("Pause");
+    	
+    	if (currentAction !== null)
+        	endAction(currentAction);
+    	
+        var data = mapAllActionsToJson();
+        var pausedata = {};
+        pausedata.type = "pause";
+        pausedata.startEquation = "";
+        pausedata.endEquation = "";
+        pausedata.startMatchstickLoc = {};
+        pausedata.endMatchstickLoc = {};
+        pausedata.startTime = 0;
+        pausedata.endTime = 0;
+        data.push(pausedata);
+        
+		post(matchstick_url, {actions: JSON.stringify(data)});
+        
+    	console.log(); 	 
+    }
+    
+    function onRestartSend()
+    {
+        console.log();
+    	console.log("Restart");
+    	
+    	if (currentAction !== null)
+        	endAction(currentAction);
+    	
+        var data = mapAllActionsToJson();
+        var restartdata = {};
+        restartdata.type = "restart";
+        restartdata.startEquation = "";
+        restartdata.endEquation = "";
+        restartdata.startMatchstickLoc = {};
+        restartdata.endMatchstickLoc = {};
+        restartdata.startTime = 0;
+        restartdata.endTime = 0;
+        data.push(restartdata);
+        
+		post(matchstick_url, {actions: JSON.stringify(data)});
+        
+    	console.log(); 	 
+    }
+    
+    
+    function setSolvingTaskNumber(currentNumber, totalNumber)
+    {
+    	 document.getElementById('taskCounter').innerHTML = "Solving task: " + currentNumber + " / " + totalNumber;
+    }
+	
+</script>
+

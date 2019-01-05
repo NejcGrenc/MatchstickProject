@@ -1,0 +1,97 @@
+<div class="centered">
+	<div class="vertical-layout">
+		<div>
+	    	<p id="m_userdata_intro" class="white">Please input data</p>
+	    </div>
+	    
+	    <div style="padding: 8px 0px;"><!-- Buffer --></div>
+	    <div>
+		    <p id="m_userdata_label_sex" class="white">Please input sex</p>
+		</div>	
+	    <div class="horizontal-layout-line"> 
+			<div style="padding: 0px 10px;"><!-- Buffer --></div> 
+		    <div>
+			    <form>
+				  <input id="m_userdata_input_sex_m" class="white" type="radio" name="sex" onclick="changeDetected();" value="male">
+				  		<label class="white" id="m_userdata_input_sex_label_m" for="m_userdata_input_sex_m">Male</label><br />
+				  <input id="m_userdata_input_sex_f" class="white" type="radio" name="sex" onclick="changeDetected();" value="female">
+				  		<label class="white" id="m_userdata_input_sex_label_f" for="m_userdata_input_sex_f">Female</label><br />
+				  <input id="m_userdata_input_sex_o" class="white" type="radio" name="sex" onclick="changeDetected();" value="other">
+				  		<label class="white" id="m_userdata_input_sex_label_o" for="m_userdata_input_sex_o">Other</label>
+				</form> 
+		    </div>
+	    </div>
+	    
+	    <div style="padding: 8px 0px;"><!-- Buffer --></div>
+	   	<div>
+		    <p id="m_userdata_label_age" class="white">Please input age</p>
+		</div>	
+	    <div class="horizontal-layout-line">
+	    	<div style="padding: 0px 10px;"><!-- Buffer --></div> 
+			<div>
+				<input type="number" id="m_userdata_input_age" placeholder="Select your age"
+						required pattern="[0-9]{1,4}"
+						oninput="changeDetected()" onchange="changeDetected()">
+						<!-- Maybe needed also onpropertychange="nameInputChange()"  -->				
+		    </div>
+		</div>   
+		
+		<div style="padding: 10px 0px;"><!-- Buffer --></div>
+    	<div class="horizontal-layout">
+    		<div style="padding: 50px 100px;"><!-- Buffer --></div>
+   			<span id="sendButton" class="greenButton" onclick="sendUserData()" ><span class="permanentLabel"></span></span>
+   		</div>
+	</div>
+</div>
+ 
+<script>
+	hideElementWithId("sendButton");
+
+	function changeDetected()
+	{
+		if (isDone()){
+			showElementWithId("sendButton");
+		}
+		else {
+			hideElementWithId("sendButton");
+		}
+	}
+	
+	function sendUserData()
+	{		
+		if (! isDone()) {
+			return;
+		}
+		
+		var sex = document.querySelector('input[name="sex"]:checked').value;
+		var age = document.getElementById("m_userdata_input_age").value;
+		
+		var data = {};
+		data.userdata_sex = sex;
+		data.userdata_age = age;
+		
+		console.log("Done with ", data);
+		post("/", data);
+	}
+	
+	function isDone()
+	{
+		var sex = null;
+		var sexSelected = document.querySelector('input[name="sex"]:checked');
+		if (sexSelected !== undefined && sexSelected !== null)
+		{
+			sex = sexSelected.value;
+		}
+
+		var age = document.getElementById("m_userdata_input_age").value;
+		var vAge = true;
+		if (isNaN(age) || age < 1 || age > 150) {
+			vAge = false;
+		}
+		
+		var validSex = sex !== null && sex !== undefined;
+		var validAge = age !== null && age !== undefined && vAge;
+		return (validSex && validAge);
+	}
+	
+</script>

@@ -1,0 +1,18 @@
+<div>    
+    <a id="images-half" onClick=selectImageTask()>  </a>
+    <a id="matchstick-half" onClick=selectMatchstickTask()> </a>
+    <h1 id="selecttask_txt2" > Matching familiar  <br />  figures experiment </h1>
+    <h1 id="selecttask_txt1" > Matchstick <br /> experiment </h1> 
+</div>
+<script>
+	function selectMatchstickTask()
+	{
+		console.log("Send to MatchstickTask");
+		post("/matchstickTask");
+	}
+	function selectImageTask()
+	{
+		console.log("Send to ImageTask");
+		post("/imagesTask");
+	}
+</script>

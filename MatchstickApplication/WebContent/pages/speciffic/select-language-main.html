@@ -1,0 +1,13 @@
+<div>
+	 <span onclick="selectLang('en')"><img src="images/languages/flag-en.png" alt="Flag en" id="img1" class="circle image"/></span>
+	 <span onclick="selectLang('si')"><img src="images/languages/flag-si.png" alt="Flag si" id="img2" class="circle image"/></span>
+	 <span onclick="selectLang('de')"><img src="images/languages/flag-de.png" alt="Flag de" id="img3" class="circle image"/></span>
+	 <span onclick="selectLang('sk')"><img src="images/languages/flag-sk.png" alt="Flag sk" id="img4" class="circle image"/></span>
+</div>
+<script>
+	function selectLang(language)
+	{
+		console.log('Selected language: ', language);
+		post(returnUrl, {session: userSession, lang: language});
+	}
+</script>

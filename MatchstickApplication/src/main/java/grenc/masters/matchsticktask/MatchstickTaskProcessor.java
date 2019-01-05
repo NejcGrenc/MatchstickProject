@@ -1,0 +1,84 @@
+package grenc.masters.matchsticktask;
+
+import grenc.masters.entities.Session;
+import grenc.masters.entities.TaskSession;
+import grenc.masters.matchsticktask.assistant.EquationAssist;
+import grenc.masters.matchsticktask.assistant.TaskDataAssist;
+import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
+import grenc.masters.matchsticktask.type.TaskType;
+
+
+public class MatchstickTaskProcessor
+{
+	private TaskSessionAssist taskSessionAssist;
+	
+	private Session session;
+	
+	private TaskSession taskSessionToUse;  // Lazy load
+	private TaskDataAssist taskDataAssist;
+	private EquationAssist equationAssist;
+	
+	public MatchstickTaskProcessor(Session session)
+	{
+		this.session = session;
+		this.taskSessionAssist = new TaskSessionAssist(session, TaskType.matchstick);
+		
+		this.taskSessionToUse = null;
+	}
+
+	
+	public Session getCurrentSession()
+	{
+		return session;
+	}
+	
+	public TaskSession taskSessionToUse()
+	{
+		if (taskSessionToUse == null)
+		{
+			taskSessionToUse = taskSessionAssist.getTaskSessionToUse();		
+			this.taskDataAssist = new TaskDataAssist(taskSessionToUse);
+			this.equationAssist = new EquationAssist(taskSessionToUse);
+		}
+		return taskSessionToUse;
+	}
+	
+	private TaskDataAssist taskDataAssist()
+	{
+		if (taskDataAssist == null)
+			taskSessionToUse();
+		return taskDataAssist;
+	}
+	
+	private EquationAssist equationAssist()
+	{
+		if (equationAssist == null)
+			taskSessionToUse();
+		return equationAssist;
+	}
+	
+	public int newTaskNumber()
+	{
+		return taskDataAssist().newTaskNumber();
+	}
+	
+	public int totalNumberOfTasks()
+	{
+		return taskDataAssist().totalNumberOfTasks();
+	}
+	
+	public String newEquation()
+	{
+		return equationAssist().getNextEquation();
+	}
+	
+	public boolean isCurrentTaskSessionFinished()
+	{
+		return taskDataAssist().isFinished();
+	}
+	
+	public void finishCurrentTaskSessionIfApplicable()
+	{
+		taskDataAssist().finishItIfApplicable();
+	}
+}

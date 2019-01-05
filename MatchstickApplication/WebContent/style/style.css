@@ -1,0 +1,81 @@
+h1, h2, p {
+	font-family:Arial;
+	color: #378de5;  /* Get from blue buttons */
+}
+
+/*
+ * Colors
+ */
+ 
+.white {
+    color: white;
+}
+
+/*
+ * Page content
+ */
+
+.right {
+	position: relative;
+	margin-right: 30px;
+	float: right;
+}
+
+.horizontal-layout-line {
+	display: flex; 
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.horizontal-layout {
+	display: flex; 
+	flex-direction: row; 
+	justify-content: center;
+	align-items: center;
+}
+
+.vertical-layout {
+	display: flex; 
+	flex-direction: column; 
+	justify-content: flex-start;
+}
+
+#canvas-container {
+    width: 1000px;
+    height: 500px;
+}
+
+#canvas {
+    width: 100%;
+	border-style: solid;
+	border-width: 1px;
+}
+#side-buttons {
+
+}
+
+@media screen and (max-width: 1000px)
+{
+    #side-buttons
+    {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 600px)
+{
+    #header
+    {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 500px)
+{
+    #task-header
+    {
+        display: none;
+    }
+}
+

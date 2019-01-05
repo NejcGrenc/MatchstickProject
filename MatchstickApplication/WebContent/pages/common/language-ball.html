@@ -1,0 +1,25 @@
+<div id="language" class="lang_ball">
+		<span onclick="goChangeLanguage(currentPage)">
+		<img id="lang_ball" src="images/languages/flag-en.png" alt="language" 
+			class="circle" style="float:right;width:50px;height:50px;"/>
+	</span>
+</div>
+<script>
+	function goChangeLanguage(returnCallUrl)
+	{
+		var selectedReturnUrl = "/login";
+		if (returnCallUrl !== undefined && returnCallUrl !== null)
+		{
+			selectedReturnUrl = returnCallUrl;
+		}
+		else
+		{ console.log("Using default return call to /intro"); }
+		
+		if (post)
+		{
+			post("/selectLanguage", {returnUrl: selectedReturnUrl});
+		}
+		else
+		{ console.log("Failed at language change. Post function missing."); }
+	}
+</script>
