@@ -18,6 +18,7 @@ public class Equation
 		return elementList;
 	}
 	
+	@Deprecated // This does not check for validity of whole equation
 	public boolean isValid()
 	{
 		for (Element e : elementList)
