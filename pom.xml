@@ -7,8 +7,9 @@
 	<packaging>pom</packaging>
 	
 	<modules>
-	  <module>MatchstickApplication</module>
-	  <module>MatchstickResolver</module>
+		<module>MatchstickCommon</module>
+		<module>MatchstickApplication</module>
+		<module>MatchstickResolver</module>
 	</modules>
   
  	<build>

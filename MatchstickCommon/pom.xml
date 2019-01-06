@@ -2,12 +2,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-	  <groupId>MatchstickProject</groupId>
-	  <artifactId>MatchstickProject</artifactId>
-	  <version>0.0.1-SNAPSHOT</version>
+		<groupId>MatchstickProject</groupId>
+		<artifactId>MatchstickProject</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>MatchstickResolver</artifactId>
+	<artifactId>MatchstickCommon</artifactId>
 	<packaging>jar</packaging>
 	
 </project>
