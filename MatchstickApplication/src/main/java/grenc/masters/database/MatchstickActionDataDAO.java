@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import grenc.masters.database.assist.QueryBuilder;
+import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.entities.MatchstickActionData;
 import grenc.masters.entities.MatchstickActionLocation;
 

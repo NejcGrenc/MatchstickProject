@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import grenc.masters.utils.JunitTest;
-
 public class PostgresConnector
 {
     protected static String url = "jdbc:postgresql://localhost:5432/";

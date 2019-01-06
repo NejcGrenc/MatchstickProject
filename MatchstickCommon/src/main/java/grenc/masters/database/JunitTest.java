@@ -1,4 +1,4 @@
-package grenc.masters.utils;
+package grenc.masters.database;
 
 import java.util.Arrays;
 import java.util.List;

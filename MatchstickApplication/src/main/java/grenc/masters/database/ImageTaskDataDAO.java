@@ -2,7 +2,7 @@ package grenc.masters.database;
 
 import java.util.List;
 
-import grenc.masters.database.assist.QueryBuilder;
+import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.entities.ImageTaskData;
 
 

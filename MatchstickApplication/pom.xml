@@ -24,6 +24,13 @@
 
 	<dependencies>
 	
+		<!-- Commons module -->
+		<dependency>
+		    <groupId>MatchstickProject</groupId>
+		    <artifactId>MatchstickCommon</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- General-usage dependencies -->
 		<dependency>
 		    <groupId>org.json</groupId>

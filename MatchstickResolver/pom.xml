@@ -10,4 +10,16 @@
 	<artifactId>MatchstickResolver</artifactId>
 	<packaging>jar</packaging>
 	
+	
+	<dependencies>
+	
+		<!-- Commons module -->
+		<dependency>
+		    <groupId>MatchstickProject</groupId>
+		    <artifactId>MatchstickCommon</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+	</dependencies>
+	
 </project>
