@@ -4,6 +4,21 @@ import grenc.masters.matchstick.confirm.valid.ValidElement;
 
 public class MatchstickNumeral extends ValidElement
 {
+	
+    //  Visual representation of 
+    //  the numeral frame
+    //      _____
+    //   _ |__1__| _
+    //  | |       | |
+    //  |6|       |2|
+    //  |_| _____ |_|
+    //   _ |__7__| _
+    //  | |       | |
+    //  |5|       |3|
+    //  |_| _____ |_|
+    //     |__4__|
+    //
+   
 	private static final int noMatches = 7;
 	
 	private static final MatchstickNumeral n0 = new MatchstickNumeral("0", 1, 1, 1, 1, 1, 1, 0);

@@ -5,6 +5,17 @@ import grenc.masters.matchstick.confirm.valid.ValidElement;
 public class MatchstickOperator extends ValidElement
 {
 
+    //  Visual representation of 
+    //  the operator frame
+    //      
+    //       _1  
+    //    /\| |/\ 3
+    //   _\_|_|_/_ 
+    //  |_________| 2
+    //    / | | \
+    //    \/|_|\/ 4
+    //
+	
 	private static final int noMatches = 4;
 	
 	private static final MatchstickOperator plus	 = new MatchstickOperator("+", 1, 1, 0, 0);
