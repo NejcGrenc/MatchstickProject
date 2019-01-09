@@ -22,8 +22,8 @@ public class SessionDAOTest extends DatabaseTestConfiguraton
 		this.sessionDAO = SessionDAO.getInstance();
 		
 		Connection connection = connector.open();
-		connection.createStatement().execute("insert into session (tag, risk, lang, subject_id)"
-										   + " values ('123-123-123', 10, 'si', 1678);");
+		connection.createStatement().execute("insert into session (tag, risk, lang, subject_id, test_tasks_only, snoop_enabled)"
+										   + " values ('123-123-123', 10, 'si', 1678, false, false);");
 		connector.close();	
 	}
 	

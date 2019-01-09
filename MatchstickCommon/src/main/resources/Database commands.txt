@@ -1,0 +1,9 @@
+/*
+# Ubuntu
+sudo -u matchstickuser psql -d matchstickdb
+
+# Windows
+set PGPASSWORD=matchstickpass
+psql -d matchstickdb -U matchstickuser
+
+*/
