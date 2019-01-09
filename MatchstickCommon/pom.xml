@@ -10,4 +10,14 @@
 	<artifactId>MatchstickCommon</artifactId>
 	<packaging>jar</packaging>
 	
+	<dependencies>
+				
+		<!-- Database dependencies -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.0</version>
+		</dependency>
+	
+	</dependencies>
 </project>

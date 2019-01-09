@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
-import grenc.masters.database.assist.DatabaseTestConfiguraton;
-
 
 public class TaskSessionDAOTest extends DatabaseTestConfiguraton
 {

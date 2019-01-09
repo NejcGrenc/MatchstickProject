@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
-import grenc.masters.database.assist.DatabaseTestConfiguraton;
 import grenc.masters.entities.Session;
 
 public class SessionDAOTest extends DatabaseTestConfiguraton

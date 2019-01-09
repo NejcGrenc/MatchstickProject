@@ -6,12 +6,22 @@ import java.sql.SQLException;
 
 public class PostgresConnector
 {
-    protected static String url = "jdbc:postgresql://localhost:5432/";
-    private static String user = "matchstickuser";
-    private static String password = "matchstickpass";
+	private static String url = DatabaseProperties.getProperty("database.url");
+    private static String database = DatabaseProperties.getProperty("database.database");
+    private static String user = DatabaseProperties.getProperty("database.user");
+    private static String password = DatabaseProperties.getProperty("database.password");
+
+//    private static String user = "matchstickuser";
+//  private static String password = "matchstickpass";
+//  
+//  private static String database = "matchstickdb";
+//  private static String testDatabase = "matchstickdbtest";
     
-    private static String database = "matchstickdb";
-    private static String testDatabase = "matchstickdbtest";
+//    private static String user = "matchstickuser";
+//    private static String password = "matchstickpass";
+//    
+//    private static String database = "matchstickdb";
+//    private static String testDatabase = "matchstickdbtest";
     
     private Connection connection = null;
     
@@ -38,7 +48,7 @@ public class PostgresConnector
 //
 //	        connection =  ds.getConnection();
 //	        
-			connection = DriverManager.getConnection(dbUrl(), user, password);
+			connection = DriverManager.getConnection(url + database, user, password);
 		} 
 		catch (Exception e)
 		{
@@ -62,13 +72,13 @@ public class PostgresConnector
 		}
     }
     
-    private String dbUrl()
-    {
-    	if (JunitTest.isJUnitTest())
-    	{
-    		return url + testDatabase;
-    	}
-    	return url + database;
-    }
+//    private String dbUrl()
+//    {
+//    	if (JunitTest.isJUnitTest())
+//    	{
+//    		return url + testDatabase;
+//    	}
+//    	return url + database;
+//    }
     
 }

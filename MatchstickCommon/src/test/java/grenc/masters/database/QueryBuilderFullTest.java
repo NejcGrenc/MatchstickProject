@@ -1,4 +1,4 @@
-package grenc.masters.database.assist;
+package grenc.masters.database;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

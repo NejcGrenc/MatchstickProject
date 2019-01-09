@@ -1,4 +1,4 @@
-package grenc.masters.database.assist;
+package grenc.masters.database;
 
 public class TestEntity
 {
