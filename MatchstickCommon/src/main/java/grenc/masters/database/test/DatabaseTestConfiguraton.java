@@ -1,4 +1,4 @@
-package grenc.masters.database;
+package grenc.masters.database.test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+
+import grenc.masters.database.DatabaseProperties;
+import grenc.masters.database.PostgresConnector;
 
 
 public class DatabaseTestConfiguraton

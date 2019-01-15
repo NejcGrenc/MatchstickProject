@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import grenc.masters.database.PostgresConnector;
 import grenc.masters.database.builder.QueryBuilder;
+import grenc.masters.database.test.DatabaseTestConfiguraton;
 
 public class QueryBuilderFullTest extends DatabaseTestConfiguraton
 {

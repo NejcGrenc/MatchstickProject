@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import grenc.masters.database.test.DatabaseTestConfiguraton;
 import grenc.masters.entities.Subject;
 
 
