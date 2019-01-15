@@ -12,20 +12,13 @@ public class DatabaseProperties
 
 	static 
 	{
-		try (InputStream inputStream = DatabaseProperties.class.getClassLoader().getResourceAsStream(filePath)) {
-
+		try (InputStream inputStream = DatabaseProperties.class.getClassLoader().getResourceAsStream(filePath)) 
+		{
 			// Loading the properties.
 			prop.load(inputStream);
-
-//			// Getting properties
-//			String url = prop.getProperty("database.url");
-//			String login = prop.getProperty("database.login");
-//			String password = prop.getProperty("database.password");
-//			
-//			System.out.println("URL = " + url);
-//			System.out.println("login = " + login);
-//			System.out.println("password = " + password);
-		} catch (IOException ex) {
+		} 
+		catch (IOException ex) 
+		{
 			System.out.println("Problem occurs when reading file !");
 			ex.printStackTrace();
 		} 
