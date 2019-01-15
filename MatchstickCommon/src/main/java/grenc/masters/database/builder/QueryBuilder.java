@@ -16,5 +16,8 @@ public class QueryBuilder
 		return new UpdateBuilder<T>();
 	}
 
+	public static CountBuilder newCount() {
+		return new CountBuilder();
+	}
 }
 

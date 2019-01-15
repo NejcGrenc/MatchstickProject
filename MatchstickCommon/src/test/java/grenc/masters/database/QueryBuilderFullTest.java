@@ -186,4 +186,19 @@ public class QueryBuilderFullTest extends DatabaseTestConfiguraton
 		assertEquals(initial.get(0).getId(), initial.get(0).getId());
 	}
 	
+	
+	@Test
+	public void countsAllEntities()
+	{
+		int noEntries = QueryBuilder.newCount().fromTable("test_entity").execute(); 
+		assertEquals(3, noEntries);
+	}
+	
+	@Test
+	public void countsSelectedEntities()
+	{
+		int noEntries = QueryBuilder.newCount().fromTable("test_entity").where("name", "demo").execute(); 
+		assertEquals(2, noEntries);
+	}
+	
 }
