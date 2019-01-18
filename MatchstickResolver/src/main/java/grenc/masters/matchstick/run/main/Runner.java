@@ -9,6 +9,7 @@ import grenc.masters.matchstick.objects.changes.EquationChanges;
 import grenc.masters.matchstick.objects.main.Action;
 import grenc.masters.matchstick.objects.main.Equation;
 import grenc.masters.matchstick.run.filter.AllValidEquations;
+import grenc.masters.matchstick.run.filter.EquationStyle;
 import grenc.masters.matchstick.run.filter.Group;
 import grenc.masters.matchstick.writer.GroupWriter;
 
@@ -24,11 +25,13 @@ public class Runner
 		for (Group g : Group.values())
 			w.addWriterForGroup(g);
 	
-		AllValidEquations equationMaker = new AllValidEquations();
+		AllValidEquations equationMaker = new EquationStyle().prepareValidEquationOptions();
 		for (Equation currEq = equationMaker.getNext(); 
 				currEq != null; 
 				currEq = equationMaker.getNext())
 		{
+			
+			// Remove solved equations if starting with solved equations is prohibited
 			if (! Settings.allowStartWithCorrectEquation)
 			{
 				if (new EquationCalculator().isCorrect(currEq))

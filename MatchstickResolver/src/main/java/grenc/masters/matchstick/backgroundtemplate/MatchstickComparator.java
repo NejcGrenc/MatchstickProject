@@ -18,8 +18,8 @@ public class MatchstickComparator extends ValidElement
 	
 	private static final MatchstickComparator equal	   = new MatchstickComparator("=", 1, 1);
 	
+	
 //	private static final int noMatches = 5;
-//	
 //	private static final MatchstickComparator equal	   = new MatchstickComparator("=", 1, 1, 0, 0, 0);
 //	private static final MatchstickComparator notEqual = new MatchstickComparator("!", 1, 1, 1, 0, 0);
 //	private static final MatchstickComparator smaller  = new MatchstickComparator("<", 0, 0, 1, 0, 1);

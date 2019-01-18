@@ -133,12 +133,16 @@ public class AdvancedAction
 	}
 	
 	
+	public boolean isMove(int i) 
+	{
+		return action.getAdded() == i && action.getRemoved() == i;
+	}
 	public boolean isMove1()
 	{
-		return action.getAdded() == 1 && action.getRemoved() == 1;
+		return isMove(1);
 	}
 	public boolean isMove2()
 	{
-		return action.getAdded() == 2 && action.getRemoved() == 2;
+		return isMove(2);
 	}
 }

@@ -1,49 +1,49 @@
 package grenc.masters.matchstick.run.filter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import grenc.masters.matchstick.backgroundtemplate.MatchstickComparator;
-import grenc.masters.matchstick.backgroundtemplate.MatchstickNumeral;
-import grenc.masters.matchstick.backgroundtemplate.MatchstickOperator;
 import grenc.masters.matchstick.confirm.valid.ValidElement;
 import grenc.masters.matchstick.objects.main.Element;
 import grenc.masters.matchstick.objects.main.Equation;
 
+
 public class AllValidEquations
 {
-
-	private static List<ValidElement[]> equationStyle;
-	private int equationLength = 7;
-	static
-	{
-		equationStyle = new ArrayList<>();
-		equationStyle.add(MatchstickNumeral.getAllValidElements());
-		equationStyle.add(MatchstickOperator.getAllValidElements());
-		equationStyle.add(MatchstickNumeral.getAllValidElements());
-		equationStyle.add(MatchstickOperator.getAllValidElements());
-		equationStyle.add(MatchstickNumeral.getAllValidElements());
-		equationStyle.add(MatchstickComparator.getAllValidElements());
-		equationStyle.add(MatchstickNumeral.getAllValidElements());
-	}
-	
+	private List<ValidElement[]> equationStyle;
 	
 	private Integer[] currentState;
 	
-	public AllValidEquations ()
+	
+	public AllValidEquations (List<ValidElement[]> equationStyle)
 	{
-		currentState = new Integer[equationLength];
-		for (int i = 0; i < equationLength; i++)
-			currentState[i] = 0;
+		this.equationStyle = equationStyle;
+		initCounters();
 	}
 	
+	private void initCounters()
+	{
+		this.currentState = new Integer[equationStyle.size()];
+		for (int i = 0; i < length(); i++)
+			this.currentState[i] = 0;
+	}
+	
+	private int length()
+	{
+		return this.currentState.length;
+	}
+	
+	
+	public boolean notDone()
+	{
+		return currentState != null;
+	}
 	
 	public Equation getNext()
 	{
 		Equation curr = getCurrent();
 		
-		if (currentState != null)
-		increment();
+		if (notDone())
+			increment();
 		
 		return curr;
 	}
@@ -53,8 +53,8 @@ public class AllValidEquations
 		if (currentState == null)
 			return null;
 		
-		Element[] elements = new Element[equationLength];
-		for (int i = 0; i < equationLength; i++)
+		Element[] elements = new Element[length()];
+		for (int i = 0; i < length(); i++)
 			elements[i] = equationStyle.get(i)[currentState[i]].getElement();
 		return new Equation(elements);
 	}
@@ -65,7 +65,7 @@ public class AllValidEquations
 	}
 	private void increment(int depth)
 	{
-		if (depth == equationLength)
+		if (depth == length())
 		{
 			// We are done
 			currentState = null;

@@ -22,7 +22,7 @@ public class Settings
 	//	- this includes file names to write into
 	//
 	
-	public static final String actionStr = "move12";
+	public static final String actionStr = "move1or2";
 	public static final Action[] actions;
 	static 
 	{

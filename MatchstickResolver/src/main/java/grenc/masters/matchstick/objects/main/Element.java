@@ -22,7 +22,6 @@ public class Element
 		return display.length;
 	}
 
-
 	
 	public Element copy()
 	{
@@ -30,9 +29,6 @@ public class Element
 	}
 	private int[] copyDisplay()
 	{
-//		int[] newDisplay = new int[getDisplayLength()];
-//		for (int i = 0; i < getDisplayLength(); i++)
-//			newDisplay[i] = display[i];
 		int[] newDisplay = Arrays.copyOf(display, display.length);
 		return newDisplay;
 	}
