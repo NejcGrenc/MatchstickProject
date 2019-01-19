@@ -14,8 +14,12 @@ public class GroupSelector
 	
 	static Predicate<EquationChangeSingle> requirementsNumerals = a -> a.getAdvancedAction().isActionPerformedOnlyOnNumerals();
 	static Predicate<EquationChangeSingle> requirementsOperators = a -> a.getAdvancedAction().isActionPerformedOnlyOnOperators();
-		
+	static Predicate<EquationChangeSingle> requirementsNumeralsAndOperators = a -> a.getAdvancedAction().isActionPerformedOnNumeralsAsWell() 
+																				&& a.getAdvancedAction().isActionPerformedOnOperatorsAsWell();
+	
+	
 	private final List<EquationChangeSingle> equationList;
+	private boolean notSolvable = false;
 
 	public GroupSelector(List<EquationChangeSingle> equations)
 	{
@@ -44,16 +48,22 @@ public class GroupSelector
 	{
 		List<EquationChangeSingle> numeralsEqs = filterForRequirement(equations, requirementsNumerals);
 		List<EquationChangeSingle> operatorsEqs = filterForRequirement(equations, requirementsOperators);
+		List<EquationChangeSingle> mixedEqs = filterForRequirement(equations, requirementsNumeralsAndOperators);
 		
 		// Ensure that there is at least one equation in each category
+		boolean mixedNotNull = mixedEqs.size() > 0;
 		boolean numeralsNotNull = numeralsEqs.size() > 0;
 		boolean operatorsNotNull = operatorsEqs.size() > 0;
 		
-		if (numeralsNotNull && operatorsNotNull)
+		if (mixedNotNull || (numeralsNotNull && operatorsNotNull))
 			return FitType.NUMERALS_AND_OPERATORS;
 		if (numeralsNotNull)
 			return FitType.NUMERALS_ONLY;
-		return FitType.OPERATORS_ONLY;
+		if (operatorsNotNull)
+			return FitType.OPERATORS_ONLY;
+		
+		notSolvable = true;
+		throw new RuntimeException("No valid FitType found!");
 	}
 	
 	private static List<EquationChangeSingle> filterForRequirement(List<EquationChangeSingle> equations, Predicate<EquationChangeSingle> requirement)
@@ -65,10 +75,14 @@ public class GroupSelector
 	public SolutionGroup findGroup()
 	{
 		String builtGroupName = "group" + parseForMoves(1);
+		
+		if (notSolvable)
+			return null;
+		
 		return SolutionGroup.findTheBestGroup(builtGroupName);
 	}
 	
-	private String parseForMoves(int moves)
+	String parseForMoves(int moves)
 	{
 		if (moves > maxMoves)
 			return "";
@@ -82,9 +96,7 @@ public class GroupSelector
 				case OPERATORS_ONLY:
 					return "_" + moves + FitType.OPERATORS_ONLY.title + parseForMoves(moves+1);
 				case NUMERALS_AND_OPERATORS:
-					if (moves == 1)
-						return "_" + moves + FitType.NUMERALS_AND_OPERATORS.title;
-					return "";
+					return "_" + moves + FitType.NUMERALS_AND_OPERATORS.title;
 				default:
 					throw new RuntimeException ("Should not happen");
 			}
@@ -94,6 +106,11 @@ public class GroupSelector
 			//  Do for number 1 anyways
 			if (moves == 1)
 			{
+				if (! solvableInNumberOfMoves(equationList, 2))
+				{
+					notSolvable = true;
+					return "";
+				}
 				return "_" + moves + FitType.NONE.title + parseForMoves(2);
 			}
 			return "";
@@ -106,7 +123,7 @@ public class GroupSelector
 	{
 		NUMERALS_ONLY ("N"),
 		OPERATORS_ONLY ("O"),
-		NUMERALS_AND_OPERATORS ("NO"),
+		NUMERALS_AND_OPERATORS ("M"), // Mixed
 		NONE ("X");
 		
 		public String title;

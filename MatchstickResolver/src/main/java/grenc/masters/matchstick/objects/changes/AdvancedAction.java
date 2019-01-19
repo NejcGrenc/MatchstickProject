@@ -58,41 +58,50 @@ public class AdvancedAction
 	}
 	
 	
-	public void matchAddedToComparator()
+	public AdvancedAction matchAddedToComparator()
 	{
 		addedTo.add(element_Comparator);
+		return this;
 	}
-	public void matchAddedToOperator()
+	public AdvancedAction matchAddedToOperator()
 	{
 		addedTo.add(element_Operator);
+		return this;
 	}
-	public void matchAddedToNumeral()
+	public AdvancedAction matchAddedToNumeral()
 	{
 		addedTo.add(element_Numeral);
+		return this;
 	}
-	public void matchRemovedFromComparator()
+	public AdvancedAction matchRemovedFromComparator()
 	{
 		removedFrom.add(element_Comparator);
+		return this;
 	}
-	public void matchRemovedFromOperator()
+	public AdvancedAction matchRemovedFromOperator()
 	{
 		removedFrom.add(element_Operator);
+		return this;
 	}
-	public void matchRemovedFromNumeral()
+	public AdvancedAction matchRemovedFromNumeral()
 	{
 		removedFrom.add(element_Numeral);
+		return this;
 	}
-	public void matchMovedWithinComparator()
+	public AdvancedAction matchMovedWithinComparator()
 	{
 		movedWithin.add(element_Comparator);
+		return this;
 	}
-	public void matchMovedWithinOperator()
+	public AdvancedAction matchMovedWithinOperator()
 	{
 		movedWithin.add(element_Operator);
+		return this;
 	}
-	public void matchMovedWithinNumeral()
+	public AdvancedAction matchMovedWithinNumeral()
 	{
 		movedWithin.add(element_Numeral);
+		return this;
 	}
 	
 

@@ -10,9 +10,12 @@ import grenc.masters.matchstick.run.main.ResolverProperties;
 
 
 public class Writer
-{
+{	
 	public static final String baseDirectory = "target/groups";
-	private static final String baseFileName = "/matchstickEquationChanges";
+	private static final String baseFileName = "/" +  ResolverProperties.getProperty("resolver.writer.fileName");
+	private static final String equationStyle = ResolverProperties.getProperty("resolver.equationStyle");
+	
+	private static final boolean writeJustOriginal = Boolean.parseBoolean(ResolverProperties.getProperty("resolver.writer.writeJustOriginal"));
 	
 	private boolean writeOriginalAswell;
 	private PrintWriter writer;
@@ -31,19 +34,34 @@ public class Writer
 		writeOriginalAswell = true;
 		return this;
 	}
+	private String makeFullFileName(String addedFileName)
+	{
+		return baseDirectory + baseFileName + "-" + equationStyle + "_" + addedFileName + ".txt";
+	}
+	
+	public Writer makeNewToConsole()
+	{
+		writer = new PrintWriter(System.out, true);
+		writeOriginalAswell = true;
+		return this;
+	}
+	
 	void close()
 	{
 		writer.close();
 	}
 	
-	private String makeFullFileName(String addedFileName)
+
+	public void writeList(List<EquationChangeSingle> ecsList)
 	{
-		return baseDirectory + baseFileName + "_" + addedFileName + ".txt";
-	}
-	
-	
-	void writeList(List<EquationChangeSingle> ecsList)
-	{
+		if (writeJustOriginal)
+		{
+			if (!ecsList.isEmpty())
+				writer.println(ecsList.get(0).getOriginalEquation());
+				writer.flush();
+			return;
+		}
+		
 		newOriginalEquation();
 		for (EquationChangeSingle ecs : ecsList)
 			write(ecs);
@@ -52,6 +70,7 @@ public class Writer
 	{
 		String line = createLine(ecs);
 		writer.println(line);
+		writer.flush();
 	}
 	void newOriginalEquation()
 	{
