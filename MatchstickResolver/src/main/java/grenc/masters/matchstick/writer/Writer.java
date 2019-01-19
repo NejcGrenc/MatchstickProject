@@ -6,12 +6,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import grenc.masters.matchstick.objects.changes.EquationChangeSingle;
-import grenc.masters.matchstick.run.main.Settings;
+import grenc.masters.matchstick.run.main.ResolverProperties;
 
 
 public class Writer
 {
-	private static final String baseFileName = "matchstickEquationChanges";
+	public static final String baseDirectory = "target/groups";
+	private static final String baseFileName = "/matchstickEquationChanges";
 	
 	private boolean writeOriginalAswell;
 	private PrintWriter writer;
@@ -37,7 +38,7 @@ public class Writer
 	
 	private String makeFullFileName(String addedFileName)
 	{
-		return baseFileName + "_" + addedFileName + "_" + Settings.actionStr + ".txt";
+		return baseDirectory + baseFileName + "_" + addedFileName + ".txt";
 	}
 	
 	

@@ -10,19 +10,22 @@ import grenc.masters.matchstick.objects.main.Action;
 import grenc.masters.matchstick.objects.main.Equation;
 import grenc.masters.matchstick.run.filter.AllValidEquations;
 import grenc.masters.matchstick.run.filter.EquationStyle;
-import grenc.masters.matchstick.run.filter.Group;
+import grenc.masters.matchstick.run.filter.GroupSelector;
+import grenc.masters.matchstick.run.filter.SolutionGroup;
 import grenc.masters.matchstick.writer.GroupWriter;
 
 
 public class Runner
 {
-
+	private static int maxMoves = Integer.parseInt(ResolverProperties.getProperty("resolver.maxMoves"));
+	
+	
 	public static void main(String[] args)
 	{
 		long startTime = System.currentTimeMillis();
 		
 		GroupWriter w = new GroupWriter();
-		for (Group g : Group.values())
+		for (SolutionGroup g : SolutionGroup.values())
 			w.addWriterForGroup(g);
 	
 		AllValidEquations equationMaker = new EquationStyle().prepareValidEquationOptions();
@@ -39,9 +42,9 @@ public class Runner
 			}
 			
 			List<EquationChangeSingle> correctFinalEquations = new ArrayList<>();
-			for (Action action : Settings.actions)
+			for (int moves = 1; moves <= maxMoves; moves++)
 			{
-				EquationChanges chan = new EquationChanges(currEq, action);
+				EquationChanges chan = new EquationChanges(currEq, new Action(moves));
 				for (EquationChangeSingle curr = chan.findNext(); curr != null; curr = chan.findNext())
 				{
 					// Filter out only correct equations
@@ -52,8 +55,8 @@ public class Runner
 				}
 			}
 			
-			for (Group g : Group.values())
-				writeForGroupIfSuffices(w, g, correctFinalEquations);
+			SolutionGroup group = new GroupSelector(correctFinalEquations).findGroup();
+			w.writeListToGroup(group, correctFinalEquations);
 			
 			System.out.println(currEq + " (" + correctFinalEquations.size() + ")");
 		}
@@ -61,12 +64,6 @@ public class Runner
 		w.closeAll();
 		
 		System.out.println("Finished in " + (System.currentTimeMillis() - startTime) + "ms.");
-	}
-	
-	private static void writeForGroupIfSuffices(GroupWriter w, Group group, List<EquationChangeSingle> ecsList)
-	{
-		if (group.sufficesRequirements(ecsList))
-			w.writeListToGroup(group, ecsList);
 	}
 
 }

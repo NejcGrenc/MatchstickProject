@@ -5,6 +5,11 @@ public class Action {
 	private int added;
 	private int removed;
 
+	public Action (int moved)
+	{
+		this (moved, moved);
+	}
+	
 	public Action (int added, int removed)
 	{
 		this.added = added;

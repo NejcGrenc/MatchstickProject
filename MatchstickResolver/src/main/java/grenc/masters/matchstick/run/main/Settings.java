@@ -1,7 +1,5 @@
 package grenc.masters.matchstick.run.main;
 
-import grenc.masters.matchstick.objects.main.Action;
-
 public class Settings
 {
 	
@@ -17,20 +15,4 @@ public class Settings
 	public static final boolean useElementCache = true;
 	public static final boolean useEquationCache = true;
 	
-	//
-	// Settings for result groupings are in FInalResultGrouping
-	//	- this includes file names to write into
-	//
-	
-	public static final String actionStr = "move1or2";
-	public static final Action[] actions;
-	static 
-	{
-//		actions = new Action[1];
-//		actions[0] = new Action(1, 1);
-		actions = new Action[2];
-		actions[0] = new Action(1, 1);
-		actions[1] = new Action(2, 2);
-	}
-
 }
