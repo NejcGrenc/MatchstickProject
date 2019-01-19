@@ -1,5 +1,6 @@
 package grenc.masters.matchstick.objects.changes;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,10 @@ public class ElementChanges
 	
 	public Set<Element> findAllChanged(int added, int removed)
 	{
+		// We make comparators immutable
+		if (Validator.isValidComparator(original))
+			return Collections.emptySet();
+		
 		// Attempt to get from cache
 		if (Settings.useElementCache)
 		{
