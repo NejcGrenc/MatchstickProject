@@ -1,57 +1,40 @@
 package grenc.masters.matchstick.writer;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import grenc.masters.matchstick.objects.changes.EquationChangeSingle;
+import grenc.masters.matchstick.run.filter.SolutionGroup;
 import grenc.masters.matchstick.run.main.ResolverProperties;
 
 
-public class Writer
+public abstract class Writer
 {	
-	public static final String baseDirectory = "target/groups";
-	private static final String baseFileName = "/" +  ResolverProperties.getProperty("resolver.writer.fileName");
-	private static final String equationStyle = ResolverProperties.getProperty("resolver.equationStyle");
+	/**
+	 * Instead of whole solution list, write just the original equation to output.
+	 * This is not used by database writer as there is space reserved for only original equations.
+	 */
+	protected static final boolean writeJustOriginal = Boolean.parseBoolean(ResolverProperties.getProperty("resolver.writer.writeJustOriginal"));
+
+	protected boolean writeOriginalAswell;
+	protected PrintWriter writer;
 	
-	private static final boolean writeJustOriginal = Boolean.parseBoolean(ResolverProperties.getProperty("resolver.writer.writeJustOriginal"));
+	protected SolutionGroup group;
 	
-	private boolean writeOriginalAswell;
-	private PrintWriter writer;
-	
-	
-	Writer makeNew(String addedFileName)
+	public Writer forGroup(SolutionGroup group)
 	{
-		try
-		{
-			writer = new PrintWriter(makeFullFileName(addedFileName), "UTF-8");
-		} 
-		catch (FileNotFoundException | UnsupportedEncodingException e)
-		{
-			e.printStackTrace();
-		}
-		writeOriginalAswell = true;
+		this.group = group;
 		return this;
 	}
-	private String makeFullFileName(String addedFileName)
-	{
-		return baseDirectory + baseFileName + "-" + equationStyle + "_" + addedFileName + ".txt";
-	}
 	
-	public Writer makeNewToConsole()
-	{
-		writer = new PrintWriter(System.out, true);
-		writeOriginalAswell = true;
-		return this;
-	}
+	public abstract Writer makeNew();
 	
 	void close()
 	{
 		writer.close();
 	}
 	
-
+	
 	public void writeList(List<EquationChangeSingle> ecsList)
 	{
 		if (writeJustOriginal)
@@ -66,6 +49,7 @@ public class Writer
 		for (EquationChangeSingle ecs : ecsList)
 			write(ecs);
 	}
+	
 	void write(EquationChangeSingle ecs)
 	{
 		String line = createLine(ecs);
@@ -100,5 +84,5 @@ public class Writer
 			s += " ";
 		return s;
 	}
-	
+
 }

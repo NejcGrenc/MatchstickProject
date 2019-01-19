@@ -7,8 +7,7 @@ import org.junit.Test;
 import grenc.masters.matchstick.confirm.parse.Parser;
 import grenc.masters.matchstick.objects.changes.EquationChangeSingle;
 import grenc.masters.matchstick.objects.main.Equation;
-import grenc.masters.matchstick.run.filter.SolutionsFinder;
-import grenc.masters.matchstick.writer.Writer;
+import grenc.masters.matchstick.writer.WriterConsole;
 
 public class SolutionsFinderTest
 {
@@ -20,6 +19,6 @@ public class SolutionsFinderTest
 		
 		List<EquationChangeSingle> ecsList = new SolutionsFinder().getAllCorrectFinalEquations(originalEquation);
 		
-		new Writer().makeNewToConsole().writeList(ecsList);
+		new WriterConsole().forGroup(SolutionGroup.group_1M).makeNew().writeList(ecsList);
 	}
 }
