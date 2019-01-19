@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
+
 public enum SolutionGroup
 {
 	group_1N_2N_3N,
@@ -47,6 +49,11 @@ public enum SolutionGroup
 				best = group;
 		}
 		return best;
+	}
+	
+	public EquationSolutionsGroupType mapForDatabase()
+	{
+		return EquationSolutionsGroupType.valueOf(this.name());
 	}
 }
 

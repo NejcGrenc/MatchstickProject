@@ -24,6 +24,10 @@ public class QueryBuilderFullTest extends DatabaseTestConfiguraton
 	@Before
 	public void setup() throws SQLException, IOException
 	{
+		// This can be substantially improved if tests clean after themselves
+		classCleanup();
+		classSetup();
+		
 		Connection connection = connector.open();
 		connection.createStatement().execute("insert into test_entity (name, value) values ('demo', 1234);");
 		connection.createStatement().execute("insert into test_entity (name, value) values ('test', 5678);");

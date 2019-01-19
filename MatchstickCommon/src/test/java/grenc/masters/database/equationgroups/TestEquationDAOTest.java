@@ -1,4 +1,4 @@
-package grenc.masters.database;
+package grenc.masters.database.equationgroups;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,18 +16,19 @@ import grenc.masters.database.test.DatabaseTestConfiguraton;
 
 public class TestEquationDAOTest extends DatabaseTestConfiguraton
 {
-	private TestEquationDAO testEquationDAO;
+	private EquationDAO testEquationDAO;
 	
 	@Before
 	public void setup() throws SQLException, IOException
 	{
-		testEquationDAO = TestEquationDAO.getInstance();
+		testEquationDAO = new EquationDAO("test_equation");
 		
 		Connection connection = connector.open();
 		connection.createStatement().execute("INSERT INTO test_equation (equation) VALUES ('1+2=3');");
 		connector.close();	
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void insertAndFetchAll()
 	{

@@ -26,7 +26,9 @@ public class GroupWriter
 	
 	public void writeListToGroup(SolutionGroup group, List<EquationChangeSingle> ecsList)
 	{
-		writers.get(group).writeList(ecsList);
+//		writers.get(group).writeList(ecsList);
+		if (!ecsList.isEmpty())
+			group.mapForDatabase().dao().insert(ecsList.get(0).getOriginalEquation().toString());
 	}
 	
 	public void closeAll()
