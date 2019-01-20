@@ -23,6 +23,11 @@ public class EquationDAO
 					.setField(EQUATION_FIELD_NAME, equation)
 					.execute();
 	}
+	
+	public int countAllEntities()
+	{
+		return QueryBuilder.newCount().fromTable(tableName).execute(); 
+	}
 
 	public String find(int id)
 	{

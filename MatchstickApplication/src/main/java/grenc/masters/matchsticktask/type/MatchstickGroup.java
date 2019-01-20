@@ -1,6 +1,7 @@
 package grenc.masters.matchsticktask.type;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public enum MatchstickGroup
@@ -12,13 +13,19 @@ public enum MatchstickGroup
 	test	 (0, 2)
 	;
 	
-	private int noLearningTasks;
-	private int noTestingTasks;
 
-	private MatchstickGroup(int noLearningTasks, int noTestingTasks)
+	private HashMap<MatchstickExperimentPhase, Integer> tasksForPhase;
+
+	private MatchstickGroup(int... noTasksForEachPhase)
 	{
-		this.noLearningTasks = noLearningTasks;
-		this.noTestingTasks = noTestingTasks;
+		this.tasksForPhase = new HashMap<>();
+		int i = 0;
+		this.tasksForPhase.put(MatchstickExperimentPhase.LearningPhase_Showing, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.LearningPhase_Solving, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_MixedEquations, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OriginalEquationsOptimal, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OriginalEquationsSuboptimal, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OppositeEquationsOptimal, noTasksForEachPhase[i++]);
 	}
 	
 	public static List<MatchstickGroup> nonTestGroups()
@@ -26,18 +33,17 @@ public enum MatchstickGroup
 		return Arrays.asList(group_A, group_B, group_AB, group_0);
 	}
 	
-	public int getNoLearningTasks()
+	public int getNoTasksForPhase(MatchstickExperimentPhase phase)
 	{
-		return noLearningTasks;
-	}
-	
-	public int getNoTestingTasks()
-	{
-		return noTestingTasks;
+		return tasksForPhase.get(phase);
 	}
 	
 	public int getNoTasks()
 	{
-		return noLearningTasks + noTestingTasks;
+		int total = 0;
+		for (int i : tasksForPhase.values())
+			total += i;
+		return total;
 	}
+	
 }

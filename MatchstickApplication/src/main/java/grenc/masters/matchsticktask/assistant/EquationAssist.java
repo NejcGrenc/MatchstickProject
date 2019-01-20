@@ -4,55 +4,47 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import grenc.masters.database.MatchstickTaskDataDAO;
+import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.entities.MatchstickTaskData;
 import grenc.masters.entities.TaskSession;
-import grenc.masters.matchsticktask.type.MatchstickGroup;
+import grenc.masters.matchsticktask.assistant.equations.EquationDatabaseFetcher;
 
 
 public class EquationAssist 
 {
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
+	private EquationDatabaseFetcher equationDatabaseFetcher;
 	
 	private TaskSession taskSession; 
 	
-	public EquationAssist(TaskSession taskSession, MatchstickTaskDataDAO matchstickTaskDataDAO)
+	public EquationAssist(TaskSession taskSession, MatchstickTaskDataDAO matchstickTaskDataDAO, EquationDatabaseFetcher equationDatabaseFetcher)
 	{
 		this.matchstickTaskDataDAO = matchstickTaskDataDAO;
-		this.taskSession = taskSession;
+		this.equationDatabaseFetcher = equationDatabaseFetcher;
+		this.taskSession = taskSession;		
 	}
 	public EquationAssist(TaskSession taskSession)
 	{
-		this (taskSession, MatchstickTaskDataDAO.getInstance());
+		this (taskSession, MatchstickTaskDataDAO.getInstance(), new EquationDatabaseFetcher());
 	}
 	
-	public String getNextEquation()
+	public String getNextEquation(EquationSolutionsGroupType equationType)
 	{
 		List<MatchstickTaskData> previousTasks = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
 		List<String> usedEquations = previousTasks.stream().map(MatchstickTaskData::getOriginalEq).collect(Collectors.toList());
-		
-		int kk = 0;
-		String newEq = getEquationForGroup(taskSession.getMatchstickGroup(), kk);
-		while (usedEquations.contains(newEq))
+
+		return findUnusedEquiation(equationType, usedEquations);
+	}
+	
+	String findUnusedEquiation(EquationSolutionsGroupType equationType, List<String> usedEquations)
+	{
+		String newEq;
+		do
 		{
-			kk++;
-			newEq = getEquationForGroup(taskSession.getMatchstickGroup(), kk);
-		}
+			newEq = equationDatabaseFetcher.fetchRandom(equationType);
+		} 
+		while (usedEquations.contains(newEq));
 		
 		return newEq;
 	}
-
-	// TODO Do!
-	private String getEquationForGroup(MatchstickGroup group, int kk)
-	{
-		kk++;
-		if (kk == 1)
-			return "6-7=7";
-		if(kk == 2)
-			return "7+6=9";
-		if(kk==2)
-			return "1+6=9";
-		
-		return "0-1=7";
-	}
-	
 }
