@@ -9,6 +9,7 @@ import grenc.masters.database.SessionDAO;
 import grenc.masters.entities.Session;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
 import grenc.masters.matchsticktask.ResponseProcessor;
+import grenc.masters.matchsticktask.MatchstickTaskProcessor.MatchstickTaskProcessorReturn;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -72,21 +73,21 @@ public class MatchstickTaskServlet extends BasePageServlet
 
 		
 		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
-		String selectedOriginalEquation = taskBuilder.newEquation();
+		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewTask();
 		
 		// Setup current task number
-		int currentNumber = taskBuilder.newTaskNumber();
-		int totalNumber = taskBuilder.totalNumberOfTasks();
-		builder.appendBodyScriptCommand("setSolvingTaskNumber("+currentNumber+", "+totalNumber+");");
+		builder.appendBodyScriptCommand("setSolvingTaskNumber("+newTask.newTaskNumber+", "+newTask.totalNumberOfTasks+");");
 		
 		System.out.println(" | For session " + sessionTag);
 		System.out.println(" | and task session " + session.getId());
-		System.out.println(" | - Created new equation: " + selectedOriginalEquation);
-		builder.appendBodyScriptCommand("var originalEquation = '" + selectedOriginalEquation + "';");
-		
+		System.out.println(" | - Created new equation: " + newTask.newEquation);
+		builder.appendBodyScriptCommand("var originalEquation = '" + newTask.newEquation + "';");
+				
 		// Start the task when all is properly set
-		// builder.appendBodyScriptCommand("start();");
-		builder.appendBodyScriptCommand("startWithPause();");
+		if (newTask.pauseAtStart)
+			builder.appendBodyScriptCommand("startWithPause();");
+		else
+			builder.appendBodyScriptCommand("start();");
 	}
 
 	

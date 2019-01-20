@@ -67,6 +67,36 @@ public class MatchstickTaskProcessor
 		return equationAssist;
 	}
 	
+	public MatchstickTaskProcessorReturn prepareNewTask()
+	{
+		MatchstickTaskProcessorReturn newTaskResult = new MatchstickTaskProcessorReturn();
+		newTaskResult.newTaskNumber = newTaskNumber();
+		newTaskResult.totalNumberOfTasks = totalNumberOfTasks();
+		
+		if (newTaskResult.newTaskNumber == 1)
+			newTaskResult.pauseAtStart = true;
+		else
+			newTaskResult.pauseAtStart = false;
+		
+		MatchstickTaskStatus lastStatus = taskDataAssist().statusOfLastTask();
+		if (lastStatus != null && lastStatus.equals(MatchstickTaskStatus.restarted))
+		{
+			newTaskResult.newEquation = equationAssist().getLastUsedEquation();
+		}
+		else
+		{
+			if (lastStatus != null && lastStatus.equals(MatchstickTaskStatus.stopped))
+			{
+				newTaskResult.pauseAtStart = true;
+			}
+			
+			EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(newTaskResult.newTaskNumber);
+			newTaskResult.newEquation = equationAssist().getNextEquation(equationType);
+		}
+		
+		return newTaskResult;
+	}
+	
 	public int newTaskNumber()
 	{
 		return taskDataAssist().newTaskNumber();
@@ -97,5 +127,14 @@ public class MatchstickTaskProcessor
 	public void finishCurrentTaskSessionIfApplicable()
 	{
 		taskDataAssist().finishItIfApplicable();
+	}
+	
+	
+	public class MatchstickTaskProcessorReturn
+	{
+		public int newTaskNumber;
+		public int totalNumberOfTasks;
+		public String newEquation;
+		public boolean pauseAtStart;
 	}
 }
