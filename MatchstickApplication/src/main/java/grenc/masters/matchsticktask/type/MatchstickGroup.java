@@ -6,11 +6,11 @@ import java.util.List;
 
 public enum MatchstickGroup
 {
-	group_A  (4, 10),
-	group_B  (4, 10),
-	group_AB (8, 10),
-	group_0  (0, 10),
-	test	 (0, 2)
+	group_A  (2, 2, 2, 2, 2, 4),
+	group_B  (2, 2, 2, 2, 2, 4),
+	group_AB (4, 4, 2, 2, 2, 4),
+	group_0  (0, 0, 2, 2, 2, 4),
+	test	 (0, 0, 2, 0, 0, 0)
 	;
 	
 
