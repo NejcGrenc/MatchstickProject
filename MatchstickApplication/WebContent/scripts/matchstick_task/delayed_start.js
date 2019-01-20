@@ -77,3 +77,14 @@ function beginListener()
 }
 
 
+function waitScreen()
+{    
+    var waitString = "Please wait";
+    
+    clearCanvas();
+    ctx.beginPath();
+    ctx.font = "25px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(waitString, canvas.width/2, canvas.height/2); 
+    ctx.closePath();
+}
