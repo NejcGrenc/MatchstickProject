@@ -72,8 +72,8 @@ public class ResponseProcessor
 					dataInProcessing.solvedEquation = savedAction.getEndEq();
 					break;
 					
-				case pause:
-					dataInProcessing.paused = true;
+				case stop:
+					dataInProcessing.stopped = true;
 					break;
 					
 				case restart:
@@ -127,7 +127,7 @@ public class ResponseProcessor
 		String originalEquation = "MISSING";
 		String solvedEquation = "MISSING";
 		
-		boolean paused = false;
+		boolean stopped = false;
 		boolean restarted = false;
 		
 		Long totalTime = 0L;
@@ -144,8 +144,8 @@ public class ResponseProcessor
 			MatchstickTaskStatus status = MatchstickTaskStatus.solved;
 			if (restarted)
 				status = MatchstickTaskStatus.restarted;
-			if (paused)
-				status = MatchstickTaskStatus.paused;
+			if (stopped)
+				status = MatchstickTaskStatus.stopped;
 			return status;
 		}
 	}

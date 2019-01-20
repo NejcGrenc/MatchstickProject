@@ -30,10 +30,13 @@ public class EquationAssist
 	
 	public String getNextEquation(EquationSolutionsGroupType equationType)
 	{
-		List<MatchstickTaskData> previousTasks = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
-		List<String> usedEquations = previousTasks.stream().map(MatchstickTaskData::getOriginalEq).collect(Collectors.toList());
-
-		return findUnusedEquiation(equationType, usedEquations);
+		return findUnusedEquiation(equationType, findUsedEquations());
+	}
+	
+	public String getLastUsedEquation()
+	{
+		List<String> usedEquations = findUsedEquations();
+		return (usedEquations.isEmpty()) ? null : usedEquations.get(0);
 	}
 	
 	String findUnusedEquiation(EquationSolutionsGroupType equationType, List<String> usedEquations)
@@ -44,7 +47,13 @@ public class EquationAssist
 			newEq = equationDatabaseFetcher.fetchRandom(equationType);
 		} 
 		while (usedEquations.contains(newEq));
-		
 		return newEq;
+	}
+	
+	private List<String> findUsedEquations()
+	{
+		List<MatchstickTaskData> previousTasks = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
+		List<String> usedEquations = previousTasks.stream().map(MatchstickTaskData::getOriginalEq).collect(Collectors.toList());
+		return usedEquations;
 	}
 }

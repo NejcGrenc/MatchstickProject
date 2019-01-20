@@ -22,8 +22,8 @@
         <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center;">
             <div class="vertical-layout">
                 <div id="timer"></div>
-                <span id="button-pause" class="blueButton" onclick="onPauseSend()"><img src="images/ic_pause_white_48px.svg" alt="Pause" /></span>
-                <span id="button-stop" class="blueButton" onclick="onRestartSend()"><img src="images/ic_stop_white_48px.svg" alt="Stop" /></span> 
+                <span id="button-pause" class="blueButton" onclick="onRestartSend()"><img src="images/baseline_replay_white_48dp.png" alt="Restart" /></span>
+                <span id="button-stop" class="blueButton" onclick="onStopSend()"><img src="images/ic_stop_white_48px.svg" alt="Stop" /></span> 
             </div> 
 
             <!-- Success (& continue) button -->
@@ -81,17 +81,17 @@
         return data;        
     }
     
-    function onPauseSend()
+    function onStopSend()
     {
         console.log();
-    	console.log("Pause");
+    	console.log("Stop");
     	
     	if (currentAction !== null)
         	endAction(currentAction);
     	
         var data = mapAllActionsToJson();
         var pausedata = {};
-        pausedata.type = "pause";
+        pausedata.type = "stop";
         pausedata.startEquation = "";
         pausedata.endEquation = "";
         pausedata.startMatchstickLoc = {};

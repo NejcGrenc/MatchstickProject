@@ -9,6 +9,7 @@ import grenc.masters.database.MatchstickTaskDataDAO;
 import grenc.masters.database.TaskSessionDAO;
 import grenc.masters.entities.MatchstickTaskData;
 import grenc.masters.entities.TaskSession;
+import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 
 
 public class TaskDataAssist {
@@ -73,7 +74,7 @@ public class TaskDataAssist {
 		MatchstickTaskData lastTaskData = lastTaskDataOptional.get();
 		switch (lastTaskData.getStatus())
 		{
-			case paused:
+			case stopped:
 			case restarted:
 				return lastTaskData.getNumber();
 
@@ -81,6 +82,14 @@ public class TaskDataAssist {
 			default:
 				return lastTaskData.getNumber() + 1;
 		}
+	}
+	
+	public MatchstickTaskStatus statusOfLastTask()
+	{
+		Optional<MatchstickTaskData> lastTaskDataOptional = (taskDataList.isEmpty()) ? Optional.empty() : Optional.of(taskDataList.get(0));
+		if (! lastTaskDataOptional.isPresent())
+			return null;
+		return lastTaskDataOptional.get().getStatus();
 	}
 	
 	public int totalNumberOfTasks()

@@ -34,5 +34,5 @@ public class EquationAssistTest
 		
 		assertEquals("1+3=4", newUnusedEq);
 	}
-	
+
 }

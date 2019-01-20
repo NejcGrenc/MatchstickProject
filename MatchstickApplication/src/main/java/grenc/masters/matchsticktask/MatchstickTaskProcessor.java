@@ -7,6 +7,7 @@ import grenc.masters.matchsticktask.assistant.EquationAssist;
 import grenc.masters.matchsticktask.assistant.TaskDataAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
 import grenc.masters.matchsticktask.assistant.equations.EquationSolutionsSelector;
+import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.masters.matchsticktask.type.TaskType;
 
 
@@ -77,6 +78,12 @@ public class MatchstickTaskProcessor
 	
 	public String newEquation()
 	{
+		MatchstickTaskStatus lastStatus = taskDataAssist().statusOfLastTask();
+		if (lastStatus != null && lastStatus.equals(MatchstickTaskStatus.restarted))
+		{
+			return equationAssist().getLastUsedEquation();
+		}
+		
 		int newtaskNumber = newTaskNumber();
 		EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(newtaskNumber);
 		return equationAssist().getNextEquation(equationType);
