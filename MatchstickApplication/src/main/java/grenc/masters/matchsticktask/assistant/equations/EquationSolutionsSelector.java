@@ -84,7 +84,15 @@ public class EquationSolutionsSelector
 					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1M;
 				}
 			case test:
-				return null;
+				switch (phase)
+				{
+					case LearningPhase_Showing: 				   return null;
+					case LearningPhase_Solving: 				   return null;
+					case TestingPhase_MixedEquations: 			   return null;
+					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1O;
+					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1N;
+					case TestingPhase_OppositeEquationsOptimal:    return null;
+				}
 		}
 		return null;
 	}
