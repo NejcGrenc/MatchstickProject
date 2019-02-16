@@ -95,6 +95,10 @@
         var pausedata = {};
         pausedata.type = "stop";
         pausedata.startEquation = "";
+        if (data === undefined || data.length == 0) {
+			// No previous data - add original eqation
+        	pausedata.startEquation = originalEquation;
+        }
         pausedata.endEquation = "";
         pausedata.startMatchstickLoc = {};
         pausedata.endMatchstickLoc = {};
@@ -120,6 +124,10 @@
         var restartdata = {};
         restartdata.type = "restart";
         restartdata.startEquation = "";
+        if (data === undefined || data.length == 0) {
+			// No previous data - add original eqation
+        	restartdata.startEquation = originalEquation;
+        }
         restartdata.endEquation = "";
         restartdata.startMatchstickLoc = {};
         restartdata.endMatchstickLoc = {};

@@ -68,7 +68,6 @@ public class ResponseProcessor
 			switch (savedAction.getType())
 			{
 				case normal:
-					dataInProcessing.setStartEquationIfUnset(savedAction.getStartEq());
 					dataInProcessing.solvedEquation = savedAction.getEndEq();
 					break;
 					
@@ -80,6 +79,8 @@ public class ResponseProcessor
 					dataInProcessing.restarted = true;
 					break;	
 			}
+			
+			dataInProcessing.setStartEquationIfUnset(savedAction.getStartEq());
 			dataInProcessing.totalTime += (savedAction.getEndTime() - savedAction.getStartTime());
 			dataInProcessing.moves++;
 		}
