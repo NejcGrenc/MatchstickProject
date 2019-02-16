@@ -88,7 +88,7 @@
     	console.log("Stop");
     	waitScreen();
     	
-    	if (currentAction !== null)
+    	if (currentAction !== undefined && currentAction !== null)
         	endAction(currentAction);
     	
         var data = mapAllActionsToJson();
@@ -117,7 +117,7 @@
     	console.log("Restart");
     	waitScreen();
     	
-    	if (currentAction !== null)
+    	if (currentAction !== undefined && currentAction !== null)
         	endAction(currentAction);
     	
         var data = mapAllActionsToJson();
