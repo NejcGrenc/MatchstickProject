@@ -82,6 +82,7 @@ public class MatchstickTaskProcessor
 		if (lastStatus != null && lastStatus.equals(MatchstickTaskStatus.restarted))
 		{
 			newTaskResult.newEquation = equationAssist().getLastUsedEquation();
+			newTaskResult.pauseAtStart = false;
 		}
 		else
 		{
