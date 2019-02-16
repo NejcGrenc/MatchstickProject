@@ -13,8 +13,7 @@ var done = false;
 var currentTask = null;
 
 var remainingImages;
-// TODO: Update path!
-var standardPath = "MatchstickApplication/";
+var standardPath = "/";
 var standardImageLocation = "../../" + standardPath + "images/task/";
 var standardImageFigure = "fig";
 var standardImageResolution = "res";

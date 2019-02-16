@@ -3,8 +3,7 @@
 var canvas;
 var ctx;
 
-// TODO: Update path!
-var standardPath = "MatchstickApplication/";
+var standardPath = "/";
 var pauseImage;
 
 

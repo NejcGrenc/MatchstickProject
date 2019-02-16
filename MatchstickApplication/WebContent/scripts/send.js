@@ -15,10 +15,6 @@ function post(path, params, method)
     // Set userSession value (if not defined)
     params.session = userSession;
     
-    // Append app name to path
-    console.log("Append MatchstickApplication to path " + path);
-    path = "/MatchstickApplication" + path;
-    
     // The rest of this code assumes you are not using a library.
     // It can be made less wordy if you use one.
     var form = document.createElement("form");
