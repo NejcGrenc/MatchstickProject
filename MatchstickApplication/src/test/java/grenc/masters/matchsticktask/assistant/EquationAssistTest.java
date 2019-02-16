@@ -17,7 +17,7 @@ public class EquationAssistTest
 	@Test
 	public void findUnused()
 	{
-		EquationSolutionsGroupType someEquationType = EquationSolutionsGroupType.group_1M;
+		EquationSolutionsGroupType someEquationType = EquationSolutionsGroupType.group_1MA;
 		
 		// Return a predefined list of equations
 		EquationDatabaseFetcher fetcher = Mockito.mock(EquationDatabaseFetcher.class);

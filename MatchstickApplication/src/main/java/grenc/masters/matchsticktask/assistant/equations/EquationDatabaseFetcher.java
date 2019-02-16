@@ -26,6 +26,9 @@ public class EquationDatabaseFetcher
 		Random r = new Random();
 		int low = 1;
 		int high = getNumberOfPossibleEquationsFor(equationType);
+		if (high == 0)
+			throw new RuntimeException("No equations found for: " + equationType);
+		
 		int randomId = r.nextInt(high-low) + low;
 		
 		return equationType.dao().find(randomId);

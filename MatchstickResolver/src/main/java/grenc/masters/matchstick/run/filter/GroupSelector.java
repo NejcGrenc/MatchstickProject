@@ -3,7 +3,6 @@ package grenc.masters.matchstick.run.filter;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import grenc.masters.matchstick.objects.changes.EquationChangeSingle;
 import grenc.masters.matchstick.run.main.ResolverProperties;
@@ -14,9 +13,11 @@ public class GroupSelector
 	
 	static Predicate<EquationChangeSingle> requirementsNumerals = a -> a.getAdvancedAction().isActionPerformedOnlyOnNumerals();
 	static Predicate<EquationChangeSingle> requirementsOperators = a -> a.getAdvancedAction().isActionPerformedOnlyOnOperators();
+	
+	/** This requirement mixes numeral and operand moves within single action */
 	static Predicate<EquationChangeSingle> requirementsNumeralsAndOperators = a -> a.getAdvancedAction().isActionPerformedOnNumeralsAsWell() 
 																				&& a.getAdvancedAction().isActionPerformedOnOperatorsAsWell();
-	
+
 	
 	private final List<EquationChangeSingle> equationList;
 	private boolean notSolvable = false;
@@ -55,8 +56,10 @@ public class GroupSelector
 		boolean numeralsNotNull = numeralsEqs.size() > 0;
 		boolean operatorsNotNull = operatorsEqs.size() > 0;
 		
-		if (mixedNotNull || (numeralsNotNull && operatorsNotNull))
+		if (mixedNotNull)
 			return FitType.NUMERALS_AND_OPERATORS;
+		if (numeralsNotNull && operatorsNotNull)
+			return FitType.NUMERALS_OR_OPERATORS;
 		if (numeralsNotNull)
 			return FitType.NUMERALS_ONLY;
 		if (operatorsNotNull)
@@ -97,6 +100,8 @@ public class GroupSelector
 					return "_" + moves + FitType.OPERATORS_ONLY.title + parseForMoves(moves+1);
 				case NUMERALS_AND_OPERATORS:
 					return "_" + moves + FitType.NUMERALS_AND_OPERATORS.title;
+				case NUMERALS_OR_OPERATORS:
+					return "_" + moves + FitType.NUMERALS_OR_OPERATORS.title;
 				default:
 					throw new RuntimeException ("Should not happen");
 			}
@@ -123,7 +128,8 @@ public class GroupSelector
 	{
 		NUMERALS_ONLY ("N"),
 		OPERATORS_ONLY ("O"),
-		NUMERALS_AND_OPERATORS ("M"), // Mixed
+		NUMERALS_AND_OPERATORS ("MA"), // Mixed - mixed within action
+		NUMERALS_OR_OPERATORS ("MO"), // Mixed - operator_only and numeral_only action
 		NONE ("X");
 		
 		public String title;

@@ -16,7 +16,7 @@ public class EquationDatabaseFetcherTest
 	public void shouldFetchCountedEquations()
 	{
 		// Some equation group type
-		EquationSolutionsGroupType someEquationType = EquationSolutionsGroupType.group_1M;
+		EquationSolutionsGroupType someEquationType = EquationSolutionsGroupType.group_1MA;
 		
 		EquationDatabaseFetcher fetcher1 = new EquationDatabaseFetcher();
 		int return1 = fetcher1.getNumberOfPossibleEquationsFor(someEquationType);
@@ -33,7 +33,7 @@ public class EquationDatabaseFetcherTest
 	public void doNotReturnSameEquations()
 	{
 		// Some equation group type
-		EquationSolutionsGroupType someEquationType = EquationSolutionsGroupType.group_1M;
+		EquationSolutionsGroupType someEquationType = EquationSolutionsGroupType.group_1MA;
 
 		EquationDatabaseFetcher fetcher = new EquationDatabaseFetcher();
 		

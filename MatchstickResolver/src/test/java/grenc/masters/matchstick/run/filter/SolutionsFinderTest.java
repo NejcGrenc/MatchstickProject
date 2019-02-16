@@ -19,6 +19,6 @@ public class SolutionsFinderTest
 		
 		List<EquationChangeSingle> ecsList = new SolutionsFinder().getAllCorrectFinalEquations(originalEquation);
 		
-		new WriterConsole().forGroup(SolutionGroup.group_1M).makeNew().writeList(ecsList);
+		new WriterConsole().forGroup(SolutionGroup.group_1MA).makeNew().writeList(ecsList);
 	}
 }

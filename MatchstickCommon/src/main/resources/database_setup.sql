@@ -1,6 +1,12 @@
 
-DROP TABLE IF EXISTS group_1M;
-CREATE TABLE group_1M (
+DROP TABLE IF EXISTS group_1MA;
+CREATE TABLE group_1MA (
+	id  		SERIAL PRIMARY KEY,
+	equation	varchar(7) NOT NULL
+);
+
+DROP TABLE IF EXISTS group_1MO;
+CREATE TABLE group_1MO (
 	id  		SERIAL PRIMARY KEY,
 	equation	varchar(7) NOT NULL
 );
@@ -53,11 +59,18 @@ CREATE TABLE group_1X_2N (
 	equation	varchar(7) NOT NULL
 );
 
-DROP TABLE IF EXISTS group_1X_2M;
-CREATE TABLE group_1X_2M (
+DROP TABLE IF EXISTS group_1X_2MA;
+CREATE TABLE group_1X_2MA (
 	id  		SERIAL PRIMARY KEY,
 	equation	varchar(7) NOT NULL
 );
+
+DROP TABLE IF EXISTS group_1X_2MO;
+CREATE TABLE group_1X_2MO (
+	id  		SERIAL PRIMARY KEY,
+	equation	varchar(7) NOT NULL
+);
+
 
 DROP TABLE IF EXISTS group_1X_2O;
 CREATE TABLE group_1X_2O (
