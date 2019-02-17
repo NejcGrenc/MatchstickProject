@@ -1,4 +1,4 @@
-package grenc.masters.properties;
+package grenc.masters.matchsticktask;
 
 public enum TaskSessionProperty
 {

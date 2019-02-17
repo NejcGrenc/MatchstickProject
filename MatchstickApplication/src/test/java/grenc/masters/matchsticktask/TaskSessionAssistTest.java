@@ -23,8 +23,7 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.assistant.GroupSelectAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
-import grenc.masters.matchsticktask.type.MatchstickGroup;
-import grenc.masters.properties.TaskSessionProperty;;
+import grenc.masters.matchsticktask.type.MatchstickGroup;;
 
 
 public class TaskSessionAssistTest
