@@ -34,16 +34,20 @@ public class DatabaseProperties
 		catch (IOException ex) 
 		{
 			System.out.println("Local properties cannot be found on path: " + localProperties);
-			ex.printStackTrace();
 		}
 		
-		System.out.println("PROPERTIES");
-		for (Object pro : prop.keySet())
-			System.out.println("Property: '" + pro + "' is '" + prop.getProperty((String)pro) + "'");
+		// printOutAllProperties();
 	}
 	
 	public static String getProperty(String name)
 	{
 		return prop.getProperty(name);
+	}
+	
+	public void printOutAllProperties()
+	{
+		System.out.println("PROPERTIES");
+		for (Object pro : prop.keySet())
+			System.out.println("Property: '" + pro + "' is '" + prop.getProperty((String)pro) + "'");
 	}
 }
