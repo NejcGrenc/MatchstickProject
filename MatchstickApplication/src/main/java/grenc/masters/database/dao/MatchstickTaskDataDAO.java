@@ -1,10 +1,10 @@
-package grenc.masters.database;
+package grenc.masters.database.dao;
 
 import java.util.List;
 
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.builder.SelectBuilder;
-import grenc.masters.entities.MatchstickTaskData;
+import grenc.masters.database.entities.MatchstickTaskData;
 
 
 public class MatchstickTaskDataDAO

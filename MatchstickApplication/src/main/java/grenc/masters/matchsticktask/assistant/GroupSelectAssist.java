@@ -3,8 +3,8 @@ package grenc.masters.matchsticktask.assistant;
 import java.util.HashMap;
 import java.util.List;
 
-import grenc.masters.database.TaskSessionDAO;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.dao.TaskSessionDAO;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.TaskType;
 

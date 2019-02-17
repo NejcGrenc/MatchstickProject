@@ -1,9 +1,9 @@
 package grenc.masters.servlets.base;
 
-import grenc.masters.database.SessionDAO;
-import grenc.masters.database.SubjectDAO;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.Subject;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.Subject;
 
 public class Selector
 {

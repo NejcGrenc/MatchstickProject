@@ -1,12 +1,12 @@
-package grenc.masters.database;
+package grenc.masters.database.dao;
 
 import java.util.List;
 
 import org.json.JSONObject;
 
 import grenc.masters.database.builder.QueryBuilder;
-import grenc.masters.entities.MatchstickActionData;
-import grenc.masters.entities.MatchstickActionLocation;
+import grenc.masters.database.entities.MatchstickActionData;
+import grenc.masters.database.entities.MatchstickActionLocation;
 
 public class MatchstickActionDataDAO
 {

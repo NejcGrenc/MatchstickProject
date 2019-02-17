@@ -1,6 +1,6 @@
 package grenc.masters.webpage.common;
 
-import grenc.masters.entities.Session;
+import grenc.masters.database.entities.Session;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;

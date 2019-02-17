@@ -1,9 +1,9 @@
-package grenc.masters.database;
+package grenc.masters.database.dao;
 
 import java.util.List;
 
 import grenc.masters.database.builder.QueryBuilder;
-import grenc.masters.entities.Session;
+import grenc.masters.database.entities.Session;
 
 public class SessionDAO
 {

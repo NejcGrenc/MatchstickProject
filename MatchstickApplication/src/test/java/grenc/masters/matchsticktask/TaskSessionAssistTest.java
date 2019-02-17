@@ -17,10 +17,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import grenc.masters.database.MatchstickTaskDataDAO;
-import grenc.masters.database.TaskSessionDAO;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.dao.MatchstickTaskDataDAO;
+import grenc.masters.database.dao.TaskSessionDAO;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.assistant.GroupSelectAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
 import grenc.masters.matchsticktask.type.MatchstickGroup;

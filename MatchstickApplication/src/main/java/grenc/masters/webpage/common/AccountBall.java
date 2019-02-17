@@ -1,6 +1,6 @@
 package grenc.masters.webpage.common;
 
-import grenc.masters.entities.Subject;
+import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Style;
 import grenc.masters.webpage.builder.WebpageBuilder;

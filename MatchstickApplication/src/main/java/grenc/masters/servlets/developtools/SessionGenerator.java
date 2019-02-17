@@ -2,8 +2,8 @@ package grenc.masters.servlets.developtools;
 
 import java.util.UUID;
 
-import grenc.masters.database.SessionDAO;
-import grenc.masters.entities.Session;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.entities.Session;
 
 public class SessionGenerator
 {	

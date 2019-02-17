@@ -4,12 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import grenc.masters.database.MatchstickActionDataDAO;
-import grenc.masters.database.MatchstickTaskDataDAO;
-import grenc.masters.entities.MatchstickActionData;
-import grenc.masters.entities.MatchstickTaskData;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.dao.MatchstickActionDataDAO;
+import grenc.masters.database.dao.MatchstickTaskDataDAO;
+import grenc.masters.database.entities.MatchstickActionData;
+import grenc.masters.database.entities.MatchstickTaskData;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 
 public class ResponseProcessor 

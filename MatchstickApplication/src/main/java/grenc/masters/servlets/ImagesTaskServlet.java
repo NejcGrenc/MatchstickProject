@@ -11,12 +11,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import grenc.masters.database.ImageTaskDataDAO;
-import grenc.masters.database.SessionDAO;
-import grenc.masters.database.TaskSessionDAO;
-import grenc.masters.entities.ImageTaskData;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.dao.ImageTaskDataDAO;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.dao.TaskSessionDAO;
+import grenc.masters.database.entities.ImageTaskData;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;

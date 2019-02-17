@@ -23,10 +23,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import grenc.masters.database.SessionDAO;
-import grenc.masters.database.SubjectDAO;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.Subject;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.Subject;
 import grenc.masters.servlets.base.BaseServlet;
 import grenc.masters.servlets.base.DispatcherServlet;
 import grenc.masters.servlets.base.Servlet;

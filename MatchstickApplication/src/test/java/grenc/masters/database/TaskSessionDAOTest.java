@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.test.DatabaseTestConfiguraton;
 
 

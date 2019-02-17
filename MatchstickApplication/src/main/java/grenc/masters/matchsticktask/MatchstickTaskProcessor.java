@@ -1,8 +1,8 @@
 package grenc.masters.matchsticktask;
 
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.TaskSession;
 import grenc.masters.matchsticktask.assistant.EquationAssist;
 import grenc.masters.matchsticktask.assistant.TaskDataAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;

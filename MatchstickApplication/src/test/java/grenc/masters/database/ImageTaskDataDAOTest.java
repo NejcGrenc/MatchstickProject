@@ -11,8 +11,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import grenc.masters.database.dao.ImageTaskDataDAO;
+import grenc.masters.database.entities.ImageTaskData;
 import grenc.masters.database.test.DatabaseTestConfiguraton;
-import grenc.masters.entities.ImageTaskData;
 
 
 public class ImageTaskDataDAOTest extends DatabaseTestConfiguraton

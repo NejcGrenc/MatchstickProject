@@ -5,10 +5,10 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import grenc.masters.database.SessionDAO;
-import grenc.masters.database.SubjectDAO;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.Subject;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;

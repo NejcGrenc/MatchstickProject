@@ -4,8 +4,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import grenc.masters.database.SessionDAO;
-import grenc.masters.entities.Session;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.entities.Session;
 
 public class InitialCallHandler 
 {

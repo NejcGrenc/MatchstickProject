@@ -1,7 +1,7 @@
 package grenc.masters.matchsticktask.assistant.equations;
 
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
-import grenc.masters.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 

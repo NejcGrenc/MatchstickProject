@@ -1,8 +1,8 @@
 package grenc.masters.webpage.builder;
 
-import grenc.masters.database.SubjectDAO;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.Subject;
+import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.Subject;
 import grenc.masters.webpage.common.AccountBall;
 
 public class AccountBallBuilder

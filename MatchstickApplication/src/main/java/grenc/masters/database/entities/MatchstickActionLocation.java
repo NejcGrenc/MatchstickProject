@@ -1,4 +1,4 @@
-package grenc.masters.entities;
+package grenc.masters.database.entities;
 
 public class MatchstickActionLocation
 {

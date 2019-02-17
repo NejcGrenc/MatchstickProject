@@ -1,10 +1,10 @@
-package grenc.masters.database;
+package grenc.masters.database.dao;
 
 import java.util.List;
 
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.builder.SelectBuilder;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.entities.TaskSession;
 
 
 public class TaskSessionDAO

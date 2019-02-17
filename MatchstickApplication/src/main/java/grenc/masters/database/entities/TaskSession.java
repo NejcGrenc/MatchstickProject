@@ -1,4 +1,4 @@
-package grenc.masters.entities;
+package grenc.masters.database.entities;
 
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.TaskType;

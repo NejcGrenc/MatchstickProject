@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import grenc.masters.database.MatchstickTaskDataDAO;
-import grenc.masters.database.TaskSessionDAO;
-import grenc.masters.entities.MatchstickTaskData;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.dao.MatchstickTaskDataDAO;
+import grenc.masters.database.dao.TaskSessionDAO;
+import grenc.masters.database.entities.MatchstickTaskData;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 
 

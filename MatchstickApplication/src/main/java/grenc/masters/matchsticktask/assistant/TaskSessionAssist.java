@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import grenc.masters.database.TaskSessionDAO;
-import grenc.masters.entities.Session;
-import grenc.masters.entities.TaskSession;
+import grenc.masters.database.dao.TaskSessionDAO;
+import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.TaskType;
 
