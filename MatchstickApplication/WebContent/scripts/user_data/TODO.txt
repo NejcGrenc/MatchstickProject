@@ -1,0 +1,3 @@
+This folder with user_data is probably obsolete.
+We are using tomcat's functionality instead.
+Remove it if it turns out that we will never in future use it.

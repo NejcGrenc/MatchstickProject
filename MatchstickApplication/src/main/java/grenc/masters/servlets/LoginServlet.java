@@ -14,6 +14,7 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
@@ -54,12 +55,6 @@ public class LoginServlet extends BasePageServlet
 		builder.addScript(Script.page_functions);
 		builder.addScript(Script.send);
 		
-		
-		// Get more detailed user info
-		builder.addScript(Script.user_ip);
-		builder.addScript(Script.user_info);
-		
-		
 
 		String subjectName = (String) request.getAttribute("subjectName");
 		if (isLoginWithExistingUser(subjectName))
@@ -81,6 +76,8 @@ public class LoginServlet extends BasePageServlet
 	@Override
 	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
 	{
+		new ValidateUserSession(request).validate();
+		
 		String subjectName = (String) request.getAttribute("subjectName");
 		if (subjectName == null || subjectName.isEmpty())
 		{

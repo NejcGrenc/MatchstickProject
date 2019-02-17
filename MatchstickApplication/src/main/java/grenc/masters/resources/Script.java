@@ -2,6 +2,7 @@ package grenc.masters.resources;
 
 public enum Script {
 	
+	// TODO: Probably unused - check and remove
 	user_info ("user_data/", "user_info.js"),
 	user_ip ("user_data/", "user_ip.js"),
 
