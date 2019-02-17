@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.servlets.developtools.InitialCallHandler;
-import grenc.masters.servlets.developtools.SkipLogin;
 
 public class DispatcherServlet extends HttpServlet
 {
@@ -46,7 +45,7 @@ public class DispatcherServlet extends HttpServlet
 		
 		
 		if (InitialCallHandler.isInitial(request))
-			new InitialCallHandler(request).handle();
+			new InitialCallHandler(request, response).handle();
 		
 
 		Selector selector = createNewSelector(request);

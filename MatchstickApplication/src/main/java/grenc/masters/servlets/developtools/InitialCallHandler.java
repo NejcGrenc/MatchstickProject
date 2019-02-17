@@ -1,27 +1,33 @@
 package grenc.masters.servlets.developtools;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.database.SessionDAO;
 import grenc.masters.entities.Session;
 
 public class InitialCallHandler 
 {
+	private static final String sessionCookieName = "sessionCookie";
+	
 	private static final String testTasksParam = "testTasks";
 	private static final String snoopParam = "snoop";
 
 	private SessionDAO sessionDAO;
 	
 	private HttpServletRequest request;
+	private HttpServletResponse response;
 	
-	public InitialCallHandler(HttpServletRequest request, SessionDAO sessionDAO) 
+	public InitialCallHandler(HttpServletRequest request, HttpServletResponse response, SessionDAO sessionDAO) 
 	{
 		this.request = request;
+		this.response = response;
 		this.sessionDAO = sessionDAO;
 	}
-	public InitialCallHandler(HttpServletRequest request) 
+	public InitialCallHandler(HttpServletRequest request, HttpServletResponse response) 
 	{
-		this (request, SessionDAO.getInstance());
+		this (request, response, SessionDAO.getInstance());
 	}
 	
 	
@@ -36,9 +42,20 @@ public class InitialCallHandler
 	 */
 	public void handle()
 	{
-		Session session = new SessionGenerator().generateSession();
+		Cookie sessionCookie = getSessionCookie();
+		Session session;
+		if (sessionCookie != null)
+		{
+			session = getSessionFromCookie(sessionCookie);
+		}
+		else
+		{
+			session = new SessionGenerator().generateSession();
+			setSessionCookie(session.getTag());
+		}
 		request.setAttribute("session", session.getTag());
 
+		
 		if (SkipLogin.shouldSkip(request)) 
 		{
 			String forwardUrl = new SkipLogin(request).skip();
@@ -47,6 +64,29 @@ public class InitialCallHandler
 		testTasks();
 		snoop();
 	}
+	
+	private Cookie getSessionCookie()
+	{
+		if (request.getCookies() == null)
+			return null;
+			
+		for (Cookie cookie : request.getCookies())
+			if (sessionCookieName.contains(cookie.getName()))
+				return cookie;
+		return null;
+	}
+	private Session getSessionFromCookie(Cookie sessionCookie)
+	{
+		String sessionTag = sessionCookie.getValue();
+		return SessionDAO.getInstance().findSessionByTag(sessionTag);
+	}
+	
+	private void setSessionCookie(String sessionTag)
+	{
+		Cookie sessionCookie = new Cookie(sessionCookieName, sessionTag);
+		response.addCookie(sessionCookie);
+	}
+	
 	
 	private void testTasks()
 	{

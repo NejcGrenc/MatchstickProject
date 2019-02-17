@@ -46,4 +46,5 @@ public class SessionGenerator
 	{
 		return (sessionDAO.findSessionByTag(sessionTag) == null);
 	}
+	
 }
