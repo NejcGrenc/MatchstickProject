@@ -13,7 +13,7 @@ import grenc.masters.matchstick.objects.main.Equation;
 
 public class EquationChanges 
 {
-	private Equation original;
+	private final Equation original;
 	private int equationLength;
 	private Action initialAction;
 	private MatchDistribution matchDistribution;
@@ -48,7 +48,7 @@ public class EquationChanges
 			
 			List<EquationChangeSingle> newEqs = getAllEquations(posibleElements);
 			
-			AdvancedAction aa = makeAdvancedAction(original, initialAction, tmpChanges);
+			AdvancedAction aa = makeAdvancedAction(initialAction, tmpChanges);
 			for (EquationChangeSingle ecs : newEqs)
 				ecs.withAdvancedAction(aa);
 				
@@ -114,12 +114,12 @@ public class EquationChanges
 		return eqList;
 	}
 	
-	private AdvancedAction makeAdvancedAction(Equation eq, Action a, TempElementChanges[] tmpChanges)
+	private AdvancedAction makeAdvancedAction(Action a, TempElementChanges[] tmpChanges)
 	{
 		AdvancedAction aa = new AdvancedAction(a);
-		for (int i = 0; i < eq.getElements().length; i++)
+		for (int i = 0; i < original.getElements().length; i++)
 		{
-			Element curr = eq.getElements()[i];
+			Element curr = original.getElements()[i];
 			TempElementChanges currChanges = tmpChanges[i];
 			while (currChanges.added > 0 && currChanges.removed > 0)
 			{

@@ -12,6 +12,8 @@ import grenc.masters.matchstick.writer.WriterConsole;
 public class SolutionsFinderTest
 {
 
+	SolutionGroup unimportantGroup = SolutionGroup.group_1MA;
+	
 	@Test
 	public void shouldFindAllChanges()
 	{
@@ -19,6 +21,6 @@ public class SolutionsFinderTest
 		
 		List<EquationChangeSingle> ecsList = new SolutionsFinder().getAllCorrectFinalEquations(originalEquation);
 		
-		new WriterConsole().forGroup(SolutionGroup.group_1MA).makeNew().writeList(ecsList);
+		new WriterConsole().forGroup(unimportantGroup).makeNew().writeList(ecsList);
 	}
 }

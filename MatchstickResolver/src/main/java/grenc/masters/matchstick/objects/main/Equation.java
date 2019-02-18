@@ -40,8 +40,17 @@ public class Equation
 	{
 		if (this == o) return true;
 		if (!(o instanceof Equation)) return false;
+		
 		Equation e = (Equation) o;
-		return this.getElements().equals(e.getElements());
+		if (this.getElements().length != e.getElements().length) 
+			return false;
+		
+		for (int i = 0; i < this.getElements().length; i++)
+		{
+			if (! this.getElements()[i].equals(e.getElements()[i]))
+				return false;
+		}
+		return true;
 	}
 	
 	@Override 

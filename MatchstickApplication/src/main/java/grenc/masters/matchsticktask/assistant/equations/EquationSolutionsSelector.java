@@ -49,9 +49,9 @@ public class EquationSolutionsSelector
 					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1N;
 					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1N;
 					case TestingPhase_MixedEquations: 			   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1N;
-					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1O;
-					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1O;
+					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1N_2N;
+					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1O_2O;
 				}
 			case group_B:
 				switch (phase)
@@ -59,9 +59,9 @@ public class EquationSolutionsSelector
 					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1O;
 					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1O;
 					case TestingPhase_MixedEquations: 			   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1O;
-					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1N;
-					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1N;
+					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1O_2O;
+					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1N_2N;
 				}
 			case group_AB:
 				switch (phase)
@@ -69,9 +69,9 @@ public class EquationSolutionsSelector
 					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1O;
 					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1O;
 					case TestingPhase_MixedEquations: 			   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1O;
-					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1N;
-					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1N;
+					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OppositeEquationsOptimal:    return EquationSolutionsGroupType.group_1MO;
 				}
 			case group_0:
 				switch (phase)
