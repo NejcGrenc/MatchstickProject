@@ -3,7 +3,7 @@
 // Matchstick Shadow
 //
 
-var shadowColor = "#BBBBBB";
+var shadowColor = "#EEEEEE";
 
 function Shadow(centerPoint, angle)
 {

@@ -66,8 +66,6 @@ public class ImagesTaskServlet extends BasePageServlet
 		builder.addScript(Script.send);
 		builder.addScript(Script.familiar_figures);
 		
-		builder.addScript(Script.translate_familiarfigures);
-		builder.addScript(Script.translate);
 		
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
@@ -83,6 +81,7 @@ public class ImagesTaskServlet extends BasePageServlet
 		{
 			builder.appendBodyScriptCommand("limitTasks(2);");
 		}
+		builder.appendBodyScriptCommand("start();");
 
 		taskSessionDAO.insert(session.getId(), imagesTaskType, new Date().getTime(), null, false, null);	
 		

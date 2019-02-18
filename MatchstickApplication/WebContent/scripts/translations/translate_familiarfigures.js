@@ -49,3 +49,19 @@ function solvingTaskText()
 	if (lang == "sk")
 		return "Average time per figure";
 }
+
+var translationMap =
+{
+	'en': {
+		'm_headerText': "Matching familiar figures test"
+	},
+	'si': {
+		'm_headerText': "Eksperiment podobnih slik"
+	},
+	'de': {
+		'm_headerText': "Matching familiar figures test"
+	},
+	'sk': {
+		'm_headerText': "Matching familiar figures test"
+	}
+}

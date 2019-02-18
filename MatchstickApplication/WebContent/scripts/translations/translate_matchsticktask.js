@@ -40,7 +40,6 @@ var translationMap =
 	}
 }
 
-
 function tooltipEquationText()
 {
 	var lang = getLanguage();

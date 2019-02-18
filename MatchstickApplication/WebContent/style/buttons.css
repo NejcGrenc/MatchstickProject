@@ -157,12 +157,14 @@
 
 .lang_ball {
 	position: relative;
-	margin-right: 30px;
+	margin-top: 10px;
+	margin-right: 10px;
 	float: right;
 }
 .account_ball {
 	position: relative;
-	margin-right: 30px;
+	margin-top: 10px;
+	margin-right: 10px;
 	float: right;
 }
 .right {
