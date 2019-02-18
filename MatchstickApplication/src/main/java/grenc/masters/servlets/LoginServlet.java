@@ -56,6 +56,7 @@ public class LoginServlet extends BasePageServlet
 		builder.addScript(Script.send);
 		
 
+		
 		String subjectName = (String) request.getAttribute("subjectName");
 		if (isLoginWithExistingUser(subjectName))
 		{
@@ -66,8 +67,10 @@ public class LoginServlet extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new Translate(builder).translate("m_welcome", "m_repeatedLogin").translateSpecial("m_nameInput", "placeholder");
-		
+		new Translate(builder, Script.translate_login)
+			.translateAll()
+			.translateSpecial("m_nameInput", "placeholder");;
+
 		new DataPresentBall(builder, session).set();
 		
 		builder.appendPageElementFile(PageElement.login);

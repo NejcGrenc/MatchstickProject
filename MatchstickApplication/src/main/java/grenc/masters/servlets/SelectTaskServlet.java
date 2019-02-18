@@ -47,7 +47,7 @@ public class SelectTaskServlet extends BasePageServlet
 
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new Translate(builder).translate("selecttask_txt1", "selecttask_txt2");
+		new Translate(builder, Script.translate_selecttask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
 

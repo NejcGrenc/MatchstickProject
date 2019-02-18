@@ -66,11 +66,14 @@ public class ImagesTaskServlet extends BasePageServlet
 		builder.addScript(Script.send);
 		builder.addScript(Script.familiar_figures);
 		
+		builder.addScript(Script.translate_familiarfigures);
+		builder.addScript(Script.translate);
+		
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new Translate(builder);
+		new Translate(builder, Script.translate_familiarfigures).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
 		

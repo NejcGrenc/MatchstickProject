@@ -56,7 +56,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new Translate(builder);
+		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
 		

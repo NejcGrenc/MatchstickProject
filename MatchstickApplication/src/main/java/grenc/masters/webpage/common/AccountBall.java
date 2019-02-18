@@ -2,6 +2,7 @@ package grenc.masters.webpage.common;
 
 import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
+import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.webpage.builder.WebpageBuilder;
 
@@ -20,11 +21,16 @@ public class AccountBall extends CommonElement
 		builder.addStyle(Style.buttons);
 		builder.appendPageElementFile(PageElement.account_ball);
 		attachPopup();
+		
+		builder.addScript(Script.translate_popup);
+		builder.appendBodyScriptCommand("translatePopup();");
 	}
 	
 	private void attachPopup() {
-		String text = "Performing experiments as: <b>" + subject.getName() + "</b>";
-		new Popup(builder, "popupName").setOpenButton("accountButton").setText(text).set();
+		String text1 = "Performing experiments as: ";
+		String text2 = "<b>" + subject.getName() + "</b>";
+		new Popup(builder, "popupName").setOpenButton("accountButton")
+			.setText1(text1).setText2(text2).set();
 	}
 	
 }

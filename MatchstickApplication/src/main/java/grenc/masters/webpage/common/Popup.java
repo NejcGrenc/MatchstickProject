@@ -7,7 +7,9 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 public class Popup extends CommonElement
 {
 	private String popupName;
-	private String popupText;
+	private String popupText1;
+	private String popupText2;
+
 	
 	public Popup(WebpageBuilder builder, String popupName)
 	{
@@ -35,9 +37,15 @@ public class Popup extends CommonElement
 		return "closeButton-" + getPopupName();
 	}
 	
-	public Popup setText(String text)
+	public Popup setText1(String text)
 	{
-		this.popupText = text;
+		this.popupText1 = text;
+		return this;
+	}
+	
+	public Popup setText2(String text)
+	{
+		this.popupText2 = text;
 		return this;
 	}
 	
@@ -64,7 +72,8 @@ public class Popup extends CommonElement
 		  	"<!-- Popup content -->" +
 		  	"<div class='modal-content'>" +
 		  	"	<span id='" + getCloseButtonName() + "' class='closePopup'>&times;</span>" +
-		    "	<p>" + popupText + "</p>" +
+		    "	<p id='m_popup_firstline'>" + popupText1 + "</p>" +
+		    "	<p>" + popupText2 + "</p>" +
 		    	createButtonCode() +
 		    "</div>" +
 		    "</div>";

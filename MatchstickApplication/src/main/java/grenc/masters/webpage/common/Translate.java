@@ -5,9 +5,10 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 
 public class Translate extends CommonElement
 {
-	public Translate(WebpageBuilder builder)
+	public Translate(WebpageBuilder builder, Script translateMap)
 	{
 		super(builder);
+		builder.addScript(translateMap);
 		builder.addScript(Script.translate);
 	}
 
@@ -26,7 +27,7 @@ public class Translate extends CommonElement
 	
 	public Translate translateAll()
 	{
-		builder.appendBodyScriptCommand("translateAllId();");
+		builder.appendBodyScriptCommand("translateAll();");
 		return this;
 	}
 	

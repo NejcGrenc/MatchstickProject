@@ -21,7 +21,17 @@ public enum Script {
 	page_functions ("page_functions.js"),
 	popup ("popup.js"),
 	send ("send.js"),
-	translate ("translate.js")
+	
+	translate ("translations/", "translate.js"),
+	translate_credits ("translations/", "translate_credits.js"),
+	translate_login ("translations/", "translate_login.js"),
+	translate_selecttask ("translations/", "translate_selecttask.js"),
+	translate_userdata ("translations/", "translate_userdata.js"),
+	translate_familiarfigures ("translations/", "translate_familiarfigures.js"),
+	translate_matchsticktask ("translations/", "translate_matchsticktask.js"),
+	translate_popup ("translations/", "translate_popup.js"),
+
+
 	;
 	
 	protected final String basePath = "scripts/";

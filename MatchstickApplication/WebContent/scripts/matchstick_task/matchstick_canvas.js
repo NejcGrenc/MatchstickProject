@@ -63,20 +63,28 @@ function calculateEquation()
             if (calc.isCorrect())
             {
                 done = true;
+                
                 addInfo = "is correct.";
+                if (tooltipSolvedText !== undefined) addInfo = tooltipSolvedText();
             }
             else
             {
                 addInfo = "is valid, but not correct.";
+                if (tooltipOnlyValidText !== undefined) addInfo = tooltipOnlyValidText();
             }
         }
     }
+    
+    var equationString = "Equation";
+    if (tooltipEquationText !== undefined) equationString = tooltipEquationText();
 
-    var tooltip = "Equation:  " + eqStr + "  " + addInfo;
+    var tooltip = equationString + ":  " + eqStr + "  " + addInfo;
     if (done) {
         greenButtonContainer.style.display = 'inline';
         redButtonContainer.style.display = 'none';
+        
         greenButton.title = "Contine to next equation";
+        if (tooltipContinueText !== undefined)  greenButton.title = tooltipContinueText();
     }
     else
     {

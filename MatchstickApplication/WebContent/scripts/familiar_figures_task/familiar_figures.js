@@ -25,6 +25,7 @@ var focusImage;
 
 var resolutionMapBufferZone = 0.04;
 
+
 //
 // Task data
 //
@@ -72,6 +73,8 @@ function canvas_init()
 function waitScreen()
 {    
     var waitString = "Please wait";
+    if (pleaseWaitText !== undefined)
+    	waitString = pleaseWaitText();
     
     clearCanvas();
     ctx.beginPath();
@@ -137,8 +140,12 @@ function drawImage(image, startX, startY, imgWidth, imgHeight)
 
 function incrementTaskCounter() 
 {
+	var solvingTaskString = "Solving task";
+    if (solvingTaskText !== undefined)
+    	solvingTaskString = solvingTaskText();
+	
     taskInstance++;
-    document.getElementById('taskCounter').innerHTML = "Solving task: " + taskInstance + " / " + tasks.length;
+    document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + taskInstance + " / " + tasks.length;
 }
 
 function startTimer(startfunction, time)
@@ -353,14 +360,21 @@ function finish()
     clearAllTimers();
     done = true;
     
-    var resultString = "Result:  " + totalScore + " / " + tasks.length;
-    var averageTimeString = " Average time per figure:  " + Math.floor(totalTimer / tasks.length) + " ms";
+	var resultString = "Result";
+    if (resultText !== undefined)
+    	resultString = resultText();
+	var averageString = "Average time per figure";
+    if (averageText !== undefined)
+    	averageString = averageText();
+    
+    var totalResultString = resultString + ":  " + totalScore + " / " + tasks.length;
+    var averageTimeString = ":  " + Math.floor(totalTimer / tasks.length) + " ms";
     
     clearCanvas();
     ctx.beginPath();
     ctx.font = "40px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(resultString, canvas.width/2, canvas.height/2 - 23); 
+    ctx.fillText(totalResultString, canvas.width/2, canvas.height/2 - 23); 
     ctx.fillText(averageTimeString, canvas.width/2, canvas.height/2 + 23); 
     ctx.closePath();
     

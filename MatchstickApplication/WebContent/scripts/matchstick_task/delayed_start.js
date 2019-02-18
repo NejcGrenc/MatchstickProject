@@ -79,6 +79,8 @@ function beginListener()
 function waitScreen()
 {    
     var waitString = "Please wait";
+    if (pleaseWaitText !== undefined)
+    	waitString = pleaseWaitText();
     
     clearCanvas();
     ctx.beginPath();

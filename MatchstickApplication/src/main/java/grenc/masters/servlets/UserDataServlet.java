@@ -57,11 +57,8 @@ public class UserDataServlet extends BasePageServlet
 
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new Translate(builder)
-			.translate("m_userdata_intro")
-			.translate("m_userdata_label_sex", "m_userdata_input_sex_label_m", 
-					   "m_userdata_input_sex_label_f", "m_userdata_input_sex_label_o")
-			.translate("m_userdata_label_age")
+		new Translate(builder, Script.translate_userdata)
+			.translateAll()
 			.translateSpecial("m_userdata_input_age", "placeholder");
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
