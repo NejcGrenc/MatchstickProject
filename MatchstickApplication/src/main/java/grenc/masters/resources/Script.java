@@ -30,7 +30,7 @@ public enum Script {
 	translate_familiarfigures ("translations/", "translate_familiarfigures.js"),
 	translate_matchsticktask ("translations/", "translate_matchsticktask.js"),
 	translate_popup ("translations/", "translate_popup.js"),
-
+	translate_taskwrapup ("translations/", "translate_taskwrapup.js")
 
 	;
 	

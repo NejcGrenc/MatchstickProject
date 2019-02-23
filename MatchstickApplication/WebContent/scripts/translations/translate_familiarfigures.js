@@ -37,7 +37,7 @@ function resultText()
 		return "Result";
 }
 
-function solvingTaskText()
+function averageText()
 {
 	var lang = getLanguage();
 	if (lang == "en")

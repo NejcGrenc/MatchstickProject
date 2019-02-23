@@ -69,7 +69,7 @@ public class LoginServlet extends BasePageServlet
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_login)
 			.translateAll()
-			.translateSpecial("m_nameInput", "placeholder");;
+			.translateSpecial("m_nameInput", "placeholder");
 
 		new DataPresentBall(builder, session).set();
 		

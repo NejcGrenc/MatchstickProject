@@ -19,6 +19,7 @@ import grenc.masters.webpage.builder.AccountBallBuilder;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
+import grenc.masters.webpage.common.Translate;
 
 
 public class TaskWrapupServlet extends BasePageServlet
@@ -57,6 +58,7 @@ public class TaskWrapupServlet extends BasePageServlet
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		new Translate(builder, Script.translate_login).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
 

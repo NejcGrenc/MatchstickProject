@@ -17,23 +17,16 @@
         <div id="canvas-container">
             <canvas id="canvas" width="2000" height="750"></canvas>	
         </div>
-        <!--
+
+
         <div id="buffer-zone" style="width: 20px;"></div>
-        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between;">
-            <div class="vertical-layout">
-                <div id="timer"></div>
-                <span id="button-pause" class="blueButton" onclick="startExperiment()"><img src="../../images/ic_pause_white_48px.svg" alt="Pause" /></span>
-                <span id="button-stop" class="blueButton" onclick="finish()"><img src="../../images/ic_stop_white_48px.svg" alt="Stop" /></span>
+		<!-- Success (& continue) button -->
+        <div class="vertical-layout" style="justify-content: space-between;">
+        	<div id="buffer-zone2" style="height: 130px;"></div>
+            <div id="sucessButton" style="display:none">
+            	<span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
             </div>
         </div>
-        -->
-        
-        <!-- Success (& continue) button -->
-            <div>
-                <div id="sucessButton" style="display:none">
-                	<span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
-                </div>
-            </div>
     </div>
 </div>
 

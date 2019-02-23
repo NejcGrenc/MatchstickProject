@@ -367,8 +367,20 @@ function finish()
     if (averageText !== undefined)
     	averageString = averageText();
     
-    var totalResultString = resultString + ":  " + totalScore + " / " + tasks.length;
-    var averageTimeString = ":  " + Math.floor(totalTimer / tasks.length) + " ms";
+    var summedScore = 0;
+    for (score in totalScore) {
+    	console.log("score", score);
+    	if (totalScore[score]) summedScore++;
+    }
+    var summedTimer = 0;
+    for (timer in totalTimer) {
+    	console.log("timer", timer);
+
+    	summedTimer += totalTimer[timer];
+    }
+
+    var totalResultString = resultString + ":  " + summedScore + " / " + tasks.length;
+    var averageTimeString = averageString + ":  " + Math.floor(summedTimer / tasks.length) + " ms";
     
     clearCanvas();
     ctx.beginPath();
