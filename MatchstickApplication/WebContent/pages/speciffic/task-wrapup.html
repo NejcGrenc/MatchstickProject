@@ -10,7 +10,8 @@
 			<br />
 			<h2 id="m_comment">Comment</h2>
 			<div>
-				<textarea id="commentField" rows="8" cols="60"></textarea> 
+				<textarea id="commentField" rows="8" cols="60" maxlength="480"
+					onkeypress="return blockSpecialCharForTextArea(event)"></textarea> 
 			</div>
 			
 			<div id="buffer-zone1" style="height: 50px;"></div>
@@ -82,4 +83,5 @@
 	    var imagesButtonContainer = document.getElementById("imagesTask");
 	    imagesButtonContainer.style.display = 'inline';
 	}
+
 </script>

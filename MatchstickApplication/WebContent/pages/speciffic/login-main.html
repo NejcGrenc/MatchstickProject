@@ -7,7 +7,8 @@
 	    </div>
 		<div class="horizontal-layout">
 			<input type="text" id="m_nameInput" name="name" placeholder="Write your name" 
-					oninput="nameInputChange()" onchange="nameInputChange()">
+					oninput="nameInputChange()" onchange="nameInputChange()" maxlength="35"
+					onkeypress="return blockSpecialCharForNameField(event)">
 					<!-- Maybe needed also onpropertychange="nameInputChange()"  -->
 			<div id="buffer-zone" style="padding: 0px 10px;"></div>
 	    	<div>

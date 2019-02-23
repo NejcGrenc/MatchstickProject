@@ -69,6 +69,8 @@ public class WebpageBuilder
 		body.addElementPage(page.path());
 		for (Style style : page.getDependentStyles())
 			addStyle(style);
+		for (Script script : page.getDependentScripts())
+			addScript(script);
 	}
 	
 	public void appendPageElement(String element)

@@ -42,9 +42,16 @@ public enum PageElement {
 		return this.basePath + this.subPath + this.fileName;
 	}
 	
+	
 	public Style[] getDependentStyles()
 	{
 		PageStyleDependency dependency = PageStyleDependency.valueOf(this.name());
 		return dependency.getStyles();
 	}
+	public Script[] getDependentScripts()
+	{
+		PageStyleDependency dependency = PageStyleDependency.valueOf(this.name());
+		return dependency.getScripts();
+	}
+	
 }
