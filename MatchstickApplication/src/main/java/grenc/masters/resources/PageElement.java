@@ -17,6 +17,9 @@ public enum PageElement {
 	user_data ("speciffic/", "user-data-main.html")
 	;
 	
+	
+	/* Always make a corresponding PageStyleDependency entity. */
+	
 	protected final String basePath = "pages/";
 	
 	private String subPath;
@@ -37,5 +40,11 @@ public enum PageElement {
 	public String path() 
 	{
 		return this.basePath + this.subPath + this.fileName;
+	}
+	
+	public Style[] getDependentStyles()
+	{
+		PageStyleDependency dependency = PageStyleDependency.valueOf(this.name());
+		return dependency.getStyles();
 	}
 }
