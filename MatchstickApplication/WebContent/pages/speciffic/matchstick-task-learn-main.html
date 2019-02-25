@@ -1,0 +1,51 @@
+
+<!-- Extra header with experiment title -->
+<div id="header">
+    <h1 id="m_headerText" style="padding-top: 10px; margin-top: 10px;">Matchstick experiment</h1>
+    <hr />
+</div>
+
+<!-- Main body -->
+<div class="body">
+
+    <!-- Task header (contains status information -->
+    <div id="task-header" class="horizontal-layout" style="justify-content: space-between;">
+        <h2 id="taskCounter" style="margin-left:30px">Learning phase</h2>
+    </div>
+
+    <!-- Application space -->
+    <div class="centered horizontal-layout" style="align-items: normal;">
+        <div id="canvas-container">
+            <canvas id="canvas" width="1000" height="500"></canvas>	
+        </div>
+        <div id="buffer-zone" style="width: 20px;"></div>
+        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center;">
+           	<div></div> 
+            <!-- Success (& continue) button -->
+            <div>
+                <div id="sucessButton">
+                <span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
+                </div>
+                 <div id="failureButton">
+                <span id="button-notDone" class="redButton" title=""><span class="label"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	var matchstick_learn_url = "/matchstickTaskLearn";
+
+    function onSucessSend()
+    {
+        console.log();
+    	console.log("Done");
+    	waitScreen();
+        
+    	console.log();
+    }
+
+</script>
+

@@ -21,6 +21,7 @@ public class Servlet
 	private static final LoginServlet 				instanceLoginServlet = new LoginServlet();
 	private static final UserDataServlet 			instanceUserDataServlet = new UserDataServlet();
 	private static final SelectTaskServlet 			instanceSelectTaskServlet = new SelectTaskServlet();
+	private static final MatchstickTaskServlet 		instanceMatchstickTaskLearnServlet = new MatchstickTaskServlet();
 	private static final MatchstickTaskServlet 		instanceMatchstickTaskServlet = new MatchstickTaskServlet();
 	private static final ImagesTaskServlet 			instanceImagesTaskServlet = new ImagesTaskServlet();
 	private static final DataPresentServlet 		instanceDataPresenStervlet = new DataPresentServlet();
@@ -31,6 +32,7 @@ public class Servlet
 	public static Servlet LoginServlet 				= new Servlet("/login", 			"LoginServlet", instanceLoginServlet);
 	public static Servlet UserDataServlet 			= new Servlet("/userData", 			"UserDataServlet", instanceUserDataServlet);
 	public static Servlet SelectTaskServlet 		= new Servlet("/selectTask", 		"SelectTaskServlet", instanceSelectTaskServlet);
+	public static Servlet MatchstickTaskLearnServlet = new Servlet("/matchstickTaskLearn", 		"MatchstickTaskLearnServlet", instanceMatchstickTaskLearnServlet);
 	public static Servlet MatchstickTaskServlet 	= new Servlet("/matchstickTask", 	"MatchstickTaskServlet", instanceMatchstickTaskServlet);
 	public static Servlet ImagesTaskServlet 		= new Servlet("/imagesTask", 		"ImagesTaskServlet", instanceImagesTaskServlet);
 	public static Servlet DataPresentServlet 		= new Servlet("/presentTaskData", 	"DataPresentervlet", instanceDataPresenStervlet);
@@ -43,6 +45,7 @@ public class Servlet
 		    		LoginServlet,
 		    		UserDataServlet,
 		    		SelectTaskServlet,
+		    		MatchstickTaskLearnServlet,
 		    		MatchstickTaskServlet,
 		    		ImagesTaskServlet,
 		    		DataPresentServlet,

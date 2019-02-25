@@ -12,6 +12,7 @@ public enum Script {
 	matchstick_calculator ("matchstick_task/", "calculator.js"),
 	matchstick_equation ("matchstick_task/", "equation.js"),
 	matchstick_canvas ("matchstick_task/", "matchstick_canvas.js"),
+	matchstick_learn ("matchstick_task/", "matchstick_learn.js"),
 	matchstick_main ("matchstick_task/", "matchstick_main.js"),
 	matchstick_matchstick ("matchstick_task/", "matchstick.js"),
 	delayed_start ("matchstick_task/", "delayed_start.js"),

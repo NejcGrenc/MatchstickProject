@@ -10,6 +10,7 @@ public enum PageElement {
 	credits ("speciffic/", "credits-main.html"),
 	image_task ("speciffic/", "image-task.html"),
 	login ("speciffic/", "login-main.html"),
+	matchstick_task_learn ("speciffic/", "matchstick-task-learn-main.html"),
 	matchstick_task ("speciffic/", "matchstick-task-main.html"),
 	select_language ("speciffic/", "select-language-main.html"),
 	select_task ("speciffic/", "select-task-main.html"),
