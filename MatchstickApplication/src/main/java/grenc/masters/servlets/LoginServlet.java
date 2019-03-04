@@ -56,13 +56,14 @@ public class LoginServlet extends BasePageServlet
 		builder.addScript(Script.send);
 		
 
-		
-		String subjectName = (String) request.getAttribute("subjectName");
-		if (isLoginWithExistingUser(subjectName))
-		{
-			builder.appendBodyScriptCommand("insertExistingName('" + subjectName + "');");
-			builder.appendBodyScriptCommand("askForRepeated();");
-		}
+//		TODO : This code has associated JS code
+//		
+//		String subjectName = (String) request.getAttribute("subjectName");
+//		if (isLoginWithExistingUser(subjectName))
+//		{
+//			builder.appendBodyScriptCommand("insertExistingName('" + subjectName + "');");
+//			builder.appendBodyScriptCommand("askForRepeated();");
+//		}
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
@@ -79,60 +80,37 @@ public class LoginServlet extends BasePageServlet
 	@Override
 	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
 	{
-		new ValidateUserSession(request).validate();
-		
 		String subjectName = (String) request.getAttribute("subjectName");
 		if (subjectName == null || subjectName.isEmpty())
 		{
 			System.out.println("Did not login while on Login page! (probably clicked one of the up-right buttons)");
 			return;
 		}
-		createLoginSubject(request);
-	}
-	
-	private boolean isLoginWithExistingUser(String subjectName)
-	{
-		if (subjectName != null)
-		{
-			return subjectDAO.findSubjectsByNameAndComplete(subjectName, true).size() > 0;
-		}
-		return false;
+		createLoginSubject(subjectName, request);
 	}
 
-
-	private void createLoginSubject(HttpServletRequest request)
+	private void createLoginSubject(String subjectName, HttpServletRequest request)
 	{
-		String subjectName = (String) request.getAttribute("subjectName");
-		if (! isLoginWithExistingUser(subjectName))
+		ValidateUserSession validation = new ValidateUserSession(request);
+		if (validation.isFreshIP())
 		{
-			createNewSubject(request);
+			Subject newSubject = createNewSubject(request);
+			newSubject = validation.updateSubject(newSubject);
+			subjectDAO.updateSubjectOriginal(newSubject.getId(), true);
 		}
 		else
 		{
-			boolean forceSelectedUser = Boolean.parseBoolean((String) request.getAttribute("forceSelectedUser"));
-			boolean existingUser = Boolean.parseBoolean((String) request.getAttribute("existingUser"));
+			Subject newSubject = createNewSubject(request);
+			newSubject = validation.updateSubject(newSubject);
 			
-			if (forceSelectedUser)
-			{
-				int risk;
-				if (existingUser)
-				{
-					loginExistingSubject(request);
-					risk = 10;
-				}
-				else 
-				{
-					createNewSubject(request);
-					risk = 1;
-				}
-				
-				String session = (String) request.getAttribute("session");
-				increaseSessionRisk(session, risk);
-			}
+			// User is tainted (risk != 0)
+			subjectDAO.updateSubjectOriginal(newSubject.getId(), false);
+			String sessionTag = (String) request.getAttribute("session");
+			increaseSessionRisk(sessionTag, 10);
 		}
 	}
 	
-	private void createNewSubject(HttpServletRequest request)
+	private Subject createNewSubject(HttpServletRequest request)
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		String subjectName = (String) request.getAttribute("subjectName");
@@ -145,24 +123,32 @@ public class LoginServlet extends BasePageServlet
 		Subject subject = subjectDAO.insertSubject(subjectName);
 		
 		sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
+		
+		return subject;
 	}
 	
-	// TODO find a better way
-	private void loginExistingSubject(HttpServletRequest request)
-	{
-		String sessionTag = (String) request.getAttribute("session");
-		String subjectName = (String) request.getAttribute("subjectName");
-		
-		System.out.println("Upsert");
-		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - add existing subject: " + subjectName);
-
-		subjectDAO.insertSubject(subjectName);
-		Session session = sessionDAO.findSessionByTag(sessionTag);
-		Subject subject = subjectDAO.findSubjectsByNameAndComplete(subjectName, true).get(0);
-		
-		sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
-	}
+//	@Deprecated
+//	private Subject loginExistingSubject(HttpServletRequest request)
+//	{
+//		String sessionTag = (String) request.getAttribute("session");
+//		String subjectName = (String) request.getAttribute("subjectName");
+//		
+//		boolean forceSelectedUser = Boolean.parseBoolean((String) request.getAttribute("forceSelectedUser"));
+//		boolean existingUser = Boolean.parseBoolean((String) request.getAttribute("existingUser"));
+//		
+//		
+//		System.out.println("Upsert");
+//		System.out.println(" - for session: " + sessionTag);
+//		System.out.println(" - add existing subject: " + subjectName);
+//
+//		subjectDAO.insertSubject(subjectName);
+//		Session session = sessionDAO.findSessionByTag(sessionTag);
+//		Subject subject = subjectDAO.findSubjectsByNameAndComplete(subjectName, true).get(0);
+//		
+//		sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
+//		
+//		return subject;
+//	}
 	
 	private void increaseSessionRisk(String sessionTag, int increasedRisk)
 	{

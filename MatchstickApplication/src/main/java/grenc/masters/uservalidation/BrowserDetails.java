@@ -5,14 +5,19 @@ import javax.servlet.http.HttpServletRequest;
 public class BrowserDetails
 {
 
-	public static void get(HttpServletRequest request)
+	private String os;
+	private String browser;
+	
+	public BrowserDetails(HttpServletRequest request)
 	{
-		 String  browserDetails  =   request.getHeader("User-Agent");
+		get(request);
+	}
+	
+	private void get(HttpServletRequest request)
+	{
+		 	String  browserDetails  =   request.getHeader("User-Agent");
 	        String  userAgent       =   browserDetails;
 	        String  user            =   userAgent.toLowerCase();
-
-	        String os = "";
-	        String browser = "";
 
 	        System.out.println("User Agent for the request is===>"+browserDetails);
 	        //=================OS=======================
@@ -68,5 +73,15 @@ public class BrowserDetails
 	        }
 	        System.out.println("Operating System======>"+os);
 	        System.out.println("Browser Name==========>"+browser);
+	}
+	
+	public String getOs()
+	{
+		return os;
+	}
+	
+	public String getBrowser()
+	{
+		return browser;
 	}
 }

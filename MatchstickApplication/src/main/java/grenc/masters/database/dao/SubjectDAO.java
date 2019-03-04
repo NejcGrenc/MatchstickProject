@@ -25,6 +25,7 @@ public class SubjectDAO
 		QueryBuilder.newInsert().intoTable("subject")
 					.setField("name", name)
 					.setField("complete_data", false)
+					.setField("original", false)
 					.execute();
 
 		return findLastSubjectByName(name);
@@ -33,6 +34,11 @@ public class SubjectDAO
 	public Subject findSubjectById(int subjectId)
 	{
 		return findSubjectWhere("id", subjectId);
+	}
+	
+	public Subject findSubjectByIp(String ip)
+	{
+		return findSubjectWhere("ip", ip);
 	}
 	
 	public List<Subject> findSubjectsByNameAndComplete(String name, boolean completeData)
@@ -73,7 +79,13 @@ public class SubjectDAO
 		  .getField("age", Integer.class, Subject::setAge)
 		  .getField("sex", String.class, Subject::setSex)
 		  .getField("language", String.class, Subject::setLanguage)
-		  .getField("password", String.class, Subject::setPassword);
+		  
+		  .getField("ip", String.class, Subject::setIp)
+		  .getField("address", String.class, Subject::setAddress)
+		  .getField("operating_system", String.class, Subject::setOperatingSystem)
+		  .getField("browser", String.class, Subject::setBrowser)
+		  .getField("original", Boolean.class, Subject::setOriginal)
+		  ;
 		return builder;
 	}
 	
@@ -84,6 +96,29 @@ public class SubjectDAO
 		.setField("age", age)
 		.setField("sex", sex)
 		.setField("language", lang)
+		.setCondition("id", subjectId)
+		.execute();
+		
+		return findSubjectById(subjectId);
+	}
+	
+	public synchronized Subject updateSubjectFetchedData(int subjectId, String ip, String address, String operatingSystem, String browser)
+	{
+		QueryBuilder.newUpdate().inTable("subject")
+		.setField("ip", ip)
+		.setField("address", address)
+		.setField("operating_system", operatingSystem)
+		.setField("browser", browser)
+		.setCondition("id", subjectId)
+		.execute();
+		
+		return findSubjectById(subjectId);
+	}
+	
+	public synchronized Subject updateSubjectOriginal(int subjectId, boolean original)
+	{
+		QueryBuilder.newUpdate().inTable("subject")
+		.setField("original", original)
 		.setCondition("id", subjectId)
 		.execute();
 		

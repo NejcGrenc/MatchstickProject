@@ -18,7 +18,13 @@ CREATE TABLE subject (
 	age				integer,
 	sex				varchar(8),
 	language		varchar(20),
-	password		varchar(40)
+	
+	ip				varchar(40),
+	address			varchar(100),
+	operating_system varchar(10),
+	browser			varchar(20),
+	
+	original		boolean
 );
 
 DROP TABLE IF EXISTS task_session;

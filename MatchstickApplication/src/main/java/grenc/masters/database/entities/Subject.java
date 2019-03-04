@@ -13,7 +13,11 @@ public class Subject implements Serializable
 	private String sex;
 	private String language;
 	private String password;
-	
+	private String ip;
+	private String address;
+	private String operatingSystem;
+	private String browser;
+	private boolean original;
 	
 	public int getId()
 	{
@@ -69,24 +73,58 @@ public class Subject implements Serializable
 		this.language = language;
 	}
 	
-	public String getPassword()
-	{
-		return password;
-	}
-	public void setPassword(String password)
-	{
-		this.password = password;
-	}
-	
 	public boolean isMissingUserData()
 	{
 		return getAge() == null || getSex() == null;
 	}
 	
+	public String getIp()
+	{
+		return ip;
+	}
+	public void setIp(String ip)
+	{
+		this.ip = ip;
+	}
+	public String getAddress()
+	{
+		return address;
+	}
+	public void setAddress(String address)
+	{
+		this.address = address;
+	}
+	public String getOperatingSystem()
+	{
+		return operatingSystem;
+	}
+	public void setOperatingSystem(String operatingSystem)
+	{
+		this.operatingSystem = operatingSystem;
+	}
+	public String getBrowser()
+	{
+		return browser;
+	}
+	public void setBrowser(String browser)
+	{
+		this.browser = browser;
+	}
+	public boolean isOriginal()
+	{
+		return original;
+	}
+	public void setOriginal(boolean original)
+	{
+		this.original = original;
+	}
+	
 	@Override
 	public String toString()
 	{
-		return "Subject [id=" + id + ", name=" + name + ", age=" + age + ", sex=" + sex + ", language=" + language
-				+ ", password=" + password + "]";
+		return "Subject [id=" + id + ", completeData=" + completeData + ", name=" + name + ", age=" + age + ", sex="
+				+ sex + ", language=" + language + ", password=" + password + ", ip=" + ip + ", address=" + address
+				+ ", operatingSystem=" + operatingSystem + ", browser=" + browser + ", original=" + original + "]";
 	}
+
 }

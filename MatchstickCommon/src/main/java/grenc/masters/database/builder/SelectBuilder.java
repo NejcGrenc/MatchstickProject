@@ -132,8 +132,17 @@ public class SelectBuilder <T>
 	
 	private <F> void mapFieldToEntity(ResultSet rs, FieldMapper<F> mapper, T element) throws SQLException
 	{
-		F fieldData = rs.getObject(mapper.name, mapper.type);
-		mapper.setter.accept(element, fieldData);
+		F fieldData = null;
+		try
+		{
+			fieldData = rs.getObject(mapper.name, mapper.type);
+			mapper.setter.accept(element, fieldData);
+		}
+		catch (NullPointerException e)
+		{
+			String message = "Element of type [" + element.getClass().getSimpleName() + "] has a setter [" + mapper.setter.toString() + "] that cannot be set with [" + fieldData + "]";
+			throw new RuntimeException(message, e);
+		}
 	}
 	
 	private class FieldMapper<O>

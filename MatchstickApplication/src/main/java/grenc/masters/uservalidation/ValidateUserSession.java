@@ -1,40 +1,61 @@
 package grenc.masters.uservalidation;
 
-import java.util.StringTokenizer;
-
 import javax.servlet.http.HttpServletRequest;
+
+import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Subject;
+
 
 public class ValidateUserSession
 {
+	
+	private SubjectDAO subjectDao;
+	
 	private HttpServletRequest request;
 	
 	public ValidateUserSession(HttpServletRequest request)
 	{
 		this.request = request;
+		this.subjectDao = SubjectDAO.getInstance();
 	}
 	
-	public void validate()
+	
+	public boolean isFreshIP()
 	{
-		System.out.println();
-		System.out.println("USER DATA");
-		System.out.println("Client IP address: " + getClientIpAddress(request));
-		BrowserDetails.get(request);
-		System.out.println(new Geolocation(getClientIpAddress(request)));
-		System.out.println();
-
+		String ip = IpAddress.getClientIpAddress(request);
+		
+		if (ip == null)
+			return true;  // Cannot determine IP - probably a software issue
+//		if (ip.equals("0:0:0:0:0:0:0:1"))
+//			return true;  // Local IP - probably testing on local machine
+			
+		Subject existingSubject = this.subjectDao.findSubjectByIp(ip);		
+		return existingSubject == null;
 	}
 	
+	@Deprecated
+	public boolean subjectNameAlreadyExists(String subjectName)
+	{
+		if (subjectName != null)
+		{
+			return subjectDao.findSubjectsByNameAndComplete(subjectName, true).size() > 0;
+		}
+		return false;
+	}
 	
-	
-	public static String getClientIpAddress(HttpServletRequest request) {
-	    String xForwardedForHeader = request.getHeader("X-Forwarded-For");
-	    if (xForwardedForHeader == null) {
-	        return request.getRemoteAddr();
-	    } else {
-	        // As of https://en.wikipedia.org/wiki/X-Forwarded-For
-	        // The general format of the field is: X-Forwarded-For: client, proxy1, proxy2 ...
-	        // we only want the client
-	        return new StringTokenizer(xForwardedForHeader, ",").nextToken().trim();
-	    }
+	public Subject updateSubject(Subject subject)
+	{
+		BrowserDetails browserData = new BrowserDetails(request);
+		String ip = IpAddress.getClientIpAddress(request);
+		Geolocation geolocation = new Geolocation(ip);
+		
+		String address;
+		if (geolocation.isDataFound())
+			address = "" + geolocation.getContinentName() + ", " + geolocation.getCountryName() + ", " 
+						 + geolocation.getCityName() + ", " + geolocation.getState() + ", " + geolocation.getPostal();
+		else 
+			address = "null";
+		
+		return subjectDao.updateSubjectFetchedData(subject.getId(), geolocation.getIp(), address, browserData.getOs(), browserData.getBrowser());
 	}
 }

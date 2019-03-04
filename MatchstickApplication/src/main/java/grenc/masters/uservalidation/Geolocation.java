@@ -15,6 +15,8 @@ public class Geolocation
 	
 	private String ip;
 	
+	private boolean dataFound = false;
+	
 	private String continentName;
 	private String countryName;
 	private String cityName;
@@ -44,6 +46,8 @@ public class Geolocation
 		    cityName = response.getCity().getName();
 		    postal = response.getPostal().getCode();
 		    state = response.getLeastSpecificSubdivision().getName();
+		    
+		    dataFound = true;
 		}
 		catch (AddressNotFoundException e)
 		{
@@ -60,6 +64,11 @@ public class Geolocation
 	    	System.out.println("No data found for provided IP: " + ip);
 			System.out.println(e);
 		}
+	}
+	
+	public boolean isDataFound()
+	{
+		return dataFound;
 	}
 
 	public String getIp()
