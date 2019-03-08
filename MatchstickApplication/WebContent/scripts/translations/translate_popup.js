@@ -8,7 +8,7 @@ function popupLine1Text()
 	if (lang == "de")
 		return "Performing experiments as: ";
 	if (lang == "sk")
-		return "Performing experiments as: ";
+		return "Vykon�vanie experimentov ako: ";
 }
 
 

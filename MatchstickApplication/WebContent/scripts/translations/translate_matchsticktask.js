@@ -8,7 +8,7 @@ function pleaseWaitText()
 	if (lang == "de")
 		return "Please wait";
 	if (lang == "sk")
-		return "Please wait";
+		return "Prosím čakajte";
 }
 
 function solvingTaskText()
@@ -21,7 +21,7 @@ function solvingTaskText()
 	if (lang == "de")
 		return "Solving task";
 	if (lang == "sk")
-		return "Solving task";
+		return "Riešenie úlohy";
 }
 
 var translationMap =
@@ -36,7 +36,7 @@ var translationMap =
 		'm_headerText': "Matchstick experiment"
 	},
 	'sk': {
-		'm_headerText': "Matchstick experiment"
+		'm_headerText': "Experiment so zápalkami"
 	}
 }
 
@@ -50,7 +50,7 @@ function tooltipEquationText()
 	if (lang == "de")
 		return "Equation";
 	if (lang == "sk")
-		return "Equation";
+		return "Rovnica";
 }
 
 function tooltipSolvedText()
@@ -63,7 +63,7 @@ function tooltipSolvedText()
 	if (lang == "de")
 		return "is correct.";
 	if (lang == "sk")
-		return "is correct.";
+		return "je správna.";
 }
 
 function tooltipOnlyValidText()
@@ -72,11 +72,11 @@ function tooltipOnlyValidText()
 	if (lang == "en")
 		return "is valid, but not correct.";
 	if (lang == "si")
-		return "ni pravilna.";
+		return "je veljavna, a ni pravilna.";
 	if (lang == "de")
 		return "is valid, but not correct.";
 	if (lang == "sk")
-		return "is valid, but not correct.";
+		return "je platná, ale nie je správna.";
 }
 
 function tooltipContinueText()
@@ -89,5 +89,5 @@ function tooltipContinueText()
 	if (lang == "de")
 		return "Contine to next equation";
 	if (lang == "sk")
-		return "Contine to next equation";
+		return "Pokračujte ďalej";
 }

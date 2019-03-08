@@ -8,7 +8,7 @@ function pleaseWaitText()
 	if (lang == "de")
 		return "Please wait";
 	if (lang == "sk")
-		return "Please wait";
+		return "Prosím čakajte";
 }
 	
 function solvingTaskText()
@@ -21,7 +21,7 @@ function solvingTaskText()
 	if (lang == "de")
 		return "Solving task";
 	if (lang == "sk")
-		return "Solving task";
+		return "Riešenie úlohy";
 }
 
 function resultText()
@@ -34,7 +34,7 @@ function resultText()
 	if (lang == "de")
 		return "Result";
 	if (lang == "sk")
-		return "Result";
+		return "Výsledok";
 }
 
 function averageText()
@@ -47,7 +47,7 @@ function averageText()
 	if (lang == "de")
 		return "Average time per figure";
 	if (lang == "sk")
-		return "Average time per figure";
+		return "Priemerný čas strávený pri jednom obrázku";
 }
 
 var translationMap =
@@ -62,6 +62,6 @@ var translationMap =
 		'm_headerText': "Matching familiar figures test"
 	},
 	'sk': {
-		'm_headerText': "Matching familiar figures test"
+		'm_headerText': "Test mapovania podobných obrázkov"
 	}
 }

@@ -28,12 +28,12 @@ var translationMap =
 		'm_finish': "Finish"
 	},
 	'sk': {
-		'm_thanks': "Thank you for participating in the task. " +
-					"<br /> Feel free to leave any comments and remarks.",
-		'm_comment': "Comment",
-		'm_matchsticktask': "Matchstick <br /> task",
-		'm_familiarfigures': "Familiar figures <br /> task",
-		'm_creditsk': "Credits",
-		'm_finish': "Finish"
+		'm_thanks': "Ďakujem Vám za účasť na experimente." +
+					"<br /> Neváhajte okomentovať alebo zaznamenať Vaše dotazy.",
+		'm_comment': "Komentár",
+		'm_matchsticktask': "Experiment <br /> so zápalkami",
+		'm_familiarfigures': "Experiment <br /> s podobnými obrázkami",
+		'm_creditsk': "Zásluhy",
+		'm_finish': "Koniec"
 	}
 }

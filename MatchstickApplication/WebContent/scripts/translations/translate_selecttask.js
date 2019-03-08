@@ -16,8 +16,8 @@ var translationMap =
 		'm_credits': 'Credits'
 	},
 	'sk': {
-		'selecttask_txt1': "Matchstick <br /> experiment",
-		'selecttask_txt2': "Matching familiar  <br />  figures experiment",
-		'm_credits': 'Credits'
+		'selecttask_txt1': "Experiment <br /> so zápalkami",
+		'selecttask_txt2': "Experiment  <br /> s podobnými obrázkami",
+		'm_credits': 'Zásluhy'
 	}
 }

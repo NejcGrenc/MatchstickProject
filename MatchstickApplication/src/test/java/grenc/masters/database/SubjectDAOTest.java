@@ -39,7 +39,7 @@ public class SubjectDAOTest extends DatabaseTestConfiguraton
 		assertEquals(new Integer(24), finalSubject.getAge());
 		assertEquals("m", finalSubject.getSex());
 		assertEquals("si", finalSubject.getLanguage());
-		assertEquals(null, finalSubject.getPassword());
+		//assertEquals(null, finalSubject.getPassword());
 	}
 	
 }
