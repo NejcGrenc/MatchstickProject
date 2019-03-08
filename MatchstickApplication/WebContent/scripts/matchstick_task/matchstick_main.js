@@ -26,6 +26,11 @@ function start()
     refreshCanvas();
     calculateEquation();
     
+    if (typeof onInit === "function")
+	{
+    	onInit();
+	}
+    
     console.log("Page setting end");
 }
 
@@ -128,7 +133,7 @@ function getAllEmptyShadows()
     for (var x in allShadows)
     {
         var shadow = allShadows[x];
-        if (! shadow.containsMatchstick())
+        if (! shadow.containsMatchstick() && ! shadow.isBlocked())
         {
             allEmptyShadows.push(shadow);
         }

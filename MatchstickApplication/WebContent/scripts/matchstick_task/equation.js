@@ -11,6 +11,7 @@ function Shadow(centerPoint, angle)
     this.angle = (angle === undefined || typeof angle === 'undefined') ? 0 : angle;
     this.containedMatchstick = null;
     this.permanentMatchstick = false;
+    this.blockedShadow = false;
    
     this.getWidth = function()
     {
@@ -37,10 +38,23 @@ function Shadow(centerPoint, angle)
     {
         return this.containedMatchstick;
     };
+    this.isBlocked = function()
+    {
+    	return this.blockedShadow;
+    };
     
     this.setMatchstickPermanent = function(permanent)
     {
         this.permanentMatchstick = permanent;
+        this.blockedShadow = permanent;
+    };
+    this.setBlocked = function(blocked)
+    {
+    	this.blockedShadow = blocked;
+    	if (this.containsMatchstick())
+    	{
+    		this.setMatchstickPermanent(blocked);
+    	}
     };
     this.addNewMatchstick = function()
     {

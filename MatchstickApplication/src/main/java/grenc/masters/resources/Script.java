@@ -16,6 +16,7 @@ public enum Script {
 	matchstick_main ("matchstick_task/", "matchstick_main.js"),
 	matchstick_matchstick ("matchstick_task/", "matchstick.js"),
 	delayed_start ("matchstick_task/", "delayed_start.js"),
+	send_action_json ("matchstick_task/", "send_action_json.js"),
 	
 	collapsible ("collapsible.js"),
 	data_present ("data_present.js"),

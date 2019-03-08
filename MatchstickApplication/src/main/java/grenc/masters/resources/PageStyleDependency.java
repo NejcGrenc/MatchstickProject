@@ -13,7 +13,7 @@ public enum PageStyleDependency
 	image_task (),
 	login (new Style[] {Style.centered}, scripts(Script.input_security)),
 	matchstick_task_learn (new Style[] {Style.style, Style.buttons}, scripts(addMatchstickAssortment(), Script.send, Script.delayed_start, Script.matchstick_learn)),
-	matchstick_task (),
+	matchstick_task (Script.send_action_json),
 	select_language (),
 	select_task (),
 	task_wrapup (Script.input_security),
@@ -64,7 +64,7 @@ public enum PageStyleDependency
 	private static Script[] addMatchstickAssortment()
 	{
 		return new Script[] {Script.matchstick_main, Script.matchstick_canvas, Script.matchstick_matchstick,
-				Script.matchstick_equation,Script.matchstick_calculator};	
+				Script.matchstick_equation,Script.matchstick_calculator, Script.send_action_json};	
 	}
 	
 	private static <T> T[] concatenate(T[] a, T[] b) {

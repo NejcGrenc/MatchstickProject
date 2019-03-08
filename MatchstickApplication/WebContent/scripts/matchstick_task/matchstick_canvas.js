@@ -41,6 +41,9 @@ function refreshCanvas()
     {
         ctx.drawMatchstick(allMatchsticks[x]);
     }
+    
+    if (typeof drawAdditionalElements === "function")
+    	drawAdditionalElements();
 }
 
 function calculateEquation()

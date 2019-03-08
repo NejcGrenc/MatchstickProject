@@ -36,16 +36,18 @@
 
 <script>
 
-	var matchstick_learn_url = "/matchstickTaskLearn";
+	setForwardUrl("/matchstickTaskLearn");
 
-    function onSucessSend()
+    function mapAllActionsToJson()
     {
-        console.log();
-    	console.log("Done");
-    	waitScreen();
-        
-    	console.log();
+        // Get data from action, like action.report()
+    	var data = [];
+        for (act in actionList)
+        {
+            data.push(mapActionObjectToJson(actionList[act]));
+        }
+        return data;
     }
-
+    
 </script>
 

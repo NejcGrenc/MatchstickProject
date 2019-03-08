@@ -53,22 +53,15 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
 
-		builder.appendBodyScriptCommand("var originalEquation = '" + "7+2+3=5" + "';");
-
-				
-		// Start the task when all is properly set
-		if (true)
-			builder.appendBodyScriptCommand("startWithPause();");
-		else
-			builder.appendBodyScriptCommand("start();");
+		loadLearningTask(builder);
+		
 	}
 
 	
 	@Override
 	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
 	{
-		// TODO Auto-generated method stub
-		
+		processFinished(request);
 	}
 	
 	
@@ -82,9 +75,21 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		
 	}
 	
-	private void loadLearningTask()
+	private void loadLearningTask(WebpageBuilder builder)
 	{
-		
+		builder.appendBodyScriptCommand("var originalEquation = '" + "7+2+3=5" + "';");
+		builder.appendBodyScriptCommand("setPlanStartShadow(0, 0, true);");
+		builder.appendBodyScriptCommand("setPlanEndShadow(6, 4, false);");
+
+		builder.appendBodyScriptCommand("startWithPause();");
+	}
+	
+	public void processFinished(HttpServletRequest request)
+	{
+		// Task is completed, forward to after-page
+		String forwardUrl = Servlet.MatchstickTaskServlet.getUrl();
+		request.setAttribute("forwardUrl", forwardUrl);
+		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}
 	
 }	
