@@ -18,6 +18,7 @@ import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
+import grenc.masters.webpage.common.Popup;
 import grenc.masters.webpage.common.Translate;
 
 public class LoginServlet extends BasePageServlet
@@ -74,6 +75,8 @@ public class LoginServlet extends BasePageServlet
 
 		new DataPresentBall(builder, session).set();
 		
+		createTermsAndAgreementsPopup(builder);
+				
 		builder.appendPageElementFile(PageElement.login);
 	}
 	
@@ -162,4 +165,17 @@ public class LoginServlet extends BasePageServlet
 		sessionDAO.updateSessionRisk(session.getId(), newRisk);
 	}
 	
+	
+	private void createTermsAndAgreementsPopup(WebpageBuilder builder)
+	{
+		String text = "<p>This is my start text</p>";
+		new Popup(builder, "termsPopup").setOpenButton("termspopuplink").setText(text).addBottomCloseButton("m_closeButton", "Done").set();
+
+	}
+	
+//	class TermsAndAgreementPopup
+//	{
+//		new Popup(builder, "popupName").setOpenButton("termspopuplink").setText(fullText).set();
+//	}
+//	
 }

@@ -1,23 +1,48 @@
-function popupLine1Text() 
+
+var popupTranslationMap =
 {
-	var lang = getLanguage();
-	if (lang == "en")
-		return "Performing experiments as: ";
-	if (lang == "si")
-		return "Izvajanje eksperimenta kot: ";
-	if (lang == "de")
-		return "Performing experiments as: ";
-	if (lang == "sk")
-		return "Vykon�vanie experimentov ako: ";
+	'en': {
+		'm_popup_firstline': "Performing experiments as: ",
+		'm_closeButton': "Done"
+	},
+	'si': {
+		'm_popup_firstline': "Izvajanje eksperimenta kot: ",
+		'm_closeButton': "Zaključi"
+	},
+	'de': {
+		'm_popup_firstline': "Performing experiments as: ",
+		'm_closeButton': "Done"
+	},
+	'sk': {
+		'm_popup_firstline': "Vykonávanie experimentov ako: ",
+		'm_closeButton': "Ukonči"
+	}
 }
+
 
 
 function translatePopup()
 {	
-	var locAttr = "innerHTML";
-	var loc = document.getElementById('m_popup_firstline');
-	if (loc !== undefined && loc !== null)
+	var lang = getLanguage();
+	
+	if (popupTranslationMap === undefined || popupTranslationMap === null)
 	{
-		loc[locAttr] = popupLine1Text() ;
+		console.log("Cannot load translation map for popup!");
+		return;
+	}
+	
+	var translatable = popupTranslationMap[lang];
+	for (var elementId in translatable) 
+	{		
+		var message = popupTranslationMap[lang][elementId];
+		if (message !== undefined && message !== null)
+		{
+			var loc = document.getElementById(elementId);
+			if (loc !== undefined && loc !== null)
+			{
+				loc["innerHTML"] = message;
+			}
+		}
 	}
 }
+

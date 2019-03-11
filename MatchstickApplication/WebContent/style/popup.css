@@ -36,3 +36,22 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.rightButton 
+{
+	color: black;
+	border-radius: 20px;
+	padding: 5px 10px;
+	
+	font-size: 16px;
+	font-family:Arial;
+	color: #378de5;
+	
+	float: right;
+	margin-right: 5%;
+}
+
+.buttonContainer
+{
+	overflow: hidden;
+}

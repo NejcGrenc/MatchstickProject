@@ -4,21 +4,15 @@ var translationMap =
 		'm_welcome': 'Welcome',
 		'm_nameInput': 'Write your name',
 		'm_repeatedLogin': "Are you logging in for the first time?",
-		'm_acknowledgement' : 'By writing your name and pressing the green continue button,' +
-							  '<br /> you agree to participate in the Matchstick study.' +
-							  '<br /> You allow us to collect and store annonymous personal data for track-keeping' +
-							  '<br /> and task related data (all activities done and times spent on the tasks).' +
-							  '<br /> Additionally you agree to have a cookie.'
+		'm_acknowledgement' : 'By writing your name and pressing the green continue button, ' +
+							  '<br /> you agree to the <a id=\"termspopuplink\" href="javascript:terms();">terms and conditions</a> of the study.'
 	},
 	'si': {
 		'm_welcome': 'Dobrodošli',
 		'm_nameInput': 'Vpišite svoje ime',
 		'm_repeatedLogin': "Ste se prijavili prvič?",
-		'm_acknowledgement' : 'By writing your name and pressing the green continue button,' +
-							  '<br /> you agree to participate in the Matchstick study.' +
-							  '<br /> You allow us to collect and store annonymous personal data for track-keeping' +
-							  '<br /> and task related data (all activities done and times spent on the tasks).' +
-							  '<br /> Additionally you agree to have a cookie.'
+		'm_acknowledgement' : 'By writing your name and pressing the green continue button, ' +
+		  					  '<br /> you agree to the <a id=\"termspopuplink\" href="javascript:terms();">terms and conditions</a> of the study.'
 	},
 	'de': {
 		'm_welcome': 'Willcommen',
