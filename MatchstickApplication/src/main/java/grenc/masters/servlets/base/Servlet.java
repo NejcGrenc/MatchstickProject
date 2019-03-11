@@ -10,6 +10,7 @@ import grenc.masters.servlets.ImagesTaskServlet;
 import grenc.masters.servlets.LanguageServlet;
 import grenc.masters.servlets.LoginServlet;
 import grenc.masters.servlets.MatchstickTaskLearnServlet;
+import grenc.masters.servlets.MatchstickTaskObserveServlet;
 import grenc.masters.servlets.MatchstickTaskServlet;
 import grenc.masters.servlets.SelectTaskServlet;
 import grenc.masters.servlets.TaskWrapupServlet;
@@ -23,6 +24,7 @@ public class Servlet
 	private static final UserDataServlet 			instanceUserDataServlet = new UserDataServlet();
 	private static final SelectTaskServlet 			instanceSelectTaskServlet = new SelectTaskServlet();
 	private static final MatchstickTaskLearnServlet instanceMatchstickTaskLearnServlet = new MatchstickTaskLearnServlet();
+	private static final MatchstickTaskObserveServlet instanceMatchstickTaskObserveServlet = new MatchstickTaskObserveServlet();
 	private static final MatchstickTaskServlet 		instanceMatchstickTaskServlet = new MatchstickTaskServlet();
 	private static final ImagesTaskServlet 			instanceImagesTaskServlet = new ImagesTaskServlet();
 	private static final DataPresentServlet 		instanceDataPresenStervlet = new DataPresentServlet();
@@ -34,6 +36,7 @@ public class Servlet
 	public static Servlet UserDataServlet 			= new Servlet("/userData", 			"UserDataServlet", instanceUserDataServlet);
 	public static Servlet SelectTaskServlet 		= new Servlet("/selectTask", 		"SelectTaskServlet", instanceSelectTaskServlet);
 	public static Servlet MatchstickTaskLearnServlet = new Servlet("/matchstickTaskLearn", "MatchstickTaskLearnServlet", instanceMatchstickTaskLearnServlet);
+	public static Servlet MatchstickTaskObserveServlet = new Servlet("/matchstickTaskObserve", "MatchstickTaskObserveServlet", instanceMatchstickTaskObserveServlet);
 	public static Servlet MatchstickTaskServlet 	= new Servlet("/matchstickTask", 	"MatchstickTaskServlet", instanceMatchstickTaskServlet);
 	public static Servlet ImagesTaskServlet 		= new Servlet("/imagesTask", 		"ImagesTaskServlet", instanceImagesTaskServlet);
 	public static Servlet DataPresentServlet 		= new Servlet("/presentTaskData", 	"DataPresentervlet", instanceDataPresenStervlet);
@@ -47,6 +50,7 @@ public class Servlet
 		    		UserDataServlet,
 		    		SelectTaskServlet,
 		    		MatchstickTaskLearnServlet,
+		    		MatchstickTaskObserveServlet,
 		    		MatchstickTaskServlet,
 		    		ImagesTaskServlet,
 		    		DataPresentServlet,

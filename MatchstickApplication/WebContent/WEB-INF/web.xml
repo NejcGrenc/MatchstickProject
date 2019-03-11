@@ -35,6 +35,10 @@
 		<servlet-class>grenc.masters.servlets.MatchstickTaskLearnServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>MatchstickTaskObserveServlet</servlet-name>
+		<servlet-class>grenc.masters.servlets.MatchstickTaskObserveServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>MatchstickTaskServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.MatchstickTaskServlet</servlet-class>
 	</servlet>
@@ -79,6 +83,10 @@
 		<servlet-name>MatchstickTaskLearnServlet</servlet-name>
 		<url-pattern>/matchstickTaskLearn</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MatchstickTaskObserveServlet</servlet-name>
+		<url-pattern>/matchstickTaskObserve</url-pattern>
+	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>MatchstickTaskServlet</servlet-name>
 		<url-pattern>/matchstickTask</url-pattern>

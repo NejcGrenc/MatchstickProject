@@ -13,6 +13,7 @@ public enum PageStyleDependency
 	image_task (),
 	login (new Style[] {Style.centered}, scripts(Script.input_security)),
 	matchstick_task_learn (new Style[] {Style.style, Style.buttons}, scripts(addMatchstickAssortment(), Script.send, Script.delayed_start, Script.matchstick_learn)),
+	matchstick_task_observe (new Style[] {Style.style, Style.buttons}, scripts(Script.send)),
 	matchstick_task (Script.send_action_json),
 	select_language (),
 	select_task (),

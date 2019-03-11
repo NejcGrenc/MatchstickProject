@@ -18,13 +18,13 @@ import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 
-public class MatchstickTaskLearnServlet extends BasePageServlet
+public class MatchstickTaskObserveServlet extends BasePageServlet
 {
 	private static final long serialVersionUID = 4570044122511332568L;
 
 	private SessionDAO sessionDAO;
 	
-	public MatchstickTaskLearnServlet()
+	public MatchstickTaskObserveServlet()
 	{
 		this.sessionDAO = SessionDAO.getInstance();
 	}
@@ -33,7 +33,7 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 	@Override
 	public Servlet commonInstance()
 	{
-		return Servlet.MatchstickTaskLearnServlet;
+		return Servlet.MatchstickTaskObserveServlet;
 	}
 
 	@Override
@@ -45,15 +45,13 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new Translate(builder, Script.translate_matchsticktask).translateAll();
+//		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup();
 
-		builder.appendPageElementFile(PageElement.matchstick_task_learn);
+		builder.appendPageElementFile(PageElement.matchstick_task_observe);
 
-		loadLearningTask(builder);
-		
 	}
 
 	
@@ -62,20 +60,11 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 	{
 		processFinished(request);
 	}
-
-	private void loadLearningTask(WebpageBuilder builder)
-	{
-		builder.appendBodyScriptCommand("var originalEquation = '" + "7+2+3=5" + "';");
-		builder.appendBodyScriptCommand("setPlanStartShadow(0, 0, true);");
-		builder.appendBodyScriptCommand("setPlanEndShadow(6, 4, false);");
-
-		builder.appendBodyScriptCommand("startWithPause();");
-	}
 	
 	public void processFinished(HttpServletRequest request)
 	{
 		// Task is completed, forward to after-page
-		String forwardUrl = Servlet.MatchstickTaskServlet.getUrl();
+		String forwardUrl = Servlet.MatchstickTaskLearnServlet.getUrl();
 		request.setAttribute("forwardUrl", forwardUrl);
 		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}

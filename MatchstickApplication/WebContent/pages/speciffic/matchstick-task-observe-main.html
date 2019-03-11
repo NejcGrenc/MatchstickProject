@@ -1,0 +1,84 @@
+
+<!-- Extra header with experiment title -->
+<div id="header">
+    <h1 id="m_headerText" style="padding-top: 10px; margin-top: 10px;">Matchstick experiment</h1>
+    <hr />
+</div>
+
+<!-- Main body -->
+<div class="body">
+
+    <!-- Task header (contains status information -->
+    <div id="task-header" class="horizontal-layout" style="justify-content: space-between;">
+        <h2 id="taskCounter" style="margin-left:30px">Learning phase</h2>
+    </div>
+
+    <!-- Application space -->
+    <div class="centered horizontal-layout" style="align-items: normal;">
+        <div id="canvas-container">
+			<!-- Need to support multiple video formats: MP4, WebM, Ogg -->
+			<video id="matchstick_video" width="1000" height="500" controls>
+			  <source src="video/first.mp4" type="video/mp4">
+			  <source src="video/first.ogg" type="video/ogg">
+			</video> 
+        </div>
+        <div id="buffer-zone" style="width: 20px;"></div>
+        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center;">
+            <div>
+                <span id="button-info" class="blueButton"><img src="images/baseline_info_white_48dp.png" alt="Info" /></span> 
+            </div>  
+            <!-- Success (& continue) button -->
+            <div>
+                <div id="sucessButton">
+                <span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
+                </div>
+                 <div id="failureButton">
+                <span id="button-notDone" class="redButton" title=""><span class="label"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	var forward_url = "/matchstickTaskLearn";
+
+	function onSucessSend()
+	{
+	    console.log();
+		console.log("Done");
+	    post(forward_url);    
+		console.log();
+	}
+	
+	function finishOberving(done)
+	{
+	    var greenButtonContainer = document.getElementById("sucessButton");
+	    var greenButton = document.getElementById("button-done");
+	    var redButtonContainer = document.getElementById("failureButton");
+	    var redButton = document.getElementById("button-notDone");
+	    
+	    if (done) 
+	    {
+	        greenButtonContainer.style.display = 'inline';
+	        redButtonContainer.style.display = 'none';
+	    }
+	    else
+	    {
+	        greenButtonContainer.style.display = 'none';
+	        redButtonContainer.style.display = 'inline';
+	    }
+	}
+	
+	// At beginning
+	finishOberving(false);
+	
+	document.getElementById('matchstick_video').addEventListener('ended', myHandler, false);
+	document.getElementById('matchstick_video').onended = function(e) { finishOberving(true); };
+	function myHandler(e) {
+		finishOberving(true);
+    }
+    
+</script>
+
