@@ -36,13 +36,7 @@ public class Popup extends CommonElement
 		builder.appendBodyScriptCommand("buttonThatOpensPopup('" + buttonId + "', '" + getPopupName() + "')");
 		return this;
 	}
-	
-	public Popup addBottomButton(String text, String function)
-	{
-		
-		return this;
-	}
-	
+
 	public Popup addBottomCloseButton(String buttonName, String text)
 	{
 		buttonsCode += "<button class='rightButton' id='" + buttonName + "'>" + text + "</button>";
@@ -79,7 +73,7 @@ public class Popup extends CommonElement
 			"<div id='" + getPopupName() + "' class='modal'>" +
 
 			  	"<!-- Popup content -->" +
-			  	"<div class='modal-content closedContainer' " + style() + " >" +
+			  	"<div class='popup-content modal-content closedContainer' " + style() + " >" +
 			  	"	<span id='" + getCloseButtonName() + "' class='closePopup'>&times;</span>" +
 			  		popupText +
 			    	"<div class='closedContainer'>" + buttonsCode + "</div>" +

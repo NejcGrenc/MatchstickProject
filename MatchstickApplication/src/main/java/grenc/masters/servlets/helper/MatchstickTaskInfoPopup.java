@@ -26,7 +26,7 @@ public class MatchstickTaskInfoPopup
 	public void createPopup()
 	{
 		String content = readFile(popupContentFile.path());
-		new Popup(builder, "infoPopup").setOpenButton("button-info").setWidth("35%").setText(content).addBottomCloseButton("m_closeButton", "Done").set();
+		new Popup(builder, "infoPopup").setOpenButton("button-info").setWidth("45%").setText(content).addBottomCloseButton("m_closeButton", "Done").set();
 	}
 	
 	private String readFile(String fileName)

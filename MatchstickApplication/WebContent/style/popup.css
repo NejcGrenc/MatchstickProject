@@ -3,7 +3,7 @@
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 50px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -59,18 +59,25 @@
 
 
 /*Content of the popup */
-img
+.popup-content img
 {
     max-width: 50px;
 	max-height: 50px;
 }
-span
+.popup-content span
 {
 	margin-right: 10px;
 }
-p, h1, h2 
+.popup-content p, 
+.popup-content h1, 
+.popup-content h2, 
+.popup-content h3
 {
 	margin: 10px 0px;
+}
+.popup-content p
+{
+	font-size: 14px;
 }
 
 .middleAlignTD
