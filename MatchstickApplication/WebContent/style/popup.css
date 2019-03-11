@@ -51,7 +51,33 @@
 	margin-right: 5%;
 }
 
-.buttonContainer
+.closedContainer
 {
 	overflow: hidden;
 }
+
+
+
+/*Content of the popup */
+img
+{
+    max-width: 50px;
+	max-height: 50px;
+}
+span
+{
+	margin-right: 10px;
+}
+p, h1, h2 
+{
+	margin: 10px 0px;
+}
+
+.middleAlignTD
+{
+	text-align: center;
+	vertical-align: middle;
+}
+
+
+

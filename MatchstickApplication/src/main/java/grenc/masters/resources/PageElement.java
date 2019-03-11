@@ -15,7 +15,11 @@ public enum PageElement {
 	select_language ("speciffic/", "select-language-main.html"),
 	select_task ("speciffic/", "select-task-main.html"),
 	task_wrapup ("speciffic/", "task-wrapup.html"),
-	user_data ("speciffic/", "user-data-main.html")
+	user_data ("speciffic/", "user-data-main.html"),
+	
+	agreement_en ("speciffic/agreement/", "agreement-en.html"),
+	
+	info_en ("speciffic/info/", "info-en.html"),
 	;
 	
 	

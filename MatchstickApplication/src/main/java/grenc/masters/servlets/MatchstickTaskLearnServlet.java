@@ -14,6 +14,7 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.AccountBallBuilder;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
@@ -50,6 +51,7 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
+		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup();
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
 

@@ -172,10 +172,5 @@ public class LoginServlet extends BasePageServlet
 		new Popup(builder, "termsPopup").setOpenButton("termspopuplink").setText(text).addBottomCloseButton("m_closeButton", "Done").set();
 
 	}
-	
-//	class TermsAndAgreementPopup
-//	{
-//		new Popup(builder, "popupName").setOpenButton("termspopuplink").setText(fullText).set();
-//	}
-//	
+
 }

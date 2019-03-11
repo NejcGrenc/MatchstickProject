@@ -10,16 +10,21 @@ public class Popup extends CommonElement
 	private String popupText;
 	private String buttonsCode;
 
+	private String popupWidth = "30%";
 	
 	public Popup(WebpageBuilder builder, String popupName)
 	{
 		super(builder);
 		this.popupName = popupName;
 		this.buttonsCode = "";
-		
-		builder.addScript(Script.translate_popup);
 	}
 
+	public Popup setWidth(String width)
+	{
+		this.popupWidth = width;
+		return this;
+	}
+	
 	public Popup setText(String text)
 	{
 		this.popupText = text;
@@ -60,6 +65,8 @@ public class Popup extends CommonElement
 	{
 		builder.addStyle(Style.popup);
 		builder.addScript(Script.popup);
+		builder.addScript(Script.translate_popup);
+
 		createPopup();
 		createCloseButton(getCloseButtonName());
 		builder.appendBodyScriptCommand("translatePopup();");
@@ -72,14 +79,19 @@ public class Popup extends CommonElement
 			"<div id='" + getPopupName() + "' class='modal'>" +
 
 			  	"<!-- Popup content -->" +
-			  	"<div class='modal-content'>" +
+			  	"<div class='modal-content closedContainer' " + style() + " >" +
 			  	"	<span id='" + getCloseButtonName() + "' class='closePopup'>&times;</span>" +
 			  		popupText +
-			    	"<div class='buttonContainer'>" + buttonsCode + "</div>" +
+			    	"<div class='closedContainer'>" + buttonsCode + "</div>" +
 			    "</div>" +
 		    "</div>";
 		
 		builder.appendPageElement(popupCode);
+	}
+	
+	private String style()
+	{
+		return " style='width: " + popupWidth + "';";
 	}
 
 	private void createCloseButton(String buttonName) 
