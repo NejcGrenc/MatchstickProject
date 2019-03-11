@@ -82,7 +82,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 		System.out.println(" | and task session " + session.getId());
 		System.out.println(" | - Created new equation: " + newTask.newEquation);
 		builder.appendBodyScriptCommand("var originalEquation = '" + newTask.newEquation + "';");
-				
+
 		// Start the task when all is properly set
 		if (newTask.pauseAtStart)
 			builder.appendBodyScriptCommand("startWithPause();");

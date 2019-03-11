@@ -84,36 +84,38 @@ Calculator.prototype.isCorrect = function()
     
     function createTree(subEquation)
     {
+    	// update: We use lastIndexOf so that the tree will evaluate from left to right
+    	
         // Comparator node
-        var comparatorIndex = subEquation.indexOf(comparator);
+        var comparatorIndex = subEquation.lastIndexOf(comparator);
         if (comparatorIndex >= 0)
         {
             return splitAndMakeNode(comparatorIndex, subEquation);
         }
         
         // Plus node (priority 1)
-        var plusIndex = subEquation.indexOf("+");
+        var plusIndex = subEquation.lastIndexOf("+");
         if (plusIndex >= 0)
         {
             return splitAndMakeNode(plusIndex, subEquation);
         }
         
         // Minus node (priority 2)
-        var minusIndex = subEquation.indexOf("-");
+        var minusIndex = subEquation.lastIndexOf("-");
         if (minusIndex >= 0)
         {
             return splitAndMakeNode(minusIndex, subEquation);
         }
         
         // Multiplication node (priority 3)
-        var multiplicationIndex = subEquation.indexOf("*");
+        var multiplicationIndex = subEquation.lastIndexOf("*");
         if (multiplicationIndex >= 0)
         {
             return splitAndMakeNode(multiplicationIndex, subEquation);
         }
         
         // Minus node (priority 4)
-        var divisionIndex = subEquation.indexOf("/");
+        var divisionIndex = subEquation.lastIndexOf("/");
         if (divisionIndex >= 0)
         {
             return splitAndMakeNode(divisionIndex, subEquation);
