@@ -1,7 +1,6 @@
 package grenc.masters.webpage.common;
 
 import grenc.masters.database.entities.Session;
-import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
@@ -32,6 +31,9 @@ public class DataPresentBall extends CommonElement
 			builder.addStyle(Style.buttons);
 			builder.addScript(Script.send);
 			builder.appendPageElementFile(PageElement.data_present_ball);
+			
+			if(session.getRisk() > 0)
+				builder.appendBodyScriptCommand("setRisk();");
 		}
 		return this;
 	}
