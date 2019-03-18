@@ -71,14 +71,30 @@
 	    }
 	}
 	
-	// At beginning
+	// Setup
 	finishOberving(false);
 	
-	document.getElementById('matchstick_video').addEventListener('ended', myHandler, false);
-	document.getElementById('matchstick_video').onended = function(e) { finishOberving(true); };
-	function myHandler(e) {
-		finishOberving(true);
-    }
+	// Finish observing handlers
+	document.getElementById('matchstick_video').addEventListener('ended', function(e) { console.log("finishOberving 1"); finishOberving(true); }, false);
+	document.getElementById('matchstick_video').onended = function(e) { console.log("finishOberving 1"); finishOberving(true); };
+	
+	// Error handlers
+	var errorCount = 0;
+	document.getElementById('matchstick_video').addEventListener('error', errorHandler, true);
+	var videoSources = document.querySelector('video#matchstick_video').querySelectorAll('source');
+	if (videoSource in videoSources) 
+	{
+		videoSources[videoSource].addEventListener('error', function() { console.log("error2"); errorHandler(null); });
+	}
+	function errorHandler(e) 
+	{ 
+		errorCount++;
+		if (errorCount >= 2)
+		{
+			finishOberving(true); 
+			alert("Error occured when loading video!\n\nPlease, click green button to continue");
+		}
+	}
     
 </script>
 
