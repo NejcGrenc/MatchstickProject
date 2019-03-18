@@ -71,12 +71,15 @@ public class Popup extends CommonElement
 		String popupCode = 
 			"<!-- The popup -->" +
 			"<div id='" + getPopupName() + "' class='modal'>" +
-
-			  	"<!-- Popup content -->" +
-			  	"<div class='popup-content modal-content closedContainer' " + style() + " >" +
-			  	"	<span id='" + getCloseButtonName() + "' class='closePopup'>&times;</span>" +
-			  		popupText +
-			    	"<div class='closedContainer'>" + buttonsCode + "</div>" +
+				"<div class='modal-margin'>"
+				+ 
+				  	"<!-- Popup content -->" +
+				  	"<div class='popup-content modal-content closedContainer' " + style() + " >" +
+				  	"	<span id='" + getCloseButtonName() + "' class='closePopup'>&times;</span>" +
+				  		popupText +
+				    	"<div class='closedContainer'>" + buttonsCode + "</div>" +
+				    "</div>" 
+				+
 			    "</div>" +
 		    "</div>";
 		
