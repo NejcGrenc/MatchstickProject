@@ -1,15 +1,19 @@
 package grenc.masters.matchsticktask;
 
+import java.util.List;
+
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.matchsticktask.assistant.EquationAssist;
 import grenc.masters.matchsticktask.assistant.TaskDataAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
+import grenc.masters.matchsticktask.assistant.VideoSelectAssist;
 import grenc.masters.matchsticktask.assistant.equations.EquationSolutionsSelector;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.masters.matchsticktask.type.TaskType;
+import grenc.masters.resources.Video;
 
 
 public class MatchstickTaskProcessor
@@ -70,12 +74,14 @@ public class MatchstickTaskProcessor
 	
 	public MatchstickExperimentPhase nextPhase()
 	{
-		System.out.println("saufdjghlkèl");
-		System.out.println(equationSelect().phaseForTaskNumber(newTaskNumber()));
 		return equationSelect().phaseForTaskNumber(newTaskNumber());
 	}
+	public EquationSolutionsGroupType nextGroupType()
+	{
+		return equationSelect().findNextSolutionGroup(newTaskNumber());
+	}
 	
-	public MatchstickTaskProcessorReturn prepareNewTask()
+	public MatchstickTaskProcessorReturn prepareNewMatchstickTask()
 	{
 		MatchstickTaskProcessorReturn newTaskResult = new MatchstickTaskProcessorReturn();
 		newTaskResult.newTaskNumber = newTaskNumber();
@@ -106,6 +112,13 @@ public class MatchstickTaskProcessor
 		return newTaskResult;
 	}
 	
+	public List<Video> prepareNewObserveMatchstickTask() {
+		int taskNumber = newTaskNumber();
+		return new VideoSelectAssist().videoForTypeAndNumber(equationSelect().findNextSolutionGroup(taskNumber), taskNumber);
+	}
+	
+	
+	
 	public int newTaskNumber()
 	{
 		return taskDataAssist().newTaskNumber();
@@ -113,19 +126,6 @@ public class MatchstickTaskProcessor
 	public int totalNumberOfTasks()
 	{
 		return taskDataAssist().totalNumberOfTasks();
-	}
-	
-	public String newEquation()
-	{
-		MatchstickTaskStatus lastStatus = taskDataAssist().statusOfLastTask();
-		if (lastStatus != null && lastStatus.equals(MatchstickTaskStatus.restarted))
-		{
-			return equationAssist().getLastUsedEquation();
-		}
-		
-		int newtaskNumber = newTaskNumber();
-		EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(newtaskNumber);
-		return equationAssist().getNextEquation(equationType);
 	}
 	
 	public boolean isCurrentTaskSessionFinished()
@@ -146,4 +146,5 @@ public class MatchstickTaskProcessor
 		public String newEquation;
 		public boolean pauseAtStart;
 	}
+
 }

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
-import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor.MatchstickTaskProcessorReturn;
+import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -56,10 +56,14 @@ public class MatchstickTaskServlet extends BasePageServlet
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
+		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
+		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewMatchstickTask();
+		
+		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
-		new DataPresentBall(builder, session).set();
+		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.nextGroupType());
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
 	    
 	    // Matchstick task separate libraries
@@ -73,8 +77,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 		builder.appendPageElementFile(PageElement.matchstick_task);
 
 		
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
-		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewTask();
+
 		
 		// Setup current task number
 		builder.appendBodyScriptCommand("setSolvingTaskNumber("+newTask.newTaskNumber+", "+newTask.totalNumberOfTasks+");");

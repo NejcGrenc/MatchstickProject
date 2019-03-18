@@ -1,6 +1,7 @@
 package grenc.masters.webpage.common;
 
 import grenc.masters.database.entities.Session;
+import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -17,7 +18,13 @@ public class DataPresentBall extends CommonElement
 		this.session = session;
 	}
 
-	public void set()
+	private boolean allowed()
+	{
+		return session.isSnoopEnabled();
+	}
+	
+	
+	public DataPresentBall set()
 	{
 		if (allowed())
 		{
@@ -26,10 +33,15 @@ public class DataPresentBall extends CommonElement
 			builder.appendPageElementFile(PageElement.data_present_ball);
 			//builder.appendBodyScriptCommand("var currentPage = '" + currentPage + "';");
 		}
+		return this;
 	}
 	
-	private boolean allowed()
+	public DataPresentBall withMatchstickGroup(EquationSolutionsGroupType group)
 	{
-		return session.isSnoopEnabled();
+		if (allowed())
+		{
+			builder.appendBodyScriptCommand("setMatchstickGroup('" + group.name() + "');");
+		}
+		return this;
 	}
 }
