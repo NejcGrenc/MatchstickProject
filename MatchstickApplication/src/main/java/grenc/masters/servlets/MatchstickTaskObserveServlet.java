@@ -9,6 +9,7 @@ import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
+import grenc.masters.resources.Video;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
 import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
@@ -45,13 +46,16 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-//		new Translate(builder, Script.translate_matchsticktask).translateAll();
+		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set();
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup();
 
 		builder.appendPageElementFile(PageElement.matchstick_task_observe);
 
+		addSource(builder, Video.first_mp4);
+		addSource(builder, Video.first_ogg);
+		builder.appendBodyScriptCommand("setup();");
 	}
 
 	
@@ -69,4 +73,10 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}
 	
+	
+	private void addSource(WebpageBuilder builder, Video video)
+	{
+		String sourceCommand = "addSource('" + video.getSource() + "', '" + video.getType() + "');";
+		builder.appendBodyScriptCommand(sourceCommand);
+	}
 }	

@@ -18,8 +18,9 @@
         <div id="canvas-container">
 			<!-- Need to support multiple video formats: MP4, WebM, Ogg -->
 			<video id="matchstick_video" width="1000" height="500" controls>
-			  <source src="video/first.mp4" type="video/mp4">
-			  <source src="video/first.ogg" type="video/ogg">
+				<!-- 
+					Here go source elements with addSource() function! 
+				-->
 			</video> 
         </div>
         <div id="buffer-zone" style="width: 20px;"></div>
@@ -52,6 +53,14 @@
 		console.log();
 	}
 	
+	function addSource(src, type)
+	{
+		var source = document.createElement("source");
+		source.setAttribute("src", src);
+		source.setAttribute("type", type);
+		document.getElementById("matchstick_video").appendChild(source);
+	}
+	
 	function finishOberving(done)
 	{
 	    var greenButtonContainer = document.getElementById("sucessButton");
@@ -71,30 +80,42 @@
 	    }
 	}
 	
-	// Setup
-	finishOberving(false);
-	
-	// Finish observing handlers
-	document.getElementById('matchstick_video').addEventListener('ended', function(e) { console.log("finishOberving 1"); finishOberving(true); }, false);
-	document.getElementById('matchstick_video').onended = function(e) { console.log("finishOberving 1"); finishOberving(true); };
-	
-	// Error handlers
-	var errorCount = 0;
-	document.getElementById('matchstick_video').addEventListener('error', errorHandler, true);
-	var videoSources = document.querySelector('video#matchstick_video').querySelectorAll('source');
-	if (videoSource in videoSources) 
+	function setup()
 	{
-		videoSources[videoSource].addEventListener('error', function() { console.log("error2"); errorHandler(null); });
-	}
-	function errorHandler(e) 
-	{ 
-		errorCount++;
-		if (errorCount >= 2)
+		
+		if (document.querySelector('video#matchstick_video').querySelectorAll('source').length === 0)
 		{
+			console.log("Missing video");
 			finishOberving(true); 
 			alert("Error occured when loading video!\n\nPlease, click green button to continue");
+			return;
+		}
+		
+		finishOberving(false);
+		
+		// Finish observing handlers
+		document.getElementById('matchstick_video').addEventListener('ended', function(e) { console.log("finishOberving 1"); finishOberving(true); }, false);
+		document.getElementById('matchstick_video').onended = function(e) { console.log("finishOberving 2"); finishOberving(true); };
+		
+		// Error handlers
+		var errorCount = 0;
+		document.getElementById('matchstick_video').addEventListener('error', errorHandler, true);
+		//	 	var videoSources = document.querySelector('video#matchstick_video').querySelectorAll('source');
+		//	 	for (videoSource in videoSources) 
+		//	 	{
+		//	 		videoSources[videoSource].addEventListener('error', function() { console.log("error2"); errorHandler(null); });
+		//	 	}
+		function errorHandler(e) 
+		{ 
+			errorCount++;
+			if (errorCount >= document.querySelector('video#matchstick_video').querySelectorAll('source').length)
+			{
+				finishOberving(true); 
+				alert("Error occured when loading video!\n\nPlease, click green button to continue");
+			}
 		}
 	}
+	
     
 </script>
 
