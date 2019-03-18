@@ -11,6 +11,7 @@ import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
 import grenc.masters.matchsticktask.assistant.VideoSelectAssist;
 import grenc.masters.matchsticktask.assistant.equations.EquationSolutionsSelector;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
+import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.Video;
@@ -76,9 +77,9 @@ public class MatchstickTaskProcessor
 	{
 		return equationSelect().phaseForTaskNumber(newTaskNumber());
 	}
-	public EquationSolutionsGroupType nextGroupType()
+	public MatchstickGroup matchstickGroupType()
 	{
-		return equationSelect().findNextSolutionGroup(newTaskNumber());
+		return taskSessionToUse().getMatchstickGroup();
 	}
 	
 	public MatchstickTaskProcessorReturn prepareNewMatchstickTask()

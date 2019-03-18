@@ -1,4 +1,6 @@
+
 <div id="data-present" class="right">
+	<h3 id=matchstickGroup style="display: inline-block"></h3>
     <span id="dataPresentButton" class="blueButton" onclick="goSeeData(currentPage)"><img src="images/baseline_warning_white_48dp.png" alt="Show current data" /></span>
 </div>
 <script>
@@ -18,5 +20,10 @@
 		}
 		else
 		{ console.log("Failed at language change. Post function missing."); }
+	}
+	
+	function setMatchstickGroup(group)
+	{
+		document.getElementById("matchstickGroup").innerHTML = group; 
 	}
 </script>

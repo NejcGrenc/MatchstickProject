@@ -50,7 +50,7 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(new MatchstickTaskProcessor(session).nextGroupType());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(new MatchstickTaskProcessor(session).matchstickGroupType());
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
@@ -65,6 +65,11 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
+		
+		if (! commonInstance().getUrl().equals((String) request.getAttribute("forwardUrl")))
+		{   // Some other action - not finished learning
+			return;
+		}
 		
 		ResponseProcessor responseProcessor = new ResponseProcessor(session);
 		responseProcessor.storeEmptyTask(); // Just make an entry to increment the counter
