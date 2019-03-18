@@ -40,6 +40,14 @@ public class ResponseProcessor
 	}
 	
 	
+	public void storeEmptyTask() // Used for Observe & Learn task-parts
+	{
+		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse();
+		int newTaskNumber = matchstickTaskProcessor.newTaskNumber();
+		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(lastTaskSession.getId(), newTaskNumber);
+		matchstickTaskDataDAO.update(taskData.getId(), MatchstickTaskStatus.solved.name(), "", "", 0, 0, 0);	
+	}
+	
 	public void storeData(String stringData)
 	{
 		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse();
@@ -58,7 +66,6 @@ public class ResponseProcessor
 			System.out.println(actions.getJSONObject(i));
 		}
 
-		
 		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber);
  
 		InProcessing dataInProcessing = new InProcessing();	
@@ -92,8 +99,6 @@ public class ResponseProcessor
 				dataInProcessing.totalTime, dataInProcessing.moves, 0);	
 	}
 	
-
-	
 	private MatchstickActionData saveAction(int matchstickTaskId, JSONObject action)
 	{
 		return matchstickActionDataDAO.insert(
@@ -105,12 +110,11 @@ public class ResponseProcessor
 				action.getJSONObject("endMatchstickLoc").toString(),
 				action.getLong("startTime"), 
 				action.getLong("endTime"));
-		
+	
 		//		MatchstickActionDataDAO.parseLocationJson(action.getJSONObject("startMatchstickLoc")), 
 		//		MatchstickActionDataDAO.parseLocationJson(action.getJSONObject("endMatchstickLoc")), 
 	}
 	
-
 
 	public boolean isFinished()
 	{

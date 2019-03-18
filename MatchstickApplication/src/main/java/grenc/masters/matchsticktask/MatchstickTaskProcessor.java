@@ -7,6 +7,7 @@ import grenc.masters.matchsticktask.assistant.EquationAssist;
 import grenc.masters.matchsticktask.assistant.TaskDataAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
 import grenc.masters.matchsticktask.assistant.equations.EquationSolutionsSelector;
+import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.masters.matchsticktask.type.TaskType;
 
@@ -65,6 +66,13 @@ public class MatchstickTaskProcessor
 		if (equationAssist == null)
 			taskSessionToUse();
 		return equationAssist;
+	}
+	
+	public MatchstickExperimentPhase nextPhase()
+	{
+		System.out.println("saufdjghlkèl");
+		System.out.println(equationSelect().phaseForTaskNumber(newTaskNumber()));
+		return equationSelect().phaseForTaskNumber(newTaskNumber());
 	}
 	
 	public MatchstickTaskProcessorReturn prepareNewTask()

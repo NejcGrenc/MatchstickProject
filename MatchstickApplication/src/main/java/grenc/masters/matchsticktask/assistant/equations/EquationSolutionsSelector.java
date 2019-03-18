@@ -26,7 +26,7 @@ public class EquationSolutionsSelector
 	
 	
 	// Remember: Task numbers start with 1
-	MatchstickExperimentPhase phaseForTaskNumber(int number)
+	public MatchstickExperimentPhase phaseForTaskNumber(int number)
 	{
 		MatchstickGroup group = currentTaskSession.getMatchstickGroup();
 		for (MatchstickExperimentPhase phase : MatchstickExperimentPhase.orderedAll())
