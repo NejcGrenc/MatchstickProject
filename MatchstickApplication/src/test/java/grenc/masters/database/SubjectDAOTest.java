@@ -27,7 +27,6 @@ public class SubjectDAOTest extends DatabaseTestConfiguraton
 		Subject initialSubject = subjectDAO.insertSubject("Tom");
 		assertNotNull(initialSubject);
 		assertEquals("Tom", initialSubject.getName());
-		assertEquals(false, initialSubject.isCompleteData());
 		
 		subjectDAO.updateSubject(initialSubject.getId(), 24, "m", "si");
 		
