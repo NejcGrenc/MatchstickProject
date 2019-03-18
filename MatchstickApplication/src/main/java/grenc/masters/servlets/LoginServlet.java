@@ -76,7 +76,7 @@ public class LoginServlet extends BasePageServlet
 			.translateSpecial("m_nameInput", "placeholder");
 
 		new DataPresentBall(builder, session).set();
-		new LoginAgreementPopup(builder, getServletContext()).createPopup();
+		new LoginAgreementPopup(builder, getServletContext()).createPopup(session.getLang());
 
 						
 		builder.appendPageElementFile(PageElement.login);

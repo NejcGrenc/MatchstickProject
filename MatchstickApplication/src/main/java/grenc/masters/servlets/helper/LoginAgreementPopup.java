@@ -11,9 +11,7 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Popup;
 
 public class LoginAgreementPopup
-{
-	private final PageElement popupContentFile = PageElement.agreement_en;
-	
+{	
 	private WebpageBuilder builder;
 	private String basePath;
 	
@@ -23,8 +21,28 @@ public class LoginAgreementPopup
 		this.basePath = servletContext.getRealPath("/");
 	}
 	
-	public void createPopup()
+	public void createPopup(String lang)
 	{
+		PageElement popupContentFile;
+		switch(lang)
+		{
+			case "en":
+			default:
+				popupContentFile = PageElement.agreement_en;
+				break;
+				
+			case "si":
+				popupContentFile = PageElement.agreement_si;
+				break;
+				
+			case "sk":
+				popupContentFile = PageElement.agreement_sk;
+				break;
+				
+			case "at":
+				popupContentFile = PageElement.agreement_at;
+				break;
+		}
 		String content = readFile(popupContentFile.path());
 		new Popup(builder, "agreementPopup").setOpenButton("button-agreement").setWidth("45%").setText(content).addBottomCloseButton("m_closeButton", "Done").set();
 	}

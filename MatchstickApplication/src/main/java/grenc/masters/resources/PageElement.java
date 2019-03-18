@@ -19,8 +19,14 @@ public enum PageElement {
 	user_data ("speciffic/", "user-data-main.html"),
 	
 	agreement_en ("speciffic/agreement/", "agreement-en.html"),
+	agreement_si ("speciffic/agreement/", "agreement-si.html"),
+	agreement_sk ("speciffic/agreement/", "agreement-sk.html"),
+	agreement_at ("speciffic/agreement/", "agreement-at.html"),
 	
 	info_en ("speciffic/info/", "info-en.html"),
+	info_si ("speciffic/info/", "info-si.html"),
+	info_sk ("speciffic/info/", "info-sk.html"),
+	info_at ("speciffic/info/", "info-at.html")
 	;
 	
 	
