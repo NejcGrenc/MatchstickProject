@@ -7,16 +7,16 @@ public class Subject implements Serializable
     private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private boolean completeData;
 	private String name;
 	private Integer age;
 	private String sex;
 	private String language;
-	private String password;
+
 	private String ip;
 	private String address;
 	private String operatingSystem;
 	private String browser;
+	
 	private boolean original;
 	
 	public int getId()
@@ -26,15 +26,6 @@ public class Subject implements Serializable
 	public void setId(int id)
 	{
 		this.id = id;
-	}
-	
-	public boolean isCompleteData()
-	{
-		return completeData;
-	}
-	public void setCompleteData(boolean completeData)
-	{
-		this.completeData = completeData;
 	}
 	
 	public String getName()
@@ -122,9 +113,9 @@ public class Subject implements Serializable
 	@Override
 	public String toString()
 	{
-		return "Subject [id=" + id + ", completeData=" + completeData + ", name=" + name + ", age=" + age + ", sex="
-				+ sex + ", language=" + language + ", password=" + password + ", ip=" + ip + ", address=" + address
-				+ ", operatingSystem=" + operatingSystem + ", browser=" + browser + ", original=" + original + "]";
+		return "Subject [id=" + id + ", name=" + name + ", age=" + age + ", sex=" + sex + ", language=" + language
+				+ ", ip=" + ip + ", address=" + address + ", operatingSystem=" + operatingSystem + ", browser="
+				+ browser + ", original=" + original + "]";
 	}
 
 }

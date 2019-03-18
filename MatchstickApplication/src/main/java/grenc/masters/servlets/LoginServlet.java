@@ -15,12 +15,10 @@ import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
 import grenc.masters.servlets.helper.LoginAgreementPopup;
-import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
 import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
-import grenc.masters.webpage.common.Popup;
 import grenc.masters.webpage.common.Translate;
 
 public class LoginServlet extends BasePageServlet
@@ -57,16 +55,7 @@ public class LoginServlet extends BasePageServlet
 		
 		builder.addScript(Script.page_functions);
 		builder.addScript(Script.send);
-		
 
-//		TODO : This code has associated JS code
-//		
-//		String subjectName = (String) request.getAttribute("subjectName");
-//		if (isLoginWithExistingUser(subjectName))
-//		{
-//			builder.appendBodyScriptCommand("insertExistingName('" + subjectName + "');");
-//			builder.appendBodyScriptCommand("askForRepeated();");
-//		}
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
@@ -131,29 +120,6 @@ public class LoginServlet extends BasePageServlet
 		
 		return subject;
 	}
-	
-//	@Deprecated
-//	private Subject loginExistingSubject(HttpServletRequest request)
-//	{
-//		String sessionTag = (String) request.getAttribute("session");
-//		String subjectName = (String) request.getAttribute("subjectName");
-//		
-//		boolean forceSelectedUser = Boolean.parseBoolean((String) request.getAttribute("forceSelectedUser"));
-//		boolean existingUser = Boolean.parseBoolean((String) request.getAttribute("existingUser"));
-//		
-//		
-//		System.out.println("Upsert");
-//		System.out.println(" - for session: " + sessionTag);
-//		System.out.println(" - add existing subject: " + subjectName);
-//
-//		subjectDAO.insertSubject(subjectName);
-//		Session session = sessionDAO.findSessionByTag(sessionTag);
-//		Subject subject = subjectDAO.findSubjectsByNameAndComplete(subjectName, true).get(0);
-//		
-//		sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
-//		
-//		return subject;
-//	}
 	
 	private void increaseSessionRisk(String sessionTag, int increasedRisk)
 	{

@@ -33,16 +33,6 @@ public class ValidateUserSession
 		return existingSubject == null;
 	}
 	
-	@Deprecated
-	public boolean subjectNameAlreadyExists(String subjectName)
-	{
-		if (subjectName != null)
-		{
-			return subjectDao.findSubjectsByNameAndComplete(subjectName, true).size() > 0;
-		}
-		return false;
-	}
-	
 	public Subject updateSubject(Subject subject)
 	{
 		BrowserDetails browserData = new BrowserDetails(request);

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS session;
 CREATE TABLE session (
 	id  		SERIAL PRIMARY KEY,
 	tag  		varchar(40) NOT NULL,
-	risk		integer,
+	risk		integer,  		 -- bigger than 0 means not to be trusted
 	lang		varchar(20),
 	subject_id	integer,
 	test_tasks_only boolean,
@@ -14,7 +14,6 @@ DROP TABLE IF EXISTS subject;
 CREATE TABLE subject (
 	id  			SERIAL PRIMARY KEY,
 	name  			varchar(40) NOT NULL,
-	complete_data	boolean,
 	age				integer,
 	sex				varchar(8),
 	language		varchar(20),

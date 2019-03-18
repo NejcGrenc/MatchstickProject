@@ -24,7 +24,6 @@ public class SubjectDAO
 	{
 		QueryBuilder.newInsert().intoTable("subject")
 					.setField("name", name)
-					.setField("complete_data", false)
 					.setField("original", false)
 					.execute();
 
@@ -39,18 +38,6 @@ public class SubjectDAO
 	public Subject findSubjectByIp(String ip)
 	{
 		return findSubjectWhere("ip", ip);
-	}
-	
-	public List<Subject> findSubjectsByNameAndComplete(String name, boolean completeData)
-	{
-		List<Subject> subjects =
-				  getFullSubject(QueryBuilder.newSelect(Subject::new))
-				  .where("name", name)
-				  .where("complete_data", completeData)
-				  .orderByDesc("id", true)
-				  .execute();
-		
-		return subjects;
 	}
 	
 	protected Subject findLastSubjectByName(String name)
@@ -75,7 +62,6 @@ public class SubjectDAO
 		builder.fromTable("subject")
 		  .getField("id", Integer.class, Subject::setId)
 		  .getField("name", String.class, Subject::setName)
-		  .getField("complete_data", Boolean.class, Subject::setCompleteData)
 		  .getField("age", Integer.class, Subject::setAge)
 		  .getField("sex", String.class, Subject::setSex)
 		  .getField("language", String.class, Subject::setLanguage)
