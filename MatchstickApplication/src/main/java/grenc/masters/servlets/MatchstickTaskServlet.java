@@ -90,6 +90,9 @@ public class MatchstickTaskServlet extends BasePageServlet
 			builder.appendBodyScriptCommand("startWithPause();");
 		else
 			builder.appendBodyScriptCommand("start();");
+		
+		openInfoPopupBeforeStart(builder, taskBuilder);
+
 	}
 
 	
@@ -128,4 +131,11 @@ public class MatchstickTaskServlet extends BasePageServlet
 		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}
 	
+	private void openInfoPopupBeforeStart(WebpageBuilder builder,  MatchstickTaskProcessor taskBuilder)
+	{
+		if (taskBuilder.newTaskNumber() == 1)
+		{
+			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
+		}
+	}
 }

@@ -55,6 +55,9 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
+		
+		// Setup current task number
+		builder.appendBodyScriptCommand("setLearningTaskNumber("+taskBuilder.newTaskNumberForLocalPhase()+", "+taskBuilder.totalNumberOfTasksForNextPhase()+");");
 
 		loadLearningTask(builder, taskBuilder);
 		
@@ -88,8 +91,11 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 	private void loadLearningTask(WebpageBuilder builder, MatchstickTaskProcessor taskBuilder)
 	{
 		builder.appendBodyScriptCommand(taskBuilder.prepareNewLearnMatchstickTask());
-		builder.appendBodyScriptCommand("startWithPause();");
-	}
+		
+		if (taskBuilder.newTaskNumberForLocalPhase() == 1)
+			builder.appendBodyScriptCommand("startWithPause();");
+		else
+			builder.appendBodyScriptCommand("start();");	}
 	
 	public void processFinished(HttpServletRequest request)
 	{

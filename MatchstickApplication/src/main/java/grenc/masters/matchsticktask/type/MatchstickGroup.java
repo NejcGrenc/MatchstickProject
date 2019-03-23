@@ -46,4 +46,19 @@ public enum MatchstickGroup
 		return total;
 	}
 	
+	public int getNoTasksUpToPhase(MatchstickExperimentPhase phase)
+	{
+		int total = 0;
+		for (MatchstickExperimentPhase currPhase : MatchstickExperimentPhase.orderedAll())
+		{			
+			if (currPhase.equals(phase)) break;
+			total += tasksForPhase.get(currPhase);
+		}
+		return total;
+	}
+	
+	public int getNoTasksObservingAndLearning()
+	{
+		return getNoTasksForPhase(MatchstickExperimentPhase.LearningPhase_Showing) + getNoTasksForPhase(MatchstickExperimentPhase.LearningPhase_Solving);
+	}
 }

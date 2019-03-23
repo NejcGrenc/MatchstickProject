@@ -60,15 +60,15 @@ public class LearnEquationAssist
 				//  Visual representation of 	//  Visual representation of 	//
 			    //  the numeral frame			//  the operator frame			//
 			    //      _____					//  							//
-			    //   _ |__1__| _				//								//
-			    //  | |       | |				//   	      _1  				//
-			    //  |2|       |3|		 		//  	   /\| |/\ 3			//
+			    //   _ |__0__| _				//								//
+			    //  | |       | |				//   	      _0  				//
+			    //  |1|       |2|		 		//  	   /\| |/\ 2			//
 			    //  |_| _____ |_|		 		//  	  _\_|_|_/_				//
-			    //   _ |__4__| _				// 		 |_________| 4			//
+			    //   _ |__3__| _				// 		 |_________| 3			//
 			    //  | |       | |				//  	   / | | \ 				//
-			    //  |5|       |6|				//   	   \/|_|\/ 2			//
+			    //  |4|       |5|				//   	   \/|_|\/ 1			//
 			    //  |_| _____ |_|				//								//
-			    //     |__7__|					//								//
+			    //     |__6__|					//								//
 			    //								//								//
      * 
 	 */
@@ -86,8 +86,8 @@ public class LearnEquationAssist
 	{
 		StringBuilder commandBuilder = new StringBuilder();
 		commandBuilder.append("var originalEquation = '" + "1+2+2=6" + "';");
-		commandBuilder.append("setPlanStartShadow(4, 5, false);");
-		commandBuilder.append("setPlanEndShadow(4, 6, true);");
+		commandBuilder.append("setPlanStartShadow(4, 4, false);");
+		commandBuilder.append("setPlanEndShadow(4, 5, true);");
 		return commandBuilder.toString();
 	}
 	
@@ -95,8 +95,8 @@ public class LearnEquationAssist
 	{
 		StringBuilder commandBuilder = new StringBuilder();
 		commandBuilder.append("var originalEquation = '" + "1-2+3=0" + "';");
-		commandBuilder.append("setPlanStartShadow(3, 1, false);");
-		commandBuilder.append("setPlanEndShadow(1, 1, true);");
+		commandBuilder.append("setPlanStartShadow(3, 0, false);");
+		commandBuilder.append("setPlanEndShadow(1, 0, true);");
 		return commandBuilder.toString();
 	}
 	
@@ -104,8 +104,8 @@ public class LearnEquationAssist
 	{
 		StringBuilder commandBuilder = new StringBuilder();
 		commandBuilder.append("var originalEquation = '" + "1+3-3=2" + "';");
-		commandBuilder.append("setPlanStartShadow(3, 4, false);");
-		commandBuilder.append("setPlanEndShadow(3, 3, true);");
+		commandBuilder.append("setPlanStartShadow(3, 3, false);");
+		commandBuilder.append("setPlanEndShadow(3, 2, true);");
 		return commandBuilder.toString();
 	}
 	

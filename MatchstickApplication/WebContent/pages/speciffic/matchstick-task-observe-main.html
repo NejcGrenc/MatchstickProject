@@ -10,7 +10,7 @@
 
     <!-- Task header (contains status information -->
     <div id="task-header" class="horizontal-layout" style="justify-content: space-between;">
-        <h2 id="taskCounter" style="margin-left:30px">Learning phase</h2>
+        <h2 id="taskCounter" style="margin-left:30px">Observe phase: ...</h2>
     </div>
 
     <!-- Application space -->
@@ -116,6 +116,13 @@
 		}
 	}
 	
+    function setObservingTaskNumber(currentNumber, totalNumber)
+    {
+    	var observingTaskString = "Observing task";
+        if (observingTaskText !== undefined)
+        	observingTaskString = observingTaskText();
+    	 document.getElementById('taskCounter').innerHTML = observingTaskString + ": " + currentNumber + " / " + totalNumber;
+    }
     
 </script>
 

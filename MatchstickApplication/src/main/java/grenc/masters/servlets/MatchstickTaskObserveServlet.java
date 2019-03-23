@@ -48,19 +48,22 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
+		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);	
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
 		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
-
+		
 		builder.appendPageElementFile(PageElement.matchstick_task_observe);
+		
+		// Setup current task number
+		builder.appendBodyScriptCommand("setObservingTaskNumber("+taskBuilder.newTaskNumberForLocalPhase()+", "+taskBuilder.totalNumberOfTasksForNextPhase()+");");
 
 		prepareObserveTask(builder, taskBuilder);
 
-		openInfoPopupBeforeFirstVideo(builder, taskBuilder);
+		openInfoPopupBeforeStart(builder, taskBuilder);
 	}
 
 	
@@ -103,7 +106,7 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 		builder.appendBodyScriptCommand(sourceCommand);
 	}
 	
-	private void openInfoPopupBeforeFirstVideo(WebpageBuilder builder,  MatchstickTaskProcessor taskBuilder)
+	private void openInfoPopupBeforeStart(WebpageBuilder builder,  MatchstickTaskProcessor taskBuilder)
 	{
 		if (taskBuilder.newTaskNumber() == 1)
 		{

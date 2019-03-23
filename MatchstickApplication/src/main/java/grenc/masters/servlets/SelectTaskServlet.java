@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
+import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
+import grenc.masters.matchsticktask.type.MatchstickGroup;
+import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -58,7 +62,24 @@ public class SelectTaskServlet extends BasePageServlet
 	@Override
 	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
 	{
-		// No work to be done here
+		// Prepare new TaskSession
+		String sessionTag = (String) request.getAttribute("session");
+		Session session = sessionDAO.findSessionByTag(sessionTag);
+		
+		TaskType selectedTaskType;
+		if ("/imagesTask".equals((String) request.getAttribute("forwardUrl"))) 
+			selectedTaskType = TaskType.images;
+		else
+			selectedTaskType = TaskType.matchstick;	
+		
+		// TaskSession automatically builds itself when you try to fetch it and it doesn't exist yet
+		TaskSession taskSession = new TaskSessionAssist(session, selectedTaskType).getTaskSessionToUse();
+		
+		// Skip learning if we are part of matchstick task group 0
+		if (TaskType.matchstick.equals(selectedTaskType) && taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0))
+		{
+			request.setAttribute("forwardUrl", Servlet.MatchstickTaskServlet.getUrl());
+		}
 	}
 
 }

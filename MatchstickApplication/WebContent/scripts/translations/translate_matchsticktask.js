@@ -24,6 +24,33 @@ function solvingTaskText()
 		return "Riešenie úlohy";
 }
 
+function learningTaskText()
+{
+	var lang = getLanguage();
+	if (lang == "en")
+		return "Learning task";
+	if (lang == "si")
+		return "Učenje naloge";
+	if (lang == "de")
+		return "Learning task";
+	if (lang == "sk")
+		return "Učenie úlohy";
+}
+
+function observingTaskText()
+{
+	var lang = getLanguage();
+	if (lang == "en")
+		return "Observing task";
+	if (lang == "si")
+		return "Opazovanje naloge";
+	if (lang == "de")
+		return "Observing task";
+	if (lang == "sk")
+		return "Pozorovanie úlohy";
+}
+
+
 var translationMap =
 {
 	'en': {

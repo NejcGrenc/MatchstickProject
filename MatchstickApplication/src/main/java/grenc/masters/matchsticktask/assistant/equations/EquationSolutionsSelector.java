@@ -66,8 +66,8 @@ public class EquationSolutionsSelector
 			case group_AB:
 				switch (phase)
 				{
-					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1O;
-					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1O;
+					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1MO;
+					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1MO;
 					case TestingPhase_MixedEquations: 			   return EquationSolutionsGroupType.group_1MO;
 					case TestingPhase_OriginalEquationsOptimal:    return EquationSolutionsGroupType.group_1MO;
 					case TestingPhase_OriginalEquationsSuboptimal: return EquationSolutionsGroupType.group_1MO;

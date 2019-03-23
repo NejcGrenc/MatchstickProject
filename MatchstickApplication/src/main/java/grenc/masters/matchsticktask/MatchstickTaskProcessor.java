@@ -86,8 +86,8 @@ public class MatchstickTaskProcessor
 	public MatchstickTaskProcessorReturn prepareNewMatchstickTask()
 	{
 		MatchstickTaskProcessorReturn newTaskResult = new MatchstickTaskProcessorReturn();
-		newTaskResult.newTaskNumber = newTaskNumber();
-		newTaskResult.totalNumberOfTasks = totalNumberOfTasks();
+		newTaskResult.newTaskNumber = newTaskNumber() - totalNumberOfTasksForObervingAndLearning();
+		newTaskResult.totalNumberOfTasks = totalNumberOfTasks() - totalNumberOfTasksForObervingAndLearning();
 		
 		if (newTaskResult.newTaskNumber == 1)
 			newTaskResult.pauseAtStart = true;
@@ -116,14 +116,14 @@ public class MatchstickTaskProcessor
 	
 	// Matchstick Observe
 	public List<Video> prepareNewObserveMatchstickTask() {
-		int taskNumber = newTaskNumber();
+		int taskNumber = newTaskNumberForLocalPhase();
 		EquationSolutionsGroupType videoType = equationSelect().findNextSolutionGroup(taskNumber);
 		return new VideoSelectAssist().videoForTypeAndNumber(videoType, taskNumber);
 	}
 	
 	// Matchstick Learn
 	public String prepareNewLearnMatchstickTask() {
-		int taskNumber = newTaskNumber();
+		int taskNumber = newTaskNumberForLocalPhase();
 		EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(taskNumber);
 		return new LearnEquationAssist().equationCommandForTypeAndNumber(equationType, taskNumber);
 	}
@@ -133,10 +133,24 @@ public class MatchstickTaskProcessor
 	public int newTaskNumber()
 	{
 		return taskDataAssist().newTaskNumber();
-	}	
+	}
 	public int totalNumberOfTasks()
 	{
 		return taskDataAssist().totalNumberOfTasks();
+	}
+	public int totalNumberOfTasksForObervingAndLearning()
+	{
+		return taskDataAssist().getNoTasksForPhase(MatchstickExperimentPhase.LearningPhase_Showing) + 
+				taskDataAssist().getNoTasksForPhase(MatchstickExperimentPhase.LearningPhase_Solving);
+	}
+	
+	public int newTaskNumberForLocalPhase()
+	{
+		return taskDataAssist().newTaskNumber() - taskDataAssist().getNoTasksUpToPhase(nextPhase());
+	}
+	public int totalNumberOfTasksForNextPhase()
+	{
+		return taskDataAssist().getNoTasksForPhase(nextPhase());
 	}
 	
 	public boolean isCurrentTaskSessionFinished()

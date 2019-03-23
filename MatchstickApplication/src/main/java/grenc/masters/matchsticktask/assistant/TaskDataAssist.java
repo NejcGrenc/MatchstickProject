@@ -9,6 +9,7 @@ import grenc.masters.database.dao.MatchstickTaskDataDAO;
 import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
+import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 
 
@@ -92,6 +93,14 @@ public class TaskDataAssist {
 		return lastTaskDataOptional.get().getStatus();
 	}
 	
+	public int getNoTasksForPhase(MatchstickExperimentPhase phase)
+	{
+		return taskSession.getMatchstickGroup().getNoTasksForPhase(phase);
+	}
+	public int getNoTasksUpToPhase(MatchstickExperimentPhase phase)
+	{
+		return taskSession.getMatchstickGroup().getNoTasksUpToPhase(phase);
+	}
 	public int totalNumberOfTasks()
 	{
 		 return taskSession.getMatchstickGroup().getNoTasks();

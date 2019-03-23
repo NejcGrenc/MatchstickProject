@@ -10,7 +10,7 @@
 
     <!-- Task header (contains status information -->
     <div id="task-header" class="horizontal-layout" style="justify-content: space-between;">
-        <h2 id="taskCounter" style="margin-left:30px">Learning phase</h2>
+        <h2 id="taskCounter" style="margin-left:30px">Learning phase: ...</h2>
     </div>
 
     <!-- Application space -->
@@ -49,6 +49,14 @@
             data.push(mapActionObjectToJson(actionList[act]));
         }
         return data;
+    }
+    
+    function setLearningTaskNumber(currentNumber, totalNumber)
+    {
+    	var learningTaskString = "Learning task";
+        if (learningTaskText !== undefined)
+        	learningTaskString = learningTaskText();
+    	 document.getElementById('taskCounter').innerHTML = learningTaskString + ": " + currentNumber + " / " + totalNumber;
     }
     
 </script>
