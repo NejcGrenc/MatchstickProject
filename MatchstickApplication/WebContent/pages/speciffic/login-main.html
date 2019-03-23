@@ -15,10 +15,7 @@
 	    		<span id="loginButton" class="greenButton" onclick="sendLogin()" ><span class="permanentLabel"></span></span>
 	    	</div>
 	    </div>
-	    <div id="existing_part" class="horizontal-layout">
-			<p id="m_repeatedLogin" class="white" style="width:50%;"> Are you logging in for the first time? </p>
-			<div id="buffer-zone" style="padding: 0px 10px;"></div>
-	    </div>
+		<div id="buffer-zone" style="padding: 0px 10px;"></div>
 	    <div>
 	    	<p id="m_acknowledgement" class="white">By writing your name and pressing the green continue button, <br /> you agree to the the terms and conditions of the experiment.</p>
 	    </div>
@@ -27,7 +24,6 @@
  
 <script>
 	hideElementWithId("loginButton");
-	hideElementWithId("existing_part");
 	
 	function sendLogin() {
 		var subjectName = document.getElementById("m_nameInput").value;
@@ -58,7 +54,11 @@
 	}
 	
 	function nameInputChange() {
-		showElementWithId("loginButton");
+		var subjectName = document.getElementById("m_nameInput").value;
+		if (subjectName == null || subjectName == "")
+			hideElementWithId("loginButton");
+		else
+			showElementWithId("loginButton");
 	}
 	
 	// Send on enter
@@ -68,7 +68,6 @@
 	    if (event.keyCode === 13) {
 	        document.getElementById("loginButton").click();
 	    }
-	    nameInputChange(); // Moslty for IE
 	});
 	
 </script>

@@ -30,7 +30,7 @@ function showElementWithId(elementId)
 		var element = document.getElementById(elementId);
 		if (element !== null || element !== undefined)
 		{
-			element.style.visibility = null
+			element.style.visibility = "visible";
 		}
 	}
 }

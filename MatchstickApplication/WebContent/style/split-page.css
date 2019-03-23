@@ -43,6 +43,18 @@ a {
     color: #378de5;
 }
 
+/* #matchstick-half { */
+/*     -webkit-clip-path: rect(0, 50%, 0, 100%); */
+/*     clip-path: rect(0, 50%, 0, 100%); */
+/*     background: #378de5; */
+/* } */
+
+/* #images-half { */
+/*     -webkit-clip-path: rect(50%, 100%, 100%, 100%); */
+/*     clip-path: rect(50%, 100%, 100%, 100%); */
+/*     background: white; */
+/* } */
+
 #matchstick-half {
     -webkit-clip-path: polygon(0 100vh, 0 0, 100% 0);
     clip-path: polygon(0 100vh, 0 0, 100% 0);
