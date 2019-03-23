@@ -24,7 +24,8 @@ public class VideoSelectAssist
 		switch(number)
 		{
 			default:
-			case 1: return Arrays.asList(Video.first_mp4, Video.first_ogg);
+			case 1: return Arrays.asList(Video.betweenN_mp4, Video.betweenN_ogg);
+			case 2: return Arrays.asList(Video.withinN_mp4, Video.withinN_ogg);
 		}
 	}
 	
@@ -33,7 +34,8 @@ public class VideoSelectAssist
 		switch(number)
 		{
 			default:
-			case 1: return Arrays.asList(Video.first_mp4, Video.first_ogg);
+			case 1: return Arrays.asList(Video.betweenO_mp4, Video.betweenO_ogg);
+			case 2: return Arrays.asList(Video.withinO_mp4, Video.withinO_ogg);
 		}
 	}
 	
@@ -42,7 +44,10 @@ public class VideoSelectAssist
 		switch(number)
 		{
 			default:
-			case 1: return Arrays.asList(Video.first_mp4, Video.first_ogg);
+			case 1: return Arrays.asList(Video.betweenN_mp4, Video.betweenN_ogg);
+			case 2: return Arrays.asList(Video.withinN_mp4, Video.withinN_ogg);		
+			case 3: return Arrays.asList(Video.betweenO_mp4, Video.betweenO_ogg);
+			case 4: return Arrays.asList(Video.withinO_mp4, Video.withinO_ogg);
 		}
 	}
 	

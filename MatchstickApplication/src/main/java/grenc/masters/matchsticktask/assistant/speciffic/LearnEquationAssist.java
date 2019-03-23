@@ -85,7 +85,7 @@ public class LearnEquationAssist
 	private String task1_withinN()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "1+2+2=5" + "';");
+		commandBuilder.append("var originalEquation = '" + "1+2+2=6" + "';");
 		commandBuilder.append("setPlanStartShadow(4, 5, false);");
 		commandBuilder.append("setPlanEndShadow(4, 6, true);");
 		return commandBuilder.toString();
@@ -103,7 +103,7 @@ public class LearnEquationAssist
 	private String task1_withinO()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "1+2-3=1" + "';");
+		commandBuilder.append("var originalEquation = '" + "1+3-3=2" + "';");
 		commandBuilder.append("setPlanStartShadow(3, 4, false);");
 		commandBuilder.append("setPlanEndShadow(3, 3, true);");
 		return commandBuilder.toString();

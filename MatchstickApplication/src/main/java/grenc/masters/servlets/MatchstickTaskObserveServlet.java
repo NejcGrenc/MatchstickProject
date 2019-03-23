@@ -60,6 +60,7 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 
 		prepareObserveTask(builder, taskBuilder);
 
+		openInfoPopupBeforeFirstVideo(builder, taskBuilder);
 	}
 
 	
@@ -100,5 +101,13 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 	{
 		String sourceCommand = "addSource('" + video.getSource() + "', '" + video.getType() + "');";
 		builder.appendBodyScriptCommand(sourceCommand);
+	}
+	
+	private void openInfoPopupBeforeFirstVideo(WebpageBuilder builder,  MatchstickTaskProcessor taskBuilder)
+	{
+		if (taskBuilder.newTaskNumber() == 1)
+		{
+			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
+		}
 	}
 }	
