@@ -7,7 +7,7 @@
 	    </div>
 		<div class="horizontal-layout">
 			<input type="text" id="m_nameInput" name="name" placeholder="Write your name" 
-					oninput="nameInputChange()" onchange="nameInputChange()" maxlength="35"
+					oninput="nameInputChange()" onchange="nameInputChange()" onclick="nameInputChange()" maxlength="35"
 					onkeypress="return blockSpecialCharForNameField(event)">
 					<!-- Maybe needed also onpropertychange="nameInputChange()"  -->
 			<div id="buffer-zone" style="padding: 0px 10px;"></div>
@@ -18,10 +18,6 @@
 	    <div id="existing_part" class="horizontal-layout">
 			<p id="m_repeatedLogin" class="white" style="width:50%;"> Are you logging in for the first time? </p>
 			<div id="buffer-zone" style="padding: 0px 10px;"></div>
-	    	<div id="check_repeated_button">
-	    		<span id="reloginButton_yes" class="blueButton" onclick="sendRelogin_yes()" >Yes</span>
-	    		<span id="reloginButton_no" class="blueButton" onclick="sendRelogin_no()" >No</span>
-	    	</div>
 	    </div>
 	    <div>
 	    	<p id="m_acknowledgement" class="white">By writing your name and pressing the green continue button, <br /> you agree to the the terms and conditions of the experiment.</p>
@@ -63,7 +59,6 @@
 	
 	function nameInputChange() {
 		showElementWithId("loginButton");
-		hideElementWithId("existing_part");
 	}
 	
 	// Send on enter
@@ -73,22 +68,7 @@
 	    if (event.keyCode === 13) {
 	        document.getElementById("loginButton").click();
 	    }
+	    nameInputChange(); // Moslty for IE
 	});
-	
-	// Repeated name
-	function askForRepeated() {
-		hideElementWithId("loginButton");
-		showElementWithId("existing_part");
-	}
-	
-	function insertExistingName(existingName) {
-		document.getElementById("m_nameInput").value = existingName
-	}
-	
-	// Show the terms and agreements popup
-	function terms() 
-	{
-		console.log("Present terms and conditions");
-	}
 	
 </script>

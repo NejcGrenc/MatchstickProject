@@ -7,7 +7,6 @@ function drawAdditionalElements()
 {
 	if (typeof allShadows !== 'undefined' && allShadows.length > 0)
 	{
-		console.log(allShadows, actionList, currentAction);
 		if (currentAction == null && (! new Calculator(equation.toString()).isCorrect()))
 			drawArrowToShadow(allShadows[startShadowPlanValue], startShadowPlanDirectionRight);
 		else if (currentAction !== null)

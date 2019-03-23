@@ -302,19 +302,17 @@ function mouseUpListener(mouseEvent)
 
 function mouseScrollListener(mouseEvent)
 {
-    var deltaFirefox = mouseEvent.detail; // Firefox
-    var delta = mouseEvent.wheelDelta; // Others
-    if (deltaFirefox === undefined || typeof deltaFirefox === 'undefined' )
-    {
-        console.log("Scroll has to be tested in non-firefox browsers ", delta);
-        return false;
-    }
-
-    var scrollDirection = (deltaFirefox === 0) ? 0 : ((deltaFirefox > 0) ? 1 : -1); 
-    
     // Rotate matchstick in desired direction
-    rotate(currentAction.matchstick, scrollDirection * 45);
+    var degrees = 45;
+	
+    var deltaFirefox = mouseEvent.detail; // Firefox
+	var scrollDirectionFirefox = (deltaFirefox === 0) ? 0 : ((deltaFirefox > 0) ? 1 : -1); 
+	rotate(currentAction.matchstick, scrollDirectionFirefox * degrees);
 
+	var delta = mouseEvent.wheelDelta; // Chrome
+	var scrollDirectionChrome = (delta === 0) ? 0 : ((delta > 0) ? -1 : 1); 
+	rotate(currentAction.matchstick, scrollDirectionChrome * degrees);
+  
     refreshCanvas();
 
     // Prevent default action (page scroll)
