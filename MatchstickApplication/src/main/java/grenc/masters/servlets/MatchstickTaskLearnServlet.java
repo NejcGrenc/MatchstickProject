@@ -46,16 +46,17 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
+		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(new MatchstickTaskProcessor(session).matchstickGroupType());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
 
-		loadLearningTask(builder);
+		loadLearningTask(builder, taskBuilder);
 		
 	}
 
@@ -84,12 +85,9 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		}
 	}
 
-	private void loadLearningTask(WebpageBuilder builder)
+	private void loadLearningTask(WebpageBuilder builder, MatchstickTaskProcessor taskBuilder)
 	{
-		builder.appendBodyScriptCommand("var originalEquation = '" + "7+2+3=5" + "';");
-		builder.appendBodyScriptCommand("setPlanStartShadow(0, 0, true);");
-		builder.appendBodyScriptCommand("setPlanEndShadow(6, 4, false);");
-
+		builder.appendBodyScriptCommand(taskBuilder.prepareNewLearnMatchstickTask());
 		builder.appendBodyScriptCommand("startWithPause();");
 	}
 	

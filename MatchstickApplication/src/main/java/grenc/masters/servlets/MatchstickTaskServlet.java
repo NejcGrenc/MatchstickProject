@@ -77,7 +77,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 		builder.appendPageElementFile(PageElement.matchstick_task);
 
 		
-
+		newTask.newEquation = "7+2+3=5";
 		
 		// Setup current task number
 		builder.appendBodyScriptCommand("setSolvingTaskNumber("+newTask.newTaskNumber+", "+newTask.totalNumberOfTasks+");");

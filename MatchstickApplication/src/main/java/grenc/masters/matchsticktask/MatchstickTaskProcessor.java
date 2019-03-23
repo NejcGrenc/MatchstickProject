@@ -8,8 +8,9 @@ import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.matchsticktask.assistant.EquationAssist;
 import grenc.masters.matchsticktask.assistant.TaskDataAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
-import grenc.masters.matchsticktask.assistant.VideoSelectAssist;
 import grenc.masters.matchsticktask.assistant.equations.EquationSolutionsSelector;
+import grenc.masters.matchsticktask.assistant.speciffic.LearnEquationAssist;
+import grenc.masters.matchsticktask.assistant.speciffic.VideoSelectAssist;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
@@ -113,9 +114,18 @@ public class MatchstickTaskProcessor
 		return newTaskResult;
 	}
 	
+	// Matchstick Observe
 	public List<Video> prepareNewObserveMatchstickTask() {
 		int taskNumber = newTaskNumber();
-		return new VideoSelectAssist().videoForTypeAndNumber(equationSelect().findNextSolutionGroup(taskNumber), taskNumber);
+		EquationSolutionsGroupType videoType = equationSelect().findNextSolutionGroup(taskNumber);
+		return new VideoSelectAssist().videoForTypeAndNumber(videoType, taskNumber);
+	}
+	
+	// Matchstick Learn
+	public String prepareNewLearnMatchstickTask() {
+		int taskNumber = newTaskNumber();
+		EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(taskNumber);
+		return new LearnEquationAssist().equationCommandForTypeAndNumber(equationType, taskNumber);
 	}
 	
 	

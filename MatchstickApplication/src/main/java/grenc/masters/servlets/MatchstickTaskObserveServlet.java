@@ -1,6 +1,7 @@
 package grenc.masters.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,18 +48,18 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
+		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(new MatchstickTaskProcessor(session).matchstickGroupType());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
 
 		builder.appendPageElementFile(PageElement.matchstick_task_observe);
 
-		addSource(builder, Video.first_mp4);
-		addSource(builder, Video.first_ogg);
-		builder.appendBodyScriptCommand("setup();");
+		prepareObserveTask(builder, taskBuilder);
+
 	}
 
 	
@@ -86,6 +87,15 @@ public class MatchstickTaskObserveServlet extends BasePageServlet
 		}
 	}
 
+	
+	private void prepareObserveTask(WebpageBuilder builder, MatchstickTaskProcessor taskBuilder)
+	{
+		List<Video> videos = taskBuilder.prepareNewObserveMatchstickTask();
+		for (Video video : videos)
+			addSource(builder, video);
+		builder.appendBodyScriptCommand("setup();");
+	}
+	
 	private void addSource(WebpageBuilder builder, Video video)
 	{
 		String sourceCommand = "addSource('" + video.getSource() + "', '" + video.getType() + "');";
