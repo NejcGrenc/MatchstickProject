@@ -14,8 +14,8 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
-import grenc.masters.webpage.builder.AccountBallBuilder;
 import grenc.masters.webpage.builder.WebpageBuilder;
+import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
@@ -60,7 +60,7 @@ public class UserDataServlet extends BasePageServlet
 		new Translate(builder, Script.translate_userdata)
 			.translateAll()
 			.translateSpecial("m_userdata_input_age", "placeholder");
-		new AccountBallBuilder().fromSession(session).withBuilder(builder).build(getServletContext()).set();
+		new AccountBall(builder, session, getServletContext()).set();
 		new DataPresentBall(builder, session).set();
 
 		builder.appendPageElementFile(PageElement.user_data);

@@ -23,8 +23,8 @@ import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
 import grenc.masters.utils.PrintUtils;
-import grenc.masters.webpage.builder.AccountBallBuilder;
 import grenc.masters.webpage.builder.WebpageBuilder;
+import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
@@ -72,7 +72,7 @@ public class ImagesTaskServlet extends BasePageServlet
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
-		new AccountBallBuilder().fromSession(session).withBuilder(builder).build(getServletContext()).set();
+		new AccountBall(builder, session, getServletContext()).set();
 		new DataPresentBall(builder, session).set();
 		
 		builder.appendPageElementFile(PageElement.image_task);

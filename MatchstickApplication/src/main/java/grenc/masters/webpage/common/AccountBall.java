@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
+import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Style;
@@ -20,6 +22,13 @@ public class AccountBall extends CommonElement
 	{
 		super(builder);
 		this.subject = subject;
+		this.basePath = servletContext.getRealPath("/");
+	}
+	
+	public AccountBall(WebpageBuilder builder, Session session, ServletContext servletContext)
+	{
+		super(builder);
+		this.subject = SubjectDAO.getInstance().findSubjectById(session.getSubjectId());
 		this.basePath = servletContext.getRealPath("/");
 	}
 
