@@ -60,7 +60,7 @@ public class UserDataServlet extends BasePageServlet
 		new Translate(builder, Script.translate_userdata)
 			.translateAll()
 			.translateSpecial("m_userdata_input_age", "placeholder");
-		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
+		new AccountBallBuilder().fromSession(session).withBuilder(builder).build(getServletContext()).set();
 		new DataPresentBall(builder, session).set();
 
 		builder.appendPageElementFile(PageElement.user_data);

@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 public enum PageStyleDependency
 {
 	account_ball (),
+	account_ball_popup (),
 	data_present_ball (),
 	language_ball (),
 

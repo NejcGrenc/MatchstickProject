@@ -62,7 +62,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 		
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
-		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
+		new AccountBallBuilder().fromSession(session).withBuilder(builder).build(getServletContext()).set();
 		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
 		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
 	    

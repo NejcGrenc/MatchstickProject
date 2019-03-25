@@ -1,5 +1,7 @@
 package grenc.masters.webpage.builder;
 
+import javax.servlet.ServletContext;
+
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
@@ -32,10 +34,10 @@ public class AccountBallBuilder
 		return this;
 	}
 	
-	public AccountBall build()
+	public AccountBall build(ServletContext servletContext)
 	{
 		if (subject == null || builder == null)
 			throw new RuntimeException(String.format("Invalid values while building AccountBall (subject='%s', builder='%s'", subject, builder));
-		return new AccountBall(builder, subject);
+		return new AccountBall(builder, subject, servletContext);
 	}
 }

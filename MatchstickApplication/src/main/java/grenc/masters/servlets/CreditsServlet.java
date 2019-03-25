@@ -52,7 +52,7 @@ public class CreditsServlet extends BasePageServlet
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
-		new AccountBallBuilder().fromSession(session).withBuilder(builder).build().set();
+		new AccountBallBuilder().fromSession(session).withBuilder(builder).build(getServletContext()).set();
 		
 		builder.appendPageElementFile(PageElement.credits);
 		

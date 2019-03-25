@@ -3,6 +3,7 @@ package grenc.masters.resources;
 public enum PageElement {
 
 	account_ball ("common/", "account-ball.html"),
+	account_ball_popup ("common/", "account-ball-popup.html"),
 	data_present_ball ("common/", "data-present-ball.html"),
 	language_ball ("common/", "language-ball.html"),
 

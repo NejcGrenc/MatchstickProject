@@ -33,7 +33,7 @@ public class InitialCallHandler
 	
 	public static boolean isInitial(HttpServletRequest request)
 	{
-		return (request.getAttribute("session") == null);
+		return (request.getAttribute("session") == null || isRestartAnew(request));
 	}
 	
 	/**
@@ -42,18 +42,27 @@ public class InitialCallHandler
 	 */
 	public void handle()
 	{
-		Cookie sessionCookie = getSessionCookie();
-		Session session;
-		if (sessionCookie != null)
+		if (isRestartAnew(request)) 
 		{
-			session = getSessionFromCookie(sessionCookie);
-		}
-		else
-		{
-			session = new SessionGenerator().generateSession();
+			Session session = new SessionGenerator().generateSession();
 			setSessionCookie(session.getTag());
+			request.setAttribute("session", session.getTag());
 		}
-		request.setAttribute("session", session.getTag());
+		else 
+		{
+			Cookie sessionCookie = getSessionCookie();
+			Session session;
+			if (sessionCookie != null)
+			{
+				session = getSessionFromCookie(sessionCookie);
+			}
+			else
+			{
+				session = new SessionGenerator().generateSession();
+				setSessionCookie(session.getTag());
+			}
+			request.setAttribute("session", session.getTag());
+		}
 
 		
 		if (SkipLogin.shouldSkip(request)) 
@@ -85,6 +94,11 @@ public class InitialCallHandler
 	{
 		Cookie sessionCookie = new Cookie(sessionCookieName, sessionTag);
 		response.addCookie(sessionCookie);
+	}
+	
+	private static boolean isRestartAnew(HttpServletRequest request)
+	{
+		return request.getAttribute("restart_anew") != null;
 	}
 	
 	

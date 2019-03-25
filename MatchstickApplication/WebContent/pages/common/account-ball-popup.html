@@ -1,0 +1,18 @@
+<div>
+    <p id='m_popup_firstline'> Performing experiments as: </p> 
+	<p id='accountBallName'><b> subject.getName() </b></p>
+    <div style="height: 40px;"></div>
+    <button onclick="startAnew()" class='rightButton'>Restart with a new user</button>
+</div>
+<script>
+	function startAnew()
+	{
+		console.log("Start anew requested");
+	    post("/", {"restart_anew": true});
+	}
+	
+	function setName(name)
+	{
+		document.getElementById("accountBallName").innerHTML = "<b>" + name + "</b>";
+	}
+</script>
