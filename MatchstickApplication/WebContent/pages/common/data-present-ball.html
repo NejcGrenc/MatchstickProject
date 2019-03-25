@@ -1,8 +1,8 @@
 
 <div id="data-present" class="right">
 	<h3 id=matchstickGroup style="display: inline-block"></h3>
-	<h3 id=risk style="display: inline-block"></h3>
-    <span id="dataPresentButton" class="blueButton" onclick="goSeeData(currentPage)"><img src="images/baseline_warning_white_48dp.png" alt="Show current data" /></span>
+	<img id=risk src="images/baseline_warning_black_48dp.png" alt="Show current data" style="display: inline-block; visibility: hidden"/>
+    <span id="dataPresentButton" class="blueButton" onclick="goSeeData(currentPage)"><img src="images/baseline_info_white_48dp.png" alt="Show current data" /></span>
 </div>
 <script>
 	function goSeeData(returnCallUrl)
@@ -30,6 +30,7 @@
 	
 	function setRisk()
 	{
-		document.getElementById("risk").innerHTML = "!RISK!"; 
+		console.log("RISK");
+		document.getElementById("risk").style.visibility = "visible"; 
 	}
 </script>
