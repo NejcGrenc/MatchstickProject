@@ -10,7 +10,7 @@ public enum MatchstickGroup
 	group_B  (2, 2, 2, 2, 2, 4),
 	group_AB (4, 4, 2, 2, 2, 4),
 	group_0  (0, 0, 2, 2, 2, 4),
-	test	 (0, 0, 0, 2, 2, 0)
+	test	 (1, 1, 1, 1, 1, 1)
 	;
 	
 
