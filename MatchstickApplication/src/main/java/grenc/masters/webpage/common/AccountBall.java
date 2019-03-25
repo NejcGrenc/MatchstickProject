@@ -1,9 +1,5 @@
 package grenc.masters.webpage.common;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import javax.servlet.ServletContext;
 
 import grenc.masters.database.dao.SubjectDAO;
@@ -11,25 +7,24 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Style;
+import grenc.masters.webpage.builder.PopupBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 
-public class AccountBall extends CommonElement
+
+public class AccountBall extends PopupBuilderAbstract
 {
 	private Subject subject;
-	private String basePath;
 	
 	public AccountBall(WebpageBuilder builder, Subject subject, ServletContext servletContext)
 	{
-		super(builder);
+		super(builder, servletContext);
 		this.subject = subject;
-		this.basePath = servletContext.getRealPath("/");
 	}
 	
 	public AccountBall(WebpageBuilder builder, Session session, ServletContext servletContext)
 	{
-		super(builder);
+		super(builder, servletContext);
 		this.subject = SubjectDAO.getInstance().findSubjectById(session.getSubjectId());
-		this.basePath = servletContext.getRealPath("/");
 	}
 
 	public void set()
@@ -47,21 +42,4 @@ public class AccountBall extends CommonElement
 		builder.appendBodyScriptCommand("setName('" + subject.getName() + "');");
 	}
 	
-	private String readFile(String fileName)
-	{
-		StringBuilder content = new StringBuilder();
-		try 
-		{
-		    BufferedReader in = new BufferedReader(new FileReader(basePath + fileName));
-		    String line;
-		    while ((line = in.readLine()) != null) 
-		    {
-		    	content.append(line);
-		    }
-		    in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return content.toString();
-	}
 }
