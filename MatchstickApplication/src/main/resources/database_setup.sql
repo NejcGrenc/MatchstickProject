@@ -46,6 +46,7 @@ CREATE TABLE matchstick_task (
 	original_eq	 		varchar(12),
 	solved_eq	 		varchar(12),
 	time	 			bigint,
+	activity_time	 	bigint,
 	moves	 			int,
 	transfer	 		real
 );

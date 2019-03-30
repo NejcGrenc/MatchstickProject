@@ -54,7 +54,7 @@ public class MatchstickTaskDataDAO
 				  .get(0);
 	}
 	
-	public synchronized MatchstickTaskData update(int id, String status, String originalEq, String solvedEq, long time, int moves, double transfer)
+	public synchronized MatchstickTaskData update(int id, String status, String originalEq, String solvedEq, long time, long activityTime, int moves, double transfer)
 	{
 		QueryBuilder.newUpdate().inTable("matchstick_task")
 					.setCondition("id", id)
@@ -62,6 +62,7 @@ public class MatchstickTaskDataDAO
 					.setField("original_eq", originalEq)
 					.setField("solved_eq", solvedEq)
 					.setField("time", time)
+					.setField("activity_time", activityTime)
 					.setField("moves", moves)
 					.setField("transfer", transfer)
 					.execute();
@@ -96,6 +97,7 @@ public class MatchstickTaskDataDAO
 				  .getField("original_eq", String.class, MatchstickTaskData::setOriginalEq)
 				  .getField("solved_eq", String.class, MatchstickTaskData::setSolvedEq)
 				  .getField("time", Long.class, MatchstickTaskData::setTime)
+				  .getField("activity_time", Long.class, MatchstickTaskData::setTotalActivityTime)
 				  .getField("moves", Integer.class, MatchstickTaskData::setMoves)
 				  .getField("transfer", Float.class, MatchstickTaskData::setTransfer);
 	}

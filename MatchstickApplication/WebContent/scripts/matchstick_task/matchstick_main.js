@@ -10,11 +10,12 @@ var canvasHeight;
 var allMatchsticks = [];
 var allShadows = [];
 var equation;
-
+var timer;
 
 function start()
 {
     console.log("Page setting start");
+    timer = new Timer(document.getElementById("timer"));
 
     canvasWidth = 1000;
     canvasHeight = 500;
@@ -30,6 +31,9 @@ function start()
 	{
     	onInit();
 	}
+    
+    timer.run();
+    timer.startTimer();
     
     console.log("Page setting end");
 }

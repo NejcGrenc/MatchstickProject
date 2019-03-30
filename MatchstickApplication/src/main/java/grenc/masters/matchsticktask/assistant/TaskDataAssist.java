@@ -92,6 +92,13 @@ public class TaskDataAssist {
 			return null;
 		return lastTaskDataOptional.get().getStatus();
 	}
+	public long timeOfLastTask()
+	{
+		Optional<MatchstickTaskData> lastTaskDataOptional = (taskDataList.isEmpty()) ? Optional.empty() : Optional.of(taskDataList.get(0));
+		if (! lastTaskDataOptional.isPresent())
+			return 0l;
+		return lastTaskDataOptional.get().getTime();
+	}
 	
 	public int getNoTasksForPhase(MatchstickExperimentPhase phase)
 	{

@@ -45,7 +45,7 @@ public class ResponseProcessor
 		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse();
 		int newTaskNumber = matchstickTaskProcessor.newTaskNumber();
 		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(lastTaskSession.getId(), newTaskNumber);
-		matchstickTaskDataDAO.update(taskData.getId(), MatchstickTaskStatus.solved.name(), "", "", 0, 0, 0);	
+		matchstickTaskDataDAO.update(taskData.getId(), MatchstickTaskStatus.solved.name(), "", "", 0, 0, 0, 0);	
 	}
 	
 	public void storeData(String stringData)
@@ -59,7 +59,10 @@ public class ResponseProcessor
 	public void storeData(TaskSession taskSession, String stringData, int newTaskNumber)
 	{
 		JSONTokener tokener = new JSONTokener(stringData);
-		JSONArray actions = new JSONArray(tokener);
+		JSONObject allData = new JSONObject(tokener);
+
+		Long time = allData.getLong("time");
+		JSONArray actions = allData.getJSONArray("actions");
 		
 		for (int i = 0; i < actions.length(); i++)
 		{
@@ -88,15 +91,15 @@ public class ResponseProcessor
 			}
 			
 			dataInProcessing.setStartEquationIfUnset(savedAction.getStartEq());
-			dataInProcessing.totalTime += (savedAction.getEndTime() - savedAction.getStartTime());
+			dataInProcessing.totalActivityTime += (savedAction.getEndTime() - savedAction.getStartTime());
 			dataInProcessing.moves++;
 		}
 		
 		// Transfer is yet unknown
 		
 		matchstickTaskDataDAO.update(taskData.getId(), dataInProcessing.status().name(), 
-				dataInProcessing.originalEquation, dataInProcessing.solvedEquation, 
-				dataInProcessing.totalTime, dataInProcessing.moves, 0);	
+				dataInProcessing.originalEquation, dataInProcessing.solvedEquation, time,
+				dataInProcessing.totalActivityTime, dataInProcessing.moves, 0);	
 	}
 	
 	private MatchstickActionData saveAction(int matchstickTaskId, JSONObject action)
@@ -135,7 +138,7 @@ public class ResponseProcessor
 		boolean stopped = false;
 		boolean restarted = false;
 		
-		Long totalTime = 0L;
+		Long totalActivityTime = 0L;
 		int moves = 0;
 		
 		void setStartEquationIfUnset(String originalEq)

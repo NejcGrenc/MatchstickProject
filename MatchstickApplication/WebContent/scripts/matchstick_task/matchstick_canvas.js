@@ -83,6 +83,8 @@ function calculateEquation()
 
     var tooltip = equationString + ":  " + eqStr + "  " + addInfo;
     if (done) {
+    	timer.stopTimer();
+    	
         greenButtonContainer.style.display = 'inline';
         redButtonContainer.style.display = 'none';
         
@@ -91,6 +93,8 @@ function calculateEquation()
     }
     else
     {
+    	timer.continueTimer();
+    	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'inline';
         redButton.title = tooltip;

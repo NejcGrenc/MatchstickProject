@@ -11,6 +11,7 @@ var totalTimer = [];
 var timerBegin = null;
 var done = false;
 var currentTask = null;
+var timer;
 
 var remainingImages;
 var standardPath = "/";
@@ -57,6 +58,9 @@ var tasks =
 function start()
 {
     console.log("Page setting start");
+    timer = new Timer(document.getElementById("timer"));
+    timer.run();
+    
     canvas_init();
     
     waitScreen();
@@ -246,6 +250,7 @@ function startTask()
     
     canvas.addEventListener("mousedown", solutionListener, false);	
     
+    timer.continueTimer();
     timerBegin = new Date().getTime();
 }
 function presentTask(taskData) 
@@ -317,6 +322,7 @@ function finishTask(sextant)
 {
     canvas.removeEventListener("mousedown", solutionListener, false);	
     
+    timer.stopTimer();
     totalTimer.push(new Date().getTime() - timerBegin);
     console.log(totalTimer);
     timerBegin = null;

@@ -16,7 +16,8 @@ function onSucessSend()
 	waitScreen();
 
     var data = mapAllActionsToJson();
-    post(forward_url, {actions: JSON.stringify(data)});
+    var totalTime = timer.timeNumber();
+    post(forward_url, {task_data: JSON.stringify({time: totalTime, actions: data})});
     
 	console.log();
 
@@ -72,7 +73,9 @@ function onStopSend()
     pausedata.endTime = 0;
     data.push(pausedata);
     
-	post(forward_url, {actions: JSON.stringify(data)});
+    var totalTime = timer.timeNumber();
+    
+    post(forward_url, {task_data: JSON.stringify({time: totalTime, actions: data})});
     
 	console.log(); 	 
 }
@@ -101,7 +104,9 @@ function onRestartSend()
     restartdata.endTime = 0;
     data.push(restartdata);
     
-	post(forward_url, {actions: JSON.stringify(data)});
+    var totalTime = timer.timeNumber();
+    
+    post(forward_url, {task_data: JSON.stringify({time: totalTime, actions: data})});
     
 	console.log(); 	 
 }

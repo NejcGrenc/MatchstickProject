@@ -14,6 +14,7 @@ public class MatchstickTaskData
 	private String solvedEq;
 	
 	private Long time;
+	private Long totalActivityTime;
 	private int moves;
 	private float transfer;
 	
@@ -85,6 +86,14 @@ public class MatchstickTaskData
 	public void setTime(Long time)
 	{
 		this.time = time;
+	}
+	public Long getTotalActivityTime()
+	{
+		return totalActivityTime;
+	}
+	public void setTotalActivityTime(Long time)
+	{
+		this.totalActivityTime = time;
 	}
 	public int getMoves()
 	{

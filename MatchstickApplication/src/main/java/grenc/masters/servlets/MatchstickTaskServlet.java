@@ -85,6 +85,9 @@ public class MatchstickTaskServlet extends BasePageServlet
 		System.out.println(" | - Created new equation: " + newTask.newEquation);
 		builder.appendBodyScriptCommand("var originalEquation = '" + newTask.newEquation + "';");
 
+		if (newTask.continueWithTime != 0l)
+			builder.appendBodyScriptCommand("timer_presetTime(" + newTask.continueWithTime + ");");
+			
 		// Start the task when all is properly set
 		if (newTask.pauseAtStart)
 			builder.appendBodyScriptCommand("startWithPause();");
@@ -103,7 +106,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		System.out.println("Main session: " + session);
 		
-		String actions = (String) request.getAttribute("actions");
+		String actions = (String) request.getAttribute("task_data");
 		System.out.println("Value of 'actions' is " + actions);
 		if (actions == null || actions.isEmpty())
 		{

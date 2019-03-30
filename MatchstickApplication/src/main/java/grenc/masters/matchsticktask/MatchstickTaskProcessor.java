@@ -99,6 +99,7 @@ public class MatchstickTaskProcessor
 		{
 			newTaskResult.newEquation = equationAssist().getLastUsedEquation();
 			newTaskResult.pauseAtStart = false;
+			newTaskResult.continueWithTime = taskDataAssist().timeOfLastTask();
 		}
 		else
 		{
@@ -170,6 +171,7 @@ public class MatchstickTaskProcessor
 		public int totalNumberOfTasks;
 		public String newEquation;
 		public boolean pauseAtStart;
+		public long continueWithTime = 0l;
 	}
 
 }

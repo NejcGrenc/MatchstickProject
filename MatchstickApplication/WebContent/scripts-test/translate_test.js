@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var sinon = require('sinon');
 
 var fs = require('fs');
-eval(fs.readFileSync('WebContent/scripts/translate.js').toString());
+eval(fs.readFileSync('WebContent/scripts/translations/translate.js').toString());
 
 
 describe('setLanguageBall', function () {

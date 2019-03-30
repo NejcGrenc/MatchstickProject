@@ -20,4 +20,4 @@ with Node arguments
 
 ## Full suite test
 
-\workplace\matchstick> ..\node_modules\.bin\mocha WebContent\scripts-test
+\workplace\MatchstickProject\MatchstickApplication> ..\..\node_modules\.bin\mocha WebContent\scripts-test

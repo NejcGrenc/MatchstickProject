@@ -24,6 +24,7 @@ public enum Script {
 	page_functions ("page_functions.js"),
 	popup ("popup.js"),
 	send ("send.js"),
+	timer ("timer.js"),
 	
 	translate ("translations/", "translate.js"),
 	translate_credits ("translations/", "translate_credits.js"),
