@@ -145,8 +145,8 @@ function getStandardizedShadowPositionInEquationFrame(shadow, equationFrame)
 // Equation standard
 //
 
-var eqautionElement_standardWidth = 90;
-var equationElement_standardHeight = 170;
+var eqautionElement_standardWidth = 80;
+var equationElement_standardHeight = 160;
 
 //
 // Matchstick Numeral frame
