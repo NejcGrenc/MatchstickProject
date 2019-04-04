@@ -82,7 +82,7 @@ function waitScreen()
     
     clearCanvas();
     ctx.beginPath();
-    ctx.font = "40px Arial";
+    ctx.font = "20px Arial";
     ctx.textAlign = "center";
     ctx.fillText(waitString, canvas.width/2, canvas.height/2); 
     ctx.closePath();
@@ -184,8 +184,8 @@ function drawBegin()
     clearCanvas();
     var canvasMiddleX = canvas.width / 2;
     var canvasMiddleY = canvas.height / 2;
-    var imgWidth = 80;
-    var imgHeight = 80;
+    var imgWidth = 40;
+    var imgHeight = 40;
     drawImage(beginImage, canvasMiddleX - imgWidth/2, canvasMiddleY - imgHeight/2, imgWidth, imgHeight);
 }
 
@@ -236,8 +236,8 @@ function drawFocus()
     clearCanvas();
     var canvasMiddleX = canvas.width / 2;
     var canvasMiddleY = canvas.height / 2;
-    var imgWidth = 60;
-    var imgHeight = 60;
+    var imgWidth = 30;
+    var imgHeight = 30;
     drawImage(focusImage, canvasMiddleX - imgWidth/2, canvasMiddleY - imgHeight/2, imgWidth, imgHeight);
 }
 
@@ -353,8 +353,8 @@ function drawSolution(image)
     clearCanvas();
     var canvasMiddleX = canvas.width / 2;
     var canvasMiddleY = canvas.height / 2;
-    var imgWidth = 80;
-    var imgHeight = 80;
+    var imgWidth = 40;
+    var imgHeight = 40;
     drawImage(image, canvasMiddleX - imgWidth/2, canvasMiddleY - imgHeight/2, imgWidth, imgHeight);
 }
 
@@ -390,7 +390,7 @@ function finish()
     
     clearCanvas();
     ctx.beginPath();
-    ctx.font = "40px Arial";
+    ctx.font = "20px Arial";
     ctx.textAlign = "center";
     ctx.fillText(totalResultString, canvas.width/2, canvas.height/2 - 23); 
     ctx.fillText(averageTimeString, canvas.width/2, canvas.height/2 + 23); 
