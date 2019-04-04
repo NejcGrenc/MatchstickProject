@@ -64,13 +64,19 @@ public class ImagesTaskServlet extends BasePageServlet
 		builder.addStyle(Style.buttons);
 
 		builder.addScript(Script.send);
+		builder.addScript(Script.translate);	
 		builder.addScript(Script.familiar_figures);
 		
 		
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
-		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		// Options to change languages 
+		// should be removed from the page for now
+		// because it can break the experiment flow
+		//
+		// new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
 		new AccountBall(builder, session, getServletContext()).set();
 		new DataPresentBall(builder, session).set();
