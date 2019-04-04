@@ -24,10 +24,15 @@ public enum PageElement {
 	agreement_sk ("speciffic/agreement/", "agreement-sk.html"),
 	agreement_at ("speciffic/agreement/", "agreement-at.html"),
 	
-	info_en ("speciffic/info/", "info-en.html"),
-	info_si ("speciffic/info/", "info-si.html"),
-	info_sk ("speciffic/info/", "info-sk.html"),
-	info_at ("speciffic/info/", "info-at.html")
+	matchstick_info_en ("speciffic/matchstick-info/", "info-en.html"),
+	matchstick_info_si ("speciffic/matchstick-info/", "info-si.html"),
+	matchstick_info_sk ("speciffic/matchstick-info/", "info-sk.html"),
+	matchstick_info_at ("speciffic/matchstick-info/", "info-at.html"),
+	
+	image_info_en ("speciffic/image-task-info/", "info-en.html"),
+	image_info_si ("speciffic/image-task-info/", "info-si.html"),
+	image_info_sk ("speciffic/image-task-info/", "info-sk.html"),
+	image_info_at ("speciffic/image-task-info/", "info-at.html")
 	;
 	
 	

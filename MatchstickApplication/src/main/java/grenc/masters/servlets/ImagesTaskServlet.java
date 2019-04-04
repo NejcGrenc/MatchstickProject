@@ -22,11 +22,11 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.helper.ImageTaskInfoPopup;
 import grenc.masters.utils.PrintUtils;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
-import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 
 
@@ -64,7 +64,7 @@ public class ImagesTaskServlet extends BasePageServlet
 		builder.addStyle(Style.buttons);
 
 		builder.addScript(Script.send);
-		builder.addScript(Script.translate);	
+		builder.addScript(Script.translate);
 		builder.addScript(Script.familiar_figures);
 		
 		
@@ -76,13 +76,19 @@ public class ImagesTaskServlet extends BasePageServlet
 		// because it can break the experiment flow
 		//
 		// new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		builder.appendBodyScriptCommand("var userLang = '" + session.getLang() + "';");
+		builder.appendBodyScriptCommand("var currentPage = '" + commonInstance().getUrl() + "';");
+		
 		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
 		new AccountBall(builder, session, getServletContext()).set();
 		new DataPresentBall(builder, session).set();
-		
+		new ImageTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
+
 		builder.appendPageElementFile(PageElement.image_task);
 
+		openInfoPopupBeforeStart(builder);
+		
 		if (session.isTestTasksOnly())
 		{
 			builder.appendBodyScriptCommand("limitTasks(2);");
@@ -158,5 +164,10 @@ public class ImagesTaskServlet extends BasePageServlet
 	{
 		System.out.println("Marking task session " + taskSession + " as complete!");
 		taskSessionDAO.updateComplete(taskSession.getId(), true);
+	}
+	
+	private void openInfoPopupBeforeStart(WebpageBuilder builder)
+	{
+		builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
 	}
 }

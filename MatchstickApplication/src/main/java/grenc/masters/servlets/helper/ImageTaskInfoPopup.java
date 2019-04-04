@@ -8,10 +8,10 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Popup;
 
 
-public class MatchstickTaskInfoPopup extends PopupBuilderAbstract
+public class ImageTaskInfoPopup extends PopupBuilderAbstract
 {	
 	
-	public MatchstickTaskInfoPopup(WebpageBuilder builder, ServletContext servletContext)
+	public ImageTaskInfoPopup(WebpageBuilder builder, ServletContext servletContext)
 	{
 		super(builder, servletContext);
 	}
@@ -23,19 +23,19 @@ public class MatchstickTaskInfoPopup extends PopupBuilderAbstract
 		{
 			case "en":
 			default:
-				popupContentFile = PageElement.matchstick_info_en;
+				popupContentFile = PageElement.image_info_en;
 				break;
 				
 			case "si":
-				popupContentFile = PageElement.matchstick_info_si;
+				popupContentFile = PageElement.image_info_si;
 				break;
 				
 			case "sk":
-				popupContentFile = PageElement.matchstick_info_sk;
+				popupContentFile = PageElement.image_info_sk;
 				break;
 				
 			case "at":
-				popupContentFile = PageElement.matchstick_info_at;
+				popupContentFile = PageElement.image_info_at;
 				break;
 		}
 		String content = readFile(popupContentFile.path());

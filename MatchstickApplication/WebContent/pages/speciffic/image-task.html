@@ -14,19 +14,25 @@
 
      <!-- Application space -->
     <div class="centered horizontal-layout">
-        <div id="canvas-container">
-            <canvas id="canvas" width="2000" height="750"></canvas>	
+    
+        <!-- Height 380px is hardcoded in several places here - try and change that -->
+        <div id="canvas-container" style="height: 380px">
+            <canvas id="canvas" width="1000" height="380"></canvas>	
         </div>
 
-
         <div id="buffer-zone" style="width: 20px;"></div>
-		<!-- Success (& continue) button -->
-        <div class="vertical-layout" style="justify-content: space-between;">
-            <h3 id="timer">00:00,0</h3>
-        	<div id="buffer-zone2" style="height: 130px;"></div>
-            <div id="sucessButton" style="display:none">
+        
+        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center; height: 380px;">       
+	        <div class="vertical-layout" style="justify-content: space-between;">
+	            <h3 id="timer">00:00,0</h3>
+	            <span id="button-info" class="blueButton"><img src="images/baseline_info_white_48dp.png" alt="Info" /></span>                 
+	        </div>  
+	      
+        	<div id="buffer-zone2" style="height: 150px;"></div>
+        	
+            <div id="sucessButton" style="display: none">
             	<span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
-            </div>
+            </div>   
         </div>
     </div>
 </div>
