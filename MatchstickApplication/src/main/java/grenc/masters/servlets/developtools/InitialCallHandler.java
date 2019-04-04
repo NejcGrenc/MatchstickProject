@@ -51,12 +51,12 @@ public class InitialCallHandler
 		else 
 		{
 			Cookie sessionCookie = getSessionCookie();
-			Session session;
+			Session session = null;
 			if (sessionCookie != null)
 			{
 				session = getSessionFromCookie(sessionCookie);
 			}
-			else
+			if (session == null) 
 			{
 				session = new SessionGenerator().generateSession();
 				setSessionCookie(session.getTag());
