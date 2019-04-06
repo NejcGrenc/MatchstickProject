@@ -136,11 +136,18 @@ public class SelectBuilder <T>
 		try
 		{
 			fieldData = rs.getObject(mapper.name, mapper.type);
-			mapper.setter.accept(element, fieldData);
+			
+			// No point in setting up null. Set default value instead.
+			// This fixes problems when we try to set null for a primitive type
+			if (fieldData != null)
+			{
+				mapper.setter.accept(element, fieldData);
+			}
 		}
-		catch (NullPointerException e)
+		catch (Exception e)
 		{
-			String message = "Element of type [" + element.getClass().getSimpleName() + "] has a setter [" + mapper.setter.toString() + "] that cannot be set with [" + fieldData + "]";
+			String message = "Element of type [" + element.getClass().getSimpleName() + "] has a setter " +
+								"[" + mapper.name + "(" + mapper.type + ")] that cannot be set with [" + fieldData + "]";
 			throw new RuntimeException(message, e);
 		}
 	}
