@@ -16,6 +16,7 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.uservalidation.BrowserDetails;
 import grenc.masters.webpage.CreditsBall;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
@@ -48,7 +49,10 @@ public class SelectTaskServlet extends BasePageServlet
 		builder.addStyle(Style.split_page);
 		builder.addScript(Script.send);
 		builder.appendPageElementFile(PageElement.select_task);
-
+		
+		if (new BrowserDetails(request).isIEorSafari())
+			builder.addStyle(Style.split_page_ie);
+			
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		new Translate(builder, Script.translate_selecttask).translateAll();

@@ -12,6 +12,7 @@ public enum Style
 	layout ("layout.css"),
 	popup ("popup.css"),
 	split_page ("split-page.css"),
+	split_page_ie ("split-page-ie.css"),
 	style ("style.css"),
 	table ("table.css")
 	;

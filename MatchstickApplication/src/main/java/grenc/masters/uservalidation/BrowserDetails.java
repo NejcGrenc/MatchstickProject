@@ -84,4 +84,9 @@ public class BrowserDetails
 	{
 		return browser;
 	}
+	
+	public boolean isIEorSafari() 
+	{
+		return (browser.contains("IE") || browser.contains("Opera"));
+	}
 }

@@ -1,0 +1,23 @@
+/* 
+  This is for IE and Safari
+ */
+
+a#matchstick-half {
+   	left: 0;
+   	width: 50%;
+   	height: 100%;
+}
+
+a#images-half {
+	left: 50%;
+    width: 50%;
+    height: 100%;
+}
+
+h1#selecttask_txt1 {
+    top: 50%;
+}
+
+h1#selecttask_txt2 {
+    top: 50%;
+}
