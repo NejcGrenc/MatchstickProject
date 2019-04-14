@@ -3,6 +3,12 @@
  * Buttons
  */
  
+button,
+span 
+{
+    cursor: pointer;
+}
+ 
 .circle {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
