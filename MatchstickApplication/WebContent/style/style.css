@@ -41,6 +41,11 @@ h1, h2, h3, p {
 	justify-content: flex-start;
 }
 
+.cursor-pointer
+{
+	cursor: pointer;
+}
+
 #canvas-container {
     width: 1000px;
     height: 500px;

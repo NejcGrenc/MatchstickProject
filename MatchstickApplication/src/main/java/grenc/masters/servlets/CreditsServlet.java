@@ -48,6 +48,7 @@ public class CreditsServlet extends BasePageServlet
 		builder.addStyle(Style.background);
 		
 		builder.addStyle(Style.buttons);
+		builder.addStyle(Style.centered);
 		builder.addStyle(Style.layout);
 		builder.addStyle(Style.table);
 
