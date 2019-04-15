@@ -80,10 +80,15 @@ public class SelectTaskServlet extends BasePageServlet
 		TaskSession taskSession = new TaskSessionAssist(session, selectedTaskType).getTaskSessionToUse();
 		
 		// Skip learning if we are part of matchstick task group 0
-		if (TaskType.matchstick.equals(selectedTaskType) && taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0))
+		if (isMatchstickGroup0(selectedTaskType, taskSession))
 		{
 			request.setAttribute("forwardUrl", Servlet.MatchstickTaskServlet.getUrl());
 		}
 	}
 
+	private boolean isMatchstickGroup0(TaskType selectedTaskType, TaskSession taskSession)
+	{
+		return TaskType.matchstick.equals(selectedTaskType) && 
+				(taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyA) || taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyB));
+	}
 }

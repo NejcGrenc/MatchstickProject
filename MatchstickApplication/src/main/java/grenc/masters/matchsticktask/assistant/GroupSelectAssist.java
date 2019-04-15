@@ -10,8 +10,6 @@ import grenc.masters.matchsticktask.type.TaskType;
 
 public class GroupSelectAssist 
 {
-	private static final MatchstickGroup defaultGroup = MatchstickGroup.group_AB;
-
 	private TaskSessionDAO taskSessionDAO;
 	
 	GroupSelectAssist(TaskSessionDAO taskSessionDAO)
@@ -27,13 +25,47 @@ public class GroupSelectAssist
 	// Find least used group
 	public synchronized MatchstickGroup selectNewGroup()
 	{
+		MatchstickGroup minUsedGroup = MatchstickGroup.group_A;  // Just some default
+		int minUsedGroupParticipants = 0;
+
 		HashMap<MatchstickGroup, Integer> previousGroups = countPreviousGroups();
 		
-		MatchstickGroup minUsedGroup = defaultGroup;
-		int min = previousGroups.values().stream().mapToInt(Integer::intValue).min().getAsInt();
-		for (MatchstickGroup group : MatchstickGroup.nonTestGroups())
-			if (previousGroups.get(group) == min)
-				minUsedGroup = group;
+		if (previousGroups.get(MatchstickGroup.group_A) < minUsedGroupParticipants)
+		{
+			minUsedGroup = MatchstickGroup.group_A;
+			minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_A);
+		}
+		if (previousGroups.get(MatchstickGroup.group_B) < minUsedGroupParticipants)
+		{
+			minUsedGroup = MatchstickGroup.group_B;
+			minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_B);
+		}
+		if ((previousGroups.get(MatchstickGroup.group_AB_strategyA) + previousGroups.get(MatchstickGroup.group_AB_strategyB)) < minUsedGroupParticipants)
+		{
+			if (previousGroups.get(MatchstickGroup.group_AB_strategyA) < previousGroups.get(MatchstickGroup.group_AB_strategyB))
+			{
+				minUsedGroup = MatchstickGroup.group_AB_strategyA;
+				minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_AB_strategyA);
+			}
+			else 
+			{
+				minUsedGroup = MatchstickGroup.group_AB_strategyB;
+				minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_AB_strategyB);
+			}
+		}
+		if ((previousGroups.get(MatchstickGroup.group_0_strategyA) + previousGroups.get(MatchstickGroup.group_0_strategyB)) < minUsedGroupParticipants)
+		{
+			if (previousGroups.get(MatchstickGroup.group_0_strategyA) < previousGroups.get(MatchstickGroup.group_0_strategyB))
+			{
+				minUsedGroup = MatchstickGroup.group_0_strategyA;
+				minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_0_strategyA);
+			}
+			else 
+			{
+				minUsedGroup = MatchstickGroup.group_0_strategyB;
+				minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_0_strategyB);
+			}
+		}
 		
 		return minUsedGroup;
 	}
@@ -48,9 +80,6 @@ public class GroupSelectAssist
 		for (TaskSession taskSession : allMatchstickSessions)
 		{
 			MatchstickGroup group = taskSession.getMatchstickGroup();
-			if (group == MatchstickGroup.test)
-				continue;
-			
 			previousGroups.put(group, previousGroups.get(group) + 1);
 		}
 		return previousGroups;

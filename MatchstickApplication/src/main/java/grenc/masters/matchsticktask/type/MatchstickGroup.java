@@ -6,10 +6,12 @@ import java.util.List;
 
 public enum MatchstickGroup
 {
-	group_A  (2, 2, 2, 2, 2, 4),
-	group_B  (2, 2, 2, 2, 2, 4),
-	group_AB (4, 4, 2, 2, 2, 4),
-	group_0  (0, 0, 2, 2, 2, 4),
+	group_A  (2, 2, 2, 2, 2, 2, 2),
+	group_B  (2, 2, 2, 2, 2, 2, 2),
+	group_AB_strategyA (4, 4, 2, 2, 2, 2, 2),
+	group_AB_strategyB (4, 4, 2, 2, 2, 2, 2),
+	group_0_strategyA  (0, 0, 2, 2, 2, 2, 2),
+	group_0_strategyB  (0, 0, 2, 2, 2, 2, 2),
 	test	 (1, 1, 1, 1, 1, 1)
 	;
 	
@@ -22,15 +24,16 @@ public enum MatchstickGroup
 		int i = 0;
 		this.tasksForPhase.put(MatchstickExperimentPhase.LearningPhase_Showing, noTasksForEachPhase[i++]);
 		this.tasksForPhase.put(MatchstickExperimentPhase.LearningPhase_Solving, noTasksForEachPhase[i++]);
-		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_MixedEquations, noTasksForEachPhase[i++]);
-		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OriginalEquationsOptimal, noTasksForEachPhase[i++]);
-		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OriginalEquationsSuboptimal, noTasksForEachPhase[i++]);
-		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OppositeEquationsOptimal, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OriginalStrategyOptimal, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_BothStrategiesOptimal, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OppositeStrategyOptimal, noTasksForEachPhase[i++]);
+		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy, noTasksForEachPhase[i++]);
 	}
 	
 	public static List<MatchstickGroup> nonTestGroups()
 	{
-		return Arrays.asList(group_A, group_B, group_AB, group_0);
+		return Arrays.asList(group_A, group_B, group_AB_strategyA, group_AB_strategyB, group_0_strategyA, group_0_strategyB);
 	}
 	
 	public int getNoTasksForPhase(MatchstickExperimentPhase phase)
