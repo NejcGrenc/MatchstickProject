@@ -14,6 +14,7 @@ import grenc.masters.matchsticktask.assistant.speciffic.VideoSelectAssist;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
+import grenc.masters.matchsticktask.type.SolvableRestriction;
 import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.Video;
 
@@ -108,6 +109,13 @@ public class MatchstickTaskProcessor
 				newTaskResult.pauseAtStart = true;
 			}
 			
+			MatchstickExperimentPhase experimentPhase = equationSelect().phaseForTaskNumber(newTaskResult.newTaskNumber);
+			if (MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy.equals(experimentPhase) 
+				|| MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy.equals(experimentPhase))
+				newTaskResult.restriction = SolvableRestriction.ONE_MOVE_ONLY;
+			else
+				newTaskResult.restriction = SolvableRestriction.MINIMUM_MOVES;
+			
 			EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(newTaskResult.newTaskNumber);
 			newTaskResult.newEquation = equationAssist().getNextEquation(equationType);
 		}
@@ -170,6 +178,7 @@ public class MatchstickTaskProcessor
 		public int newTaskNumber;
 		public int totalNumberOfTasks;
 		public String newEquation;
+		public SolvableRestriction restriction;
 		public boolean pauseAtStart;
 		public long continueWithTime = 0l;
 	}

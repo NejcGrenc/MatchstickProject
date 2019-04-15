@@ -58,7 +58,8 @@ public class MatchstickTaskLearnServlet extends BasePageServlet
 		
 		// Setup current task number
 		builder.appendBodyScriptCommand("setLearningTaskNumber("+taskBuilder.newTaskNumberForLocalPhase()+", "+taskBuilder.totalNumberOfTasksForNextPhase()+");");
-
+		builder.appendBodyScriptCommand("setRestriction("+true+");");
+		
 		loadLearningTask(builder, taskBuilder);
 		
 	}

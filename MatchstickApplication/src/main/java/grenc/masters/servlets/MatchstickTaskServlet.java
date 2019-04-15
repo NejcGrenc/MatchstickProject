@@ -10,6 +10,7 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor.MatchstickTaskProcessorReturn;
 import grenc.masters.matchsticktask.ResponseProcessor;
+import grenc.masters.matchsticktask.type.SolvableRestriction;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -87,7 +88,11 @@ public class MatchstickTaskServlet extends BasePageServlet
 
 		if (newTask.continueWithTime != 0l)
 			builder.appendBodyScriptCommand("timer_presetTime(" + newTask.continueWithTime + ");");
-			
+
+		boolean restrict = SolvableRestriction.ONE_MOVE_ONLY.equals(newTask.restriction);
+		builder.appendBodyScriptCommand("setRestriction("+restrict+");");
+
+		
 		// Start the task when all is properly set
 		if (newTask.pauseAtStart)
 			builder.appendBodyScriptCommand("startWithPause();");

@@ -118,3 +118,32 @@ function tooltipContinueText()
 	if (lang == "sk")
 		return "Pokračujte ďalej";
 }
+
+function restrictionsText(onlyOneMoveRestricted)
+{
+	var lang = getLanguage();
+	if (onlyOneMoveRestricted)
+	{
+		if (lang == "en")
+			return "Correct the equation by USING ONLY ONE MOVE";
+		if (lang == "si")
+			return "Correct the equation by USING ONLY ONE MOVE";
+		if (lang == "de")
+			return "Correct the equation by USING ONLY ONE MOVE";
+		if (lang == "sk")
+			return "Correct the equation by USING ONLY ONE MOVE";
+	}
+	else
+	{
+		if (lang == "en")
+			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+		if (lang == "si")
+			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+		if (lang == "de")
+			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+		if (lang == "sk")
+			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+	}
+}
+
+
