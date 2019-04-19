@@ -59,6 +59,12 @@
 		<servlet-class>grenc.masters.servlets.TaskWrapupServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+	    <servlet-name>StartupServlet</servlet-name>
+	    <servlet-class>grenc.masters.servlets.StartupServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern></url-pattern>
