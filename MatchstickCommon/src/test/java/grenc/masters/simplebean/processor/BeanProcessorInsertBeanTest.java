@@ -14,7 +14,6 @@ import grenc.masters.simplebean.processor.exception.BeanProcessorException;
 
 public class BeanProcessorInsertBeanTest
 {
-
 	@Before
 	public void cleanup()
 	{

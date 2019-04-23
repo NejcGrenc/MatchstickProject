@@ -105,6 +105,7 @@ public class BeanProcessor
 		}
 	}
 	
+	
 	protected static Class<?> applicableBean(Field field)
 	{
 		List<Class<?>> applicableBeans = new ArrayList<>();

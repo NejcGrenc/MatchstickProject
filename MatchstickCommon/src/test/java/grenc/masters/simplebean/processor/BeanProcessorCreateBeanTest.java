@@ -10,9 +10,8 @@ import grenc.masters.simplebean.Beans;
 import grenc.masters.simplebean.processor.exception.BeanProcessorException;
 
 
-public class BeanProcessorTest
+public class BeanProcessorCreateBeanTest
 {
-	
 	@Before
 	public void cleanup()
 	{
