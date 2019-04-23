@@ -131,10 +131,13 @@ public class BeanProcessor
 		if (field.getType().equals(c))
 			return true;
 		
+		boolean applicable = false;
+		for (Class<?> interf : c.getInterfaces())
+			applicable = (applicable) ? true : isApplicable(field, interf);
 		if (c.getSuperclass() != null)
-			return isApplicable(field, c.getSuperclass());
+			applicable = (applicable) ? true : isApplicable(field, c.getSuperclass());
 		
-		return false;
+		return applicable;
 	}
 	
 }

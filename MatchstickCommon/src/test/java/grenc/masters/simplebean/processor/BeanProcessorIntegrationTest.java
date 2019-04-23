@@ -40,16 +40,17 @@ class IntegrationTestClassInsertInto
 	public IntegrationTestClassInsertable ins;
 }
 
-abstract class IntegrationTestClassInsertable 
+interface IntegrationTestClassInsertable
 {
-	abstract int getI();
+	int getI();
 }
 
+abstract class IntegrationTestClassInsertableAbstract implements IntegrationTestClassInsertable {}
+
 @Bean
-class IntegrationTestClassInsertableBean extends IntegrationTestClassInsertable 
+class IntegrationTestClassInsertableBean extends IntegrationTestClassInsertableAbstract 
 {
-	@Override
-	int getI() { return 5; }	
+	public int getI() { return 5; }	
 }
 
 
