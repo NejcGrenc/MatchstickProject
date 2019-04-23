@@ -3,6 +3,7 @@ package grenc.masters.simplebean.processor;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import grenc.masters.simplebean.Beans;
@@ -11,7 +12,14 @@ import grenc.masters.simplebean.processor.exception.BeanProcessorException;
 
 public class BeanProcessorTest
 {
+	
+	@Before
+	public void cleanup()
+	{
+		Beans.removeAllBeans();
+	}
 
+	
 	@Test
 	public void shouldCreateObject()
 	{
@@ -40,6 +48,14 @@ public class BeanProcessorTest
 	public void shouldFailToCreateObjectWithOnlyArgsConstructor()
 	{
 		BeanProcessor.createBean(TestClassWithArgsConstructorForFailure.class);
+		fail();
+	}
+	
+	@Test (expected = BeanProcessorException.class)
+	public void shouldFailToCreateAlreadyExistingBean()
+	{
+		BeanProcessor.createBean(TestClass.class);
+		BeanProcessor.createBean(TestClass.class);
 		fail();
 	}
 	

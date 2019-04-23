@@ -36,7 +36,12 @@ public class InsertBeanScanner
 	
 	public Class<?>[] getClasses()
 	{
-		return (Class<?>[]) annotatedFields.keySet().toArray();
+		return annotatedFields.keySet().toArray(new Class<?>[0]);
+	}
+	
+	public Field[] getFields(Class<?> c)
+	{
+		return annotatedFields.get(c);
 	}
 	
 	public Field[] getAllFields()
