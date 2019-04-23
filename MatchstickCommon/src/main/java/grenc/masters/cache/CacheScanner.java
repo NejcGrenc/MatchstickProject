@@ -1,6 +1,6 @@
 package grenc.masters.cache;
 
-public class Cached
+public class CacheScanner
 {
 
 }

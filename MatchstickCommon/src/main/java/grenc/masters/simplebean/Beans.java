@@ -19,6 +19,17 @@ public class Beans
 		beans.put(bean.getClass(), bean);
 	}
 	
+	/** 
+	 * Only allow to override an existing bean - cannot just remove bean
+	 * @param newBean to be added
+	 * @param originalBean to be removed 
+	 */
+	public static void overrideBean(Object newBean, Class<?> originalBean)
+	{
+		beans.remove(originalBean);
+		registerBean(newBean);
+	}
+	
 	public static Object get(Class<?> type)
 	{
 		return beans.get(type);
