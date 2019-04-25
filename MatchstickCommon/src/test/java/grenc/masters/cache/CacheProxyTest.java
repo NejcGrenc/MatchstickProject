@@ -9,7 +9,7 @@ import org.junit.Test;
 import grenc.masters.cache.annotation.Cached;
 
 
-public class CacheProcessorTest
+public class CacheProxyTest
 {
 	Sample subject;
 	
@@ -22,7 +22,7 @@ public class CacheProcessorTest
 		assertEquals(2, subject.counter());
 		assertEquals(3, subject.counter());
 	}
-	
+		
 	@Test
 	public void cacheTestCall() throws Exception
 	{
@@ -38,9 +38,9 @@ public class CacheProcessorTest
 	{
 		Sample originalInstance = new SampleImpl();
 		return (Sample) Proxy.newProxyInstance(
-				CacheProcessorTest.class.getClassLoader(), 
+				this.getClass().getClassLoader(), 
 				new Class[] { Sample.class }, 
-				new CachedWrapper<Sample>(Sample.class, originalInstance)
+				new CacheProxy<Sample>(originalInstance)
 				);
 	}
 

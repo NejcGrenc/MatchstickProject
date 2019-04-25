@@ -8,6 +8,7 @@ import java.util.List;
 
 import grenc.masters.simplebean.Beans;
 import grenc.masters.simplebean.processor.exception.BeanProcessorException;
+import grenc.masters.simplebean.proxy.ProxyBeanProcessor;
 import grenc.masters.simplebean.scanner.BeanScanner;
 import grenc.masters.simplebean.scanner.InsertBeanScanner;
 
@@ -21,9 +22,11 @@ public class BeanProcessor
 			Class<?>[] beanClasses = BeanScanner.scanPackage(path).getClasses();
 			processClasses(beanClasses);
 			
+			ProxyBeanProcessor.processProxyBeans(path);
+			
 			InsertBeanScanner scanner = InsertBeanScanner.scanPackage(path);
 			for (Class<?> insertInto : scanner.getClasses())
-				for (Field field : scanner.getFields(insertInto))
+				for (	Field field : scanner.getFields(insertInto))
 					insertBeansIntoBeanForField(insertInto, field);
 		
 		} 
@@ -84,7 +87,7 @@ public class BeanProcessor
 	private static <B> void assertExactlyOneNoArgsConstructors(Class<B> beanClass)
 	{
 		int noArgsConstructors = 0;
-		Constructor<?>[] constructors =  TestClass.class.getDeclaredConstructors();
+		Constructor<?>[] constructors = beanClass.getDeclaredConstructors();
 		for (Constructor<?> c : constructors)
 		{
 			if (c.getParameterCount() == 0)

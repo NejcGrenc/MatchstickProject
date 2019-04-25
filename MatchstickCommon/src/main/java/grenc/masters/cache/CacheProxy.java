@@ -12,30 +12,26 @@ import java.util.Objects;
 import grenc.masters.cache.annotation.Cached;
 
 
-public class CachedWrapper<T> implements InvocationHandler 
+public class CacheProxy<T> implements InvocationHandler 
 {
     private final T originalInstance;
-    private final Map<String, Method> allMethods;
-    
-    private Map<String, Method> annotatedMethods;
+    private List<String> annotatedMethods;
     
     private Map<Invocation, Object> cachedValues;
 
     
-    public CachedWrapper(Class<T> interfaceClass, T originalInstance)
+    public CacheProxy(T originalInstance)
 	{
 		this.originalInstance = originalInstance;
 		
-		this.allMethods = new HashMap<>();
-		this.annotatedMethods = new HashMap<>();
+		this.annotatedMethods = new ArrayList<>();
 		this.cachedValues = new HashMap<>();
 		
 		Method[] methods = merge(originalInstance.getClass().getMethods(), originalInstance.getClass().getDeclaredMethods());
         for (Method method : methods)
         {
-        	allMethods.put(method.getName(), method);
     		if (method.isAnnotationPresent(Cached.class))
-    			annotatedMethods.put(method.getName(), method);
+    			annotatedMethods.add(method.getName());
         }
 	}
 
@@ -43,24 +39,20 @@ public class CachedWrapper<T> implements InvocationHandler
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable 
     {
-    	System.out.println("Calling method: " + method.getName());
-    	System.out.println("Will use proxy: " + shouldUseCache(method));
-
     	if (shouldUseCache(method))
     	{
     		Object cachedValue = cachedValues.get(new Invocation(proxy, method, args));
     		if (cachedValue != null)
     		{
-    			System.out.println("Returning cached value: " + cachedValue);
     			return cachedValue;
     		}
     	}
     	
-        Object result = allMethods.get(method.getName()).invoke(originalInstance, args);
+        Object result = method.invoke(originalInstance, args);
+
         
     	if (shouldUseCache(method))
     	{
-			System.out.println("Saving cached value: " + result);
     		cachedValues.put(new Invocation(proxy, method, args), result);
     	}
         
@@ -69,7 +61,7 @@ public class CachedWrapper<T> implements InvocationHandler
     
     private boolean shouldUseCache(Method method)
     {
-    	return annotatedMethods.containsKey(method.getName());
+    	return annotatedMethods.contains(method.getName());
     }
     
 	
@@ -115,7 +107,7 @@ public class CachedWrapper<T> implements InvocationHandler
 			if (this == obj)
 				return true;
 			
-			if (obj == null || ! (obj instanceof CachedWrapper.Invocation))
+			if (obj == null || ! (obj instanceof CacheProxy.Invocation))
 				return false;
 
 			Invocation other = (Invocation) obj;

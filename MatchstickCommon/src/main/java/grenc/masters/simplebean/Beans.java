@@ -10,29 +10,30 @@ public class Beans
 {
 	private static Map<Class<?>, Object> beans = new HashMap<>();
 	
-	// TODO: What about overwriting registered beans?
 	public static void registerBean(Object bean)
 	{
-		if (beans.containsKey(bean.getClass()))
-			throw new BeanProcessorException("Bean of type [" + bean.getClass() + "] already registered.");
-			
-		beans.put(bean.getClass(), bean);
+		registerBeanAs(bean, bean.getClass());
 	}
 	
-	/** 
-	 * Only allow to override an existing bean - cannot just remove bean
-	 * @param newBean to be added
-	 * @param originalBean to be removed 
-	 */
-	public static void overrideBean(Object newBean, Class<?> originalBean)
+	public static void registerBeanAs(Object bean, Class<?> type)
+	{
+		if (beans.containsKey(type))
+			throw new BeanProcessorException("Bean of exact type [" + bean.getClass() + "] already registered.");
+			
+		beans.put(type, bean);
+	}
+	
+	
+	/* Removing a bean doesn't remove it from already inserted places */
+	public static void removeBean(Class<?> originalBean)
 	{
 		beans.remove(originalBean);
-		registerBean(newBean);
 	}
 	
-	public static Object get(Class<?> type)
+	@SuppressWarnings("unchecked")
+	public static <T> T get(Class<T> type)
 	{
-		return beans.get(type);
+		return (T) beans.get(type);
 	}
 	
 	public static Set<Class<?>> allRegisteredTypes()
