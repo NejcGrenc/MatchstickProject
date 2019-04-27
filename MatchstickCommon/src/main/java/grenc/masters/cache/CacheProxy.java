@@ -10,13 +10,15 @@ import java.util.Map;
 import java.util.Objects;
 
 import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 
 
 public class CacheProxy<T> implements InvocationHandler 
 {
     private final T originalInstance;
-    private List<String> annotatedMethods;
-    
+    private List<String> annotatedMethodsCached;
+    private List<String> annotatedMethodsResetCache;
+
     private Map<Invocation, Object> cachedValues;
 
     
@@ -24,14 +26,18 @@ public class CacheProxy<T> implements InvocationHandler
 	{
 		this.originalInstance = originalInstance;
 		
-		this.annotatedMethods = new ArrayList<>();
+		this.annotatedMethodsCached = new ArrayList<>();
+		this.annotatedMethodsResetCache = new ArrayList<>();
+
 		this.cachedValues = new HashMap<>();
 		
 		Method[] methods = merge(originalInstance.getClass().getMethods(), originalInstance.getClass().getDeclaredMethods());
         for (Method method : methods)
         {
     		if (method.isAnnotationPresent(Cached.class))
-    			annotatedMethods.add(method.getName());
+    			annotatedMethodsCached.add(method.getName());
+    		else if (method.isAnnotationPresent(ResetCache.class))
+    			annotatedMethodsResetCache.add(method.getName());
         }
 	}
 
@@ -47,6 +53,10 @@ public class CacheProxy<T> implements InvocationHandler
     			return cachedValue;
     		}
     	}
+    	if (shouldResetCache(method))
+    	{
+    		cachedValues = new HashMap<>();
+    	}
     	
         Object result = method.invoke(originalInstance, args);
 
@@ -61,7 +71,12 @@ public class CacheProxy<T> implements InvocationHandler
     
     private boolean shouldUseCache(Method method)
     {
-    	return annotatedMethods.contains(method.getName());
+    	return annotatedMethodsCached.contains(method.getName());
+    }
+    
+    private boolean shouldResetCache(Method method)
+    {
+    	return annotatedMethodsResetCache.contains(method.getName());
     }
     
 	
