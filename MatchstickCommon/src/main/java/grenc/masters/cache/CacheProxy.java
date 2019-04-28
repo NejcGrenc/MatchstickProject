@@ -102,7 +102,6 @@ public class CacheProxy<T> implements InvocationHandler
     		this.proxy = proxy;
     		this.method = method;
     		this.args = args;
-    		System.out.println("Created new Invocation: "+proxy + " "+method+" "+args);
     	}
 
 		@Override

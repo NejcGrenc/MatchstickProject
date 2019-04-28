@@ -8,11 +8,11 @@ import org.junit.Test;
 import grenc.masters.cache.CacheProxy;
 import grenc.masters.cache.annotation.Cached;
 import grenc.masters.cache.annotation.ResetCache;
-import grenc.masters.simplebean.Beans;
-import grenc.masters.simplebean.annotation.Bean;
-import grenc.masters.simplebean.annotation.InsertBean;
-import grenc.masters.simplebean.processor.BeanProcessor;
-import grenc.masters.simplebean.proxy.annotation.ProxyBean;
+import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
+import grenc.simpleton.processor.BeanProcessor;
+import grenc.simpleton.proxy.annotation.ProxyBean;
 
 
 public class CachedBeanIntegrationTest
