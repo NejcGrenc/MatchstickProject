@@ -58,6 +58,7 @@ public class CacheProxy<T> implements InvocationHandler
     		cachedValues = new HashMap<>();
     	}
     	
+    	method.setAccessible(true);
         Object result = method.invoke(originalInstance, args);
 
         

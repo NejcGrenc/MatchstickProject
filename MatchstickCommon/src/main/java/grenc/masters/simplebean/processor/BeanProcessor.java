@@ -113,8 +113,10 @@ public class BeanProcessor
 	{
 		List<Class<?>> applicableBeans = new ArrayList<>();
 		for (Class<?> beanClass : Beans.allRegisteredTypes())
+		{
 			if (isApplicable(field, beanClass))
 				applicableBeans.add(beanClass);
+		}
 			
 		if (applicableBeans.isEmpty())
 			throw new BeanProcessorException("No applicable bean found for field [" + field.toString() + "]");

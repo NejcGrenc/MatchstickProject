@@ -62,7 +62,10 @@ public class ProxyBeanProcessor
 		{
 			assertOneConstructorWithObjectType(proxyClass);
 			
-			return (InvocationHandler) proxyClass.getConstructor(Object.class).newInstance(originalBeanInstance);
+			Constructor<?> constructor = proxyClass.getDeclaredConstructor(Object.class);
+			constructor.setAccessible(true);
+			
+			return (InvocationHandler) constructor.newInstance(originalBeanInstance);
 		} 
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e)
