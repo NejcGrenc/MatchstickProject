@@ -23,7 +23,7 @@ public class ProxyBeanProcessorTest
 		OriginalTestBean originalBeanInstance = new OriginalTestBean();
 		assertEquals(10, originalBeanInstance.give());
 		
-		TestInterface proxyBean = (TestInterface) ProxyBeanProcessor.createProxyBean(ProxyTestBean.class, originalBeanInstance);
+		TestInterface proxyBean = (TestInterface) ProxyBeanProcessor.createProxyBean(originalBeanInstance);
 		assertEquals(15, proxyBean.give());
 	}
 	
@@ -50,13 +50,13 @@ interface TestInterface
 	int give();
 }
 
+@ProxyBean(proxyClass = ProxyTestBean.class)
 class OriginalTestBean implements TestInterface
 {
 	@Override
 	public int give() { return 10; }
 }
 
-@ProxyBean(originalClass = OriginalTestBean.class, implementedInterface = TestInterface.class)
 class ProxyTestBean implements InvocationHandler 
 {
 	private Object originalInstance;	

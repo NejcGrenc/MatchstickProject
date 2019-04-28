@@ -55,6 +55,7 @@ class IntegrationTargetClass
 }
 
 @Bean
+@ProxyBean(proxyClass = CacheProxy.class)
 class IntegrationBeanClassImpl implements IntegrationBeanClass
 {
 	int value = 1;
@@ -74,15 +75,6 @@ class IntegrationBeanClassImpl implements IntegrationBeanClass
 	public int returnAndIncrementUncached()
 	{
 		return value++;
-	}
-}
-
-@ProxyBean(implementedInterface = IntegrationBeanClass.class, originalClass = IntegrationBeanClassImpl.class)
-class CacheProxyBean extends CacheProxy<IntegrationBeanClass>
-{
-	public CacheProxyBean(Object originalInstance)
-	{
-		super((IntegrationBeanClass) originalInstance);
 	}
 }
 

@@ -5,6 +5,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 
 import grenc.masters.simplebean.Beans;
 import grenc.masters.simplebean.processor.exception.BeanProcessorException;
@@ -16,31 +18,29 @@ public class ProxyBeanProcessor
 
 	public static void processProxyBeans(String packageName) throws ClassNotFoundException, IOException
 	{
-		Class<?>[] proxyClasses = ProxyBeanScanner.scanPackage(packageName).getClasses();
+		Class<?>[] classesToBeProxies = ProxyBeanScanner.scanPackage(packageName).getClasses();
 		
-		for (Class<?> proxyClass : proxyClasses)
+		for (Class<?> originalClass : classesToBeProxies)
 		{
-			Object originalBean = popOriginalBean(proxyClass);
-			Object proxyBean = createProxyBean(proxyClass, originalBean);
-			Beans.registerBeanAs(proxyBean, implementedInterface(proxyClass));
+			Object originalBean = popOriginalBean(originalClass);
+			Object proxyBean = createProxyBean(originalBean);
+			Beans.registerBeanAs(proxyBean, implementedInterface(originalClass));
 		}
 	}
 	
-	private static Object popOriginalBean(Class<?> proxyClass)
+	private static Object popOriginalBean(Class<?> originalClass)
 	{
-		ProxyBean proxyAnnotation = proxyClass.getAnnotation(ProxyBean.class);
-		Class<?> originalClass = proxyAnnotation.originalClass();
-		
 		Object originalBeanInstance = Beans.get(originalClass);
-		System.out.println(originalClass);
 		Beans.removeBean(originalClass);
 		return originalBeanInstance;
 	}
 	
 	
-	static Object createProxyBean(Class<?> proxyClass, Object originalBeanInstance)
+	static Object createProxyBean(Object originalBeanInstance)
 	{
-		Class<?> implementedInterface = implementedInterface(proxyClass);
+		Class<?> originalClass = originalBeanInstance.getClass();
+		Class<?> proxyClass = proxyClass(originalClass);
+		Class<?> implementedInterface = implementedInterface(originalClass);
 		
 		return Proxy.newProxyInstance(
 					ProxyBeanProcessor.class.getClassLoader(), 
@@ -50,53 +50,64 @@ public class ProxyBeanProcessor
 	}
 	
 	
-	private static Class<?> implementedInterface(Class<?> proxyClass)
+	private static Class<?> proxyClass(Class<?> originalClass)
 	{
-		ProxyBean proxyAnnotation = proxyClass.getAnnotation(ProxyBean.class);
-		return proxyAnnotation.implementedInterface();
+		ProxyBean proxyAnnotation = originalClass.getAnnotation(ProxyBean.class);
+		return proxyAnnotation.proxyClass();
+	}
+	
+	private static Class<?> implementedInterface(Class<?> originalClass)
+	{
+		Class<?>[] interfaces = originalClass.getInterfaces();
+		if (interfaces.length == 0)
+			throw new BeanProcessorException("Problem creating proxy: No interface found for class [" + originalClass + "].");
+		if (interfaces.length > 1)
+			throw new BeanProcessorException("Problem creating proxy: More than one interface found for class [" + originalClass + "].");
+		
+		return interfaces[0];
 	}
 	
 	private static InvocationHandler createInvocationHandler(Class<?> proxyClass, Object originalBeanInstance)
 	{
 		try
 		{
-			assertOneConstructorWithObjectType(proxyClass);
-			
-			Constructor<?> constructor = proxyClass.getDeclaredConstructor(Object.class);
+			Constructor<?> constructor = getOneArgumentConstructor(proxyClass);
 			constructor.setAccessible(true);
 			
 			return (InvocationHandler) constructor.newInstance(originalBeanInstance);
 		} 
-		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e)
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e)
 		{
 			e.printStackTrace();
 			throw new BeanProcessorException("Unable to instanciate proxy bean [" + proxyClass + "].", e);
 		}
 	}
 
-	private static <B> void assertOneConstructorWithObjectType(Class<B> beanClass)
+	
+	private static Constructor<?> getOneArgumentConstructor(Class<?> targetClass)
 	{
-		int oneObjectArgConstructors = 0;
-		Constructor<?>[] constructors = beanClass.getDeclaredConstructors();
+		List<Constructor<?>> oneArgsConstructors = new ArrayList<>();
+		Constructor<?>[] constructors = targetClass.getDeclaredConstructors();
 		for (Constructor<?> c : constructors)
 		{
-			if (c.getParameterCount() == 1 && c.getGenericParameterTypes()[0] == Object.class)
-				oneObjectArgConstructors++;
+			if (c.getParameterCount() == 1)
+				oneArgsConstructors.add(c);
 		}
 		
-		if (oneObjectArgConstructors == 0)
+		if (oneArgsConstructors.isEmpty())
 		{
 			String possibleError = "No object-arg constructors found (not even default ones) for class ["
-					+ beanClass.getCanonicalName() + "]. "
+					+ targetClass.getCanonicalName() + "]. "
 					+ "It is possible that there is not any constructor that take 1 Object argument "
 					+ "or that the class is itself a subclass of another class. This will not work.";
 			throw new BeanProcessorException(possibleError);
 		}
-		if (oneObjectArgConstructors > 1)
+		if (oneArgsConstructors.size() > 1)
 		{
-			throw new BeanProcessorException("More than one object-arg constructor for class [" + beanClass.getCanonicalName() + "]." );
+			throw new BeanProcessorException("More than one object-arg constructor for class [" + targetClass.getCanonicalName() + "].");
 		}
+		
+		return oneArgsConstructors.get(0);
 	}
 	
 }

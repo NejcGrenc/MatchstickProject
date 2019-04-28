@@ -9,6 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface ProxyBean
 {
-	Class<?> originalClass();
-	Class<?> implementedInterface();
+	Class<?> proxyClass();
 }
