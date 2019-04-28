@@ -31,6 +31,9 @@ public class ProxyBeanProcessor
 	private static Object popOriginalBean(Class<?> originalClass)
 	{
 		Object originalBeanInstance = Beans.get(originalClass);
+		if (originalBeanInstance == null)
+			throw new BeanProcessorException("No original instance bean found for type [" + originalClass + "].");
+			
 		Beans.removeBean(originalClass);
 		return originalBeanInstance;
 	}

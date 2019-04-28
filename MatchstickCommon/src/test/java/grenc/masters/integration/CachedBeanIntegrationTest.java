@@ -42,8 +42,7 @@ public class CachedBeanIntegrationTest
 		assertEquals(5, subject.instance.returnAndIncrement());
 		assertEquals(5, subject.instance.returnAndIncrement());
 		assertEquals(6, subject.instance.returnAndIncrementUncached());
-	}
-	
+	}	
 }
 
 
@@ -54,7 +53,6 @@ class IntegrationTargetClass
 	public IntegrationBeanClass instance;
 }
 
-@Bean
 @ProxyBean(proxyClass = CacheProxy.class)
 class IntegrationBeanClassImpl implements IntegrationBeanClass
 {
