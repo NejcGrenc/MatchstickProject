@@ -10,6 +10,10 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 
+	<listener>
+    	<listener-class>grenc.masters.servlets.setup.ServletSetup</listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.base.DispatcherServlet</servlet-class>

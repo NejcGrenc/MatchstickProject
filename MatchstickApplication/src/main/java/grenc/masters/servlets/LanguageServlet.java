@@ -14,6 +14,7 @@ import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
+import grenc.simpleton.Beans;
 
 public class LanguageServlet extends BasePageServlet
 {
@@ -23,7 +24,7 @@ public class LanguageServlet extends BasePageServlet
 	
 	public LanguageServlet()
 	{
-		this.sessionDAO = SessionDAO.getInstance();
+		this.sessionDAO = Beans.get(SessionDAO.class);
 	}
 	
 	@Override
