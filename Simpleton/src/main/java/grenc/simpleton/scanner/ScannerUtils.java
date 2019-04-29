@@ -55,10 +55,17 @@ public class ScannerUtils
 	
 	protected static Field[] getAllFields(Class<?> c)
 	{
-		Field[] allClassFields = c.getDeclaredFields();
-		if (c.getSuperclass() != null)
-			allClassFields = merge(allClassFields, getAllFields(c.getSuperclass()));
-		return allClassFields;
+		try {
+			Field[] allClassFields = c.getDeclaredFields();
+			if (c.getSuperclass() != null)
+				allClassFields = merge(allClassFields, getAllFields(c.getSuperclass()));
+			return allClassFields;
+		}
+		catch (NoClassDefFoundError e)
+		{
+    		System.out.println("ERROR: " + e.getClass() + ": "+ e.getMessage());
+			return new Field[0];
+		}
 	}
 	
 	private static <T> Stream<T> stream(T[] array)

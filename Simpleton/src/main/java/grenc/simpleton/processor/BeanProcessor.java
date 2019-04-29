@@ -11,6 +11,7 @@ import grenc.simpleton.processor.exception.BeanProcessorException;
 import grenc.simpleton.proxy.ProxyBeanProcessor;
 import grenc.simpleton.scanner.BeanScanner;
 import grenc.simpleton.scanner.InsertBeanScanner;
+import grenc.simpleton.utils.SimpleLogger;
 
 public class BeanProcessor
 {
@@ -18,11 +19,13 @@ public class BeanProcessor
 	public static void processPath(String path)
 	{
 		try
-		{
+		{			
 			Class<?>[] beanClasses = BeanScanner.scanPackage(path).getClasses();
 			processClasses(beanClasses);
 			
 			ProxyBeanProcessor.processProxyBeans(path);
+			
+			SimpleLogger.printAllBeans();
 			
 			InsertBeanScanner scanner = InsertBeanScanner.scanPackage(path);
 			for (Class<?> insertInto : scanner.getClasses())
