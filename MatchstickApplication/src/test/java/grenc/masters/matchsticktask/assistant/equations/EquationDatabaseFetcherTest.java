@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
@@ -13,6 +14,7 @@ public class EquationDatabaseFetcherTest
 {
 
 	@Test
+	@Ignore
 	public void shouldFetchCountedEquations()
 	{
 		// Some equation group type

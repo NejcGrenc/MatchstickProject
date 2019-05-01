@@ -28,6 +28,7 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.simpleton.Beans;
 
 
 public class ImagesTaskServlet extends BasePageServlet 
@@ -36,16 +37,9 @@ public class ImagesTaskServlet extends BasePageServlet
 	
 	public static final String imagesTaskType = "images";
 
-	private SessionDAO sessionDAO;
-	private TaskSessionDAO taskSessionDAO;
-	private ImageTaskDataDAO imageTaskDataDAO;
-	
-	public ImagesTaskServlet()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-		this.taskSessionDAO = TaskSessionDAO.getInstance();
-		this.imageTaskDataDAO = ImageTaskDataDAO.getInstance();
-	}
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	private TaskSessionDAO taskSessionDAO = Beans.get(TaskSessionDAO.class);
+	private ImageTaskDataDAO imageTaskDataDAO = Beans.get(ImageTaskDataDAO.class);
 	
 	
 	@Override

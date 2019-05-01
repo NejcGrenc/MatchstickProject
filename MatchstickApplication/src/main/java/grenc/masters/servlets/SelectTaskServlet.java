@@ -23,17 +23,13 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.simpleton.Beans;
 
 public class SelectTaskServlet extends BasePageServlet
 {
 	private static final long serialVersionUID = -8728770182383692863L;
 
-	private SessionDAO sessionDAO;
-	
-	public SelectTaskServlet()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-	}
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
 	
 	@Override
 	public Servlet commonInstance()

@@ -2,12 +2,16 @@ package grenc.masters.database.dao;
 
 import java.util.List;
 
+import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.entities.Session;
+import grenc.simpleton.annotation.Bean;
 
+
+@Bean
 public class SessionDAO
 {
-	
 	private static SessionDAO instance = new SessionDAO();
 	
 	private SessionDAO() {}
@@ -17,7 +21,7 @@ public class SessionDAO
 		return instance;
 	}
 	
-	
+	@ResetCache
 	public synchronized Session insertSession(String tag, int risk, String lang, Integer subjectId) 
 	{
 		QueryBuilder.newInsert().intoTable("session")
@@ -32,12 +36,13 @@ public class SessionDAO
 		return findSessionByTag(tag);
 	}
 	
-	
+	@Cached
 	public Session findSessionById(int sessionId)
 	{
 		return findSessionWhere("id", sessionId);
 	}
 	
+	@Cached
 	public Session findSessionByTag(String sessionTag)
 	{
 		if (sessionTag == null)
@@ -64,31 +69,35 @@ public class SessionDAO
 		return (sessions.isEmpty()) ? null : sessions.get(0);
 	}
 	
-	
+	@ResetCache
 	public synchronized Session updateSessionRisk(int sessionId, int newRisk)
 	{
 		updateSessionField(sessionId, "risk", newRisk);
 		return findSessionById(sessionId);
 	}
 	
+	@ResetCache
 	public synchronized Session updateSessionLang(int sessionId, String newLang)
 	{
 		updateSessionField(sessionId, "lang", newLang);
 		return findSessionById(sessionId);
 	}
 	
+	@ResetCache
 	public synchronized Session updateSessionSubjectId(int sessionId, int newSubjectId)
 	{
 		updateSessionField(sessionId, "subject_id", newSubjectId);
 		return findSessionById(sessionId);
 	}
 	
+	@ResetCache
 	public Session updateSessionTestTasksOnly(int sessionId, boolean testTasksOnly)
 	{
 		updateSessionField(sessionId, "test_tasks_only", testTasksOnly);
 		return findSessionById(sessionId);
 	}
 	
+	@ResetCache
 	public Session updateSessionSnoopEnabled(int sessionId, boolean snoopEnabled)
 	{
 		updateSessionField(sessionId, "snoop_enabled", snoopEnabled);

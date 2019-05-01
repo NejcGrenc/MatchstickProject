@@ -22,18 +22,14 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.simpleton.Beans;
 
 
 public class MatchstickTaskServlet extends BasePageServlet 
 {
 	private static final long serialVersionUID = -1953103888973255388L;
 	
-	private SessionDAO sessionDAO;
-	
-	public MatchstickTaskServlet()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-	}
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
 	
 	@Override
 	public Servlet commonInstance()

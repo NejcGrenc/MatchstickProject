@@ -20,12 +20,7 @@ public class LanguageServlet extends BasePageServlet
 {
 	private static final long serialVersionUID = -8728770182383692863L;
 
-	private SessionDAO sessionDAO;
-	
-	public LanguageServlet()
-	{
-		this.sessionDAO = Beans.get(SessionDAO.class);
-	}
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);;
 	
 	@Override
 	public Servlet commonInstance()

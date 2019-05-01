@@ -24,6 +24,7 @@ import grenc.masters.servlets.base.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Collapsible;
+import grenc.simpleton.Beans;
 
 public class DataPresentServlet extends BasePageServlet
 {
@@ -40,23 +41,13 @@ public class DataPresentServlet extends BasePageServlet
 	//	builder.appendPageElement(breakCh);
 
 
-	private SessionDAO sessionDAO;
-	private SubjectDAO subjectDAO;
-	private TaskSessionDAO taskSessionDAO;
-	private MatchstickTaskDataDAO matchstickTaskDataDAO;
-	private MatchstickActionDataDAO matchstickActionDataDAO;
-	private ImageTaskDataDAO imageTaskDataDAO;
-	
-	public DataPresentServlet()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-		this.subjectDAO = SubjectDAO.getInstance();
-		this.taskSessionDAO = TaskSessionDAO.getInstance();
-		this.matchstickTaskDataDAO = MatchstickTaskDataDAO.getInstance();
-		this.matchstickActionDataDAO = MatchstickActionDataDAO.getInstance();
-		this.imageTaskDataDAO = ImageTaskDataDAO.getInstance();
-	}
-	
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
+	private TaskSessionDAO taskSessionDAO = Beans.get(TaskSessionDAO.class);
+	private MatchstickTaskDataDAO matchstickTaskDataDAO = Beans.get(MatchstickTaskDataDAO.class);
+	private MatchstickActionDataDAO matchstickActionDataDAO = Beans.get(MatchstickActionDataDAO.class);
+	private ImageTaskDataDAO imageTaskDataDAO = Beans.get(ImageTaskDataDAO.class);
+
 
 	@Override
 	public Servlet commonInstance()

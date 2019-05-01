@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import grenc.masters.database.dao.TaskSessionDAO;
@@ -32,6 +33,7 @@ public class TaskSessionDAOTest extends DatabaseTestConfiguraton
 	
 	
 	@Test
+	@Ignore
 	public void insertAndFetchAll()
 	{
 		taskSessionDAO.insert(45, "type", 100000L, "test", true, "I am the best");	

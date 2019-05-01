@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.entities.MatchstickActionData;
 import grenc.masters.database.entities.MatchstickActionLocation;
+import grenc.simpleton.annotation.Bean;
 
+
+@Bean
 public class MatchstickActionDataDAO
 {
 
@@ -20,7 +25,7 @@ public class MatchstickActionDataDAO
 		return instance;
 	}
 	
-	
+	@ResetCache
 	public synchronized MatchstickActionData insert(int matchstickTaskId, String type, String startEq, String endEq, String startMatchstickLoc, String endMatchstickLoc, long startTime, long endTime)
 	{
 		QueryBuilder.newInsert().intoTable("matchstick_action")
@@ -37,6 +42,7 @@ public class MatchstickActionDataDAO
 		return findAllDataForMatchstickTaskId(matchstickTaskId).get(0);
 	}
 	
+	@Cached
 	public List<MatchstickActionData> findAllDataForMatchstickTaskId(int matchstickTaskId)
 	{
 		return QueryBuilder.newSelect(MatchstickActionData::new)

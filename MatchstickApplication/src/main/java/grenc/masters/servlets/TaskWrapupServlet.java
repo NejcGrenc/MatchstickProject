@@ -20,20 +20,16 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.simpleton.Beans;
 
 
 public class TaskWrapupServlet extends BasePageServlet
 {
 	private static final long serialVersionUID = 2368890582618928946L;
 
-	private SessionDAO sessionDAO;
-	private TaskSessionDAO taskSessionDAO;
-	
-	public TaskWrapupServlet()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-		this.taskSessionDAO = TaskSessionDAO.getInstance();
-	}
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	private TaskSessionDAO taskSessionDAO = Beans.get(TaskSessionDAO.class);
+
 	
 	@Override
 	public Servlet commonInstance()

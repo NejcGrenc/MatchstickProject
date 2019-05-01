@@ -2,11 +2,15 @@ package grenc.masters.database.dao;
 
 import java.util.List;
 
+import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.builder.SelectBuilder;
 import grenc.masters.database.entities.TaskSession;
+import grenc.simpleton.annotation.Bean;
 
 
+@Bean
 public class TaskSessionDAO
 {
 	
@@ -19,7 +23,7 @@ public class TaskSessionDAO
 		return instance;
 	}
 	
-	
+	@ResetCache
 	public synchronized TaskSession insert(int sessionId, String taskType, Long startTime, String matchstickGroup, boolean complete, String notes)
 	{
 		QueryBuilder.newInsert().intoTable("task_session")
@@ -34,6 +38,7 @@ public class TaskSessionDAO
 		return findAllTaskForSessionId(sessionId).get(0);
 	}
 	
+	@Cached
 	public List<TaskSession> findAllTaskForSessionId(int sessionId)
 	{
 		return buildFullEntry(QueryBuilder.newSelect(TaskSession::new))
@@ -42,6 +47,7 @@ public class TaskSessionDAO
 					  .execute();
 	}
 	
+	@Cached
 	public List<TaskSession> findAllTaskForType(String taskType)
 	{
 		return buildFullEntry(QueryBuilder.newSelect(TaskSession::new))
@@ -49,6 +55,7 @@ public class TaskSessionDAO
 					  .execute();
 	}
 	
+	@Cached
 	public List<TaskSession> findAllTaskForSessionIdAndTaskType(int sessionId, String taskType)
 	{
 		return buildFullEntry(QueryBuilder.newSelect(TaskSession::new))
@@ -58,6 +65,7 @@ public class TaskSessionDAO
 					  .execute();
 	}
 	
+	@Cached
 	public List<TaskSession> findAllTaskForSessionIdAndTaskTypeAndComplete(int sessionId, String taskType, boolean complete)
 	{
 		return buildFullEntry(QueryBuilder.newSelect(TaskSession::new))
@@ -81,6 +89,7 @@ public class TaskSessionDAO
 		return builder;
 	}
 	
+	@ResetCache
 	public synchronized void updateComplete(int id, boolean complete)
 	{
 		QueryBuilder.newUpdate().inTable("task_session")
@@ -89,6 +98,7 @@ public class TaskSessionDAO
 					.execute();
 	}
 	
+	@ResetCache
 	public synchronized void updateNotes(int id, String notes)
 	{
 		QueryBuilder.newUpdate().inTable("task_session")

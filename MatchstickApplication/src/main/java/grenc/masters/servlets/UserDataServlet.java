@@ -19,19 +19,15 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.simpleton.Beans;
 
 public class UserDataServlet extends BasePageServlet
 {
 	private static final long serialVersionUID = 2368890582418928946L;
 
-	private SessionDAO sessionDAO;
-	private SubjectDAO subjectDAO;
-	
-	public UserDataServlet()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-		this.subjectDAO = SubjectDAO.getInstance();
-	}
+	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
+
 	
 	@Override
 	public Servlet commonInstance()

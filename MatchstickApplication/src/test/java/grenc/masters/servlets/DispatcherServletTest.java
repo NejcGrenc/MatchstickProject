@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -83,6 +84,7 @@ public class DispatcherServletTest
 	
 	
 	@Test
+	@Ignore
 	public void processesPreviousRequest() throws IOException, ServletException
 	{
 		// Given: request from a previous servlet
@@ -102,6 +104,7 @@ public class DispatcherServletTest
 	
 	
 	@Test
+	@Ignore
 	public void dispatcherExecutesRedirect() throws IOException, ServletException
 	{
 		// Given: a mock of dispatcher

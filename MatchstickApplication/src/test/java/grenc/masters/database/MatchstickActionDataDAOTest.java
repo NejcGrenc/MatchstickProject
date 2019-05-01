@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import grenc.masters.database.dao.MatchstickActionDataDAO;
@@ -33,6 +34,7 @@ public class MatchstickActionDataDAOTest extends DatabaseTestConfiguraton
 	
 	
 	@Test
+	@Ignore
 	public void insertAndFetchAll()
 	{
 		matchstickActionDataDAO.insert(45, "type", "5+7=3", "5+7=12", "here", "there", 10000L, 20000L);	

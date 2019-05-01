@@ -2,11 +2,15 @@ package grenc.masters.database.dao;
 
 import java.util.List;
 
+import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.builder.SelectBuilder;
 import grenc.masters.database.entities.Subject;
+import grenc.simpleton.annotation.Bean;
 
 
+@Bean
 public class SubjectDAO
 {
 	
@@ -19,7 +23,7 @@ public class SubjectDAO
 		return instance;
 	}
 	
-	
+	@ResetCache
 	public synchronized Subject insertSubject(String name) 
 	{
 		QueryBuilder.newInsert().intoTable("subject")
@@ -30,21 +34,25 @@ public class SubjectDAO
 		return findLastSubjectByName(name);
 	}
 	
+	@Cached
 	public Subject findSubjectById(int subjectId)
 	{
 		return findSubjectWhere("id", subjectId);
 	}
 	
+	@Cached
 	public Subject findSubjectByIp(String ip)
 	{
 		return findSubjectWhere("ip", ip);
 	}
 	
+	@Cached
 	protected Subject findLastSubjectByName(String name)
 	{
 		return findSubjectWhere("name", name);
 	}
 	
+	@Cached
 	protected <T> Subject findSubjectWhere(String conditionName, T conditionValue)
 	{
 		List<Subject> subjects =
@@ -75,7 +83,7 @@ public class SubjectDAO
 		return builder;
 	}
 	
-	
+	@ResetCache
 	public synchronized Subject updateSubject(int subjectId, Integer age, String sex, String lang)
 	{
 		QueryBuilder.newUpdate().inTable("subject")
@@ -88,6 +96,7 @@ public class SubjectDAO
 		return findSubjectById(subjectId);
 	}
 	
+	@ResetCache
 	public synchronized Subject updateSubjectFetchedData(int subjectId, String ip, String address, String operatingSystem, String browser)
 	{
 		QueryBuilder.newUpdate().inTable("subject")
@@ -101,6 +110,7 @@ public class SubjectDAO
 		return findSubjectById(subjectId);
 	}
 	
+	@ResetCache
 	public synchronized Subject updateSubjectOriginal(int subjectId, boolean original)
 	{
 		QueryBuilder.newUpdate().inTable("subject")

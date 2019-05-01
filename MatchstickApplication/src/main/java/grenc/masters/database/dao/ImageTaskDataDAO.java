@@ -2,10 +2,14 @@ package grenc.masters.database.dao;
 
 import java.util.List;
 
+import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.entities.ImageTaskData;
+import grenc.simpleton.annotation.Bean;
 
 
+@Bean
 public class ImageTaskDataDAO
 {
 	
@@ -18,7 +22,7 @@ public class ImageTaskDataDAO
 		return instance;
 	}
 	
-	
+	@ResetCache
 	public synchronized ImageTaskData insert(int taskSessionId, int number, String imageId, long time, boolean correct)
 	{
 		QueryBuilder.newInsert().intoTable("images_task")
@@ -32,6 +36,7 @@ public class ImageTaskDataDAO
 		return findAllTaskForSessionId(taskSessionId).get(0);
 	}
 	
+	@Cached
 	public List<ImageTaskData> findAllTaskForSessionId(int taskSessionId)
 	{
 		return QueryBuilder.newSelect(ImageTaskData::new)

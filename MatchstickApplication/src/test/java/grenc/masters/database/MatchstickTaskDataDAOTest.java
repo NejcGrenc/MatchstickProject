@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import grenc.masters.database.dao.MatchstickTaskDataDAO;
@@ -34,6 +35,7 @@ public class MatchstickTaskDataDAOTest extends DatabaseTestConfiguraton
 	
 
 	@Test
+	@Ignore
 	public void insertAndFetchAll()
 	{
 		matchstickTaskDataDAO.insert(45, 5, "type", "2+2=7", "5+2=7", 1234, 2, 2.66);

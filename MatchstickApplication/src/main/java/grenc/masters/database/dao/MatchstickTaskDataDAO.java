@@ -2,11 +2,15 @@ package grenc.masters.database.dao;
 
 import java.util.List;
 
+import grenc.masters.cache.annotation.Cached;
+import grenc.masters.cache.annotation.ResetCache;
 import grenc.masters.database.builder.QueryBuilder;
 import grenc.masters.database.builder.SelectBuilder;
 import grenc.masters.database.entities.MatchstickTaskData;
+import grenc.simpleton.annotation.Bean;
 
 
+@Bean
 public class MatchstickTaskDataDAO
 {
 	
@@ -19,7 +23,7 @@ public class MatchstickTaskDataDAO
 		return instance;
 	}
 	
-	
+	@ResetCache
 	public synchronized MatchstickTaskData insert(int taskSessionId, int number, String status, String originalEq, String solvedEq, long time, int moves, double transfer)
 	{
 		QueryBuilder.newInsert().intoTable("matchstick_task")
@@ -36,6 +40,7 @@ public class MatchstickTaskDataDAO
 		return findAllTaskForSessionId(taskSessionId).get(0);
 	}
 	
+	@ResetCache
 	public synchronized MatchstickTaskData insertInitial(int taskSessionId, int number)
 	{
 		QueryBuilder.newInsert().intoTable("matchstick_task")
@@ -54,6 +59,7 @@ public class MatchstickTaskDataDAO
 				  .get(0);
 	}
 	
+	@ResetCache
 	public synchronized MatchstickTaskData update(int id, String status, String originalEq, String solvedEq, long time, long activityTime, int moves, double transfer)
 	{
 		QueryBuilder.newUpdate().inTable("matchstick_task")
@@ -70,6 +76,7 @@ public class MatchstickTaskDataDAO
 		return findTaskById(id);
 	}
 	
+	@Cached
 	public MatchstickTaskData findTaskById(int id)
 	{
 		return fullQueryBuilder()
@@ -77,6 +84,7 @@ public class MatchstickTaskDataDAO
 				  .execute().get(0);
 	}
 	
+	@Cached
 	public List<MatchstickTaskData> findAllTaskForSessionId(int taskSessionId)
 	{
 		return fullQueryBuilder()
