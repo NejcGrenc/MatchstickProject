@@ -1,4 +1,4 @@
-package grens.growscript.reader;
+package grenc.growscript.reader;
 
 import static org.junit.Assert.assertEquals;
 

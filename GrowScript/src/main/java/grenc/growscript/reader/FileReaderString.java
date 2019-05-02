@@ -2,7 +2,6 @@ package grenc.growscript.reader;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -28,7 +27,9 @@ public class FileReaderString
 		ClassLoader classLoader = getClass().getClassLoader();
 		URL resource = classLoader.getResource(fileName);
 		if (resource == null)
+		{
 			throw new GrowScriptException("Cannot find file: " + fileName);
+		}
 		return new File(resource.getFile());
 	}
 	
@@ -53,20 +54,22 @@ public class FileReaderString
 			throw new GrowScriptException(e);
 		}
 		finally
-		{
-			
-			try
-			{
-				if (in != null)
-					in.close();
-			} 
-			catch (IOException e)
-			{
-				throw new GrowScriptException(e);
-			}
+		{	
+			close(in);
 		}
 	}
 	
-	
+	private void close(BufferedReader reader)
+	{
+		try
+		{
+			if (reader != null)
+				reader.close();
+		} 
+		catch (IOException e)
+		{
+			throw new GrowScriptException(e);
+		}
+	}
 
 }

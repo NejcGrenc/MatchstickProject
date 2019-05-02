@@ -1,5 +1,4 @@
-
-package grens.growscript.parser;
+package grenc.growscript.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

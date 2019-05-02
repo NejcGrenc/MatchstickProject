@@ -23,7 +23,7 @@ public class MoustacheParser
 		List<String> allVariables = new ArrayList<String>();
 		Matcher matcher = moustacheAllPattern.matcher(text);
 		while(matcher.find())
-		{	
+	{	
 			// System.out.println(matcher.group());
 			// System.out.println(matcher.start());
 			// System.out.println(matcher.end());
