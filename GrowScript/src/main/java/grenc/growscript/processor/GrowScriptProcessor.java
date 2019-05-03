@@ -1,51 +1,31 @@
 package grenc.growscript.processor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import grenc.growscript.base.GrowSegment;
-import grenc.growscript.exception.GrowScriptException;
 import grenc.growscript.parser.MoustacheParser;
+import grenc.growscript.processor.handler.GrowScriptSegmentVariableHandler;
+import grenc.growscript.processor.handler.GrowScriptSubSegmentHandler;
 
 
 public class GrowScriptProcessor
 {
-	public void process(GrowSegment segment)
-	{
-		String text = segment.getBaseText();
-	}
+	private GrowScriptSegmentVariableHandler variableHandler = new GrowScriptSegmentVariableHandler();
+	private GrowScriptSubSegmentHandler subSegmentHandler = new GrowScriptSubSegmentHandler();
 	
-	public void checkVariables(GrowSegment segment)
-	{
-		String text = segment.getBaseText();
-		List<String> textVariables = new MoustacheParser().allVariables(text);
-		List<String> allGrowSegments = ClassProcessor.allFieldsOfType(segment.getClass(), GrowSegment.class);
-		
-		List<String> missingTextVariables = allMissing(textVariables, allGrowSegments);
-		List<String> missingGrowSegments = allMissing(allGrowSegments, textVariables);
-		if (! (missingTextVariables.isEmpty() && missingGrowSegments.isEmpty()))
-		{
-			String errorMessage = "";
-			if (missingTextVariables.isEmpty())
-				errorMessage += "Unassigned variables [" + String.join(", ", missingTextVariables) + "]. ";
-			if (missingGrowSegments.isEmpty())
-				errorMessage += "Extra GrowSegments [" + String.join(", ", missingGrowSegments) + "]. ";
-			throw new GrowScriptException(errorMessage);
+	public String process(GrowSegment segment)
+	{		
+		String processedText = segment.getBaseText();
+				
+		List<String> textVariables = variableHandler.variablesOf(segment);
+		for (String variable : textVariables)
+		{		
+			GrowSegment subSegment = subSegmentHandler.getSubSegment(segment, variable);
+			String processedVar = process(subSegment);
+			
+			processedText = new MoustacheParser().replaceVariable(processedText, variable, processedVar);
 		}
+		
+		return processedText;
 	}
-	
-	/**
-	 * Returns a list of elements that are present in the first list, but not in the second.
-	 */
-	private <T> List<T> allMissing(List<T> originalList, List<T> listToCompare)
-	{
-		List<T> missing = new ArrayList<>();
-		for (T originalEl : originalList)
-			if (! listToCompare.contains(originalEl))
-				missing.add(originalEl);
-		return missing;
-	}
-	
-	
-	
 }

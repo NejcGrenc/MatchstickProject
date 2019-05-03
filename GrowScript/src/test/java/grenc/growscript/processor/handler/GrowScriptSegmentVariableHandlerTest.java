@@ -1,4 +1,4 @@
-package grenc.growscript.processor;
+package grenc.growscript.processor.handler;
 
 import static org.junit.Assert.fail;
 
@@ -8,16 +8,23 @@ import grenc.growscript.base.GrowSegment;
 import grenc.growscript.exception.GrowScriptException;
 
 
-public class GrowScriptProcessorTest
+public class GrowScriptSegmentVariableHandlerTest
 {
-	// Subject
-	private GrowScriptProcessor processor = new GrowScriptProcessor();
+	private GrowScriptSegmentVariableHandler variableHandler = new GrowScriptSegmentVariableHandler();
 	
 	@Test
 	public void shouldSuccessfullyCheckValidConfiguration()
 	{
 		ValidConfiguration testClass = new ValidConfiguration();
-		processor.checkVariables(testClass);
+		variableHandler.variablesOf(testClass);
+		// should throw no exception
+	}
+	
+	@Test
+	public void shouldSuccessfullyCheckValidConfigurationEvenWhenSpeciffic()
+	{
+		ValidConfigurationSpecific testClass = new ValidConfigurationSpecific();
+		variableHandler.variablesOf(testClass);
 		// should throw no exception
 	}
 	
@@ -25,7 +32,7 @@ public class GrowScriptProcessorTest
 	public void shouldFailProcessingMissingVariables()
 	{
 		InvalidConfiguration1 testClass = new InvalidConfiguration1();
-		processor.checkVariables(testClass);
+		variableHandler.variablesOf(testClass);
 		fail();
 	}
 	
@@ -33,16 +40,28 @@ public class GrowScriptProcessorTest
 	public void shouldFailProcessingMissingGrowSegments()
 	{
 		InvalidConfiguration2 testClass = new InvalidConfiguration2();
-		processor.checkVariables(testClass);
+		variableHandler.variablesOf(testClass);
 		fail();
 	}
 	
 	
 	
+	private class EmptyClass implements GrowSegment
+	{
+		@Override public String getBaseText() { return "Some simple text"; }
+	}
+	
 	private class ValidConfiguration implements GrowSegment
 	{
 		@SuppressWarnings("unused")
 		GrowSegment var1;
+		@Override public String getBaseText() { return "Custom variable {{var1}}."; }	
+	}
+	
+	private class ValidConfigurationSpecific implements GrowSegment
+	{
+		@SuppressWarnings("unused")
+		EmptyClass var1;
 		@Override public String getBaseText() { return "Custom variable {{var1}}."; }	
 	}
 	
