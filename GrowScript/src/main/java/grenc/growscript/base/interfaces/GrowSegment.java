@@ -1,4 +1,4 @@
-package grenc.growscript.base;
+package grenc.growscript.base.interfaces;
 
 public interface GrowSegment
 {

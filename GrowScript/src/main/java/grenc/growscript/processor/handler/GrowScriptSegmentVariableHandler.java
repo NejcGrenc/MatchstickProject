@@ -3,7 +3,7 @@ package grenc.growscript.processor.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import grenc.growscript.base.GrowSegment;
+import grenc.growscript.base.interfaces.GrowSegment;
 import grenc.growscript.exception.GrowScriptException;
 import grenc.growscript.parser.MoustacheParser;
 

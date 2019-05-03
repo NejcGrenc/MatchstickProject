@@ -2,7 +2,7 @@ package grenc.growscript.processor.handler;
 
 import java.lang.reflect.Field;
 
-import grenc.growscript.base.GrowSegment;
+import grenc.growscript.base.interfaces.GrowSegment;
 import grenc.growscript.exception.GrowScriptException;
 
 public class GrowScriptSubSegmentHandler

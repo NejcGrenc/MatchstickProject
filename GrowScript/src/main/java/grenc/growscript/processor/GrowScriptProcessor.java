@@ -2,7 +2,7 @@ package grenc.growscript.processor;
 
 import java.util.List;
 
-import grenc.growscript.base.GrowSegment;
+import grenc.growscript.base.interfaces.GrowSegment;
 import grenc.growscript.parser.MoustacheParser;
 import grenc.growscript.processor.handler.GrowScriptSegmentVariableHandler;
 import grenc.growscript.processor.handler.GrowScriptSubSegmentHandler;

@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import grenc.growscript.base.GrowSegment;
+import grenc.growscript.base.interfaces.GrowSegment;
 import grenc.growscript.exception.GrowScriptException;
 
 

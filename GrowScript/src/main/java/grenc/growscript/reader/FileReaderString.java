@@ -33,7 +33,7 @@ public class FileReaderString
 		return new File(resource.getFile());
 	}
 	
-	public void readFile(String fullFilename)
+	public String readFile(String fullFilename)
 	{
 		BufferedReader in = null;
 		try 
@@ -57,6 +57,7 @@ public class FileReaderString
 		{	
 			close(in);
 		}
+		return output.toString();
 	}
 	
 	private void close(BufferedReader reader)
