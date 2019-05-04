@@ -1,4 +1,4 @@
-package grenc.growscript.processor.handler;
+package grenc.growscript.service.handler;
 
 import static org.junit.Assert.fail;
 

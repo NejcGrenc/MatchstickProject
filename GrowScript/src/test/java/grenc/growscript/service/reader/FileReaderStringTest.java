@@ -1,4 +1,4 @@
-package grenc.growscript.reader;
+package grenc.growscript.service.reader;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +20,7 @@ public class FileReaderStringTest
 		FileReaderString subject = new FileReaderString(builder);
 		subject.readFile(fileName);
 		
-		assertEquals("This is simple text.\nThis is second line!\n", builder.toString());
+		assertEquals("This is simple text.\nThis is second line!", builder.toString());
 				
 	}
 }

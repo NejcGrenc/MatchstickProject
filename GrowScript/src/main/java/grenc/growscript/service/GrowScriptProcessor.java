@@ -35,7 +35,7 @@ public class GrowScriptProcessor
 		for (String variable : textVariables)
 		{		
 			GrowSegment subSegment = subSegmentHandler.getSubSegment(segment, variable);
-			String processedVar = process(subSegment);
+			String processedVar = process(subSegment, params);
 			
 			processedText = new MoustacheParser().replaceVariable(processedText, variable, processedVar);
 		}

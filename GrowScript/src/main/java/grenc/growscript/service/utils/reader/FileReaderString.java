@@ -47,7 +47,7 @@ public class FileReaderString
 		    	output.append(str);
 		    	output.append("\n");
 		    }
-		    
+		    output = output.delete((output.length() - "\n".length()), output.length());
 		}
 		catch (IOException e)
 		{

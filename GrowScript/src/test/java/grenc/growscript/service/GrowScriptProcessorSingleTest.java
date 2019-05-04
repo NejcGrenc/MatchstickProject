@@ -1,4 +1,4 @@
-package grenc.growscript.processor;
+package grenc.growscript.service;
 
 import static org.junit.Assert.assertEquals;
 
