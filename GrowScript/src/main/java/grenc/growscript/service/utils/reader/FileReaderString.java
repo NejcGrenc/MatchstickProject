@@ -1,11 +1,11 @@
-package grenc.growscript.reader;
+package grenc.growscript.service.utils.reader;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import grenc.growscript.exception.GrowScriptException;
+import grenc.growscript.service.exception.GrowScriptException;
 
 
 public class FileReaderString

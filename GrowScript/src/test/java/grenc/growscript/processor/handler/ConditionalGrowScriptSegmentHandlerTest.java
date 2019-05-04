@@ -6,9 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.conditional.ConditionalParameters;
+import grenc.growscript.service.handler.ConditionalGrowScriptSegmentHandler;
 
 
 public class ConditionalGrowScriptSegmentHandlerTest

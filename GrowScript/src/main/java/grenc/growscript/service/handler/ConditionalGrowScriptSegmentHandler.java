@@ -1,8 +1,8 @@
-package grenc.growscript.processor.handler;
+package grenc.growscript.service.handler;
 
+import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.conditional.ConditionalParameters;
 
 
 public class ConditionalGrowScriptSegmentHandler

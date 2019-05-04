@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import grenc.growscript.reader.FileReaderString;
+import grenc.growscript.service.utils.reader.FileReaderString;
 
 
 public class FileReaderStringTest

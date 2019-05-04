@@ -6,7 +6,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.exception.GrowScriptException;
+import grenc.growscript.service.exception.GrowScriptException;
+import grenc.growscript.service.handler.GrowScriptSubSegmentHandler;
 
 
 public class GrowScriptSubSegmentHandlerTest

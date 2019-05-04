@@ -1,14 +1,14 @@
-package grenc.growscript.processor;
+package grenc.growscript.service;
 
 import java.util.List;
 
+import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.conditional.ConditionalParameters;
-import grenc.growscript.parser.MoustacheParser;
-import grenc.growscript.processor.handler.ConditionalGrowScriptSegmentHandler;
-import grenc.growscript.processor.handler.GrowScriptSegmentVariableHandler;
-import grenc.growscript.processor.handler.GrowScriptSubSegmentHandler;
+import grenc.growscript.service.handler.ConditionalGrowScriptSegmentHandler;
+import grenc.growscript.service.handler.GrowScriptSegmentVariableHandler;
+import grenc.growscript.service.handler.GrowScriptSubSegmentHandler;
+import grenc.growscript.service.utils.parser.MoustacheParser;
 
 
 public class GrowScriptProcessor

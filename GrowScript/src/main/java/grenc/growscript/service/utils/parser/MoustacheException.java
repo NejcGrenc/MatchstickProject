@@ -1,6 +1,6 @@
-package grenc.growscript.parser;
+package grenc.growscript.service.utils.parser;
 
-import grenc.growscript.exception.GrowScriptException;
+import grenc.growscript.service.exception.GrowScriptException;
 
 public class MoustacheException extends GrowScriptException
 {

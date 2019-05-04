@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import grenc.growscript.parser.MoustacheException;
-import grenc.growscript.parser.MoustacheParser;
+import grenc.growscript.service.utils.parser.MoustacheException;
+import grenc.growscript.service.utils.parser.MoustacheParser;
 
 
 public class MoustacheParserTest

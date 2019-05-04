@@ -7,7 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import grenc.growscript.exception.GrowScriptException;
+import grenc.growscript.service.exception.GrowScriptException;
+import grenc.growscript.service.handler.ClassProcessor;
 
 public class ClassProcessorTest
 {

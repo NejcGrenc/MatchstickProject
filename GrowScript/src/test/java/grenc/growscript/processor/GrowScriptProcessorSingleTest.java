@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import grenc.growscript.base.interfaces.GrowSegment;
+import grenc.growscript.service.GrowScriptProcessor;
 
 
 public class GrowScriptProcessorSingleTest

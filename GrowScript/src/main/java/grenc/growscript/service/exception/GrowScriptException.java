@@ -1,4 +1,4 @@
-package grenc.growscript.exception;
+package grenc.growscript.service.exception;
 
 public class GrowScriptException extends RuntimeException
 {

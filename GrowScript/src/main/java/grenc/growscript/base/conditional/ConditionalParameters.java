@@ -1,4 +1,4 @@
-package grenc.growscript.conditional;
+package grenc.growscript.base.conditional;
 
 import java.util.HashMap;
 import java.util.Map;

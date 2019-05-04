@@ -1,11 +1,11 @@
-package grenc.growscript.processor.handler;
+package grenc.growscript.service.handler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.exception.GrowScriptException;
-import grenc.growscript.parser.MoustacheParser;
+import grenc.growscript.service.exception.GrowScriptException;
+import grenc.growscript.service.utils.parser.MoustacheParser;
 
 
 public class GrowScriptSegmentVariableHandler

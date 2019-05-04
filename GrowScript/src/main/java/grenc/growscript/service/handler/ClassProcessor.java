@@ -1,4 +1,4 @@
-package grenc.growscript.processor.handler;
+package grenc.growscript.service.handler;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import grenc.growscript.exception.GrowScriptException;
+import grenc.growscript.service.exception.GrowScriptException;
 
 public class ClassProcessor
 {
