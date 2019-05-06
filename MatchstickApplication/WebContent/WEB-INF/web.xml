@@ -16,7 +16,7 @@
 
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
-		<servlet-class>grenc.masters.servlets.base.DispatcherServlet</servlet-class>
+		<servlet-class>grenc.masters.servlets.selector.DispatcherServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
