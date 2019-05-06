@@ -86,11 +86,6 @@ public class Servlet
 		return actualServletInstance;
 	}
 	
-	public static BaseServlet getServletInstanceForUrl(String url)
-	{
-		Servlet servletDesscription = getServletDescriptionForUrl(url);
-		return (servletDesscription != null) ? servletDesscription.actualServletInstance : null;
-	}
 	public static Servlet getServletDescriptionForUrl(String url)
 	{
 		if (url == null || url.isEmpty())
