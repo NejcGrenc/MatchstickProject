@@ -38,22 +38,11 @@ public class PostgresConnector
     	
     	try
 		{
-//    		Context ctx = new InitialContext();
-//	        if (ctx == null)
-//	            throw new Exception("Boom - No Context");
-//	        Context envCtx;
-//			envCtx = (Context) ctx.lookup("java:comp/env");
-//    		
-//	        DataSource ds = (DataSource) envCtx.lookup("jdbc/matchstickdb");
-//
-//	        connection =  ds.getConnection();
-//	        
 			connection = DriverManager.getConnection(url + database, user, password);
 		} 
 		catch (Exception e)
 		{
-			System.out.println("Unable to open Postgres connection");
-			e.printStackTrace();
+			throw new RuntimeException("Unable to open Postgres connection");
 		}
     	return connection;
     }
@@ -71,14 +60,5 @@ public class PostgresConnector
 			e.printStackTrace();
 		}
     }
-    
-//    private String dbUrl()
-//    {
-//    	if (JunitTest.isJUnitTest())
-//    	{
-//    		return url + testDatabase;
-//    	}
-//    	return url + database;
-//    }
-    
+
 }
