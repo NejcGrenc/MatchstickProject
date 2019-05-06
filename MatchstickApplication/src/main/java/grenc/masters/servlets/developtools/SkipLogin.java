@@ -6,7 +6,7 @@ import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
-import grenc.masters.servlets.LanguageServlet;
+import grenc.masters.servlets.LanguageServletBean;
 import grenc.masters.servlets.base.Servlet;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
@@ -38,7 +38,7 @@ public class SkipLogin
 		
 		System.out.println("Skipping!");
 
-		Servlet forwardServlet = forwardTo();
+		Servlet forwardServlet = forwardTo(request);
 		System.out.println("Skipping to " + forwardServlet.getUrl());
 		
 		if (forwardServlet == Servlet.LanguageServlet)

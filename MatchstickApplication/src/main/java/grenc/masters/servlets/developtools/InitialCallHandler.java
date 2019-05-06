@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.simpleton.Beans;
+
 
 public class InitialCallHandler 
 {
@@ -15,6 +17,8 @@ public class InitialCallHandler
 	private static final String snoopParam = "snoop";
 
 	private SessionDAO sessionDAO;
+	
+	private SkipLogin skipLogin = Beans.get(SkipLogin.class);
 	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -67,7 +71,7 @@ public class InitialCallHandler
 		
 		if (SkipLogin.shouldSkip(request)) 
 		{
-			String forwardUrl = new SkipLogin(request).skip();
+			String forwardUrl = skipLogin.skip(request);
 			request.setAttribute("forwardUrl", forwardUrl);
 		}
 		testTasks();
