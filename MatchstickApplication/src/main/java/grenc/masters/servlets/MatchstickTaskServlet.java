@@ -1,6 +1,6 @@
 package grenc.masters.servlets;
 
-import grenc.masters.servlets.base.bean.BaseServlet;
+import grenc.masters.servlets.bean.base.BaseServlet;
 import grenc.simpleton.Beans;
 
 

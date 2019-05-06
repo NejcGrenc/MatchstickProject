@@ -21,7 +21,7 @@ import grenc.masters.database.entities.TaskSession;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.helper.ImageTaskInfoPopup;
 import grenc.masters.utils.PrintUtils;
 import grenc.masters.webpage.builder.WebpageBuilder;

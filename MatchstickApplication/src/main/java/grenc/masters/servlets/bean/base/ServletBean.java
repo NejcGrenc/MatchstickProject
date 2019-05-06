@@ -1,4 +1,4 @@
-package grenc.masters.servlets.base.bean;
+package grenc.masters.servlets.bean.base;
 
 import java.io.IOException;
 

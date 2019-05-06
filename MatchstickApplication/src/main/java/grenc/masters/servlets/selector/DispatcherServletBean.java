@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import grenc.masters.servlets.base.bean.ServletBean;
+import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.masters.servlets.developtools.InitialCallHandler;
 import grenc.simpleton.annotation.Bean;

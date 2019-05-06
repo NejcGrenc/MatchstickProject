@@ -61,10 +61,10 @@ public class Servlet
 	
 	private String url;
 	private String name;
-	private grenc.masters.servlets.base.bean.BaseServlet actualServletInstance;
+	private grenc.masters.servlets.bean.base.BaseServlet actualServletInstance;
 
 	
-	private Servlet (String url, String name, grenc.masters.servlets.base.bean.BaseServlet servletInstance)
+	private Servlet (String url, String name, grenc.masters.servlets.bean.base.BaseServlet servletInstance)
 	{
 		this.url = url;
 		this.name = name;
@@ -81,7 +81,7 @@ public class Servlet
 		return name;
 	}
 	
-	public grenc.masters.servlets.base.bean.BaseServlet getServletInstance()
+	public grenc.masters.servlets.bean.base.BaseServlet getServletInstance()
 	{
 		return actualServletInstance;
 	}

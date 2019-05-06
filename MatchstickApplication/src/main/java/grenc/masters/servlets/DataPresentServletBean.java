@@ -21,7 +21,7 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.TaskType;
-import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Collapsible;
 import grenc.simpleton.annotation.Bean;

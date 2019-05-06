@@ -16,7 +16,7 @@ import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.base.Servlet;
-import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;

@@ -14,7 +14,7 @@ import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;

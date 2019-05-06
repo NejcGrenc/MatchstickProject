@@ -3,7 +3,7 @@ package grenc.masters.servlets.bean.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import grenc.masters.servlets.base.bean.ServletBean;
+import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
 
