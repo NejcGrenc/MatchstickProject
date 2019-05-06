@@ -15,7 +15,6 @@ import grenc.masters.servlets.MatchstickTaskServlet;
 import grenc.masters.servlets.SelectTaskServlet;
 import grenc.masters.servlets.TaskWrapupServlet;
 import grenc.masters.servlets.UserDataServlet;
-import grenc.masters.servlets.base.BaseServlet;
 
 
 public class Servlet
@@ -62,20 +61,14 @@ public class Servlet
 	
 	private String url;
 	private String name;
-	private BaseServlet actualServletInstance;
-	
-	private Servlet (String url, String name, BaseServlet servletInstance)
-	{
-		this.url = url;
-		this.name = name;
-		this.actualServletInstance = servletInstance;
-	}
+	private grenc.masters.servlets.base.bean.BaseServlet actualServletInstance;
+
 	
 	private Servlet (String url, String name, grenc.masters.servlets.base.bean.BaseServlet servletInstance)
 	{
 		this.url = url;
 		this.name = name;
-//		this.actualServletInstance = servletInstance;
+		this.actualServletInstance = servletInstance;
 	}
 	
 	public String getUrl()
@@ -88,7 +81,7 @@ public class Servlet
 		return name;
 	}
 	
-	public BaseServlet getServletInstance()
+	public grenc.masters.servlets.base.bean.BaseServlet getServletInstance()
 	{
 		return actualServletInstance;
 	}

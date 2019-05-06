@@ -1,5 +1,6 @@
 package grenc.simpleton;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -39,6 +40,11 @@ public class Beans
 	public static Set<Class<?>> allRegisteredTypes()
 	{
 		return beans.keySet();
+	}
+	
+	public static Collection<Object> allRegisteredBeans()
+	{
+		return beans.values();
 	}
 		
 	public static void removeAllBeans()

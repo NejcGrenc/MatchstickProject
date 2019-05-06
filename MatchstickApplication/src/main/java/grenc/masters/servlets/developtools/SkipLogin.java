@@ -8,23 +8,22 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.masters.servlets.LanguageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
+@Bean
 public class SkipLogin 
 {
 	private static final String skipParameter = "skip";
 
+	@InsertBean
 	private SessionDAO sessionDAO;
+	@InsertBean
 	private SubjectDAO subjectDAO;
 	
-	private HttpServletRequest request;
-	
-	public SkipLogin(HttpServletRequest request) 
-	{
-		this.request = request;
-		this.sessionDAO = SessionDAO.getInstance();
-		this.subjectDAO = SubjectDAO.getInstance();
-	}
+	@InsertBean
+	private LanguageServletBean languageServlet;
 	
 	
 	public static boolean shouldSkip(HttpServletRequest request)
@@ -35,7 +34,7 @@ public class SkipLogin
 	}
 	
 
-	public String skip() {
+	public String skip(HttpServletRequest request) {
 		
 		System.out.println("Skipping!");
 
@@ -52,7 +51,7 @@ public class SkipLogin
 		{
 			Session session = new SessionGenerator().generateSession();
 			String lang = "en"; // Randomize
-			((LanguageServlet) Servlet.LanguageServlet.getServletInstance()).setLanguage(session.getTag(), lang);
+			languageServlet.setLanguage(session.getTag(), lang);
 			
 			request.setAttribute("session", session.getTag());
 			request.setAttribute("lang", lang);
@@ -63,7 +62,7 @@ public class SkipLogin
 		{
 			Session session = new SessionGenerator().generateSession();
 			String lang = "en"; // Randomize
-			((LanguageServlet) Servlet.LanguageServlet.getServletInstance()).setLanguage(session.getTag(), lang);
+			languageServlet.setLanguage(session.getTag(), lang);
 			
 			String subjectName = "Tony";
 			Subject subject = subjectDAO.insertSubject(subjectName);
@@ -79,7 +78,7 @@ public class SkipLogin
 		{
 			Session session = new SessionGenerator().generateSession();
 			String lang = "en"; // Randomize
-			((LanguageServlet) Servlet.LanguageServlet.getServletInstance()).setLanguage(session.getTag(), lang);
+			languageServlet.setLanguage(session.getTag(), lang);
 			
 			String subjectName = "Tony";
 			Subject subject = subjectDAO.insertSubject(subjectName);
@@ -97,7 +96,7 @@ public class SkipLogin
 		return forwardServlet.getUrl();
 	}
 	
-	private Servlet forwardTo() {
+	private Servlet forwardTo(HttpServletRequest request) {
 		String forwardUrl = (String) request.getAttribute("forwardUrl");
 		if (forwardUrl == null || forwardUrl.isEmpty())
 			throw new RuntimeException("Parameter 'forwardUrl' cannot be null or empty when skipping.");
