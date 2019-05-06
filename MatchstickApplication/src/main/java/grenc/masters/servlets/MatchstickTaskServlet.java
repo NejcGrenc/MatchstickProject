@@ -2,6 +2,7 @@ package grenc.masters.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,8 +15,9 @@ import grenc.masters.matchsticktask.type.SolvableRestriction;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.BasePageServlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
@@ -23,23 +25,32 @@ import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
 
 
-public class MatchstickTaskServlet extends BasePageServlet 
+public class MatchstickTaskServlet extends BaseServlet
+{	
+	private static final long serialVersionUID = 7897105970709246285L;
+
+	public MatchstickTaskServlet()
+	{
+		super(Beans.get(MatchstickTaskServletBean.class));
+	}	
+}
+
+@Bean
+class MatchstickTaskServletBean extends BasePageServlet
 {
-	private static final long serialVersionUID = -1953103888973255388L;
-	
 	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
 	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.MatchstickTaskServlet;
+		return "/matchstickTask";
 	}
 	
-	
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Matchstick task");
 		// Also in the head:
@@ -57,11 +68,11 @@ public class MatchstickTaskServlet extends BasePageServlet
 		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewMatchstickTask();
 		
 		
-		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
-		new AccountBall(builder, session, getServletContext()).set();
+		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
-		new MatchstickTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
+		new MatchstickTaskInfoPopup(builder, servletContext).createPopup(session.getLang());
 	    
 	    // Matchstick task separate libraries
 		builder.addScript(Script.matchstick_main);
@@ -101,7 +112,7 @@ public class MatchstickTaskServlet extends BasePageServlet
 
 	
 	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);

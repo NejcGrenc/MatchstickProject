@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,8 +21,8 @@ import grenc.masters.database.entities.TaskSession;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.BasePageServlet;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.servlets.helper.ImageTaskInfoPopup;
 import grenc.masters.utils.PrintUtils;
 import grenc.masters.webpage.builder.WebpageBuilder;
@@ -29,12 +30,22 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.Translate;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
 
 
-public class ImagesTaskServlet extends BasePageServlet 
-{
+public class ImagesTaskServlet extends BaseServlet
+{	
 	private static final long serialVersionUID = -1953103899973255388L;
-	
+
+	public ImagesTaskServlet()
+	{
+		super(Beans.get(ImagesTaskServletBean.class));
+	}	
+}
+
+@Bean
+class ImagesTaskServletBean extends BasePageServlet
+{	
 	public static final String imagesTaskType = "images";
 
 	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
@@ -43,14 +54,14 @@ public class ImagesTaskServlet extends BasePageServlet
 	
 	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.ImagesTaskServlet;
+		return "/imagesTask";
 	}
-	
+
 	
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Images task");
 
@@ -71,13 +82,13 @@ public class ImagesTaskServlet extends BasePageServlet
 		//
 		// new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
 		builder.appendBodyScriptCommand("var userLang = '" + session.getLang() + "';");
-		builder.appendBodyScriptCommand("var currentPage = '" + commonInstance().getUrl() + "';");
+		builder.appendBodyScriptCommand("var currentPage = '" + url() + "';");
 		
 		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
-		new AccountBall(builder, session, getServletContext()).set();
+		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set();
-		new ImageTaskInfoPopup(builder, getServletContext()).createPopup(session.getLang());
+		new ImageTaskInfoPopup(builder, servletContext).createPopup(session.getLang());
 
 		builder.appendPageElementFile(PageElement.image_task);
 
@@ -95,7 +106,7 @@ public class ImagesTaskServlet extends BasePageServlet
 
 	
 	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
@@ -164,4 +175,6 @@ public class ImagesTaskServlet extends BasePageServlet
 	{
 		builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
 	}
+
+
 }

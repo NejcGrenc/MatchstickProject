@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,16 +21,28 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.TaskType;
-import grenc.masters.servlets.base.BasePageServlet;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Collapsible;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
-public class DataPresentServlet extends BasePageServlet
+
+public class DataPresentServlet extends BaseServlet
 {
 	private static final long serialVersionUID = -8728770142383692863L;
 	
+	public DataPresentServlet()
+	{
+		super(Beans.get(DataPresentServletBean.class));
+	}	
+}
+
+@Bean
+class DataPresentServletBean extends BasePageServlet
+{
 	private static final String ERROR_SESSION_NULL = "<h3>ERROR - session not defined</h3>";
 	private static final String ERROR_SESSION_NOT_FOUND = "<h3>ERROR - session not found by tag: '%s'</h3>";
 
@@ -40,23 +53,28 @@ public class DataPresentServlet extends BasePageServlet
 	// How to use it
 	//	builder.appendPageElement(breakCh);
 
+	@InsertBean
+	private SessionDAO sessionDAO;
+	@InsertBean
+	private SubjectDAO subjectDAO;
+	@InsertBean
+	private TaskSessionDAO taskSessionDAO;
+	@InsertBean
+	private MatchstickTaskDataDAO matchstickTaskDataDAO;
+	@InsertBean
+	private MatchstickActionDataDAO matchstickActionDataDAO;
+	@InsertBean
+	private ImageTaskDataDAO imageTaskDataDAO;
 
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
-	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
-	private TaskSessionDAO taskSessionDAO = Beans.get(TaskSessionDAO.class);
-	private MatchstickTaskDataDAO matchstickTaskDataDAO = Beans.get(MatchstickTaskDataDAO.class);
-	private MatchstickActionDataDAO matchstickActionDataDAO = Beans.get(MatchstickActionDataDAO.class);
-	private ImageTaskDataDAO imageTaskDataDAO = Beans.get(ImageTaskDataDAO.class);
-
-
+	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.DataPresentServlet;
+		return "/presentTaskData";
 	}
 	
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Data from database");
 		
@@ -71,12 +89,6 @@ public class DataPresentServlet extends BasePageServlet
 		Collapsible.enableCollapsible(builder);
 
 		Collapsible.addCollapsible(builder, buildDataTree(sessionTag));
-	}
-	
-	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
-	{
-		// No need to do anything
 	}
 	
 	
@@ -179,5 +191,12 @@ public class DataPresentServlet extends BasePageServlet
 	{
 		Collections.reverse(original);
 		return original;
+	}
+	
+	@Override
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext)
+			throws IOException, ServletException
+	{
+		// No need to do anything		
 	}
 }

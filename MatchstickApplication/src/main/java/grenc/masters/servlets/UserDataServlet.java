@@ -2,6 +2,7 @@ package grenc.masters.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,31 +13,41 @@ import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.BasePageServlet;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
 
-public class UserDataServlet extends BasePageServlet
+
+public class UserDataServlet extends BaseServlet
+{	
+	private static final long serialVersionUID = 1529076118091189351L;
+
+	public UserDataServlet()
+	{
+		super(Beans.get(UserDataServletBean.class));
+	}	
+}
+
+@Bean
+class UserDataServletBean extends BasePageServlet
 {
-	private static final long serialVersionUID = 2368890582418928946L;
-
 	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
 	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
 
-	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.UserDataServlet;
+		return "/userData";
 	}
 
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Select language");
 		
@@ -52,18 +63,18 @@ public class UserDataServlet extends BasePageServlet
 		builder.addScript(Script.send);
 
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
-		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_userdata)
 			.translateAll()
 			.translateSpecial("m_userdata_input_age", "placeholder");
-		new AccountBall(builder, session, getServletContext()).set();
+		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set();
 
 		builder.appendPageElementFile(PageElement.user_data);
 	}
 	
 	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		provideDataToSubject(request);
 	}

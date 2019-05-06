@@ -2,6 +2,7 @@ package grenc.masters.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,8 +15,9 @@ import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.BasePageServlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.uservalidation.BrowserDetails;
 import grenc.masters.webpage.CreditsBall;
 import grenc.masters.webpage.builder.WebpageBuilder;
@@ -24,21 +26,32 @@ import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
 
-public class SelectTaskServlet extends BasePageServlet
+
+public class SelectTaskServlet extends BaseServlet
+{	
+	private static final long serialVersionUID = 8612184426160703877L;
+
+	public SelectTaskServlet()
+	{
+		super(Beans.get(SelectTaskServletBean.class));
+	}	
+}
+
+@Bean
+class SelectTaskServletBean extends BasePageServlet
 {
-	private static final long serialVersionUID = -8728770182383692863L;
-
 	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
 	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.SelectTaskServlet;
+		return "/selectTask";
 	}
 	
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Select task");
 
@@ -50,9 +63,9 @@ public class SelectTaskServlet extends BasePageServlet
 			builder.addStyle(Style.split_page_ie);
 			
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
-		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_selecttask).translateAll();
-		new AccountBall(builder, session, getServletContext()).set();
+		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set();
 
 		new CreditsBall(builder).set();
@@ -60,7 +73,7 @@ public class SelectTaskServlet extends BasePageServlet
 	
 	
 	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		// Prepare new TaskSession
 		String sessionTag = (String) request.getAttribute("session");

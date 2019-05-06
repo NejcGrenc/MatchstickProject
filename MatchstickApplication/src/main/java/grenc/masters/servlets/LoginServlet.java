@@ -2,6 +2,7 @@ package grenc.masters.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +13,8 @@ import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.BasePageServlet;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.servlets.helper.LoginAgreementPopup;
 import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.WebpageBuilder;
@@ -21,23 +22,33 @@ import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
 
-public class LoginServlet extends BasePageServlet
+
+public class LoginServlet extends BaseServlet
+{	
+	private static final long serialVersionUID = 7574509814157386246L;
+
+	public LoginServlet()
+	{
+		super(Beans.get(LoginServletBean.class));
+	}	
+}
+
+@Bean
+class LoginServletBean extends BasePageServlet
 {
-	private static final long serialVersionUID = 2368890582418928946L;
-
 	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
 	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
 
-	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.LoginServlet;
+		return "/login";
 	}
 
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Login");
 		
@@ -55,20 +66,20 @@ public class LoginServlet extends BasePageServlet
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
-		new LanguageBall(builder, session.getLang(), commonInstance().getUrl()).set();
+		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_login)
 			.translateAll()
 			.translateSpecial("m_nameInput", "placeholder");
 
 		new DataPresentBall(builder, session).set();
-		new LoginAgreementPopup(builder, getServletContext()).createPopup(session.getLang());
+		new LoginAgreementPopup(builder, servletContext).createPopup(session.getLang());
 
 						
 		builder.appendPageElementFile(PageElement.login);
 	}
 	
 	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		String subjectName = (String) request.getAttribute("subjectName");
 		if (subjectName == null || subjectName.isEmpty())

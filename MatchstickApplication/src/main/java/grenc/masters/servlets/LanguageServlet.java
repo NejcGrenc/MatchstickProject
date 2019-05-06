@@ -2,6 +2,7 @@ package grenc.masters.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,26 +11,37 @@ import grenc.masters.database.entities.Session;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.BasePageServlet;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.base.bean.BasePageServlet;
+import grenc.masters.servlets.base.bean.BaseServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.simpleton.Beans;
+import grenc.simpleton.annotation.Bean;
 
-public class LanguageServlet extends BasePageServlet
-{
+
+public class LanguageServlet extends BaseServlet
+{	
 	private static final long serialVersionUID = -8728770182383692863L;
 
+	public LanguageServlet()
+	{
+		super(Beans.get(LanguageServletBean.class));
+	}	
+}
+
+@Bean
+class LanguageServletBean extends BasePageServlet
+{
 	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);;
 	
 	@Override
-	public Servlet commonInstance()
+	public String url()
 	{
-		return Servlet.LanguageServlet;
+		return "/selectLanguage";
 	}
 	
 	@Override
-	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request)
+	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Select language");
 		
@@ -53,7 +65,7 @@ public class LanguageServlet extends BasePageServlet
 	
 	
 	@Override
-	public void processClientsResponse(HttpServletRequest request) throws IOException, ServletException
+	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		// Update session with language
 
