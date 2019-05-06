@@ -3,8 +3,6 @@ package grenc.simpleton.processor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 import grenc.simpleton.Beans;
 import grenc.simpleton.processor.exception.BeanProcessorException;
@@ -69,11 +67,19 @@ public class BeanProcessor
 	
 	public static void insertBeansIntoBeanForField(Class<?> c, Field field)
 	{
-		Object recievingBeanInstance = Beans.get(c);
+		Object recievingBeanInstance = Beans.getExact(c);
 		field.setAccessible(true);
 		
-		Class<?> beanType = applicableBean(field);
-		Object insertedBeanInstance = Beans.get(beanType);
+		Object insertedBeanInstance;
+		try
+		{
+			insertedBeanInstance = BeanFinder.findBeanForType(field.getType());
+		}
+		catch (BeanProcessorException e)
+		{
+			e.printStackTrace();
+			throw new BeanProcessorException("Exception occured while processing field [" + field.toString() + "].", e);
+		}	
 		
 		try
 		{
@@ -82,8 +88,9 @@ public class BeanProcessor
 		catch (IllegalArgumentException | IllegalAccessException e)
 		{
 			e.printStackTrace();
-			throw new BeanProcessorException("Unable to insert bean [" + beanType + "] into bean [" + c + "].", e);
+			throw new BeanProcessorException("Unable to insert bean [" + insertedBeanInstance.getClass() + "] into bean [" + c + "].", e);
 		}
+
 	}
 	
 	
@@ -109,44 +116,6 @@ public class BeanProcessor
 		{
 			throw new BeanProcessorException("More than one no-args constructor for class [" + beanClass.getCanonicalName() + "]." );
 		}
-	}
-	
-	
-	protected static Class<?> applicableBean(Field field)
-	{
-		List<Class<?>> applicableBeans = new ArrayList<>();
-		for (Class<?> beanClass : Beans.allRegisteredTypes())
-		{
-			if (isApplicable(field, beanClass))
-				applicableBeans.add(beanClass);
-		}
-			
-		if (applicableBeans.isEmpty())
-			throw new BeanProcessorException("No applicable bean found for field [" + field.toString() + "]");
-		
-		if (applicableBeans.size() > 1)
-		{	
-			String beans = "";
-			for (Class<?> bean : applicableBeans)
-				beans += bean.getName() + " ";
-			throw new BeanProcessorException("Too many applicable bean found for field [" + field.toString() + "] : " + beans);
-		}
-		
-		return applicableBeans.get(0);
-	}
-	
-	private static boolean isApplicable(Field field, Class<?> c)
-	{
-		if (field.getType().equals(c))
-			return true;
-		
-		boolean applicable = false;
-		for (Class<?> interf : c.getInterfaces())
-			applicable = (applicable) ? true : isApplicable(field, interf);
-		if (c.getSuperclass() != null)
-			applicable = (applicable) ? true : isApplicable(field, c.getSuperclass());
-		
-		return applicable;
 	}
 	
 }

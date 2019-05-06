@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import grenc.simpleton.processor.BeanFinder;
 import grenc.simpleton.processor.exception.BeanProcessorException;
 
 public class Beans
@@ -32,9 +33,14 @@ public class Beans
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> T get(Class<T> type)
+	public static <T> T getExact(Class<T> type)
 	{
 		return (T) beans.get(type);
+	}
+	
+	public static <T> T get(Class<T> type)
+	{
+		return BeanFinder.findBeanForType(type);
 	}
 	
 	public static Set<Class<?>> allRegisteredTypes()

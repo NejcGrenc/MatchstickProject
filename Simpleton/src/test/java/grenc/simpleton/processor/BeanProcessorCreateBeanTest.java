@@ -65,9 +65,9 @@ public class BeanProcessorCreateBeanTest
 		Class<?>[] beansToMake = new Class<?>[] {TestClass.class, TestClassWithConstructor.class};
 		BeanProcessor.processClasses(beansToMake);
 		
-		assertTrue(Beans.get(TestClass.class) != null);
-		assertTrue(Beans.get(TestClassWithConstructor.class) != null);
-		assertTrue(Beans.get(TestClass2.class) == null);
+		assertTrue(Beans.getExact(TestClass.class) != null);
+		assertTrue(Beans.getExact(TestClassWithConstructor.class) != null);
+		assertTrue(Beans.getExact(TestClass2.class) == null);
 	}
 	
 	

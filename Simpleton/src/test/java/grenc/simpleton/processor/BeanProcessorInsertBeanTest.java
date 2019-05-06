@@ -1,7 +1,6 @@
 package grenc.simpleton.processor;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 
@@ -9,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import grenc.simpleton.Beans;
-import grenc.simpleton.processor.exception.BeanProcessorException;
 
 
 public class BeanProcessorInsertBeanTest
@@ -19,36 +17,6 @@ public class BeanProcessorInsertBeanTest
 	{
 		Beans.removeAllBeans();
 	}
-
-	
-	@Test
-	public void shouldFindInsertableBean() throws NoSuchFieldException, SecurityException
-	{
-		Beans.registerBean(BeanProcessor.createBean(InsertableTestClass1.class));
-		
-		Class<?> bean = BeanProcessor.applicableBean(InjectIntoClass.class.getDeclaredField("i"));
-		assertTrue(bean == InsertableTestClass1.class);
-	}
-	
-	@Test(expected = BeanProcessorException.class)
-	public void shouldFailToInsertIfNoApplicableBeanRegistered() throws NoSuchFieldException, SecurityException
-	{
-		Beans.registerBean(BeanProcessor.createBean(InsertableTestClass2.class));
-		
-		BeanProcessor.applicableBean(InjectIntoClass.class.getDeclaredField("i"));
-		fail();
-	}
-	
-	@Test(expected = BeanProcessorException.class)
-	public void shouldFailToInsertIfMultipleApplicableBeanRegistered() throws NoSuchFieldException, SecurityException
-	{
-		Beans.registerBean(BeanProcessor.createBean(InsertableTestClass1.class));
-		Beans.registerBean(BeanProcessor.createBean(InsertableTestClassExtended1.class));
-		
-		BeanProcessor.applicableBean(InjectIntoClass.class.getDeclaredField("i"));
-		fail();
-	}
-	
 	
 	@Test
 	public void shouldInsertBean() throws NoSuchFieldException, SecurityException
@@ -60,9 +28,9 @@ public class BeanProcessorInsertBeanTest
 		
 		BeanProcessor.insertBeansIntoBeanForField(InjectIntoClass.class, field);
 		
-		assertTrue(((InjectIntoClass) Beans.get(InjectIntoClass.class)) != null);
-		assertTrue(((InjectIntoClass) Beans.get(InjectIntoClass.class)).i != null);
-		assertTrue(((InjectIntoClass) Beans.get(InjectIntoClass.class)).i.j == 5);
+		assertTrue(((InjectIntoClass) Beans.getExact(InjectIntoClass.class)) != null);
+		assertTrue(((InjectIntoClass) Beans.getExact(InjectIntoClass.class)).i != null);
+		assertTrue(((InjectIntoClass) Beans.getExact(InjectIntoClass.class)).i.j == 5);
 	}
 		
 }
@@ -71,10 +39,6 @@ class InsertableTestClass1
 {
 	public int j = 5;
 }
-
-class InsertableTestClass2 {}
-
-class InsertableTestClassExtended1 extends InsertableTestClass1 {}
 
 class InjectIntoClass
 {

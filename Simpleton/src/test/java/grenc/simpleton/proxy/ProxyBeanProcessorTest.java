@@ -35,10 +35,10 @@ public class ProxyBeanProcessorTest
 		
 		ProxyBeanProcessor.processProxyBeans("grenc.simpleton.proxy");
 		
-		TestInterface originalBeanRemoved = Beans.get(OriginalTestBean.class);
+		TestInterface originalBeanRemoved = Beans.getExact(OriginalTestBean.class);
 		assertNull(originalBeanRemoved);
 		
-		TestInterface proxyBeanCreated = Beans.get(TestInterface.class);
+		TestInterface proxyBeanCreated = Beans.getExact(TestInterface.class);
 		assertNotNull(proxyBeanCreated);
 	}
 	

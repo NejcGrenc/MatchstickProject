@@ -23,7 +23,7 @@ public class CachedBeanIntegrationTest
 	public void setup()
 	{
 		BeanProcessor.processPath("grenc.masters.integration");
-		subject = Beans.get(IntegrationTargetClass.class);
+		subject = Beans.getExact(IntegrationTargetClass.class);
 	}
 	
 	@Test

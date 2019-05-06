@@ -24,9 +24,9 @@ public class BeanProcessorIntegrationTest
 	{
 		BeanProcessor.processPath("grenc.simpleton.processor");;
 		
-		assertTrue(((IntegrationTestClassInsertInto) Beans.get(IntegrationTestClassInsertInto.class)) != null);
-		assertTrue(((IntegrationTestClassInsertInto) Beans.get(IntegrationTestClassInsertInto.class)).ins != null);
-		assertTrue(((IntegrationTestClassInsertInto) Beans.get(IntegrationTestClassInsertInto.class)).ins.getI() == 5);
+		assertTrue(((IntegrationTestClassInsertInto) Beans.getExact(IntegrationTestClassInsertInto.class)) != null);
+		assertTrue(((IntegrationTestClassInsertInto) Beans.getExact(IntegrationTestClassInsertInto.class)).ins != null);
+		assertTrue(((IntegrationTestClassInsertInto) Beans.getExact(IntegrationTestClassInsertInto.class)).ins.getI() == 5);
 	}
 		
 }
