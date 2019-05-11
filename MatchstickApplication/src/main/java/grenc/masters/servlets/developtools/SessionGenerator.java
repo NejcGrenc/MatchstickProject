@@ -4,12 +4,14 @@ import java.util.UUID;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.simpleton.annotation.Bean;
 
+@Bean
 public class SessionGenerator
 {	
 	private SessionDAO sessionDAO;
 
-	SessionGenerator (SessionDAO sessionDAO)
+	public SessionGenerator(SessionDAO sessionDAO)
 	{
 		this.sessionDAO = sessionDAO;
 	}

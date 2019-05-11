@@ -1,5 +1,6 @@
 package grenc.masters.servlets;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,19 +30,28 @@ import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
-import grenc.masters.servlets.base.BaseServlet;
-import grenc.masters.servlets.base.DispatcherServlet;
 import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.bean.base.ServletBean;
+import grenc.masters.servlets.bean.service.ServletBeanProcessor;
+import grenc.masters.servlets.developtools.SessionGenerator;
+import grenc.masters.servlets.developtools.SkipLogin;
+import grenc.masters.servlets.selector.DispatcherServletBean;
+import grenc.simpleton.Beans;
+import grenc.simpleton.processor.BeanProcessor;
+
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Servlet.class, SessionDAO.class, SubjectDAO.class})
-public class DispatcherServletTest
+public class DispatcherServletBeanTest
 {
 	private SessionDAO sessionDAO;
 	private SubjectDAO subjectDAO;
 	
-	private DispatcherServlet servlet;
+	private ServletBeanProcessor processor;
 	
+	private DispatcherServletBean servlet;
+	
+	private ServletContext servletContext;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	
@@ -55,11 +66,18 @@ public class DispatcherServletTest
 		sessionDAO = mock(SessionDAO.class);
 		subjectDAO = mock(SubjectDAO.class);
 		
-		servlet = spy(new DispatcherServlet());
+		// Mock ServletBeanProcessor
+		processor = mock(ServletBeanProcessor.class);
+		
+		// Initialize subject
+		servlet = spy(new DispatcherServletBean(processor));
 		
 		// Return mocked dispatcher
 		RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-		Mockito.doReturn(dispatcher).when(servlet).buildDispatcher(anyString());
+		Mockito.doReturn(dispatcher).when(servlet).buildDispatcher(anyString(), any(ServletContext.class));
+		
+		// Mock context
+		servletContext = mock(ServletContext.class);
 		
 		// Mock request / response pair
 		request = mock(HttpServletRequest.class);
@@ -67,9 +85,20 @@ public class DispatcherServletTest
 		
 		// Request 
 		Mockito.when(request.getParameterNames()).thenReturn(new Vector<String>(new HashSet<String>()).elements());
-	
+
+		// Create session generator mock
+		SessionGenerator sessionGeneratorMock = mock(SessionGenerator.class);
+		Session mockSession = mock(Session.class);
+		Mockito.doReturn("session-123-123").when(mockSession).getTag();
+		Mockito.doReturn(mockSession).when(sessionGeneratorMock).generateSession();
+		
+		// TODO: Remove
+		Beans.removeAllBeans();
+		Beans.registerBean(sessionGeneratorMock);
+		Beans.registerBean(BeanProcessor.createBean(SkipLogin.class));
+
+		
 		// Prepare static mocks
-	    PowerMockito.mockStatic(Servlet.class);
 	    PowerMockito.mockStatic(SessionDAO.class);
 	    PowerMockito.mockStatic(SubjectDAO.class);
 
@@ -79,7 +108,7 @@ public class DispatcherServletTest
 	
 	private void verifyRedirectTo(String expectedForwardUrl)
 	{
-		Mockito.verify(servlet, times(1)).buildDispatcher(eq(expectedForwardUrl));
+		Mockito.verify(servlet, times(1)).buildDispatcher(eq(expectedForwardUrl), eq(servletContext));
 	}
 	
 	
@@ -92,16 +121,15 @@ public class DispatcherServletTest
 		Mockito.doReturn(prevUrl).when(request).getAttribute(previousUrlParamName);
 		
 		// And: a mocked servlet associated with it
-		BaseServlet mockPrevServlet = mock(BaseServlet.class);
-		Mockito.when(Servlet.getServletInstanceForUrl(prevUrl)).thenReturn(mockPrevServlet);
+		ServletBean mockPrevServlet = mock(ServletBean.class);
+		Mockito.when(processor.servletBeanByUrl(prevUrl)).thenReturn(mockPrevServlet);
 		
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then: previous servlet gets response executed
-		Mockito.verify(mockPrevServlet, times(1)).processClientsResponse(eq(request));
-	}
-	
+		Mockito.verify(mockPrevServlet, times(1)).processClientsResponse(eq(request), eq(servletContext));
+	}	
 	
 	@Test
 	@Ignore
@@ -109,28 +137,14 @@ public class DispatcherServletTest
 	{
 		// Given: a mock of dispatcher
 		RequestDispatcher mockDispatcher = mock(RequestDispatcher.class);
-		Mockito.doReturn(mockDispatcher).when(servlet).buildDispatcher(anyString());
+		Mockito.doReturn(mockDispatcher).when(servlet).buildDispatcher(anyString(), eq(servletContext));
 
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then: dispatcher dispatches the request / response pair
 		Mockito.verify(mockDispatcher, times(1)).forward(request, response);;
 	}
-	
-//	@Test
-//	public void forwardUrlIsIgnoredUntilBasicDataIsSet() throws IOException, ServletException
-//	{
-//		// And: forward url
-//	    String forwardUrl = "/forwards";
-//		Mockito.doReturn(forwardUrl).when(request).getAttribute(eq(forwardUrlParamName));
-//		
-//		// When: servlet executed
-//		servlet.doGet(request, response);
-//		
-//		// Then
-//		verifyRedirectTo(Servlet.SessionGeneratorServlet.getUrl());
-//	}
 	
 	@Test
 	public void providedSession_redirectToLanguageServlet() throws IOException, ServletException
@@ -141,7 +155,7 @@ public class DispatcherServletTest
 	    Mockito.when(sessionDAO.findSessionByTag(sessionTag)).thenReturn(new Session());
 	    
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then
 		verifyRedirectTo(Servlet.LanguageServlet.getUrl());
@@ -160,7 +174,7 @@ public class DispatcherServletTest
 	    Mockito.when(sessionDAO.findSessionByTag(sessionTag)).thenReturn(session);
 	    
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then
 		verifyRedirectTo(Servlet.LoginServlet.getUrl());
@@ -185,7 +199,7 @@ public class DispatcherServletTest
 	    Mockito.when(sessionDAO.findSessionByTag(sessionTag)).thenReturn(session);
 
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then
 		verifyRedirectTo(Servlet.UserDataServlet.getUrl());
@@ -218,7 +232,7 @@ public class DispatcherServletTest
 
 
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then
 		verifyRedirectTo(forwardUrl);
@@ -246,7 +260,7 @@ public class DispatcherServletTest
 	    Mockito.when(sessionDAO.findSessionByTag(sessionTag)).thenReturn(session);
 
 		// When: servlet executed
-		servlet.doGet(request, response);
+		servlet.process(request, response, servletContext);
 		
 		// Then
 		verifyRedirectTo(Servlet.SelectTaskServlet.getUrl());

@@ -11,12 +11,8 @@ import grenc.simpleton.annotation.Bean;
 @Bean
 public class ServletBeanProcessor
 {
+	// Lazy load
 	private Map<String, ServletBean> servletBeans;
-	
-	public ServletBeanProcessor()
-	{
-		init();
-	}
 	
 	private void init()
 	{
@@ -31,13 +27,16 @@ public class ServletBeanProcessor
 		}
 	}
 	
-	public ServletBean servletBeanByUrl(String url)
-	{
-		return servletBeans.get(url);
-	}
-	
 	public Map<String, ServletBean> allServletBeans()
 	{
+		if (servletBeans == null)
+			init();
 		return servletBeans;
 	}
+	
+	public ServletBean servletBeanByUrl(String url)
+	{
+		return allServletBeans().get(url);
+	}
+	
 }

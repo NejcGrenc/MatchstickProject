@@ -19,29 +19,57 @@ import grenc.masters.servlets.UserDataServlet;
 
 public class Servlet
 {
-	private static final LanguageServlet 			instanceLanguageServlet = new LanguageServlet();
-	private static final LoginServlet 				instanceLoginServlet = new LoginServlet();
-	private static final UserDataServlet 			instanceUserDataServlet = new UserDataServlet();
-	private static final SelectTaskServlet 			instanceSelectTaskServlet = new SelectTaskServlet();
-	private static final MatchstickTaskLearnServlet instanceMatchstickTaskLearnServlet = new MatchstickTaskLearnServlet();
-	private static final MatchstickTaskObserveServlet instanceMatchstickTaskObserveServlet = new MatchstickTaskObserveServlet();
-	private static final MatchstickTaskServlet 		instanceMatchstickTaskServlet = new MatchstickTaskServlet();
-	private static final ImagesTaskServlet 			instanceImagesTaskServlet = new ImagesTaskServlet();
-	private static final DataPresentServlet 		instanceDataPresenStervlet = new DataPresentServlet();
-	private static final CreditsServlet 			instanceCreditsStervlet = new CreditsServlet();
-	private static final TaskWrapupServlet 			instanceTaskWrapupServlet = new TaskWrapupServlet();
+//	private static final LanguageServlet 			instanceLanguageServlet = new LanguageServlet();
+//	private static final LoginServlet 				instanceLoginServlet = new LoginServlet();
+//	private static final UserDataServlet 			instanceUserDataServlet = new UserDataServlet();
+//	private static final SelectTaskServlet 			instanceSelectTaskServlet = new SelectTaskServlet();
+//	private static final MatchstickTaskLearnServlet instanceMatchstickTaskLearnServlet = new MatchstickTaskLearnServlet();
+//	private static final MatchstickTaskObserveServlet instanceMatchstickTaskObserveServlet = new MatchstickTaskObserveServlet();
+//	private static final MatchstickTaskServlet 		instanceMatchstickTaskServlet = new MatchstickTaskServlet();
+//	private static final ImagesTaskServlet 			instanceImagesTaskServlet = new ImagesTaskServlet();
+//	private static final DataPresentServlet 		instanceDataPresenStervlet = new DataPresentServlet();
+//	private static final CreditsServlet 			instanceCreditsStervlet = new CreditsServlet();
+//	private static final TaskWrapupServlet 			instanceTaskWrapupServlet = new TaskWrapupServlet();
+//	
+//	public static Servlet LanguageServlet 			= new Servlet("/selectLanguage", 	"LanguageServlet", instanceLanguageServlet);
+//	public static Servlet LoginServlet 				= new Servlet("/login", 			"LoginServlet", instanceLoginServlet);
+//	public static Servlet UserDataServlet 			= new Servlet("/userData", 			"UserDataServlet", instanceUserDataServlet);
+//	public static Servlet SelectTaskServlet 		= new Servlet("/selectTask", 		"SelectTaskServlet", instanceSelectTaskServlet);
+//	public static Servlet MatchstickTaskLearnServlet = new Servlet("/matchstickTaskLearn", "MatchstickTaskLearnServlet", instanceMatchstickTaskLearnServlet);
+//	public static Servlet MatchstickTaskObserveServlet = new Servlet("/matchstickTaskObserve", "MatchstickTaskObserveServlet", instanceMatchstickTaskObserveServlet);
+//	public static Servlet MatchstickTaskServlet 	= new Servlet("/matchstickTask", 	"MatchstickTaskServlet", instanceMatchstickTaskServlet);
+//	public static Servlet ImagesTaskServlet 		= new Servlet("/imagesTask", 		"ImagesTaskServlet", instanceImagesTaskServlet);
+//	public static Servlet DataPresentServlet 		= new Servlet("/presentTaskData", 	"DataPresentervlet", instanceDataPresenStervlet);
+//	public static Servlet CreditsServlet			= new Servlet("/credits", 			"CreditsServlet", instanceCreditsStervlet);
+//	public static Servlet TaskWrapupServlet			= new Servlet("/taskWrapup",		"TaskWrapupServlet", instanceTaskWrapupServlet);
+//	
+//	private static List<Servlet> allServlets = new ArrayList<>(
+//		    Arrays.asList(
+//		    		LanguageServlet,
+//		    		LoginServlet,
+//		    		UserDataServlet,
+//		    		SelectTaskServlet,
+//		    		MatchstickTaskLearnServlet,
+//		    		MatchstickTaskObserveServlet,
+//		    		MatchstickTaskServlet,
+//		    		ImagesTaskServlet,
+//		    		DataPresentServlet,
+//		    		CreditsServlet,
+//		    		TaskWrapupServlet
+//		    		)); 
 	
-	public static Servlet LanguageServlet 			= new Servlet("/selectLanguage", 	"LanguageServlet", instanceLanguageServlet);
-	public static Servlet LoginServlet 				= new Servlet("/login", 			"LoginServlet", instanceLoginServlet);
-	public static Servlet UserDataServlet 			= new Servlet("/userData", 			"UserDataServlet", instanceUserDataServlet);
-	public static Servlet SelectTaskServlet 		= new Servlet("/selectTask", 		"SelectTaskServlet", instanceSelectTaskServlet);
-	public static Servlet MatchstickTaskLearnServlet = new Servlet("/matchstickTaskLearn", "MatchstickTaskLearnServlet", instanceMatchstickTaskLearnServlet);
-	public static Servlet MatchstickTaskObserveServlet = new Servlet("/matchstickTaskObserve", "MatchstickTaskObserveServlet", instanceMatchstickTaskObserveServlet);
-	public static Servlet MatchstickTaskServlet 	= new Servlet("/matchstickTask", 	"MatchstickTaskServlet", instanceMatchstickTaskServlet);
-	public static Servlet ImagesTaskServlet 		= new Servlet("/imagesTask", 		"ImagesTaskServlet", instanceImagesTaskServlet);
-	public static Servlet DataPresentServlet 		= new Servlet("/presentTaskData", 	"DataPresentervlet", instanceDataPresenStervlet);
-	public static Servlet CreditsServlet			= new Servlet("/credits", 			"CreditsServlet", instanceCreditsStervlet);
-	public static Servlet TaskWrapupServlet			= new Servlet("/taskWrapup",		"TaskWrapupServlet", instanceTaskWrapupServlet);
+	
+	public static Servlet LanguageServlet 			= new Servlet("/selectLanguage", 	"LanguageServlet");
+	public static Servlet LoginServlet 				= new Servlet("/login", 			"LoginServlet");
+	public static Servlet UserDataServlet 			= new Servlet("/userData", 			"UserDataServlet");
+	public static Servlet SelectTaskServlet 		= new Servlet("/selectTask", 		"SelectTaskServlet");
+	public static Servlet MatchstickTaskLearnServlet = new Servlet("/matchstickTaskLearn", "MatchstickTaskLearnServlet");
+	public static Servlet MatchstickTaskObserveServlet = new Servlet("/matchstickTaskObserve", "MatchstickTaskObserveServlet");
+	public static Servlet MatchstickTaskServlet 	= new Servlet("/matchstickTask", 	"MatchstickTaskServlet");
+	public static Servlet ImagesTaskServlet 		= new Servlet("/imagesTask", 		"ImagesTaskServlet");
+	public static Servlet DataPresentServlet 		= new Servlet("/presentTaskData", 	"DataPresentervlet");
+	public static Servlet CreditsServlet			= new Servlet("/credits", 			"CreditsServlet");
+	public static Servlet TaskWrapupServlet			= new Servlet("/taskWrapup",		"TaskWrapupServlet");
 	
 	private static List<Servlet> allServlets = new ArrayList<>(
 		    Arrays.asList(
@@ -63,6 +91,13 @@ public class Servlet
 	private String name;
 	private grenc.masters.servlets.bean.base.BaseServlet actualServletInstance;
 
+	
+	private Servlet (String url, String name)
+	{
+		this.url = url;
+		this.name = name;
+		this.actualServletInstance = null;
+	}
 	
 	private Servlet (String url, String name, grenc.masters.servlets.bean.base.BaseServlet servletInstance)
 	{

@@ -23,21 +23,21 @@ public class ServletTest {
 		assertEquals(Servlet.LoginServlet, servlet);
 	}
 	
-	@Test
-	public void fetchValidServletInstance()
-	{
-		String validUrl = "/login";
-		BaseServlet servletInstance = Servlet.getServletInstanceForUrl(validUrl);
-		assertEquals(Servlet.LoginServlet.getServletInstance(), servletInstance);
-	}
-	
-	@Test
-	public void fetchInvalidServletWithoutException()
-	{
-		String invalidUrl = "/completely-invalid";
-		Servlet invalidServletDefinition = Servlet.getServletDescriptionForUrl(invalidUrl);
-		BaseServlet invalidServletInstance = Servlet.getServletInstanceForUrl(invalidUrl);
-		assertNull(invalidServletDefinition);
-		assertNull(invalidServletInstance);
-	}
+//	@Test
+//	public void fetchValidServletInstance()
+//	{
+//		String validUrl = "/login";
+//		BaseServlet servletInstance = Servlet.getServletInstanceForUrl(validUrl);
+//		assertEquals(Servlet.LoginServlet.getServletInstance(), servletInstance);
+//	}
+//	
+//	@Test
+//	public void fetchInvalidServletWithoutException()
+//	{
+//		String invalidUrl = "/completely-invalid";
+//		Servlet invalidServletDefinition = Servlet.getServletDescriptionForUrl(invalidUrl);
+//		BaseServlet invalidServletInstance = Servlet.getServletInstanceForUrl(invalidUrl);
+//		assertNull(invalidServletDefinition);
+//		assertNull(invalidServletInstance);
+//	}
 }

@@ -18,6 +18,7 @@ public class InitialCallHandler
 
 	private SessionDAO sessionDAO;
 	
+	private SessionGenerator sessionGenerator = Beans.get(SessionGenerator.class);
 	private SkipLogin skipLogin = Beans.get(SkipLogin.class);
 	
 	private HttpServletRequest request;
@@ -62,7 +63,7 @@ public class InitialCallHandler
 			}
 			if (session == null) 
 			{
-				session = new SessionGenerator().generateSession();
+				session = sessionGenerator.generateSession();
 				setSessionCookie(session.getTag());
 			}
 			request.setAttribute("session", session.getTag());

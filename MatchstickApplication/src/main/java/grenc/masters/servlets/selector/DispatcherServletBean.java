@@ -23,6 +23,14 @@ public class DispatcherServletBean
 	@InsertBean
 	private ServletBeanProcessor servletBeanProcessor;
 	
+	public DispatcherServletBean() {};
+	
+	public DispatcherServletBean(ServletBeanProcessor servletBeanProcessor)
+	{
+		this.servletBeanProcessor = servletBeanProcessor;
+	}
+	
+	
 	public void process(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws IOException, ServletException
 	{
 		// New call
