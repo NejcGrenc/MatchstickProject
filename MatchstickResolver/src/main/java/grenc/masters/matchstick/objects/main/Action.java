@@ -45,6 +45,8 @@ public class Action {
 	@Override
 	public String toString()
 	{
+		if (this.added == this.removed)
+			return "(moved " + this.added + ")";
 		return "(+" + this.added + ", -" + this.removed + ")"; 
 	}
 }

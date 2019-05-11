@@ -12,7 +12,12 @@ import grenc.masters.matchstick.run.main.ResolverProperties;
 
 public class SolutionsFinder
 {
-	private static int maxMoves = Integer.parseInt(ResolverProperties.getProperty("resolver.maxMoves"));
+	private int maxMoves = Integer.parseInt(ResolverProperties.getProperty("resolver.maxMoves"));
+	
+	public void setMaxMoves(int maxMoves)
+	{
+		this.maxMoves = maxMoves;
+	}
 
 	public List<EquationChangeSingle> getAllCorrectFinalEquations(Equation currentEquation)
 	{
