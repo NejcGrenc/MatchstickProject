@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="GrowScript/src/main/java"/>
+	<classpathentry kind="src" path="GrowScript/src/test/java"/>
+	<classpathentry kind="src" path="MatchstickApplication/src/main/java"/>
+	<classpathentry kind="src" path="MatchstickApplication/src/test/java"/>
+	<classpathentry kind="src" path="MatchstickCommon/src/main/java"/>
+	<classpathentry kind="src" path="MatchstickCommon/src/test/java"/>
+	<classpathentry kind="src" path="MatchstickResolver/src/main/java"/>
+	<classpathentry kind="src" path="MatchstickResolver/src/test/java"/>
+	<classpathentry kind="src" path="Simpleton/src/main/java"/>
+	<classpathentry kind="src" path="Simpleton/src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
