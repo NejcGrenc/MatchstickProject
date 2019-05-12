@@ -10,7 +10,7 @@ public class Subject implements Serializable
 	private int sessionId;
 	private Integer age;
 	private String sex;
-	private String language;
+	private String countryCode;
 
 	private String ip;
 	private String address;
@@ -55,13 +55,13 @@ public class Subject implements Serializable
 		this.sex = sex;
 	}
 	
-	public String getLanguage()
+	public String getCountryCode()
 	{
-		return language;
+		return countryCode;
 	}
-	public void setLanguage(String language)
+	public void setCountryCode(String countryCode)
 	{
-		this.language = language;
+		this.countryCode = countryCode;
 	}
 	
 	public boolean isMissingUserData()
@@ -113,7 +113,7 @@ public class Subject implements Serializable
 	@Override
 	public String toString()
 	{
-		return "Subject [id=" + id + ", sessionId=" + sessionId + ", age=" + age + ", sex=" + sex + ", language=" + language
+		return "Subject [id=" + id + ", sessionId=" + sessionId + ", age=" + age + ", sex=" + sex + ", countryCode=" + countryCode
 				+ ", ip=" + ip + ", address=" + address + ", operatingSystem=" + operatingSystem + ", browser="
 				+ browser + ", original=" + original + "]";
 	}

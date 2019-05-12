@@ -16,7 +16,7 @@ CREATE TABLE subject (
 	session_id		integer NOT NULL,
 	age				integer,
 	sex				varchar(8),
-	language		varchar(20),
+	country_code	varchar(3),
 	
 	ip				varchar(40),
 	address			varchar(100),

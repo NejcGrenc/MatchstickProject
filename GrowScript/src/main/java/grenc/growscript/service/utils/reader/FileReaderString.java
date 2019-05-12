@@ -22,7 +22,12 @@ public class FileReaderString
 	}
 	
 	
-	public File getFileFromResources(String fileName)
+	public String readFileFromResources(String fileName)
+	{
+		return readFile(getFilePathFromResources(fileName));
+	}
+	
+	public String getFilePathFromResources(String fileName)
 	{
 		ClassLoader classLoader = getClass().getClassLoader();
 		URL resource = classLoader.getResource(fileName);
@@ -30,7 +35,7 @@ public class FileReaderString
 		{
 			throw new GrowScriptException("Cannot find file: " + fileName);
 		}
-		return new File(resource.getFile());
+		return new File(resource.getFile()).getAbsolutePath();
 	}
 	
 	public String readFile(String fullFilename)
@@ -38,7 +43,7 @@ public class FileReaderString
 		BufferedReader in = null;
 		try 
 		{
-			java.io.FileReader reader = new java.io.FileReader(getFileFromResources(fullFilename));
+			java.io.FileReader reader = new java.io.FileReader(fullFilename);
 
 		    in = new BufferedReader(reader);
 		    String str;

@@ -1,11 +1,15 @@
 package grenc.masters.servlets;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import grenc.growscript.base.FileGrowSegment;
+import grenc.growscript.base.SimpleGrowSegment;
+import grenc.growscript.service.GrowScriptProcessor;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
@@ -14,9 +18,12 @@ import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
+import grenc.masters.uservalidation.countries.Country;
+import grenc.masters.uservalidation.countries.CountryList;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
+import grenc.masters.webpage.common.DropdownSelection;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
 import grenc.simpleton.annotation.Bean;
@@ -33,6 +40,9 @@ public class UserDataServletBean extends BasePageServlet
 	
 	@InsertBean
 	private AccountBall accountBall;
+	
+	@InsertBean
+	private CountryList countryList;
 
 	@Override
 	public String url()
@@ -51,7 +61,9 @@ public class UserDataServletBean extends BasePageServlet
 		builder.addStyle(Style.language_page);
 		builder.addStyle(Style.buttons);
 		builder.addStyle(Style.style);
-		builder.addStyle(Style.input);	
+		builder.addStyle(Style.input);
+		builder.addStyle(Style.centered);	
+
 		
 		builder.addScript(Script.page_functions);
 		builder.addScript(Script.send);
@@ -64,7 +76,12 @@ public class UserDataServletBean extends BasePageServlet
 		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 
-		builder.appendPageElementFile(PageElement.user_data);
+		
+		Map<String, Country> countryMap = countryList.getListOfCountriesInLanguage(session.getLang());
+		UserDataPage userDataPage = new UserDataPage(servletContext, PageElement.user_data)
+										.withCountries(countryMap, session.getLang());
+		String content = new GrowScriptProcessor().process(userDataPage);
+		builder.appendPageElement(content);
 	}
 	
 	@Override
@@ -80,16 +97,35 @@ public class UserDataServletBean extends BasePageServlet
 		String ageStr = (String) request.getAttribute("userdata_age");
 		Integer age = (ageStr != null) ? Integer.parseInt(ageStr) : null;
 		String sex = (String) request.getAttribute("userdata_sex");
-		String lang = (String) request.getAttribute("lang");
+		String countryType = (String) request.getAttribute("userdata_country");
 		
 		System.out.println("Upsert");
 		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - update subject data: {" + age + ", " + sex + ", " + lang + "}");
+		System.out.println(" - update subject data: {" + age + ", " + sex + ", " + countryType + "}");
 
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
-		subjectDAO.updateSubject(subject.getId(), age, sex, lang);
+		subjectDAO.updateSubject(subject.getId(), age, sex, countryType);
 	}
 	
 	
+	private class UserDataPage extends FileGrowSegment
+	{
+		@SuppressWarnings("unused")
+		private SimpleGrowSegment country_title = new SimpleGrowSegment("Country");
+		@SuppressWarnings("unused")
+		private DropdownSelection<String, Country> country_selection;
+		
+		public UserDataPage(ServletContext servletContext, PageElement pageElement)
+		{
+			super(servletContext.getRealPath("/") + pageElement.path());
+		}
+		
+		public UserDataPage withCountries(Map<String, Country> countryMap, String defaultCountry)
+		{
+			country_selection = new DropdownSelection<>(countryMap, defaultCountry.toUpperCase());
+			return this;
+		}
+	}
+		
 }

@@ -36,6 +36,15 @@
 		    </div>
 		</div>   
 		
+		<div style="padding: 8px 0px;"><!-- Buffer --></div>
+	   	<div>
+		    <p class="white">{{country_title}}</p>
+		</div>	
+	    <div class="horizontal-layout-line">
+	    	<div style="padding: 0px 10px;"><!-- Buffer --></div> 
+			<div>{{country_selection}}</div>
+		</div> 
+		
 		<div style="padding: 10px 0px;"><!-- Buffer --></div>
     	<div class="horizontal-layout">
     		<div style="padding: 50px 100px;"><!-- Buffer --></div>
@@ -65,11 +74,13 @@
 		
 		var sex = document.querySelector('input[name="sex"]:checked').value;
 		var age = document.getElementById("m_userdata_input_age").value;
+		var country = document.getElementsByTagName('select')[0].value;
 		
 		var data = {};
 		data.userdata_sex = sex;
 		data.userdata_age = age;
-		
+		data.userdata_country = country;
+
 		console.log("Done with ", data);
 		post("/", data);
 	}

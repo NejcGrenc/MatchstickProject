@@ -18,7 +18,7 @@ public class FileReaderStringTest
 		StringBuilder builder = new StringBuilder();
 		
 		FileReaderString subject = new FileReaderString(builder);
-		subject.readFile(fileName);
+		subject.readFileFromResources(fileName);
 		
 		assertEquals("This is simple text.\nThis is second line!", builder.toString());
 				

@@ -19,7 +19,7 @@ public enum PageStyleDependency
 	select_language (),
 	select_task (),
 	task_wrapup (Script.input_security),
-	user_data (Style.centered),
+	user_data (), // This one will not be processed
 	
 	agreement_en(),
 	
