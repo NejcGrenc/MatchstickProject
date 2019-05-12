@@ -7,20 +7,14 @@ import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.TaskType;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
+@Bean
 public class GroupSelectAssist 
 {
+	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
-	
-	GroupSelectAssist(TaskSessionDAO taskSessionDAO)
-	{
-		this.taskSessionDAO = taskSessionDAO;
-	}
-	public GroupSelectAssist()
-	{
-		this (TaskSessionDAO.getInstance());
-	}
-
 	
 	// Find least used group
 	public synchronized MatchstickGroup selectNewGroup()

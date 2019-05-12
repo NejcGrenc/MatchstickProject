@@ -1,53 +1,39 @@
 package grenc.masters.matchsticktask.assistant;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import grenc.masters.database.dao.MatchstickTaskDataDAO;
 import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
+import grenc.masters.matchsticktask.assistant.model.OrderedTaskData;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
-
+@Bean
 public class TaskDataAssist {
 
+	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
+	@InsertBean
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
-	
-	private TaskSession taskSession;
-	private List<MatchstickTaskData> taskDataList;
 
-	TaskDataAssist(TaskSession taskSession, TaskSessionDAO taskSessionDAO, MatchstickTaskDataDAO matchstickTaskDataDAO)
-	{
-		this.taskSessionDAO = taskSessionDAO;
-		this.matchstickTaskDataDAO = matchstickTaskDataDAO;
-		
-		this.taskSession = taskSession;
-		
-		init();
-	}
-	public TaskDataAssist(TaskSession taskSession)
-	{
-		this (taskSession, TaskSessionDAO.getInstance(), MatchstickTaskDataDAO.getInstance()); 
-	}
 	
-	private void init()
+	public OrderedTaskData getOrderedTaskData(TaskSession taskSession)
 	{
-		this.taskDataList = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
-		// Order in reverse (last taskData first)
-		this.taskDataList.stream().sorted(Comparator.comparingLong(MatchstickTaskData::getId).reversed()).collect(Collectors.toList());	
+		List<MatchstickTaskData> taskDataList = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
+		return new OrderedTaskData(taskDataList);
 	}
-	
-	public boolean isFinished()
+
+	public boolean isFinished(TaskSession taskSession)
 	{
 		if (taskSession.isComplete())
 			return true;
 		
-		if (shouldBeFinished()) 
+		if (shouldBeFinished(taskSession)) 
 		{
 			System.out.println("Should be finished, but it doesn't have 'complete' flag set!");
 			return true;
@@ -55,20 +41,20 @@ public class TaskDataAssist {
 		return false;
 	}
 	
-	public void finishItIfApplicable()
+	public void finishItIfApplicable(TaskSession taskSession)
 	{
-		if (! taskSession.isComplete() && shouldBeFinished())
+		if (! taskSession.isComplete() && shouldBeFinished(taskSession))
 			taskSessionDAO.updateComplete(taskSession.getId(), true);
 	}
 	
-	private boolean shouldBeFinished()
+	private boolean shouldBeFinished(TaskSession taskSession)
 	{
-		return (newTaskNumber() >= totalNumberOfTasks());
+		return (newTaskNumber(taskSession) >= totalNumberOfTasks(taskSession));
 	}
 	
-	public int newTaskNumber()
+	public int newTaskNumber(TaskSession taskSession)
 	{
-		Optional<MatchstickTaskData> lastTaskDataOptional = (taskDataList.isEmpty()) ? Optional.empty() : Optional.of(taskDataList.get(0));
+		Optional<MatchstickTaskData> lastTaskDataOptional = getOrderedTaskData(taskSession).lastTaskData();
 		if (! lastTaskDataOptional.isPresent())
 			return 1;
 		
@@ -85,30 +71,30 @@ public class TaskDataAssist {
 		}
 	}
 	
-	public MatchstickTaskStatus statusOfLastTask()
+	public MatchstickTaskStatus statusOfLastTask(TaskSession taskSession)
 	{
-		Optional<MatchstickTaskData> lastTaskDataOptional = (taskDataList.isEmpty()) ? Optional.empty() : Optional.of(taskDataList.get(0));
+		Optional<MatchstickTaskData> lastTaskDataOptional = getOrderedTaskData(taskSession).lastTaskData();
 		if (! lastTaskDataOptional.isPresent())
 			return null;
 		return lastTaskDataOptional.get().getStatus();
 	}
-	public long timeOfLastTask()
+	public long timeOfLastTask(TaskSession taskSession)
 	{
-		Optional<MatchstickTaskData> lastTaskDataOptional = (taskDataList.isEmpty()) ? Optional.empty() : Optional.of(taskDataList.get(0));
+		Optional<MatchstickTaskData> lastTaskDataOptional = getOrderedTaskData(taskSession).lastTaskData();
 		if (! lastTaskDataOptional.isPresent())
 			return 0l;
 		return lastTaskDataOptional.get().getTime();
 	}
 	
-	public int getNoTasksForPhase(MatchstickExperimentPhase phase)
+	public int getNoTasksForPhase(TaskSession taskSession, MatchstickExperimentPhase phase)
 	{
 		return taskSession.getMatchstickGroup().getNoTasksForPhase(phase);
 	}
-	public int getNoTasksUpToPhase(MatchstickExperimentPhase phase)
+	public int getNoTasksUpToPhase(TaskSession taskSession, MatchstickExperimentPhase phase)
 	{
 		return taskSession.getMatchstickGroup().getNoTasksUpToPhase(phase);
 	}
-	public int totalNumberOfTasks()
+	public int totalNumberOfTasks(TaskSession taskSession)
 	{
 		 return taskSession.getMatchstickGroup().getNoTasks();
 	}

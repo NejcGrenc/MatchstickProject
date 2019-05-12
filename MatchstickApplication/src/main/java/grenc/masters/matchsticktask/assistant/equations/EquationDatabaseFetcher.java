@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
+import grenc.simpleton.annotation.Bean;
 
+@Bean
 public class EquationDatabaseFetcher
 {
 	private static HashMap<EquationSolutionsGroupType, Integer> groupContentCount;

@@ -36,6 +36,9 @@ public class SelectTaskServletBean extends BasePageServlet
 	@InsertBean
 	private MatchstickTaskServletBean matchstickTaskServlet;
 	
+	@InsertBean
+	private TaskSessionAssist taskSessionAssist;
+	
 	@Override
 	public String url()
 	{
@@ -78,7 +81,7 @@ public class SelectTaskServletBean extends BasePageServlet
 			selectedTaskType = TaskType.matchstick;	
 		
 		// TaskSession automatically builds itself when you try to fetch it and it doesn't exist yet
-		TaskSession taskSession = new TaskSessionAssist(session, selectedTaskType).getTaskSessionToUse();
+		TaskSession taskSession = taskSessionAssist.getTaskSessionToUse(session, selectedTaskType);
 		
 		// Skip learning if we are part of matchstick task group 0
 		if (isMatchstickGroup0(selectedTaskType, taskSession))

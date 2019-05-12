@@ -4,29 +4,25 @@ import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
+import grenc.simpleton.annotation.Bean;
 
 /**
  * Based on a file in same package 'Experimental_design_NG_MG.pdf',
  * which defines the task structure,
  * select Equation-Solution types to be solved next in the experiment.
  */
+@Bean
 public class EquationSolutionsSelector
 {
-	private TaskSession currentTaskSession;
 	
-	public EquationSolutionsSelector (TaskSession taskSession)
+	public EquationSolutionsGroupType findNextSolutionGroup(TaskSession currentTaskSession, int taskNumber)
 	{
-		this.currentTaskSession = taskSession;
-	}
-	
-	public EquationSolutionsGroupType findNextSolutionGroup(int taskNumber)
-	{
-		return equationStyleForPhase(phaseForTaskNumber(taskNumber));
+		return equationStyleForPhase(currentTaskSession, phaseForTaskNumber(currentTaskSession, taskNumber));
 	}
 	
 	
 	// Remember: Task numbers start with 1
-	public MatchstickExperimentPhase phaseForTaskNumber(int number)
+	public MatchstickExperimentPhase phaseForTaskNumber(TaskSession currentTaskSession, int number)
 	{
 		MatchstickGroup group = currentTaskSession.getMatchstickGroup();
 		for (MatchstickExperimentPhase phase : MatchstickExperimentPhase.orderedAll())
@@ -38,7 +34,7 @@ public class EquationSolutionsSelector
 		throw new RuntimeException("No phase found for task number " + number + " for group " + group.name());
 	}
 	
-	public EquationSolutionsGroupType equationStyleForPhase(MatchstickExperimentPhase phase)
+	public EquationSolutionsGroupType equationStyleForPhase(TaskSession currentTaskSession, MatchstickExperimentPhase phase)
 	{
 		MatchstickGroup group = currentTaskSession.getMatchstickGroup();
 		switch (group)

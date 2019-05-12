@@ -1,7 +1,9 @@
 package grenc.masters.matchsticktask.assistant.speciffic;
 
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
+import grenc.simpleton.annotation.Bean;
 
+@Bean
 public class LearnEquationAssist
 {
 	public String equationCommandForTypeAndNumber(EquationSolutionsGroupType groupType, int taskNumber)

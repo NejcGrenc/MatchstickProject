@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
 import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
@@ -34,6 +35,11 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 	
 	@InsertBean
 	private MatchstickTaskServletBean matchstickTaskServlet;
+	
+	@InsertBean
+	private MatchstickTaskProcessor taskBuilder;
+	@InsertBean
+	private ResponseProcessor responseProcessor;
 
 	@Override
 	public String url()
@@ -48,21 +54,21 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
 		
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBall(builder, session, servletContext).set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType(session));
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
 		
 		// Setup current task number
-		builder.appendBodyScriptCommand("setLearningTaskNumber("+taskBuilder.newTaskNumberForLocalPhase()+", "+taskBuilder.totalNumberOfTasksForNextPhase()+");");
+		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
+		builder.appendBodyScriptCommand("setLearningTaskNumber("+taskBuilder.newTaskNumberForLocalPhase(taskSession)+", "+taskBuilder.totalNumberOfTasksForNextPhase(taskSession)+");");
 		builder.appendBodyScriptCommand("setRestriction("+true+");");
 		
-		loadLearningTask(builder, taskBuilder);
+		loadLearningTask(builder, session);
 		
 	}
 
@@ -78,11 +84,10 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 			return;
 		}
 		
-		ResponseProcessor responseProcessor = new ResponseProcessor(session);
-		responseProcessor.storeEmptyTask(); // Just make an entry to increment the counter
+		responseProcessor.storeEmptyTask(session); // Just make an entry to increment the counter
 		
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
-		if (taskBuilder.nextPhase() != MatchstickExperimentPhase.LearningPhase_Solving)
+		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
+		if (taskBuilder.nextPhase(taskSession) != MatchstickExperimentPhase.LearningPhase_Solving)
 		{
 			// Task is completed, forward to actual-task-page
 			String forwardUrl = matchstickTaskServlet.url();
@@ -91,11 +96,12 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 		}
 	}
 
-	private void loadLearningTask(WebpageBuilder builder, MatchstickTaskProcessor taskBuilder)
+	private void loadLearningTask(WebpageBuilder builder, Session session)
 	{
-		builder.appendBodyScriptCommand(taskBuilder.prepareNewLearnMatchstickTask());
+		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
+		builder.appendBodyScriptCommand(taskBuilder.prepareNewLearnMatchstickTask(taskSession));
 		
-		if (taskBuilder.newTaskNumberForLocalPhase() == 1)
+		if (taskBuilder.newTaskNumberForLocalPhase(taskSession) == 1)
 			builder.appendBodyScriptCommand("startWithPause();");
 		else
 			builder.appendBodyScriptCommand("start();");	}

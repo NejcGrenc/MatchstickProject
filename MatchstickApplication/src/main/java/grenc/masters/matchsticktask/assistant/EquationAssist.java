@@ -8,34 +8,25 @@ import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.matchsticktask.assistant.equations.EquationDatabaseFetcher;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
-
+@Bean
 public class EquationAssist 
 {
+	@InsertBean
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
+	@InsertBean
 	private EquationDatabaseFetcher equationDatabaseFetcher;
-	
-	private TaskSession taskSession; 
-	
-	public EquationAssist(TaskSession taskSession, MatchstickTaskDataDAO matchstickTaskDataDAO, EquationDatabaseFetcher equationDatabaseFetcher)
+
+	public String getNextEquation(EquationSolutionsGroupType equationType, TaskSession taskSession)
 	{
-		this.matchstickTaskDataDAO = matchstickTaskDataDAO;
-		this.equationDatabaseFetcher = equationDatabaseFetcher;
-		this.taskSession = taskSession;		
-	}
-	public EquationAssist(TaskSession taskSession)
-	{
-		this (taskSession, MatchstickTaskDataDAO.getInstance(), new EquationDatabaseFetcher());
+		return findUnusedEquiation(equationType, findUsedEquations(taskSession.getId()));
 	}
 	
-	public String getNextEquation(EquationSolutionsGroupType equationType)
+	public String getLastUsedEquation(TaskSession taskSession)
 	{
-		return findUnusedEquiation(equationType, findUsedEquations());
-	}
-	
-	public String getLastUsedEquation()
-	{
-		List<String> usedEquations = findUsedEquations();
+		List<String> usedEquations = findUsedEquations(taskSession.getId());
 		return (usedEquations.isEmpty()) ? null : usedEquations.get(0);
 	}
 	
@@ -50,9 +41,9 @@ public class EquationAssist
 		return newEq;
 	}
 	
-	private List<String> findUsedEquations()
+	private List<String> findUsedEquations(int taskSessionId)
 	{
-		List<MatchstickTaskData> previousTasks = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
+		List<MatchstickTaskData> previousTasks = matchstickTaskDataDAO.findAllTaskForSessionId(taskSessionId);
 		List<String> usedEquations = previousTasks.stream().map(MatchstickTaskData::getOriginalEq).collect(Collectors.toList());
 		return usedEquations;
 	}

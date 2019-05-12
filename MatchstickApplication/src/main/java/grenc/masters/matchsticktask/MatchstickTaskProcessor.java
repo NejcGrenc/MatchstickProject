@@ -17,90 +17,54 @@ import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.masters.matchsticktask.type.SolvableRestriction;
 import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.Video;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
+@Bean
 public class MatchstickTaskProcessor
 {
+	@InsertBean
 	private TaskSessionAssist taskSessionAssist;
-	
-	private Session session;
-	
-	private TaskSession taskSessionToUse;  // Lazy load
+	@InsertBean
 	private TaskDataAssist taskDataAssist;
+	@InsertBean
 	private EquationAssist equationAssist;
+	@InsertBean
 	private EquationSolutionsSelector equationTypeSelector;
 	
-	public MatchstickTaskProcessor(Session session)
+	
+	public TaskSession taskSessionToUse(Session session)
 	{
-		this.session = session;
-		this.taskSessionAssist = new TaskSessionAssist(session, TaskType.matchstick);
-		
-		this.taskSessionToUse = null;
+		return taskSessionAssist.getTaskSessionToUse(session, TaskType.matchstick);
 	}
 
-	
-	public Session getCurrentSession()
+	public MatchstickExperimentPhase nextPhase(TaskSession taskSession)
 	{
-		return session;
+		return equationTypeSelector.phaseForTaskNumber(taskSession, newTaskNumber(taskSession));
+	}
+	public MatchstickGroup matchstickGroupType(Session session)
+	{
+		return taskSessionAssist.getTaskSessionToUse(session, TaskType.matchstick).getMatchstickGroup();
 	}
 	
-	public TaskSession taskSessionToUse()
-	{
-		if (taskSessionToUse == null)
-		{
-			taskSessionToUse = taskSessionAssist.getTaskSessionToUse();		
-			this.taskDataAssist = new TaskDataAssist(taskSessionToUse);
-			this.equationTypeSelector = new EquationSolutionsSelector(taskSessionToUse);
-			this.equationAssist = new EquationAssist(taskSessionToUse);
-		}
-		return taskSessionToUse;
-	}
-	
-	private TaskDataAssist taskDataAssist()
-	{
-		if (taskDataAssist == null)
-			taskSessionToUse();
-		return taskDataAssist;
-	}
-	private EquationSolutionsSelector equationSelect()
-	{
-		if (equationTypeSelector == null)
-			taskSessionToUse();
-		return equationTypeSelector;
-	}
-	private EquationAssist equationAssist()
-	{
-		if (equationAssist == null)
-			taskSessionToUse();
-		return equationAssist;
-	}
-	
-	public MatchstickExperimentPhase nextPhase()
-	{
-		return equationSelect().phaseForTaskNumber(newTaskNumber());
-	}
-	public MatchstickGroup matchstickGroupType()
-	{
-		return taskSessionToUse().getMatchstickGroup();
-	}
-	
-	public MatchstickTaskProcessorReturn prepareNewMatchstickTask()
+	public MatchstickTaskProcessorReturn prepareNewMatchstickTask(TaskSession taskSession)
 	{
 		MatchstickTaskProcessorReturn newTaskResult = new MatchstickTaskProcessorReturn();
-		newTaskResult.newTaskNumber = newTaskNumber() - totalNumberOfTasksForObervingAndLearning();
-		newTaskResult.totalNumberOfTasks = totalNumberOfTasks() - totalNumberOfTasksForObervingAndLearning();
+		newTaskResult.newTaskNumber = newTaskNumber(taskSession) - totalNumberOfTasksForObervingAndLearning(taskSession);
+		newTaskResult.totalNumberOfTasks = totalNumberOfTasks(taskSession) - totalNumberOfTasksForObervingAndLearning(taskSession);
 		
 		if (newTaskResult.newTaskNumber == 1)
 			newTaskResult.pauseAtStart = true;
 		else
 			newTaskResult.pauseAtStart = false;
 		
-		MatchstickTaskStatus lastStatus = taskDataAssist().statusOfLastTask();
+		MatchstickTaskStatus lastStatus = taskDataAssist.statusOfLastTask(taskSession);
 		if (lastStatus != null && lastStatus.equals(MatchstickTaskStatus.restarted))
 		{
-			newTaskResult.newEquation = equationAssist().getLastUsedEquation();
+			newTaskResult.newEquation = equationAssist.getLastUsedEquation(taskSession);
 			newTaskResult.pauseAtStart = false;
-			newTaskResult.continueWithTime = taskDataAssist().timeOfLastTask();
+			newTaskResult.continueWithTime = taskDataAssist.timeOfLastTask(taskSession);
 		}
 		else
 		{
@@ -109,67 +73,67 @@ public class MatchstickTaskProcessor
 				newTaskResult.pauseAtStart = true;
 			}
 			
-			MatchstickExperimentPhase experimentPhase = equationSelect().phaseForTaskNumber(newTaskResult.newTaskNumber);
+			MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, newTaskResult.newTaskNumber);
 			if (MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy.equals(experimentPhase) 
 				|| MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy.equals(experimentPhase))
 				newTaskResult.restriction = SolvableRestriction.ONE_MOVE_ONLY;
 			else
 				newTaskResult.restriction = SolvableRestriction.MINIMUM_MOVES;
 			
-			EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(newTaskResult.newTaskNumber);
-			newTaskResult.newEquation = equationAssist().getNextEquation(equationType);
+			EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, newTaskResult.newTaskNumber);
+			newTaskResult.newEquation = equationAssist.getNextEquation(equationType, taskSession);
 		}
 		
 		return newTaskResult;
 	}
 	
 	// Matchstick Observe
-	public List<Video> prepareNewObserveMatchstickTask() {
-		int taskNumber = newTaskNumberForLocalPhase();
-		EquationSolutionsGroupType videoType = equationSelect().findNextSolutionGroup(taskNumber);
+	public List<Video> prepareNewObserveMatchstickTask(TaskSession taskSession) {
+		int taskNumber = newTaskNumberForLocalPhase(taskSession);
+		EquationSolutionsGroupType videoType = equationTypeSelector.findNextSolutionGroup(taskSession, taskNumber);
 		return new VideoSelectAssist().videoForTypeAndNumber(videoType, taskNumber);
 	}
 	
 	// Matchstick Learn
-	public String prepareNewLearnMatchstickTask() {
-		int taskNumber = newTaskNumberForLocalPhase();
-		EquationSolutionsGroupType equationType = equationSelect().findNextSolutionGroup(taskNumber);
+	public String prepareNewLearnMatchstickTask(TaskSession taskSession) {
+		int taskNumber = newTaskNumberForLocalPhase(taskSession);
+		EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, taskNumber);
 		return new LearnEquationAssist().equationCommandForTypeAndNumber(equationType, taskNumber);
 	}
 	
 	
 	
-	public int newTaskNumber()
+	public int newTaskNumber(TaskSession taskSession)
 	{
-		return taskDataAssist().newTaskNumber();
+		return taskDataAssist.newTaskNumber(taskSession);
 	}
-	public int totalNumberOfTasks()
+	public int totalNumberOfTasks(TaskSession taskSession)
 	{
-		return taskDataAssist().totalNumberOfTasks();
+		return taskDataAssist.totalNumberOfTasks(taskSession);
 	}
-	public int totalNumberOfTasksForObervingAndLearning()
+	public int totalNumberOfTasksForObervingAndLearning(TaskSession taskSession)
 	{
-		return taskDataAssist().getNoTasksForPhase(MatchstickExperimentPhase.LearningPhase_Showing) + 
-				taskDataAssist().getNoTasksForPhase(MatchstickExperimentPhase.LearningPhase_Solving);
-	}
-	
-	public int newTaskNumberForLocalPhase()
-	{
-		return taskDataAssist().newTaskNumber() - taskDataAssist().getNoTasksUpToPhase(nextPhase());
-	}
-	public int totalNumberOfTasksForNextPhase()
-	{
-		return taskDataAssist().getNoTasksForPhase(nextPhase());
+		return taskDataAssist.getNoTasksForPhase(taskSession, MatchstickExperimentPhase.LearningPhase_Showing) + 
+				taskDataAssist.getNoTasksForPhase(taskSession, MatchstickExperimentPhase.LearningPhase_Solving);
 	}
 	
-	public boolean isCurrentTaskSessionFinished()
+	public int newTaskNumberForLocalPhase(TaskSession taskSession)
 	{
-		return taskDataAssist().isFinished();
+		return taskDataAssist.newTaskNumber(taskSession) - taskDataAssist.getNoTasksUpToPhase(taskSession, nextPhase(taskSession));
+	}
+	public int totalNumberOfTasksForNextPhase(TaskSession taskSession)
+	{
+		return taskDataAssist.getNoTasksForPhase(taskSession, nextPhase(taskSession));
 	}
 	
-	public void finishCurrentTaskSessionIfApplicable()
+	public boolean isCurrentTaskSessionFinished(TaskSession taskSession)
 	{
-		taskDataAssist().finishItIfApplicable();
+		return taskDataAssist.isFinished(taskSession);
+	}
+	
+	public void finishCurrentTaskSessionIfApplicable(TaskSession taskSession)
+	{
+		taskDataAssist.finishItIfApplicable(taskSession);
 	}
 	
 	

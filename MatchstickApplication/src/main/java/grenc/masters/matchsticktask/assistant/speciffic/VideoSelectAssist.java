@@ -5,7 +5,9 @@ import java.util.List;
 
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.resources.Video;
+import grenc.simpleton.annotation.Bean;
 
+@Bean
 public class VideoSelectAssist
 {
 	public List<Video> videoForTypeAndNumber(EquationSolutionsGroupType groupType, int taskNumber)

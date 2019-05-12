@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
 import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
@@ -37,6 +38,11 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 	@InsertBean
 	private MatchstickTaskLearnServletBean matchstickTaskLearnServlet;
 	
+	@InsertBean
+	private MatchstickTaskProcessor matchstickTaskProcessor;
+	@InsertBean
+	private ResponseProcessor responseProcessor;
+	
 	@Override
 	public String url()
 	{
@@ -50,22 +56,22 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);	
-		
+		TaskSession taskSession = matchstickTaskProcessor.taskSessionToUse(session);
+
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBall(builder, session, servletContext).set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(matchstickTaskProcessor.matchstickGroupType(session));
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 
 		builder.appendPageElementFile(PageElement.matchstick_task_observe);
 		
 		// Setup current task number
-		builder.appendBodyScriptCommand("setObservingTaskNumber("+taskBuilder.newTaskNumberForLocalPhase()+", "+taskBuilder.totalNumberOfTasksForNextPhase()+");");
+		builder.appendBodyScriptCommand("setObservingTaskNumber("+matchstickTaskProcessor.newTaskNumberForLocalPhase(taskSession)+", "+matchstickTaskProcessor.totalNumberOfTasksForNextPhase(taskSession)+");");
 
-		prepareObserveTask(builder, taskBuilder);
+		prepareObserveTask(builder, taskSession);
 
-		openInfoPopupBeforeStart(builder, taskBuilder);
+		openInfoPopupBeforeStart(builder, taskSession);
 	}
 
 	
@@ -80,11 +86,10 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 			return;
 		}
 		
-		ResponseProcessor responseProcessor = new ResponseProcessor(session);
-		responseProcessor.storeEmptyTask(); // Just make an entry to increment the counter
+		TaskSession taskSession = matchstickTaskProcessor.taskSessionToUse(session);
+		responseProcessor.storeEmptyTask(session); // Just make an entry to increment the counter
 		
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
-		if (taskBuilder.nextPhase() != MatchstickExperimentPhase.LearningPhase_Showing)
+		if (matchstickTaskProcessor.nextPhase(taskSession) != MatchstickExperimentPhase.LearningPhase_Showing)
 		{
 			// Task is completed, forward to Learn-page
 			String forwardUrl = matchstickTaskLearnServlet.url();
@@ -94,9 +99,9 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 	}
 
 	
-	private void prepareObserveTask(WebpageBuilder builder, MatchstickTaskProcessor taskBuilder)
+	private void prepareObserveTask(WebpageBuilder builder, TaskSession taskSession)
 	{
-		List<Video> videos = taskBuilder.prepareNewObserveMatchstickTask();
+		List<Video> videos = matchstickTaskProcessor.prepareNewObserveMatchstickTask(taskSession);
 		for (Video video : videos)
 			addSource(builder, video);
 		builder.appendBodyScriptCommand("setup();");
@@ -108,9 +113,9 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		builder.appendBodyScriptCommand(sourceCommand);
 	}
 	
-	private void openInfoPopupBeforeStart(WebpageBuilder builder,  MatchstickTaskProcessor taskBuilder)
+	private void openInfoPopupBeforeStart(WebpageBuilder builder,  TaskSession taskSession)
 	{
-		if (taskBuilder.newTaskNumber() == 1)
+		if (matchstickTaskProcessor.newTaskNumber(taskSession) == 1)
 		{
 			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
 		}

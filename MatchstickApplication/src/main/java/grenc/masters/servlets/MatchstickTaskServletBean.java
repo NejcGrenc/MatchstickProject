@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor.MatchstickTaskProcessorReturn;
 import grenc.masters.matchsticktask.ResponseProcessor;
@@ -37,6 +38,11 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	@InsertBean
 	private TaskWrapupServletBean taskWrapupServlet;
 	
+	@InsertBean
+	private MatchstickTaskProcessor taskBuilder;
+	@InsertBean
+	private ResponseProcessor responseProcessor;
+	
 	@Override
 	public String url()
 	{
@@ -57,15 +63,15 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		
-		MatchstickTaskProcessor taskBuilder = new MatchstickTaskProcessor(session);
-		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewMatchstickTask();
-		
+		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
+
+		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewMatchstickTask(taskSession);
+
 		
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBall(builder, session, servletContext).set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType(session));
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 	    
 	    // Matchstick task separate libraries
@@ -100,7 +106,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		else
 			builder.appendBodyScriptCommand("start();");
 		
-		openInfoPopupBeforeStart(builder, taskBuilder);
+		openInfoPopupBeforeStart(builder, taskSession);
 
 	}
 
@@ -119,14 +125,13 @@ public class MatchstickTaskServletBean extends BasePageServlet
 			System.out.println("Did not send task data! (probably clicked one of the up-right buttons)");
 			return;
 		}
-		
-		ResponseProcessor responseProcessor = new ResponseProcessor(session);
-		responseProcessor.storeData(actions);
+
+		responseProcessor.storeData(session, actions);
 		System.out.println();
 		System.out.println();
 		
-		responseProcessor.perhapsFinishLastTaskSession();	
-		if (responseProcessor.isFinished())
+		responseProcessor.perhapsFinishLastTaskSession(session);	
+		if (responseProcessor.isFinished(session))
 		{
 			processFinished(request);
 		}
@@ -140,9 +145,9 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}
 	
-	private void openInfoPopupBeforeStart(WebpageBuilder builder,  MatchstickTaskProcessor taskBuilder)
+	private void openInfoPopupBeforeStart(WebpageBuilder builder, TaskSession taskSession)
 	{
-		if (taskBuilder.newTaskNumber() == 1)
+		if (taskBuilder.newTaskNumber(taskSession) == 1)
 		{
 			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
 		}
