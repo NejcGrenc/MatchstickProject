@@ -1,4 +1,4 @@
-package grenc.masters.servlets.helper;
+package grenc.masters.servlets.delegate.popup;
 
 import javax.servlet.ServletContext;
 

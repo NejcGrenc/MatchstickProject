@@ -14,7 +14,7 @@ import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
-import grenc.masters.servlets.helper.LoginAgreementPopup;
+import grenc.masters.servlets.delegate.popup.LoginAgreementPopup;
 import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
