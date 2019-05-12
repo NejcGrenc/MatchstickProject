@@ -12,6 +12,7 @@ import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
 import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
+import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.servlets.bean.base.BasePageServlet;
@@ -54,12 +55,13 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
+		MatchstickGroup group = taskBuilder.matchstickGroupType(session);
 		
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBall(builder, session, servletContext).set();
-		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType(session));
-		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
+		new DataPresentBall(builder, session).set().withMatchstickGroup(group);
+		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, true);
 
 		builder.appendPageElementFile(PageElement.matchstick_task_learn);
 		
