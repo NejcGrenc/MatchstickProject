@@ -50,6 +50,7 @@ public class CacheProxy<T> implements InvocationHandler
     		Object cachedValue = cachedValues.get(new Invocation(proxy, method, args));
     		if (cachedValue != null)
     		{
+    			System.out.println("Using cached value [" + cachedValue + "]");
     			return cachedValue;
     		}
     	}
