@@ -41,6 +41,9 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 	private MatchstickTaskProcessor taskBuilder;
 	@InsertBean
 	private ResponseProcessor responseProcessor;
+	
+	@InsertBean
+	private AccountBall accountBall;
 
 	@Override
 	public String url()
@@ -59,7 +62,7 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 		
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
-		new AccountBall(builder, session, servletContext).set();
+		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set().withMatchstickGroup(group);
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, true);
 

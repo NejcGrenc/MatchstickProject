@@ -24,9 +24,11 @@ public class SubjectDAOTest extends DatabaseTestConfiguraton
 	@Test
 	public void generateFullSubjectIncrementally()
 	{
-		Subject initialSubject = subjectDAO.insertSubject("Tom");
+		int sessionId = 15;
+		
+		Subject initialSubject = subjectDAO.insertSubject(sessionId);
 		assertNotNull(initialSubject);
-		assertEquals("Tom", initialSubject.getName());
+		assertEquals(sessionId, initialSubject.getSessionId());
 		
 		subjectDAO.updateSubject(initialSubject.getId(), 24, "m", "si");
 		
@@ -34,7 +36,7 @@ public class SubjectDAOTest extends DatabaseTestConfiguraton
 		
 		assertNotNull(finalSubject);
 		assertEquals(initialSubject.getId(), finalSubject.getId());
-		assertEquals("Tom", finalSubject.getName());
+		assertEquals(sessionId, finalSubject.getSessionId());
 		assertEquals(new Integer(24), finalSubject.getAge());
 		assertEquals("m", finalSubject.getSex());
 		assertEquals("si", finalSubject.getLanguage());

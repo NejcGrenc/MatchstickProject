@@ -13,7 +13,7 @@ CREATE TABLE session (
 DROP TABLE IF EXISTS subject;
 CREATE TABLE subject (
 	id  			SERIAL PRIMARY KEY,
-	name  			varchar(40) NOT NULL,
+	session_id		integer NOT NULL,
 	age				integer,
 	sex				varchar(8),
 	language		varchar(20),

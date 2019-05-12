@@ -42,9 +42,12 @@ public class ImagesTaskServletBean extends BasePageServlet
 	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
 	@InsertBean
-	private ImageTaskDataDAO imageTaskDataDAO ;
+	private ImageTaskDataDAO imageTaskDataDAO;
+	
 	@InsertBean
 	private ImageTaskInfoPopup imageTaskInfoPopup;
+	@InsertBean
+	private AccountBall accountBall;
 	
 	@Override
 	public String url()
@@ -79,7 +82,7 @@ public class ImagesTaskServletBean extends BasePageServlet
 		
 		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
-		new AccountBall(builder, session, servletContext).set();
+		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 		imageTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
-import grenc.masters.database.entities.Subject;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -27,9 +26,11 @@ public class CreditsServletBean extends BasePageServlet
 {
 	@InsertBean
 	private SessionDAO sessionDAO;
-	
 	@InsertBean
 	private SubjectDAO subjectDAO;
+	
+	@InsertBean
+	private AccountBall accountBall;
 	
 	@Override
 	public String url()
@@ -54,9 +55,8 @@ public class CreditsServletBean extends BasePageServlet
 
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
-		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
 		new LanguageBall(builder, session.getLang(), url()).set();
-		new AccountBall(builder, subject, servletContext).set();
+		accountBall.set(builder, servletContext);
 		
 		builder.appendPageElementFile(PageElement.credits);
 		

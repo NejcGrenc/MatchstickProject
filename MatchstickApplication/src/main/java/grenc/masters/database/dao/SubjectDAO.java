@@ -24,14 +24,14 @@ public class SubjectDAO
 	}
 	
 	@ResetCache
-	public synchronized Subject insertSubject(String name) 
+	public synchronized Subject insertSubject(int sessionId) 
 	{
 		QueryBuilder.newInsert().intoTable("subject")
-					.setField("name", name)
+					.setField("session_id", sessionId)
 					.setField("original", false)
 					.execute();
 
-		return findLastSubjectByName(name);
+		return findLastSubjectBySessionId(sessionId);
 	}
 	
 	@Cached
@@ -47,9 +47,9 @@ public class SubjectDAO
 	}
 	
 	@Cached
-	protected Subject findLastSubjectByName(String name)
+	protected Subject findLastSubjectBySessionId(int sessionId)
 	{
-		return findSubjectWhere("name", name);
+		return findSubjectWhere("session_id", sessionId);
 	}
 	
 	@Cached
@@ -69,7 +69,7 @@ public class SubjectDAO
 	{
 		builder.fromTable("subject")
 		  .getField("id", Integer.class, Subject::setId)
-		  .getField("name", String.class, Subject::setName)
+		  .getField("session_id", Integer.class, Subject::setSessionId)
 		  .getField("age", Integer.class, Subject::setAge)
 		  .getField("sex", String.class, Subject::setSex)
 		  .getField("language", String.class, Subject::setLanguage)

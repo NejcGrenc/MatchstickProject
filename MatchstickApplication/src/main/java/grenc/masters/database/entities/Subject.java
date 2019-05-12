@@ -7,7 +7,7 @@ public class Subject implements Serializable
     private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private String name;
+	private int sessionId;
 	private Integer age;
 	private String sex;
 	private String language;
@@ -28,13 +28,13 @@ public class Subject implements Serializable
 		this.id = id;
 	}
 	
-	public String getName()
+	public int getSessionId()
 	{
-		return name;
+		return sessionId;
 	}
-	public void setName(String name)
+	public void setSessionId(int sessionId)
 	{
-		this.name = name;
+		this.sessionId = sessionId;
 	}
 	
 	public Integer getAge()
@@ -113,7 +113,7 @@ public class Subject implements Serializable
 	@Override
 	public String toString()
 	{
-		return "Subject [id=" + id + ", name=" + name + ", age=" + age + ", sex=" + sex + ", language=" + language
+		return "Subject [id=" + id + ", sessionId=" + sessionId + ", age=" + age + ", sex=" + sex + ", language=" + language
 				+ ", ip=" + ip + ", address=" + address + ", operatingSystem=" + operatingSystem + ", browser="
 				+ browser + ", original=" + original + "]";
 	}

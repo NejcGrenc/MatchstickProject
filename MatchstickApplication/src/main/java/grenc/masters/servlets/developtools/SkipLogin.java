@@ -80,7 +80,7 @@ public class SkipLogin
 			languageServlet.setLanguage(session.getTag(), lang);
 			
 			String subjectName = "Tony";
-			Subject subject = subjectDAO.insertSubject(subjectName);
+			Subject subject = subjectDAO.insertSubject(session.getId());
 			sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
 			
 			request.setAttribute("session", session.getTag());
@@ -96,7 +96,7 @@ public class SkipLogin
 			languageServlet.setLanguage(session.getTag(), lang);
 			
 			String subjectName = "Tony";
-			Subject subject = subjectDAO.insertSubject(subjectName);
+			Subject subject = subjectDAO.insertSubject(session.getId());
 			sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
 
 			subjectDAO.updateSubject(subject.getId(), 18, "m", lang);

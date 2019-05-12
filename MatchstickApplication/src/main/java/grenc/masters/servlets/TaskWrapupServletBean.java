@@ -31,6 +31,9 @@ public class TaskWrapupServletBean extends BasePageServlet
 	private SessionDAO sessionDAO;
 	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
+	
+	@InsertBean
+	private AccountBall accountBall;
 
 	@Override
 	public String url()
@@ -56,7 +59,7 @@ public class TaskWrapupServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_login).translateAll();
-		new AccountBall(builder, session, servletContext).set();
+		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 
 		builder.appendPageElementFile(PageElement.task_wrapup);

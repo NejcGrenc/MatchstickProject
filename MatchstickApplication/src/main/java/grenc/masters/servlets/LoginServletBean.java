@@ -76,16 +76,24 @@ public class LoginServletBean extends BasePageServlet
 	@Override
 	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
-		String subjectName = (String) request.getAttribute("subjectName");
-		if (subjectName == null || subjectName.isEmpty())
+		String agreementAccepted = (String) request.getAttribute("agreement_accepted");
+		System.out.println(agreementAccepted);
+		if (agreementAccepted == null || agreementAccepted.isEmpty())
 		{
 			System.out.println("Did not login while on Login page! (probably clicked one of the up-right buttons)");
 			return;
 		}
-		createLoginSubject(subjectName, request);
+		
+		if (Boolean.valueOf(agreementAccepted))
+		{
+			System.out.println("User has accepted the agreement.");
+			createLoginSubject(request);
+		}
+		else
+			System.out.println("User has NOT accepted the agreement.");
 	}
 
-	private void createLoginSubject(String subjectName, HttpServletRequest request)
+	private void createLoginSubject(HttpServletRequest request)
 	{
 		if (validator.isFreshIP(request))
 		{
@@ -108,14 +116,12 @@ public class LoginServletBean extends BasePageServlet
 	private Subject createNewSubject(HttpServletRequest request)
 	{
 		String sessionTag = (String) request.getAttribute("session");
-		String subjectName = (String) request.getAttribute("subjectName");
 		
-		System.out.println("Upsert");
+		System.out.println("Create a new subject");
 		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - create new subject: " + subjectName);
 		
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		Subject subject = subjectDAO.insertSubject(subjectName);
+		Subject subject = subjectDAO.insertSubject(session.getId());
 		
 		sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
 		

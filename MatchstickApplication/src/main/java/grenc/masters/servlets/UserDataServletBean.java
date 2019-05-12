@@ -30,6 +30,9 @@ public class UserDataServletBean extends BasePageServlet
 	private SessionDAO sessionDAO;
 	@InsertBean
 	private SubjectDAO subjectDAO;
+	
+	@InsertBean
+	private AccountBall accountBall;
 
 	@Override
 	public String url()
@@ -58,7 +61,7 @@ public class UserDataServletBean extends BasePageServlet
 		new Translate(builder, Script.translate_userdata)
 			.translateAll()
 			.translateSpecial("m_userdata_input_age", "placeholder");
-		new AccountBall(builder, session, servletContext).set();
+		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 
 		builder.appendPageElementFile(PageElement.user_data);

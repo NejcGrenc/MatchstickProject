@@ -39,6 +39,9 @@ public class SelectTaskServletBean extends BasePageServlet
 	@InsertBean
 	private TaskSessionAssist taskSessionAssist;
 	
+	@InsertBean
+	private AccountBall accountBall;
+	
 	@Override
 	public String url()
 	{
@@ -60,7 +63,7 @@ public class SelectTaskServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), url()).set();
 		new Translate(builder, Script.translate_selecttask).translateAll();
-		new AccountBall(builder, session, servletContext).set();
+		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 
 		new CreditsBall(builder).set();

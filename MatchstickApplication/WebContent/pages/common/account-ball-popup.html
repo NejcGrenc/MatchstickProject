@@ -1,6 +1,5 @@
 <div>
-    <p id='m_popup_firstline'> Performing experiments as: </p> 
-	<p id='accountBallName'><b> subject.getName() </b></p>
+    <p id='m_popup_firstline'> Do you want to restart with a new user? </p> 
     <div style="height: 40px;"></div>
     <button onclick="startAnew()" class='rightButton'>Restart with a new user</button>
 </div>
@@ -9,10 +8,5 @@
 	{
 		console.log("Start anew requested");
 	    post("/", {"restart_anew": true});
-	}
-	
-	function setName(name)
-	{
-		document.getElementById("accountBallName").innerHTML = "<b>" + name + "</b>";
 	}
 </script>

@@ -219,8 +219,8 @@ public class DispatcherServletBeanTest
 		// Given: full subject
 		Subject subject = new Subject();
 		subject.setId(1234);
+		subject.setSessionId(20);
 		subject.setAge(15);
-		subject.setName("Tony");
 		subject.setSex("m");
 		subject.setLanguage("si");
 	    Mockito.when(subjectDAO.findSubjectById(subject.getId())).thenReturn(subject);
@@ -252,8 +252,8 @@ public class DispatcherServletBeanTest
 		// Given: full subject
 		Subject subject = new Subject();
 		subject.setId(1234);
+		subject.setSessionId(20);
 		subject.setAge(15);
-		subject.setName("Tony");
 		subject.setSex("m");
 		subject.setLanguage("si");
 	    Mockito.when(subjectDAO.findSubjectById(subject.getId())).thenReturn(subject);
