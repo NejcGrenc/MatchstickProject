@@ -22,6 +22,10 @@ public class DispatcherServletBean
 {
 	@InsertBean
 	private ServletBeanProcessor servletBeanProcessor;
+	@InsertBean
+	private InitialCallHandler initialCallHandler;
+	@InsertBean
+	private Selector selector;
 	
 	public DispatcherServletBean() {};
 	
@@ -47,12 +51,10 @@ public class DispatcherServletBean
 			previousServlet.processClientsResponse(request, servletContext);
 		
 		
-		if (InitialCallHandler.isInitial(request))
-			new InitialCallHandler(request, response).handle();
+		if (initialCallHandler.isInitial(request))
+			initialCallHandler.handle(request, response);
 		
-
-		Selector selector = createNewSelector(request);
-		String forwardUrl = selector.select();
+		String forwardUrl = selectNewForwardUrl(request);
 			
 		System.out.println("Forwarding request to: " + forwardUrl);
 		RequestDispatcher dispatcher = buildDispatcher(forwardUrl, servletContext);
@@ -74,15 +76,12 @@ public class DispatcherServletBean
 		return previous;
 	}
 	
-	private Selector createNewSelector(HttpServletRequest request)
+	private String selectNewForwardUrl(HttpServletRequest request)
 	{
 		String forwardUrl = (String) request.getAttribute("forwardUrl");
 		String previousUrl = (String) request.getAttribute("previousUrl");
 		String sessionTag = (String) request.getAttribute("session");
-		return new Selector()
-				.withForwardUrl(forwardUrl)
-				.withPreviousUrl(previousUrl)
-				.withSessionTag(sessionTag);
+		return selector.select(forwardUrl, previousUrl, sessionTag);
 	}
 	
 	public RequestDispatcher buildDispatcher(String forwardUrl, ServletContext servletContext)

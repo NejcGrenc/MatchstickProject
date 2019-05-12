@@ -4,42 +4,32 @@ import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.LanguageServletBean;
+import grenc.masters.servlets.LoginServletBean;
+import grenc.masters.servlets.SelectTaskServletBean;
+import grenc.masters.servlets.UserDataServletBean;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
+
+@Bean
 public class Selector
 {
+	@InsertBean
 	private SessionDAO sessionDAO;
+	@InsertBean
 	private SubjectDAO subjectDAO;
-	
-	private String forwardUrl;
-	
-	@SuppressWarnings("unused")
-	private String previousUrl;
-	private String sessionTag;
-	
-	public Selector()
-	{
-		this.sessionDAO = SessionDAO.getInstance();
-		this.subjectDAO = SubjectDAO.getInstance();
-	}
-	
-	public Selector withForwardUrl(String forwardUrl)
-	{
-		this.forwardUrl = forwardUrl;
-		return this;
-	}
-	
-	public Selector withPreviousUrl(String previousUrl)
-	{
-		this.previousUrl = previousUrl;
-		return this;
-	}
-	public Selector withSessionTag(String sessionTag)
-	{
-		this.sessionTag = sessionTag;
-		return this;
-	}
 
+	@InsertBean
+	private LanguageServletBean languageServlet;
+	@InsertBean
+	private LoginServletBean loginServlet;	
+	@InsertBean
+	private UserDataServletBean userDataServlet;
+	@InsertBean
+	private SelectTaskServletBean selectTaskServlet;
+	
+	
 	/*
 	 * Endpoint priorities:
 	 * 0) Set session (if not set)
@@ -50,7 +40,7 @@ public class Selector
 	 * 5) The default in all cases is SelectTask
 	 */
 	
-	public String select()
+	public String select(String forwardUrl, String previousUrl, String sessionTag)
 	{
 		
 		if (isNullOrEmpty(sessionTag))
@@ -69,23 +59,23 @@ public class Selector
 		
 		if (isNullOrEmpty(session.getLang()))
 		{
-			return Servlet.LanguageServlet.getUrl();
+			return languageServlet.url();
 		}
 		
 		// LOGIN
 		if (session.getSubjectId() == 0)
 		{
-			return Servlet.LoginServlet.getUrl();
+			return loginServlet.url();
 		}
 
 		// USER DATA
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
 		if (subject.isMissingUserData())
 		{
-			return Servlet.UserDataServlet.getUrl();
+			return userDataServlet.url();
 		}
 		
-		return Servlet.SelectTaskServlet.getUrl();
+		return selectTaskServlet.url();
 
 //		throw new SelectorException(forwardUrl);
 	}
@@ -95,13 +85,6 @@ public class Selector
 		return str == null || str.isEmpty();
 	}
 	
-	
-	@Override
-	public String toString()
-	{
-		return "Selector [forwardUrl=" + forwardUrl + ", previousUrl=" + previousUrl + ", sessionTag=" + sessionTag
-				+ "]";
-	}
 	
 	
 //	private class SelectorException extends RuntimeException

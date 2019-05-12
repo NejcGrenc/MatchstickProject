@@ -15,7 +15,6 @@ import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.Servlet;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.uservalidation.BrowserDetails;
 import grenc.masters.webpage.CreditsBall;
@@ -24,14 +23,18 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
 public class SelectTaskServletBean extends BasePageServlet
 {
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	@InsertBean
+	private SessionDAO sessionDAO;
+	
+	@InsertBean
+	private MatchstickTaskServletBean matchstickTaskServlet;
 	
 	@Override
 	public String url()
@@ -80,7 +83,7 @@ public class SelectTaskServletBean extends BasePageServlet
 		// Skip learning if we are part of matchstick task group 0
 		if (isMatchstickGroup0(selectedTaskType, taskSession))
 		{
-			request.setAttribute("forwardUrl", Servlet.MatchstickTaskServlet.getUrl());
+			request.setAttribute("forwardUrl", matchstickTaskServlet.url());
 		}
 	}
 

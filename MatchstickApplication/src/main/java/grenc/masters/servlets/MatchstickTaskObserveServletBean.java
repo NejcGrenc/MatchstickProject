@@ -15,7 +15,6 @@ import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Video;
-import grenc.masters.servlets.base.Servlet;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.WebpageBuilder;
@@ -23,14 +22,20 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
 public class MatchstickTaskObserveServletBean extends BasePageServlet
 {
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	@InsertBean
+	private SessionDAO sessionDAO;	
+	@InsertBean
+	private MatchstickTaskInfoPopup matchstickTaskInfoPopup;
+
+	@InsertBean
+	private MatchstickTaskLearnServletBean matchstickTaskLearnServlet;
 	
 	@Override
 	public String url()
@@ -51,8 +56,8 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
-		new MatchstickTaskInfoPopup(builder, servletContext).createPopup(session.getLang());
-		
+		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
+
 		builder.appendPageElementFile(PageElement.matchstick_task_observe);
 		
 		// Setup current task number
@@ -82,7 +87,7 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		if (taskBuilder.nextPhase() != MatchstickExperimentPhase.LearningPhase_Showing)
 		{
 			// Task is completed, forward to Learn-page
-			String forwardUrl = Servlet.MatchstickTaskLearnServlet.getUrl();
+			String forwardUrl = matchstickTaskLearnServlet.url();
 			request.setAttribute("forwardUrl", forwardUrl);
 			System.out.println("Change forwarding request url to: " + forwardUrl);	
 		}

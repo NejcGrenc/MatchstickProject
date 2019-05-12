@@ -30,7 +30,6 @@ import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
-import grenc.masters.servlets.base.Servlet;
 import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.masters.servlets.developtools.SessionGenerator;
@@ -41,7 +40,7 @@ import grenc.simpleton.processor.BeanProcessor;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Servlet.class, SessionDAO.class, SubjectDAO.class})
+@PrepareForTest({SessionDAO.class, SubjectDAO.class})
 public class DispatcherServletBeanTest
 {
 	private SessionDAO sessionDAO;
@@ -58,6 +57,12 @@ public class DispatcherServletBeanTest
 	private static final String sessionParamName = "session";
 	private static final String previousUrlParamName = "previousUrl";
 	private static final String forwardUrlParamName = "forwardUrl";
+	
+	private LanguageServletBean languageServlet = Beans.get(LanguageServletBean.class);
+	private LoginServletBean loginServlet = Beans.get(LoginServletBean.class);
+	private UserDataServletBean userDataServlet = Beans.get(UserDataServletBean.class);
+	private SelectTaskServletBean selectTaskServlet = Beans.get(SelectTaskServletBean.class);
+
 	
 	
 	@Before
@@ -158,7 +163,7 @@ public class DispatcherServletBeanTest
 		servlet.process(request, response, servletContext);
 		
 		// Then
-		verifyRedirectTo(Servlet.LanguageServlet.getUrl());
+		verifyRedirectTo(languageServlet.url());
 	}
 	
 	@Test
@@ -177,7 +182,7 @@ public class DispatcherServletBeanTest
 		servlet.process(request, response, servletContext);
 		
 		// Then
-		verifyRedirectTo(Servlet.LoginServlet.getUrl());
+		verifyRedirectTo(loginServlet.url());
 	}
 
 	@Test
@@ -202,7 +207,7 @@ public class DispatcherServletBeanTest
 		servlet.process(request, response, servletContext);
 		
 		// Then
-		verifyRedirectTo(Servlet.UserDataServlet.getUrl());
+		verifyRedirectTo(userDataServlet.url());
 	}
 	
 	@Test
@@ -263,6 +268,6 @@ public class DispatcherServletBeanTest
 		servlet.process(request, response, servletContext);
 		
 		// Then
-		verifyRedirectTo(Servlet.SelectTaskServlet.getUrl());
+		verifyRedirectTo(selectTaskServlet.url());
 	}
 }

@@ -8,20 +8,18 @@ import javax.servlet.ServletContext;
 
 public class PopupBuilderAbstract
 {
-	protected WebpageBuilder builder;
-	private String basePath;
 	
-	public PopupBuilderAbstract(WebpageBuilder builder, ServletContext servletContext)
+	protected String getBasePath(ServletContext servletContext)
 	{
-		this.builder = builder;
-		this.basePath = servletContext.getRealPath("/");
+		return servletContext.getRealPath("/");
 	}
 	
-	protected String readFile(String fileName)
+	protected String readFile(ServletContext servletContext, String fileName)
 	{
 		StringBuilder content = new StringBuilder();
 		try 
 		{
+			String basePath = getBasePath(servletContext);
 		    BufferedReader in = new BufferedReader(new FileReader(basePath + fileName));
 		    String line;
 		    while ((line = in.readLine()) != null) 

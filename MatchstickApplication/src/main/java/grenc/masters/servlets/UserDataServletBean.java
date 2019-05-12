@@ -19,15 +19,17 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
 public class UserDataServletBean extends BasePageServlet
 {
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
-	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
+	@InsertBean
+	private SessionDAO sessionDAO;
+	@InsertBean
+	private SubjectDAO subjectDAO;
 
 	@Override
 	public String url()

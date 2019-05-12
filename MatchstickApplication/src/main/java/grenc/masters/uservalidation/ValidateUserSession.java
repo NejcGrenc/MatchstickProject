@@ -4,23 +4,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Subject;
+import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
-
+@Bean
 public class ValidateUserSession
 {
-	
+	@InsertBean
 	private SubjectDAO subjectDao;
 	
-	private HttpServletRequest request;
-	
-	public ValidateUserSession(HttpServletRequest request)
-	{
-		this.request = request;
-		this.subjectDao = SubjectDAO.getInstance();
-	}
-	
-	
-	public boolean isFreshIP()
+	public boolean isFreshIP(HttpServletRequest request)
 	{
 		String ip = IpAddress.getClientIpAddress(request);
 		
@@ -33,7 +26,7 @@ public class ValidateUserSession
 		return existingSubject == null;
 	}
 	
-	public Subject updateSubject(Subject subject)
+	public Subject updateSubject(Subject subject, HttpServletRequest request)
 	{
 		BrowserDetails browserData = new BrowserDetails(request);
 		String ip = IpAddress.getClientIpAddress(request);

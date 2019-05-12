@@ -7,7 +7,11 @@ import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.masters.servlets.LanguageServletBean;
-import grenc.masters.servlets.base.Servlet;
+import grenc.masters.servlets.LoginServletBean;
+import grenc.masters.servlets.SelectTaskServletBean;
+import grenc.masters.servlets.UserDataServletBean;
+import grenc.masters.servlets.bean.base.ServletBean;
+import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -23,8 +27,17 @@ public class SkipLogin
 	private SubjectDAO subjectDAO;
 	
 	@InsertBean
-	private LanguageServletBean languageServlet;
+	private ServletBeanProcessor servletBeanProcessor;
 	
+	@InsertBean
+	private LanguageServletBean languageServlet;
+	@InsertBean
+	private LoginServletBean loginServlet;	
+	@InsertBean
+	private UserDataServletBean userDataServlet;
+	@InsertBean
+	private SelectTaskServletBean selectTaskServlet;
+
 	
 	public static boolean shouldSkip(HttpServletRequest request)
 	{
@@ -38,16 +51,16 @@ public class SkipLogin
 		
 		System.out.println("Skipping!");
 
-		Servlet forwardServlet = forwardTo(request);
-		System.out.println("Skipping to " + forwardServlet.getUrl());
+		ServletBean forwardServlet = forwardTo(request);
+		System.out.println("Skipping to " + forwardServlet.url());
 		
-		if (forwardServlet == Servlet.LanguageServlet)
+		if (forwardServlet == languageServlet)
 		{
 			Session session = new SessionGenerator().generateSession();
 			request.setAttribute("session", session.getTag());
 			System.out.println("Skipping with session " + session.getTag());
 		}
-		if (forwardServlet == Servlet.LoginServlet)
+		if (forwardServlet == loginServlet)
 		{
 			Session session = new SessionGenerator().generateSession();
 			String lang = "en"; // Randomize
@@ -58,7 +71,7 @@ public class SkipLogin
 			
 			System.out.println("Skipping with session: " + session.getTag() + " and lang: " + lang);
 		}
-		if (forwardServlet == Servlet.UserDataServlet)
+		if (forwardServlet == userDataServlet)
 		{
 			Session session = new SessionGenerator().generateSession();
 			String lang = "en"; // Randomize
@@ -74,7 +87,7 @@ public class SkipLogin
 			
 			System.out.println("Skipping with session: " + session.getTag() + " and lang: " + lang + " and subjName: " + subjectName);
 		}
-		if (forwardServlet == Servlet.SelectTaskServlet)
+		if (forwardServlet == selectTaskServlet)
 		{
 			Session session = new SessionGenerator().generateSession();
 			String lang = "en"; // Randomize
@@ -93,19 +106,19 @@ public class SkipLogin
 			System.out.println("Skipping with session: " + session.getTag() + " and lang: " + lang + " and subjName: " + subjectName);
 		}
 
-		return forwardServlet.getUrl();
+		return forwardServlet.url();
 	}
 	
-	private Servlet forwardTo(HttpServletRequest request) {
+	private ServletBean forwardTo(HttpServletRequest request) {
 		String forwardUrl = (String) request.getAttribute("forwardUrl");
 		if (forwardUrl == null || forwardUrl.isEmpty())
 			throw new RuntimeException("Parameter 'forwardUrl' cannot be null or empty when skipping.");
 		
-		Servlet forwardServlet = Servlet.getServletDescriptionForUrl(forwardUrl);
-		if (forwardServlet == null) 
+		ServletBean forwardServletBean = servletBeanProcessor.servletBeanByUrl(forwardUrl);
+		if (forwardServletBean == null) 
 			throw new RuntimeException("Parameter 'forwardUrl' unrecognizable: " + forwardUrl);
 		
-		return forwardServlet;
+		return forwardServletBean;
 	}
 	
 //	TODO something like this

@@ -28,8 +28,8 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
@@ -37,10 +37,14 @@ public class ImagesTaskServletBean extends BasePageServlet
 {	
 	public static final String imagesTaskType = "images";
 
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
-	private TaskSessionDAO taskSessionDAO = Beans.get(TaskSessionDAO.class);
-	private ImageTaskDataDAO imageTaskDataDAO = Beans.get(ImageTaskDataDAO.class);
-	
+	@InsertBean
+	private SessionDAO sessionDAO;
+	@InsertBean
+	private TaskSessionDAO taskSessionDAO;
+	@InsertBean
+	private ImageTaskDataDAO imageTaskDataDAO ;
+	@InsertBean
+	private ImageTaskInfoPopup imageTaskInfoPopup;
 	
 	@Override
 	public String url()
@@ -77,7 +81,7 @@ public class ImagesTaskServletBean extends BasePageServlet
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
 		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set();
-		new ImageTaskInfoPopup(builder, servletContext).createPopup(session.getLang());
+		imageTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 
 		builder.appendPageElementFile(PageElement.image_task);
 

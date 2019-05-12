@@ -13,17 +13,21 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 
 public class AccountBall extends PopupBuilderAbstract
 {
+	private WebpageBuilder builder;
 	private Subject subject;
+	private ServletContext servletContext;
 	
 	public AccountBall(WebpageBuilder builder, Subject subject, ServletContext servletContext)
 	{
-		super(builder, servletContext);
+		this.builder = builder;
 		this.subject = subject;
+		this.servletContext = servletContext;
 	}
 	
 	public AccountBall(WebpageBuilder builder, Session session, ServletContext servletContext)
 	{
-		super(builder, servletContext);
+		this.builder = builder;
+		this.servletContext = servletContext;
 		this.subject = SubjectDAO.getInstance().findSubjectById(session.getSubjectId());
 	}
 
@@ -36,7 +40,7 @@ public class AccountBall extends PopupBuilderAbstract
 	}
 	
 	private void attachPopup() {
-		String content = readFile(PageElement.account_ball_popup.path());
+		String content = readFile(servletContext, PageElement.account_ball_popup.path());
 
 		new Popup(builder, "popupName").setOpenButton("accountButton").setText(content).set();
 		builder.appendBodyScriptCommand("setName('" + subject.getName() + "');");

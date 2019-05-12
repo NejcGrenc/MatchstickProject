@@ -6,16 +6,14 @@ import grenc.masters.resources.PageElement;
 import grenc.masters.webpage.builder.PopupBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Popup;
+import grenc.simpleton.annotation.Bean;
 
+
+@Bean
 public class LoginAgreementPopup extends PopupBuilderAbstract
 {	
 	
-	public LoginAgreementPopup(WebpageBuilder builder, ServletContext servletContext)
-	{
-		super(builder, servletContext);
-	}
-	
-	public void createPopup(String lang)
+	public void createPopup(WebpageBuilder builder, ServletContext servletContext, String lang)
 	{
 		PageElement popupContentFile;
 		switch(lang)
@@ -37,7 +35,7 @@ public class LoginAgreementPopup extends PopupBuilderAbstract
 				popupContentFile = PageElement.agreement_at;
 				break;
 		}
-		String content = readFile(popupContentFile.path());
+		String content = readFile(servletContext, popupContentFile.path());
 		new Popup(builder, "agreementPopup").setOpenButton("button-agreement").setWidth("45%").setText(content).addBottomCloseButton("m_closeButton", "Done").set();
 	}
 	

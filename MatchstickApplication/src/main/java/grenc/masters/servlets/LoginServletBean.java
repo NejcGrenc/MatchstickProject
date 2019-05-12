@@ -20,15 +20,21 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
 public class LoginServletBean extends BasePageServlet
 {
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
-	private SubjectDAO subjectDAO = Beans.get(SubjectDAO.class);
+	@InsertBean
+	private SessionDAO sessionDAO;
+	@InsertBean
+	private SubjectDAO subjectDAO;
+	@InsertBean
+	private ValidateUserSession validator;
+	@InsertBean
+	private LoginAgreementPopup loginAgreementPopup;
 
 	@Override
 	public String url()
@@ -61,8 +67,8 @@ public class LoginServletBean extends BasePageServlet
 			.translateSpecial("m_nameInput", "placeholder");
 
 		new DataPresentBall(builder, session).set();
-		new LoginAgreementPopup(builder, servletContext).createPopup(session.getLang());
-
+		loginAgreementPopup.createPopup(builder, servletContext, session.getLang());
+		
 						
 		builder.appendPageElementFile(PageElement.login);
 	}
@@ -81,17 +87,16 @@ public class LoginServletBean extends BasePageServlet
 
 	private void createLoginSubject(String subjectName, HttpServletRequest request)
 	{
-		ValidateUserSession validation = new ValidateUserSession(request);
-		if (validation.isFreshIP())
+		if (validator.isFreshIP(request))
 		{
 			Subject newSubject = createNewSubject(request);
-			newSubject = validation.updateSubject(newSubject);
+			newSubject = validator.updateSubject(newSubject, request);
 			subjectDAO.updateSubjectOriginal(newSubject.getId(), true);
 		}
 		else
 		{
 			Subject newSubject = createNewSubject(request);
-			newSubject = validation.updateSubject(newSubject);
+			newSubject = validator.updateSubject(newSubject, request);
 			
 			// User is tainted (risk != 0)
 			subjectDAO.updateSubjectOriginal(newSubject.getId(), false);

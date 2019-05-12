@@ -7,21 +7,21 @@ import org.junit.Test;
 
 public class ServletTest {
 
-	@Test
-	public void fetchValidServletDefinition()
-	{
-		String validUrl = "/login";
-		Servlet servlet = Servlet.getServletDescriptionForUrl(validUrl);
-		assertEquals(Servlet.LoginServlet, servlet);
-	}
-	
-	@Test
-	public void fetchServletDefinitionObBrokenUrl()
-	{
-		String brokenValidUrl = "login";  // Needs fixing, but is generally valid
-		Servlet servlet = Servlet.getServletDescriptionForUrl(brokenValidUrl);
-		assertEquals(Servlet.LoginServlet, servlet);
-	}
+//	@Test
+//	public void fetchValidServletDefinition()
+//	{
+//		String validUrl = "/login";
+//		Servlet servlet = Servlet.getServletDescriptionForUrl(validUrl);
+//		assertEquals(Servlet.LoginServlet, servlet);
+//	}
+//	
+//	@Test
+//	public void fetchServletDefinitionObBrokenUrl()
+//	{
+//		String brokenValidUrl = "login";  // Needs fixing, but is generally valid
+//		Servlet servlet = Servlet.getServletDescriptionForUrl(brokenValidUrl);
+//		assertEquals(Servlet.LoginServlet, servlet);
+//	}
 	
 //	@Test
 //	public void fetchValidServletInstance()

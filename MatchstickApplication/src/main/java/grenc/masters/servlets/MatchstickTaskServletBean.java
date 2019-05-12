@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor;
-import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.matchsticktask.MatchstickTaskProcessor.MatchstickTaskProcessorReturn;
+import grenc.masters.matchsticktask.ResponseProcessor;
 import grenc.masters.matchsticktask.type.SolvableRestriction;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
-import grenc.masters.servlets.base.Servlet;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.helper.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.WebpageBuilder;
@@ -23,14 +22,20 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
 public class MatchstickTaskServletBean extends BasePageServlet
 {
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
+	@InsertBean
+	private SessionDAO sessionDAO;
+	@InsertBean
+	private MatchstickTaskInfoPopup matchstickTaskInfoPopup;
+
+	@InsertBean
+	private TaskWrapupServletBean taskWrapupServlet;
 	
 	@Override
 	public String url()
@@ -61,7 +66,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		new AccountBall(builder, session, servletContext).set();
 		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType());
-		new MatchstickTaskInfoPopup(builder, servletContext).createPopup(session.getLang());
+		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 	    
 	    // Matchstick task separate libraries
 		builder.addScript(Script.matchstick_main);
@@ -130,7 +135,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	public void processFinished(HttpServletRequest request)
 	{
 		// Task is completed, forward to after-page
-		String forwardUrl = Servlet.TaskWrapupServlet.getUrl();
+		String forwardUrl = taskWrapupServlet.url();
 		request.setAttribute("forwardUrl", forwardUrl);
 		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}

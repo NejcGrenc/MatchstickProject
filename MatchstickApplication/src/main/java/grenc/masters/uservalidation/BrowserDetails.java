@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class BrowserDetails
 {
-
 	private String os;
 	private String browser;
 	

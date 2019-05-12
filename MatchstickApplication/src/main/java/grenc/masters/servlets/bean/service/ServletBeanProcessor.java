@@ -36,7 +36,18 @@ public class ServletBeanProcessor
 	
 	public ServletBean servletBeanByUrl(String url)
 	{
-		return allServletBeans().get(url);
+		if (url == null) 
+			return null;
+		return allServletBeans().get(fixUrl(url));
 	}
 	
+	private static String fixUrl(String url)
+	{
+		String fixedUrl = url;
+		if (! url.startsWith("/"))
+		{
+			fixedUrl = "/" + url;
+		}
+		return fixedUrl;
+	}
 }

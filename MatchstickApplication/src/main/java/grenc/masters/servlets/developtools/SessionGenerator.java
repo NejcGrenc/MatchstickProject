@@ -5,21 +5,14 @@ import java.util.UUID;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 @Bean
 public class SessionGenerator
 {	
+	@InsertBean
 	private SessionDAO sessionDAO;
 
-	public SessionGenerator(SessionDAO sessionDAO)
-	{
-		this.sessionDAO = sessionDAO;
-	}
-	public SessionGenerator()
-	{
-		this (SessionDAO.getInstance());
-	}
-	
 	public Session generateSession()
 	{
 		String randomString = null;

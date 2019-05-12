@@ -20,15 +20,17 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
-import grenc.simpleton.Beans;
 import grenc.simpleton.annotation.Bean;
+import grenc.simpleton.annotation.InsertBean;
 
 
 @Bean
 public class TaskWrapupServletBean extends BasePageServlet
 {
-	private SessionDAO sessionDAO = Beans.get(SessionDAO.class);
-	private TaskSessionDAO taskSessionDAO = Beans.get(TaskSessionDAO.class);
+	@InsertBean
+	private SessionDAO sessionDAO;
+	@InsertBean
+	private TaskSessionDAO taskSessionDAO;
 
 	@Override
 	public String url()
