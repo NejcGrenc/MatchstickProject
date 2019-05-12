@@ -78,15 +78,15 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		
+		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
+
 		if (! url().equals((String) request.getAttribute("forwardUrl")))
 		{   // Some other action - not finished learning
 			return;
 		}
 		
-		responseProcessor.storeEmptyTask(session); // Just make an entry to increment the counter
+		responseProcessor.storeEmptyTask(taskSession); // Just make an entry to increment the counter
 		
-		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
 		if (taskBuilder.nextPhase(taskSession) != MatchstickExperimentPhase.LearningPhase_Solving)
 		{
 			// Task is completed, forward to actual-task-page

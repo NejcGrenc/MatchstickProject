@@ -126,12 +126,13 @@ public class MatchstickTaskServletBean extends BasePageServlet
 			return;
 		}
 
-		responseProcessor.storeData(session, actions);
+		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
+		responseProcessor.storeData(taskSession, actions);
 		System.out.println();
 		System.out.println();
 		
-		responseProcessor.perhapsFinishLastTaskSession(session);	
-		if (responseProcessor.isFinished(session))
+		responseProcessor.perhapsFinishLastTaskSession(taskSession);	
+		if (responseProcessor.isFinished(taskSession))
 		{
 			processFinished(request);
 		}

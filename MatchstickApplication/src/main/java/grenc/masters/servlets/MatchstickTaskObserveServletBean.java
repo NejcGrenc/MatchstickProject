@@ -87,7 +87,7 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		}
 		
 		TaskSession taskSession = matchstickTaskProcessor.taskSessionToUse(session);
-		responseProcessor.storeEmptyTask(session); // Just make an entry to increment the counter
+		responseProcessor.storeEmptyTask(taskSession); // Just make an entry to increment the counter
 		
 		if (matchstickTaskProcessor.nextPhase(taskSession) != MatchstickExperimentPhase.LearningPhase_Showing)
 		{

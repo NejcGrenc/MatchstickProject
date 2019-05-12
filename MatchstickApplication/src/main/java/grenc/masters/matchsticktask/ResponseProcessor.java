@@ -8,7 +8,6 @@ import grenc.masters.database.dao.MatchstickActionDataDAO;
 import grenc.masters.database.dao.MatchstickTaskDataDAO;
 import grenc.masters.database.entities.MatchstickActionData;
 import grenc.masters.database.entities.MatchstickTaskData;
-import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.simpleton.annotation.Bean;
@@ -27,19 +26,17 @@ public class ResponseProcessor
 	private MatchstickTaskProcessor matchstickTaskProcessor;
 	
 
-	public void storeEmptyTask(Session session) // Used for Observe & Learn task-parts
+	public void storeEmptyTask(TaskSession taskSession) // Used for Observe & Learn task-parts
 	{
-		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse(session);
-		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(lastTaskSession);
-		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(lastTaskSession.getId(), newTaskNumber);
+		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(taskSession);
+		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber);
 		matchstickTaskDataDAO.update(taskData.getId(), MatchstickTaskStatus.solved.name(), "", "", 0, 0, 0, 0);	
 	}
 	
-	public void storeData(Session session, String stringData)
+	public void storeData(TaskSession taskSession, String stringData)
 	{
-		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse(session);
-		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(lastTaskSession);
-		storeData(lastTaskSession, stringData, newTaskNumber);
+		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(taskSession);
+		storeData(taskSession, stringData, newTaskNumber);
 	}
 		
 	// TODO make tests for building data properly
@@ -106,16 +103,14 @@ public class ResponseProcessor
 	}
 	
 
-	public boolean isFinished(Session session)
+	public boolean isFinished(TaskSession taskSession)
 	{
-		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse(session);
-		return matchstickTaskProcessor.isCurrentTaskSessionFinished(lastTaskSession);
+		return matchstickTaskProcessor.isCurrentTaskSessionFinished(taskSession);
 	}
 	
-	public void perhapsFinishLastTaskSession(Session session)
+	public void perhapsFinishLastTaskSession(TaskSession taskSession)
 	{
-		TaskSession lastTaskSession = matchstickTaskProcessor.taskSessionToUse(session);
-		matchstickTaskProcessor.finishCurrentTaskSessionIfApplicable(lastTaskSession);
+		matchstickTaskProcessor.finishCurrentTaskSessionIfApplicable(taskSession);
 	}
 
 	
