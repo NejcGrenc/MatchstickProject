@@ -38,6 +38,15 @@ public class ClassProcessorTest
 	}
 	
 	@Test
+	public void shouldRecognizeInheritedInterface()
+	{
+		List<String> fieldNames = ClassProcessor.allFieldsOfImplementing(DeclaredComplexGrowClass.class, SampleInterface.class);
+		assertEquals(1, fieldNames.size());
+		assertTrue(fieldNames.contains("i"));
+	}
+	
+	
+	@Test
 	public void shouldFindFieldByName() throws NoSuchFieldException, SecurityException
 	{
 		assertEquals(SimpleGrowClass.class.getDeclaredField("j"), ClassProcessor.findFieldByName(SimpleGrowClass.class, "j"));
@@ -64,8 +73,17 @@ public class ClassProcessorTest
 		int i;
 		ImplementingClass j;
 	}
+	
+	@SuppressWarnings("unused")
+	private class DeclaredComplexGrowClass
+	{
+		ComplexClass i;
+	}
 
 	private class ImplementingClass implements SampleInterface {}
 	private interface SampleInterface {}
+	
+	private class ComplexClass implements ComplexInterface {}
+	private interface ComplexInterface extends SampleInterface {}
 }
 

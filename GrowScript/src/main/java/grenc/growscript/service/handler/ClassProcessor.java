@@ -1,6 +1,7 @@
 package grenc.growscript.service.handler;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +42,19 @@ public class ClassProcessor
 	
 	private static boolean implementsInterface(Class<?> original, Class<?> selectedInterface)
 	{
-		return Arrays.asList(original.getInterfaces()).contains(selectedInterface);
+		return getAllInterfaces(original).contains(selectedInterface);
+	}
+	
+	private static List<Class<?>> getAllInterfaces(Class<?> original)
+	{
+		List<Class<?>> interfaces = Arrays.asList(original.getInterfaces());
+		
+		List<Class<?>> inheritedInterfaces = new ArrayList<>();
+		for (Class<?> inter : interfaces)
+			inheritedInterfaces.addAll(getAllInterfaces(inter));
+		
+		inheritedInterfaces.addAll(interfaces);
+		return inheritedInterfaces;
 	}
 	
 	private static boolean isThis(String fieldName)
