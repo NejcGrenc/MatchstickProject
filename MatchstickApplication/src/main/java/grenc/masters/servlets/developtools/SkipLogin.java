@@ -27,6 +27,8 @@ public class SkipLogin
 	private SubjectDAO subjectDAO;
 	
 	@InsertBean
+	private SessionGenerator sessionGenerator;
+	@InsertBean
 	private ServletBeanProcessor servletBeanProcessor;
 	
 	@InsertBean
@@ -56,13 +58,13 @@ public class SkipLogin
 		
 		if (forwardServlet == languageServlet)
 		{
-			Session session = new SessionGenerator().generateSession();
+			Session session = sessionGenerator.generateSession();
 			request.setAttribute("session", session.getTag());
 			System.out.println("Skipping with session " + session.getTag());
 		}
 		if (forwardServlet == loginServlet)
 		{
-			Session session = new SessionGenerator().generateSession();
+			Session session = sessionGenerator.generateSession();
 			String lang = "en"; // Randomize
 			languageServlet.setLanguage(session.getTag(), lang);
 			
@@ -73,7 +75,7 @@ public class SkipLogin
 		}
 		if (forwardServlet == userDataServlet)
 		{
-			Session session = new SessionGenerator().generateSession();
+			Session session = sessionGenerator.generateSession();
 			String lang = "en"; // Randomize
 			languageServlet.setLanguage(session.getTag(), lang);
 			
@@ -89,7 +91,7 @@ public class SkipLogin
 		}
 		if (forwardServlet == selectTaskServlet)
 		{
-			Session session = new SessionGenerator().generateSession();
+			Session session = sessionGenerator.generateSession();
 			String lang = "en"; // Randomize
 			languageServlet.setLanguage(session.getTag(), lang);
 			
