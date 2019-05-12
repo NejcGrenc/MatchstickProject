@@ -3,6 +3,7 @@ package grenc.growscript.service.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.GrowSegment;
 import grenc.growscript.service.exception.GrowScriptException;
 import grenc.growscript.service.utils.parser.MoustacheParser;
@@ -10,9 +11,11 @@ import grenc.growscript.service.utils.parser.MoustacheParser;
 
 public class GrowScriptSegmentVariableHandler
 {
-	public List<String> variablesOf(GrowSegment segment)
+	private SegmentTextHandler segmentTextHandler = new SegmentTextHandler();
+
+	public List<String> variablesOf(GrowSegment segment, ConditionalParameters params)
 	{
-		List<String> textVariables = new MoustacheParser().allVariables(segment.getBaseText());
+		List<String> textVariables = new MoustacheParser().allVariables(segmentTextHandler.getText(segment, params));
 		List<String> allGrowSegments = ClassProcessor.allFieldsOfImplementing(segment.getClass(), GrowSegment.class);
 		checkVariables(textVariables, allGrowSegments);
 		return textVariables;

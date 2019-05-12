@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.GrowSegment;
 import grenc.growscript.service.exception.GrowScriptException;
 import grenc.growscript.service.handler.GrowScriptSegmentVariableHandler;
@@ -17,7 +18,7 @@ public class GrowScriptSegmentVariableHandlerTest
 	public void shouldSuccessfullyCheckValidConfiguration()
 	{
 		ValidConfiguration testClass = new ValidConfiguration();
-		variableHandler.variablesOf(testClass);
+		variableHandler.variablesOf(testClass, ConditionalParameters.empty());
 		// should throw no exception
 	}
 	
@@ -25,7 +26,7 @@ public class GrowScriptSegmentVariableHandlerTest
 	public void shouldSuccessfullyCheckValidConfigurationEvenWhenSpeciffic()
 	{
 		ValidConfigurationSpecific testClass = new ValidConfigurationSpecific();
-		variableHandler.variablesOf(testClass);
+		variableHandler.variablesOf(testClass, ConditionalParameters.empty());
 		// should throw no exception
 	}
 	
@@ -33,7 +34,7 @@ public class GrowScriptSegmentVariableHandlerTest
 	public void shouldFailProcessingMissingVariables()
 	{
 		InvalidConfiguration1 testClass = new InvalidConfiguration1();
-		variableHandler.variablesOf(testClass);
+		variableHandler.variablesOf(testClass, ConditionalParameters.empty());
 		fail();
 	}
 	
@@ -41,7 +42,7 @@ public class GrowScriptSegmentVariableHandlerTest
 	public void shouldFailProcessingMissingGrowSegments()
 	{
 		InvalidConfiguration2 testClass = new InvalidConfiguration2();
-		variableHandler.variablesOf(testClass);
+		variableHandler.variablesOf(testClass, ConditionalParameters.empty());
 		fail();
 	}
 	

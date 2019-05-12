@@ -3,11 +3,10 @@ package grenc.growscript.service;
 import java.util.List;
 
 import grenc.growscript.base.conditional.ConditionalParameters;
-import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.service.handler.ConditionalGrowScriptSegmentHandler;
 import grenc.growscript.service.handler.GrowScriptSegmentVariableHandler;
 import grenc.growscript.service.handler.GrowScriptSubSegmentHandler;
+import grenc.growscript.service.handler.SegmentTextHandler;
 import grenc.growscript.service.utils.parser.MoustacheParser;
 
 
@@ -15,7 +14,7 @@ public class GrowScriptProcessor
 {
 	private GrowScriptSegmentVariableHandler variableHandler = new GrowScriptSegmentVariableHandler();
 	private GrowScriptSubSegmentHandler subSegmentHandler = new GrowScriptSubSegmentHandler();
-	private ConditionalGrowScriptSegmentHandler conditionalHandler = new ConditionalGrowScriptSegmentHandler();
+	private SegmentTextHandler segmentTextHandler = new SegmentTextHandler();
 	
 	public String process(GrowSegment segment)
 	{
@@ -24,14 +23,8 @@ public class GrowScriptProcessor
 	
 	public String process(GrowSegment segment, ConditionalParameters params)
 	{		
-		String processedText;
-		if (conditionalHandler.isConditional(segment))
-			processedText = conditionalHandler.conditionalText((ConditionalGrowSegment<?>) segment, params);
-		else
-			processedText = segment.getBaseText();
-		
-		
-		List<String> textVariables = variableHandler.variablesOf(segment);
+		String processedText = segmentTextHandler.getText(segment, params);
+		List<String> textVariables = variableHandler.variablesOf(segment, params);
 		for (String variable : textVariables)
 		{		
 			GrowSegment subSegment = subSegmentHandler.getSubSegment(segment, variable);
