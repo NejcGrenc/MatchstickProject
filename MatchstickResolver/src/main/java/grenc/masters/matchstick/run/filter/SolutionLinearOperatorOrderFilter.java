@@ -15,7 +15,7 @@ public class SolutionLinearOperatorOrderFilter
 	public boolean isFlawed(List<EquationChangeSingle> originalList)
 	{
 		List<EquationChangeSingle> filteredList = filter(originalList);
-		return (originalList.size() == filteredList.size());
+		return (originalList.size() != filteredList.size());
 	}
 	
 	public List<EquationChangeSingle> filter(List<EquationChangeSingle> originalList)

@@ -1,6 +1,7 @@
 package grenc.masters.matchstick.run.filter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -16,32 +17,40 @@ import grenc.masters.matchstick.objects.main.Equation;
 public class SolutionLinearOperatorOrderFilterTest
 {
 	private Parser parser = new Parser();
+	private SolutionLinearOperatorOrderFilter filter = new SolutionLinearOperatorOrderFilter();
+	
+	private List<EquationChangeSingle> originalList = Arrays.asList(
+			makeSolution("1+1+1=2"),
+			makeSolution("1*1+1=2"),
+			makeSolution("1+1*1=2"),
+			makeSolution("1*1*1=2"),
+			makeSolution("1-1-1=2"),
+			makeSolution("1/1-1=2"),
+			makeSolution("1-1/1=2"),
+			makeSolution("1/1-1=2")
+			);
+	private List<EquationChangeSingle> expectedList = Arrays.asList(
+			makeSolution("1+1+1=2"),
+			makeSolution("1*1+1=2"),
+			makeSolution("1*1*1=2"),
+			makeSolution("1-1-1=2"),
+			makeSolution("1/1-1=2"),
+			makeSolution("1/1-1=2")
+			);	
+	
 	
 	@Test
 	public void shouldFilterValidSolutions()
 	{
-		List<EquationChangeSingle> originalList = Arrays.asList(
-				makeSolution("1+1+1=2"),
-				makeSolution("1*1+1=2"),
-				makeSolution("1+1*1=2"),
-				makeSolution("1*1*1=2"),
-				makeSolution("1-1-1=2"),
-				makeSolution("1/1-1=2"),
-				makeSolution("1-1/1=2"),
-				makeSolution("1/1-1=2")
-				);
-		List<EquationChangeSingle> expectedList = Arrays.asList(
-				makeSolution("1+1+1=2"),
-				makeSolution("1*1+1=2"),
-				makeSolution("1*1*1=2"),
-				makeSolution("1-1-1=2"),
-				makeSolution("1/1-1=2"),
-				makeSolution("1/1-1=2")
-				);	
-		
-		List<EquationChangeSingle> resultList = new SolutionLinearOperatorOrderFilter().filter(originalList);
-		
+		List<EquationChangeSingle> resultList = filter.filter(originalList);
 		assertListsEqual(expectedList, resultList);
+	}
+	
+	@Test
+	public void shouldSelectFlawedGroups()
+	{
+		assertTrue(filter.isFlawed(originalList));
+		assertFalse(filter.isFlawed(expectedList));
 	}
 	
 	private EquationChangeSingle makeSolution(String solution)

@@ -19,67 +19,34 @@ public class RunnerSingle
 													"2/5+5=2", "5/5+5=5", "2+5/2=5");
 	
 	private static List<String> equation2 = Arrays.asList(
-			"2*5-5=2" , 
-			" 2+2-3=3", 
-			" 5*5/3=3", 
-			" 3/2*3=2", 
-			" 2*5-2=5", 
 			" 3/2/2=2", 
-			" 3+3-5=5", 
-			" 5*2-5=2", 
-			" 3/5*5=3", 
-			" 2-2*2=3", 
-			" 3-2-2=2", 
-			" 3+5/3=5", 
-			" 2-2*2=2", 
-			" 2/5+5=5", 
-			" 2-2*3=3", 
-			" 3-5+3=5", 
-			" 3-2+3=2", 
-			" 2-5*5=3", 
-			" 2/3+3=3", 
-			" 3/5/5=2", 
-			" 2/5*5=2", 
-			" 3-5-5=2", 
-			" 3*3-2=3", 
-			" 5*5-2=3", 
-			" 5*3-5=3", 
-			" 3/2+3=3", 
-			" 5*5/2=2", 
-			" 5*3-3=5", 
-			" 2-3+2=3", 
-			" 2/3*2=3", 
-			" 3*5-5=3", 
-			" 5+5-3=3", 
-			" 2/3*3=2", 
-			" 2*5/5=5", 
-			" 5*5-5=5", 
-			" 5+2/5=2", 
-			" 5/2*5=2", 
-			" 3/2*2=3", 
-			" 5*2/5=5", 
-			" 3+3-2=2", 
-			" 3*3/2=2", 
-			" 3-3*3=3", 
-			" 2+2-5=5", 
-			" 5/3+3=5", 
-			" 2*2/5=5", 
-			" 5/3*3=5", 
-			" 2-5+2=5", 
-			" 5-3+5=3", 
-			" 3*3/5=5", 
-			" 3/5*3=5", 
 			" 3/3/3=2", 
+			" 3/5/5=2", 
+			" 2-5*5=3", 
+			" 3-2-2=2", 
+
+			" 2+2-3=3", 
+			" 5*5/2=2", 
+			" 5/2*2=5", 
+			" 2-2*3=3", 
+			" 3-5-5=2", 
+			" 5/3*3=5", 
+			" 3-3*3=3", 
+			" 2-2*2=2", 
 			" 3-3-3=2", 
-			" 2*2/3=3", 
-			" 5/2+5=5", 
+			" 2-2*2=3", 
+			" 5+5-3=3", 
 			" 2-3*3=3", 
-			" 3*5-3=5", 
-			" 2/3+3=2", 
-			" 5*2-2=5", 
-			" 5/3*5=3", 
-			" 2/5*2=5", 
-			" 5/2+2=5");
+			" 5*5/3=3", 
+
+			" 3+5/3=5"
+			);
+	
+	
+	private static List<String> equation3 = Arrays.asList(
+			"2/5+5=2 "
+			);
+
 	
 	
 	public static void main(String[] args)
@@ -98,12 +65,28 @@ public class RunnerSingle
 			
 		SolutionGroup group = new GroupSelector(correctFinalEquations).findGroup();
 		
-		System.out.println(currEq + " (" + correctFinalEquations.size() + ")");
+		System.out.println(currEq + " (" + count1(correctFinalEquations) + ", " + count2(correctFinalEquations) + ")");
 		System.out.println("Belongs to group: " + group.name());
 		
 		for(EquationChangeSingle solution : correctFinalEquations)
 			System.out.println("" + solution.toString());
 		
 		System.out.println();
+	}
+	
+	private static int count1(List<EquationChangeSingle> correctFinalEquations) {
+		int i = 0;
+		for (EquationChangeSingle s : correctFinalEquations)
+			if (s.getAdvancedAction().isMove1())
+				i++;
+		return i;
+	}
+	
+	private static int count2(List<EquationChangeSingle> correctFinalEquations) {
+		int i = 0;
+		for (EquationChangeSingle s : correctFinalEquations)
+			if (s.getAdvancedAction().isMove2())
+				i++;
+		return i;
 	}
 }
