@@ -20,7 +20,7 @@ public class Validator
 		return (ve != null) ? ve.getSymbol() : null;
 	}
 	
-	private static ValidElement getValidElement(Element e)
+	public static ValidElement getValidElement(Element e)
 	{
 		ValidElement num = getValidNumeral(e);
 		if (num != null) return num;

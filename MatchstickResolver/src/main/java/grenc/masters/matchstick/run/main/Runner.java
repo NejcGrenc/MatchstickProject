@@ -9,6 +9,7 @@ import grenc.masters.matchstick.run.filter.AllValidEquations;
 import grenc.masters.matchstick.run.filter.EquationStyle;
 import grenc.masters.matchstick.run.filter.GroupSelector;
 import grenc.masters.matchstick.run.filter.SolutionGroup;
+import grenc.masters.matchstick.run.filter.SolutionLinearOperatorOrderFilter;
 import grenc.masters.matchstick.run.filter.SolutionsFinder;
 import grenc.masters.matchstick.writer.GroupWriter;
 
@@ -38,6 +39,10 @@ public class Runner
 			}
 			
 			List<EquationChangeSingle> correctFinalEquations = new SolutionsFinder().getAllCorrectFinalEquations(currEq);
+			
+			// Filter out equations that might have bad solutions
+			if (new SolutionLinearOperatorOrderFilter().isFlawed(correctFinalEquations))
+				continue;
 			
 			SolutionGroup group = new GroupSelector(correctFinalEquations).findGroup();
 			if (group != null)

@@ -44,4 +44,48 @@ public class EquationChangeSingle
 		s += getChangedEquation();
 		return s;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((advAction == null) ? 0 : advAction.hashCode());
+		result = prime * result + ((currChange == null) ? 0 : currChange.hashCode());
+		result = prime * result + ((original == null) ? 0 : original.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EquationChangeSingle other = (EquationChangeSingle) obj;
+		if (advAction == null)
+		{
+			if (other.advAction != null)
+				return false;
+		} else if (!advAction.equals(other.advAction))
+			return false;
+		if (currChange == null)
+		{
+			if (other.currChange != null)
+				return false;
+		} else if (!currChange.equals(other.currChange))
+			return false;
+		if (original == null)
+		{
+			if (other.original != null)
+				return false;
+		} else if (!original.equals(other.original))
+			return false;
+		return true;
+	}
+	
+	
 }
