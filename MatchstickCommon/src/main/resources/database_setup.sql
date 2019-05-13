@@ -29,8 +29,32 @@ CREATE TABLE group_1N (
 	equation	varchar(7) NOT NULL
 );
 
+DROP TABLE IF EXISTS group_1N_2MO;
+CREATE TABLE group_1N_2MO (
+	id  		SERIAL PRIMARY KEY,
+	equation	varchar(7) NOT NULL
+);
+
+DROP TABLE IF EXISTS group_1N_2MA;
+CREATE TABLE group_1N_2MA (
+	id  		SERIAL PRIMARY KEY,
+	equation	varchar(7) NOT NULL
+);
+
 DROP TABLE IF EXISTS group_1O;
 CREATE TABLE group_1O (
+	id  		SERIAL PRIMARY KEY,
+	equation	varchar(7) NOT NULL
+);
+
+DROP TABLE IF EXISTS group_1O_2MO;
+CREATE TABLE group_1O_2MO (
+	id  		SERIAL PRIMARY KEY,
+	equation	varchar(7) NOT NULL
+);
+
+DROP TABLE IF EXISTS group_1O_2MA;
+CREATE TABLE group_1O_2MA (
 	id  		SERIAL PRIMARY KEY,
 	equation	varchar(7) NOT NULL
 );
