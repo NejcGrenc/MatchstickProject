@@ -20,6 +20,7 @@ import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.uservalidation.countries.Country;
 import grenc.masters.uservalidation.countries.CountryList;
+import grenc.masters.uservalidation.education.EducationLevel;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
@@ -79,7 +80,8 @@ public class UserDataServletBean extends BasePageServlet
 		
 		Map<String, Country> countryMap = countryList.getListOfCountriesInLanguage(session.getLang());
 		UserDataPage userDataPage = new UserDataPage(servletContext, PageElement.user_data)
-										.withCountries(countryMap, session.getLang());
+										.withCountries(countryMap, session.getLang())
+										.withEducation(EducationLevel.descriptionMap(), EducationLevel.SELECT.name());
 		String content = new GrowScriptProcessor().process(userDataPage);
 		builder.appendPageElement(content);
 	}
@@ -98,14 +100,15 @@ public class UserDataServletBean extends BasePageServlet
 		Integer age = (ageStr != null) ? Integer.parseInt(ageStr) : null;
 		String sex = (String) request.getAttribute("userdata_sex");
 		String countryType = (String) request.getAttribute("userdata_country");
-		
+		String education = (String) request.getAttribute("userdata_education");
+
 		System.out.println("Upsert");
 		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - update subject data: {" + age + ", " + sex + ", " + countryType + "}");
+		System.out.println(" - update subject data: {" + age + ", " + sex + ", " + countryType + ", " + education + "}");
 
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
-		subjectDAO.updateSubject(subject.getId(), age, sex, countryType);
+		subjectDAO.updateSubject(subject.getId(), age, sex, countryType, education);
 	}
 	
 	
@@ -116,6 +119,11 @@ public class UserDataServletBean extends BasePageServlet
 		@SuppressWarnings("unused")
 		private DropdownSelection<String, Country> country_selection;
 		
+		@SuppressWarnings("unused")
+		private SimpleGrowSegment education_title = new SimpleGrowSegment("Education");
+		@SuppressWarnings("unused")
+		private DropdownSelection<String, String> education_selection;
+		
 		public UserDataPage(ServletContext servletContext, PageElement pageElement)
 		{
 			super(servletContext.getRealPath("/") + pageElement.path());
@@ -124,6 +132,12 @@ public class UserDataServletBean extends BasePageServlet
 		public UserDataPage withCountries(Map<String, Country> countryMap, String defaultCountry)
 		{
 			country_selection = new DropdownSelection<>(countryMap, defaultCountry.toUpperCase());
+			return this;
+		}
+		
+		public UserDataPage withEducation(Map<String, String> educationMap, String defaultEdu)
+		{
+			education_selection = new DropdownSelection<>(educationMap, defaultEdu);
 			return this;
 		}
 	}

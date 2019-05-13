@@ -30,7 +30,7 @@ public class SubjectDAOTest extends DatabaseTestConfiguraton
 		assertNotNull(initialSubject);
 		assertEquals(sessionId, initialSubject.getSessionId());
 		
-		subjectDAO.updateSubject(initialSubject.getId(), 24, "m", "si");
+		subjectDAO.updateSubject(initialSubject.getId(), 24, "m", "SI", "School");
 		
 		Subject finalSubject = subjectDAO.findSubjectById(initialSubject.getId());
 		
@@ -39,7 +39,7 @@ public class SubjectDAOTest extends DatabaseTestConfiguraton
 		assertEquals(sessionId, finalSubject.getSessionId());
 		assertEquals(new Integer(24), finalSubject.getAge());
 		assertEquals("m", finalSubject.getSex());
-		assertEquals("si", finalSubject.getLanguage());
+		assertEquals("SI", finalSubject.getCountryCode());
 		//assertEquals(null, finalSubject.getPassword());
 	}
 	

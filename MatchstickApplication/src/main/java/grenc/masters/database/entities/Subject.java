@@ -11,6 +11,7 @@ public class Subject implements Serializable
 	private Integer age;
 	private String sex;
 	private String countryCode;
+	private String education;
 
 	private String ip;
 	private String address;
@@ -62,6 +63,15 @@ public class Subject implements Serializable
 	public void setCountryCode(String countryCode)
 	{
 		this.countryCode = countryCode;
+	}
+	
+	public String getEducation()
+	{
+		return education;
+	}
+	public void setEducation(String education)
+	{
+		this.education = education;
 	}
 	
 	public boolean isMissingUserData()

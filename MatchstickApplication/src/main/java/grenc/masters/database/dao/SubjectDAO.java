@@ -73,7 +73,8 @@ public class SubjectDAO
 		  .getField("age", Integer.class, Subject::setAge)
 		  .getField("sex", String.class, Subject::setSex)
 		  .getField("country_code", String.class, Subject::setCountryCode)
-		  
+		  .getField("education", String.class, Subject::setEducation)
+
 		  .getField("ip", String.class, Subject::setIp)
 		  .getField("address", String.class, Subject::setAddress)
 		  .getField("operating_system", String.class, Subject::setOperatingSystem)
@@ -84,12 +85,13 @@ public class SubjectDAO
 	}
 	
 	@ResetCache
-	public synchronized Subject updateSubject(int subjectId, Integer age, String sex, String countryCode)
+	public synchronized Subject updateSubject(int subjectId, Integer age, String sex, String countryCode, String education)
 	{
 		QueryBuilder.newUpdate().inTable("subject")
 		.setField("age", age)
 		.setField("sex", sex)
 		.setField("country_code", countryCode)
+		.setField("education", education)
 		.setCondition("id", subjectId)
 		.execute();
 		

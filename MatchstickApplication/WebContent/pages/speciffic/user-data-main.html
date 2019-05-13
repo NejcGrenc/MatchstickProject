@@ -45,6 +45,15 @@
 			<div>{{country_selection}}</div>
 		</div> 
 		
+		<div style="padding: 8px 0px;"><!-- Buffer --></div>
+	   	<div>
+		    <p class="white">{{education_title}}</p>
+		</div>	
+	    <div class="horizontal-layout-line">
+	    	<div style="padding: 0px 10px;"><!-- Buffer --></div> 
+			<div>{{education_selection}}</div>
+		</div> 
+		
 		<div style="padding: 10px 0px;"><!-- Buffer --></div>
     	<div class="horizontal-layout">
     		<div style="padding: 50px 100px;"><!-- Buffer --></div>
@@ -55,6 +64,8 @@
  
 <script>
 	hideElementWithId("sendButton");
+	document.getElementsByTagName('select')[0].onchange = function() { changeDetected(); };
+	document.getElementsByTagName('select')[1].onchange = function() { changeDetected(); };
 
 	function changeDetected()
 	{
@@ -75,11 +86,14 @@
 		var sex = document.querySelector('input[name="sex"]:checked').value;
 		var age = document.getElementById("m_userdata_input_age").value;
 		var country = document.getElementsByTagName('select')[0].value;
+		var education = document.getElementsByTagName('select')[1].value;
+
 		
 		var data = {};
 		data.userdata_sex = sex;
 		data.userdata_age = age;
 		data.userdata_country = country;
+		data.userdata_education = education;
 
 		console.log("Done with ", data);
 		post("/", data);
@@ -100,9 +114,12 @@
 			vAge = false;
 		}
 		
+		var education = document.getElementsByTagName('select')[1].value;
+		var validEdu = education !== "SELECT";
+		
 		var validSex = sex !== null && sex !== undefined;
 		var validAge = age !== null && age !== undefined && vAge;
-		return (validSex && validAge);
+		return (validSex && validAge && validEdu);
 	}
 	
 </script>

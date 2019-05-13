@@ -17,6 +17,7 @@ CREATE TABLE subject (
 	age				integer,
 	sex				varchar(8),
 	country_code	varchar(3),
+	education		varchar(10),
 	
 	ip				varchar(40),
 	address			varchar(100),

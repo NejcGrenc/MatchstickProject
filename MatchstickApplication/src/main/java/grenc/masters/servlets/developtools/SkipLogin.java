@@ -99,7 +99,7 @@ public class SkipLogin
 			Subject subject = subjectDAO.insertSubject(session.getId());
 			sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
 
-			subjectDAO.updateSubject(subject.getId(), 18, "m", lang);
+			subjectDAO.updateSubject(subject.getId(), 18, "m", lang, "School");
 			
 			request.setAttribute("session", session.getTag());
 			request.setAttribute("lang", lang);

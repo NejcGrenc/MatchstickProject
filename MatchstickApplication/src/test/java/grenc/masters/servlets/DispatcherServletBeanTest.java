@@ -222,7 +222,7 @@ public class DispatcherServletBeanTest
 		subject.setSessionId(20);
 		subject.setAge(15);
 		subject.setSex("m");
-		subject.setLanguage("si");
+		subject.setCountryCode("si");
 	    Mockito.when(subjectDAO.findSubjectById(subject.getId())).thenReturn(subject);
 		
 		// And: full session
@@ -255,7 +255,7 @@ public class DispatcherServletBeanTest
 		subject.setSessionId(20);
 		subject.setAge(15);
 		subject.setSex("m");
-		subject.setLanguage("si");
+		subject.setCountryCode("si");
 	    Mockito.when(subjectDAO.findSubjectById(subject.getId())).thenReturn(subject);
 		
 		// And: full session
