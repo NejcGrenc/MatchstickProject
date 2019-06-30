@@ -6,7 +6,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.ConditionalGrowSegment;
+import grenc.growscript.base.interfaces.GrowSegment;
+import grenc.growscript.service.GrowScriptProcessor;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
@@ -15,8 +18,8 @@ import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
-import grenc.masters.servlets.delegate.popup.LoginAgreementPopup;
 import grenc.masters.uservalidation.ValidateUserSession;
+import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
@@ -34,8 +37,6 @@ public class LoginServletBean extends BasePageServlet
 	private SubjectDAO subjectDAO;
 	@InsertBean
 	private ValidateUserSession validator;
-	@InsertBean
-	private LoginAgreementPopup loginAgreementPopup;
 
 	@Override
 	public String url()
@@ -55,7 +56,8 @@ public class LoginServletBean extends BasePageServlet
 		builder.addStyle(Style.buttons);
 		builder.addStyle(Style.style);
 		builder.addStyle(Style.input);	
-		
+		builder.addStyle(Style.centered);	
+
 		builder.addScript(Script.page_functions);
 		builder.addScript(Script.send);
 
@@ -68,12 +70,11 @@ public class LoginServletBean extends BasePageServlet
 			.translateSpecial("m_nameInput", "placeholder");
 
 		new DataPresentBall(builder, session).set();
-		loginAgreementPopup.createPopup(builder, servletContext, session.getLang());
 		
-						
-		builder.appendPageElementFile(PageElement.login);
-		
-		
+		LoginPage loginPage = new LoginPage(servletContext, PageElement.login.path());	
+		ConditionalParameters params = ConditionalParameters.single(AgreementPage.class, new PageArguments(session.getLang(), servletContext));
+		String content = new GrowScriptProcessor().process(loginPage, params);
+		builder.appendPageElement(content);
 	}
 	
 	@Override
@@ -143,22 +144,68 @@ public class LoginServletBean extends BasePageServlet
 	}
 	
 	
-	private class Page implements ConditionalGrowSegment<String> {
+	private class LoginPage extends ReadFileBuilderAbstract implements GrowSegment {
+		
+		@SuppressWarnings("unused")
+		GrowSegment agreement = new AgreementPage();
+		
+		ServletContext servletContext;
+		String filePath;
+		
+		public LoginPage(ServletContext servletContext, String filePath)
+		{
+			this.servletContext = servletContext;
+			this.filePath = filePath;
+		}
 
 		@Override
 		public String getBaseText()
 		{
-			// TODO Auto-generated method stub
-			return null;
+			return readFile(servletContext, filePath);
+		}
+		
+	}
+	
+	private class AgreementPage extends ReadFileBuilderAbstract implements ConditionalGrowSegment<PageArguments> {
+
+		@Override
+		public String getBaseText()
+		{
+			throw new RuntimeException("Default version is not available.");
 		}
 
 		@Override
-		public String getConditionalText(String parameter)
+		public String getConditionalText(PageArguments parameter)
 		{
-			// TODO Auto-generated method stub
-			return null;
+			PageElement popupContentFile = select(parameter.language);
+			return readFile(parameter.servletContext, popupContentFile.path());
 		}
 		
+		private PageElement select(String language) {
+			switch(language)
+			{
+				default:
+				case "en":
+					return PageElement.agreement_en;
+				case "si":
+					return PageElement.agreement_si;
+				case "sk":
+					return PageElement.agreement_sk;
+				case "at":
+					return PageElement.agreement_at;
+			}
+		}
+		
+	}
+	
+	private class PageArguments {
+		String language;
+		ServletContext servletContext;
+		
+		PageArguments (String language, ServletContext servletContext) {
+			this.language = language;
+			this.servletContext = servletContext;
+		}
 	}
 	
 }
