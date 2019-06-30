@@ -44,7 +44,7 @@ public class DatabaseProperties
 		return prop.getProperty(name);
 	}
 	
-	public void printOutAllProperties()
+	public static void printOutAllProperties()
 	{
 		System.out.println("PROPERTIES");
 		for (Object pro : prop.keySet())
