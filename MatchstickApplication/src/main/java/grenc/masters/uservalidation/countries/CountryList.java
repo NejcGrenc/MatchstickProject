@@ -21,6 +21,11 @@ public class CountryList
 	// For our 4 languages this is not a problem, but for others, this might be!
 	public Map<String, Country> getListOfCountriesInLanguage(String lang)
 	{
+		lang = ("en".equals(lang)) ? "gb" : lang;
+		lang = ("si".equals(lang)) ? "si" : lang;
+		lang = ("de".equals(lang)) ? "de" : lang;
+		lang = ("sk".equals(lang)) ? "sk" : lang;
+		
 		Locale languageLocale = getLocaleForCountry(lang);
 		
 		Map<String, Country> countryMap = new HashMap<>();	
@@ -51,6 +56,7 @@ public class CountryList
 			if (obj.getCountry() == null || obj.getCountry().isEmpty())
 				continue;
 
+			System.out.println("[Countries] --- Registering locale [" + obj.getCountry() + "]: " + obj);
 			countriesLocaleMap.put(obj.getCountry(), obj);
 		}
 	}
