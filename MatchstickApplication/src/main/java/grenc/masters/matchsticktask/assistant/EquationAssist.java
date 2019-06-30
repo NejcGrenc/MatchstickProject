@@ -7,7 +7,7 @@ import grenc.masters.database.dao.MatchstickTaskDataDAO;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
-import grenc.masters.matchsticktask.assistant.equations.EquationDatabaseFetcher;
+import grenc.masters.matchsticktask.assistant.equations.EquationHardcodedFetcher;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -17,28 +17,17 @@ public class EquationAssist
 	@InsertBean
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
 	@InsertBean
-	private EquationDatabaseFetcher equationDatabaseFetcher;
+	private EquationHardcodedFetcher equationFetcher;
 
-	public String getNextEquation(EquationSolutionsGroupType equationType, TaskSession taskSession)
+	public String getNextEquation(EquationSolutionsGroupType equationType, int taskNumber)
 	{
-		return findUnusedEquiation(equationType, findUsedEquations(taskSession.getId()));
+		return equationFetcher.equationForGroupAndTaskNo(equationType, taskNumber);
 	}
 	
 	public String getLastUsedEquation(TaskSession taskSession)
 	{
 		List<String> usedEquations = findUsedEquations(taskSession.getId());
 		return (usedEquations.isEmpty()) ? null : usedEquations.get(0);
-	}
-	
-	String findUnusedEquiation(EquationSolutionsGroupType equationType, List<String> usedEquations)
-	{
-		String newEq;
-		do
-		{
-			newEq = equationDatabaseFetcher.fetchRandom(equationType);
-		} 
-		while (usedEquations.contains(newEq));
-		return newEq;
 	}
 	
 	private List<String> findUsedEquations(int taskSessionId)

@@ -80,8 +80,10 @@ public class MatchstickTaskProcessor
 			else
 				newTaskResult.restriction = SolvableRestriction.MINIMUM_MOVES;
 			
-			EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, newTaskResult.newTaskNumber);
-			newTaskResult.newEquation = equationAssist.getNextEquation(equationType, taskSession);
+			EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, newTaskNumber(taskSession));
+			int taskNumber = newTaskNumberForLocalPhase(taskSession);
+			System.out.println("New equation for task number '" + newTaskResult.newTaskNumber + " (" + newTaskNumber(taskSession) + ")" + "' [" + equationType + ", " + taskNumber + "]");
+			newTaskResult.newEquation = equationAssist.getNextEquation(equationType, taskNumber);
 		}
 		
 		return newTaskResult;

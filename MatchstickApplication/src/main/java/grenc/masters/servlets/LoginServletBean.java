@@ -77,7 +77,6 @@ public class LoginServletBean extends BasePageServlet
 	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
 		String agreementAccepted = (String) request.getAttribute("agreement_accepted");
-		System.out.println(agreementAccepted);
 		if (agreementAccepted == null || agreementAccepted.isEmpty())
 		{
 			System.out.println("Did not login while on Login page! (probably clicked one of the up-right buttons)");

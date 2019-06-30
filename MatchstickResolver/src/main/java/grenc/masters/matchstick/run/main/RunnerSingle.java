@@ -16,16 +16,22 @@ import grenc.masters.matchstick.run.filter.SolutionsFinder;
 
 public class RunnerSingle
 {
-	private static List<String> equation = Arrays.asList("2*3-3=5", "5/3+2=3", "3*5/5=2",
-													"5+5-5=3", "2/2*3=2", "2*5-5=3",
-													"5-5+2=3" , "3*2/3=3", "2*3-2=3",
-													"3+3-5=5", "3*3-2=3", "2-5+2=5",
-													"2/5+5=2", "5/5+5=5", "2+5/2=5");
+	private static List<String> equation = Arrays.asList("2*3-3=5", "5/3+2=3", 
+													"5+5-5=3", "2/2*3=2",
+													"5-5+2=3" , "3*2/3=3",
+													"3+3-5=5", "3*3-2=3", 
+													"2/5+5=2", "5/5+5=5");
+
+	private static List<String> equation2 = Arrays.asList("2*3-3=5", "5/3+2=3", "3*5/5=2",
+			"5+5-5=3", "2/2*3=2", "2*5-5=3",
+			"5-5+2=3" , "3*2/3=3", "2*3-2=3",
+			"3+3-5=5", "3*3-2=3", "2-5+2=5",
+			"2/5+5=2", "5/5+5=5", "2+5/2=5");
 
 	
 	public static void main(String[] args) throws IOException
 	{
-//		for (String eq : equation)
+//		for (String eq : equation2)
 //			single(eq); 
 		file();
 		

@@ -78,36 +78,36 @@ public class LearnEquationAssist
 	private String task1_betweenN()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "7+2+3=5" + "';");
-		commandBuilder.append("setPlanStartShadow(0, 0, true);");
-		commandBuilder.append("setPlanEndShadow(6, 4, false);");
+		commandBuilder.append("var originalEquation = '" + "3*3/7=5" + "';");
+		commandBuilder.append("setPlanStartShadow(4, 0, true);");
+		commandBuilder.append("setPlanEndShadow(6, 2, false);");
 		return commandBuilder.toString();
 	}
 	
 	private String task1_withinN()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "1+2+2=6" + "';");
-		commandBuilder.append("setPlanStartShadow(4, 4, false);");
-		commandBuilder.append("setPlanEndShadow(4, 5, true);");
+		commandBuilder.append("var originalEquation = '" + "3*5/5=2" + "';");
+		commandBuilder.append("setPlanStartShadow(0, 5, false);");
+		commandBuilder.append("setPlanEndShadow(0, 4, true);");
 		return commandBuilder.toString();
 	}
 	
 	private String task1_betweenO()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "1-2+3=0" + "';");
-		commandBuilder.append("setPlanStartShadow(3, 0, false);");
-		commandBuilder.append("setPlanEndShadow(1, 0, true);");
+		commandBuilder.append("var originalEquation = '" + "2/3*2=3" + "';");
+		commandBuilder.append("setPlanStartShadow(3, 1, false);");
+		commandBuilder.append("setPlanEndShadow(1, 1, true);");
 		return commandBuilder.toString();
 	}
 	
 	private String task1_withinO()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "1+3-3=2" + "';");
-		commandBuilder.append("setPlanStartShadow(3, 3, false);");
-		commandBuilder.append("setPlanEndShadow(3, 2, true);");
+		commandBuilder.append("var originalEquation = '" + "2+5/2=5" + "';");
+		commandBuilder.append("setPlanStartShadow(3, 2, false);");
+		commandBuilder.append("setPlanEndShadow(3, 3, true);");
 		return commandBuilder.toString();
 	}
 	

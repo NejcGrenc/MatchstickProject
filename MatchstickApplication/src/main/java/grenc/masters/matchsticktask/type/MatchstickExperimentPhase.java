@@ -28,4 +28,5 @@ public enum MatchstickExperimentPhase
 			TestingPhase_OnlyOppositeStrategy
 		);
 	}
+
 }
