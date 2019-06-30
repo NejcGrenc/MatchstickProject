@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
@@ -71,6 +72,8 @@ public class LoginServletBean extends BasePageServlet
 		
 						
 		builder.appendPageElementFile(PageElement.login);
+		
+		
 	}
 	
 	@Override
@@ -137,6 +140,25 @@ public class LoginServletBean extends BasePageServlet
 		System.out.println(" - increasing risk to: " + newRisk);
 
 		sessionDAO.updateSessionRisk(session.getId(), newRisk);
+	}
+	
+	
+	private class Page implements ConditionalGrowSegment<String> {
+
+		@Override
+		public String getBaseText()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getConditionalText(String parameter)
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	}
 	
 }

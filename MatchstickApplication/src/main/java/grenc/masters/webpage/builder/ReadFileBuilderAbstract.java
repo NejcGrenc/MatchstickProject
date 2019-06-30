@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-public class PopupBuilderAbstract
+public class ReadFileBuilderAbstract
 {
 	
 	protected String getBasePath(ServletContext servletContext)

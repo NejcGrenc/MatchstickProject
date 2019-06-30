@@ -4,13 +4,13 @@ import javax.servlet.ServletContext;
 
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Style;
-import grenc.masters.webpage.builder.PopupBuilderAbstract;
+import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.simpleton.annotation.Bean;
 
 
 @Bean
-public class AccountBall extends PopupBuilderAbstract
+public class AccountBall extends ReadFileBuilderAbstract
 {
 	public void set(WebpageBuilder builder, ServletContext servletContext)
 	{

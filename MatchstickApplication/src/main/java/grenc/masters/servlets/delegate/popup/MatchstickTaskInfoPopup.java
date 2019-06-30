@@ -7,7 +7,7 @@ import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.growscript.service.GrowScriptProcessor;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.resources.PageElement;
-import grenc.masters.webpage.builder.PopupBuilderAbstract;
+import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Popup;
 import grenc.simpleton.annotation.Bean;
@@ -34,7 +34,7 @@ public class MatchstickTaskInfoPopup
 	}
 
 	
-	private class Page extends PopupBuilderAbstract implements ConditionalGrowSegment<String> 
+	private class Page extends ReadFileBuilderAbstract implements ConditionalGrowSegment<String> 
 	{
 		@SuppressWarnings("unused")
 		private AdditionalArgument additional_argument = new AdditionalArgument();

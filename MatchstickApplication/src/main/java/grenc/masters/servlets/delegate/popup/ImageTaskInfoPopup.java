@@ -3,14 +3,14 @@ package grenc.masters.servlets.delegate.popup;
 import javax.servlet.ServletContext;
 
 import grenc.masters.resources.PageElement;
-import grenc.masters.webpage.builder.PopupBuilderAbstract;
+import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Popup;
 import grenc.simpleton.annotation.Bean;
 
 
 @Bean
-public class ImageTaskInfoPopup extends PopupBuilderAbstract
+public class ImageTaskInfoPopup extends ReadFileBuilderAbstract
 {	
 	
 	public void createPopup(WebpageBuilder builder, ServletContext servletContext, String lang)
