@@ -1,5 +1,9 @@
 package grenc.masters.matchstick.run.main;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,42 +21,14 @@ public class RunnerSingle
 													"5-5+2=3" , "3*2/3=3", "2*3-2=3",
 													"3+3-5=5", "3*3-2=3", "2-5+2=5",
 													"2/5+5=2", "5/5+5=5", "2+5/2=5");
-	
-	private static List<String> equation2 = Arrays.asList(
-			" 3/2/2=2", 
-			" 3/3/3=2", 
-			" 3/5/5=2", 
-			" 2-5*5=3", 
-			" 3-2-2=2", 
-
-			" 2+2-3=3", 
-			" 5*5/2=2", 
-			" 5/2*2=5", 
-			" 2-2*3=3", 
-			" 3-5-5=2", 
-			" 5/3*3=5", 
-			" 3-3*3=3", 
-			" 2-2*2=2", 
-			" 3-3-3=2", 
-			" 2-2*2=3", 
-			" 5+5-3=3", 
-			" 2-3*3=3", 
-			" 5*5/3=3", 
-
-			" 3+5/3=5"
-			);
-	
-	
-	private static List<String> equation3 = Arrays.asList(
-			"2/5+5=2 "
-			);
 
 	
-	
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
-		for (String eq : equation2)
-			single(eq); 
+//		for (String eq : equation)
+//			single(eq); 
+		file();
+		
 	}
 	
 	private static void single(String equation)
@@ -64,6 +40,7 @@ public class RunnerSingle
 		List<EquationChangeSingle> correctFinalEquations = finder.getAllCorrectFinalEquations(currEq);
 			
 		SolutionGroup group = new GroupSelector(correctFinalEquations).findGroup();
+		
 		
 		System.out.println(currEq + " (" + count1(correctFinalEquations) + ", " + count2(correctFinalEquations) + ")");
 		System.out.println("Belongs to group: " + group.name());
@@ -89,4 +66,20 @@ public class RunnerSingle
 				i++;
 		return i;
 	}
+	
+	private static void file() throws IOException
+	{
+		ClassLoader classLoader = new RunnerSingle().getClass().getClassLoader();
+		URL resource = classLoader.getResource("equations.txt");
+		java.io.FileReader reader = new java.io.FileReader(new File(resource.getFile()));
+		BufferedReader in = new BufferedReader(reader);
+		    String str;
+		    while ((str = in.readLine()) != null) 
+		    {
+		    	single(str);
+		    }
+		if (reader != null)
+				reader.close();
+	}
+
 }
