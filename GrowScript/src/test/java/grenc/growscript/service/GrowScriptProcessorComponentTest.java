@@ -19,6 +19,8 @@ public class GrowScriptProcessorComponentTest
 		GrowSegment mainSegment = new MainGrowSegment();
 		ConditionalParameters param = ConditionalParameters.single(ActionConditionalSegment.class, Action.destroy);
 		
+		System.out.println(System.getProperty("user.dir"));
+		
 		String grownText = new GrowScriptProcessor().process(mainSegment, param);
 		
 		assertEquals("Luke Skywalker successfully destroyed the death star.", grownText);
@@ -67,7 +69,7 @@ public class GrowScriptProcessorComponentTest
 	@SuppressWarnings("unused")
 	private class DeathSegment implements GrowSegment
 	{
-		FileGrowSegment star = new FileGrowSegment("simple/star.txt");
+		FileGrowSegment star = new FileGrowSegment("src/test/resources/simple/star.txt");
 		
 		@Override public String getBaseText() 
 		{ 
