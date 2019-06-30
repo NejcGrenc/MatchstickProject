@@ -71,7 +71,7 @@ public class GroupSelectorTest
 		List<EquationChangeSingle> ecsList = Arrays.asList(change11, change12, change21, change22);
 		
 		SolutionGroup group = new GroupSelector(ecsList).findGroup();
-		assertEquals(SolutionGroup.group_1N, group);
+		assertEquals(SolutionGroup.group_1N_2MA, group);
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class GroupSelectorTest
 		List<EquationChangeSingle> ecsList = Arrays.asList(change11, change21);
 		
 		SolutionGroup group = new GroupSelector(ecsList).findGroup();
-		assertEquals(SolutionGroup.group_1N, group);
+		assertEquals(SolutionGroup.group_1N_2MA, group);
 	}
 	
 	@Test 

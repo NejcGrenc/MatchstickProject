@@ -38,7 +38,7 @@ import grenc.masters.servlets.selector.DispatcherServletBean;
 import grenc.simpleton.Beans;
 import grenc.simpleton.processor.BeanProcessor;
 
-
+@Ignore
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({SessionDAO.class, SubjectDAO.class})
 public class DispatcherServletBeanTest
