@@ -329,34 +329,15 @@ function finishTask(sextant)
     
     resolveSolution(sextant, currentTask);
     
-    startTimer(prepareNewTask, 1000);
+    clearCanvas();
+    startTimer(prepareNewTask, 500);
 }
 function resolveSolution(sextant, taskData)
 {
-    if (sextant == taskData.solution)
-        sucessfulSolution();
-    else
-        failedSolution();
+	var result = (sextant == taskData.solution);
+	totalScore.push(result);
 }
-function sucessfulSolution()
-{
-    totalScore.push(true);
-    drawSolution(sucessImage);
-}
-function failedSolution()
-{
-    totalScore.push(false);
-    drawSolution(failImage);
-}
-function drawSolution(image)
-{
-    clearCanvas();
-    var canvasMiddleX = canvas.width / 2;
-    var canvasMiddleY = canvas.height / 2;
-    var imgWidth = 40;
-    var imgHeight = 40;
-    drawImage(image, canvasMiddleX - imgWidth/2, canvasMiddleY - imgHeight/2, imgWidth, imgHeight);
-}
+
 
 //
 // Finish the experiment
@@ -366,34 +347,11 @@ function finish()
     clearAllTimers();
     done = true;
     
-	var resultString = "Result";
-    if (resultText !== undefined)
-    	resultString = resultText();
-	var averageString = "Average time per figure";
-    if (averageText !== undefined)
-    	averageString = averageText();
-    
-    var summedScore = 0;
-    for (score in totalScore) {
-    	console.log("score", score);
-    	if (totalScore[score]) summedScore++;
-    }
-    var summedTimer = 0;
-    for (timer in totalTimer) {
-    	console.log("timer", timer);
-
-    	summedTimer += totalTimer[timer];
-    }
-
-    var totalResultString = resultString + ":  " + summedScore + " / " + tasks.length;
-    var averageTimeString = averageString + ":  " + Math.floor(summedTimer / tasks.length) + " ms";
-    
     clearCanvas();
     ctx.beginPath();
     ctx.font = "20px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(totalResultString, canvas.width/2, canvas.height/2 - 23); 
-    ctx.fillText(averageTimeString, canvas.width/2, canvas.height/2 + 23); 
+    ctx.fillText(finalText(), canvas.width/2, canvas.height/2); 
     ctx.closePath();
     
     var greenButtonContainer = document.getElementById("sucessButton");
@@ -401,6 +359,7 @@ function finish()
     greenButtonContainer.style.display = 'inline';
     greenButton.title = "Finish";
 }
+
 
 
 //

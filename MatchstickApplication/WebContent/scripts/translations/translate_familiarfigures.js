@@ -50,6 +50,19 @@ function averageText()
 		return "Priemerný čas strávený pri jednom obrázku";
 }
 
+function finalText()
+{
+	var lang = getLanguage();
+	if (lang == "en")
+		return "Done. <br /> Thank you for your participation.";
+	if (lang == "si")
+		return "Konec. <br /> Hvala za sodelovanje.";
+	if (lang == "de")
+		return "Done. <br /> Thank you for your participation.";
+	if (lang == "sk")
+		return "Done. <br /> Thank you for your participation.";
+}
+
 var translationMap =
 {
 	'en': {
