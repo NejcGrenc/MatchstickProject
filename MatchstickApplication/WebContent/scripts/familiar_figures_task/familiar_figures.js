@@ -330,7 +330,7 @@ function finishTask(sextant)
     resolveSolution(sextant, currentTask);
     
     clearCanvas();
-    startTimer(prepareNewTask, 500);
+    startTimer(prepareNewTask, 0);
 }
 function resolveSolution(sextant, taskData)
 {
@@ -351,7 +351,8 @@ function finish()
     ctx.beginPath();
     ctx.font = "20px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(finalText(), canvas.width/2, canvas.height/2); 
+    ctx.fillText(finalText(), canvas.width/2, canvas.height/2 - 23); 
+    ctx.fillText(finalText2(), canvas.width/2, canvas.height/2 + 23); 
     ctx.closePath();
     
     var greenButtonContainer = document.getElementById("sucessButton");

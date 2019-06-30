@@ -62,9 +62,10 @@ public class TaskSessionAssist
 			else
 				newGroup = groupSelectAssist.selectNewGroup();
 		}
+		String newGroupName = (newGroup != null) ? newGroup.toString() : null;
 			
 		return taskSessionDAO.insert(session.getId(), taskType.name(), 
-				new Date().getTime(), newGroup.toString(),
+				new Date().getTime(), newGroupName,
 				false, null);		
 	}
 

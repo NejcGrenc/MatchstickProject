@@ -54,13 +54,25 @@ function finalText()
 {
 	var lang = getLanguage();
 	if (lang == "en")
-		return "Done. <br /> Thank you for your participation.";
+		return "Done.";
 	if (lang == "si")
-		return "Konec. <br /> Hvala za sodelovanje.";
+		return "Konec.";
 	if (lang == "de")
-		return "Done. <br /> Thank you for your participation.";
+		return "Done.";
 	if (lang == "sk")
-		return "Done. <br /> Thank you for your participation.";
+		return "Done.";
+}
+function finalText2()
+{
+	var lang = getLanguage();
+	if (lang == "en")
+		return "Thank you for your participation.";
+	if (lang == "si")
+		return "Hvala za sodelovanje.";
+	if (lang == "de")
+		return "Thank you for your participation.";
+	if (lang == "sk")
+		return "Thank you for your participation.";
 }
 
 var translationMap =
