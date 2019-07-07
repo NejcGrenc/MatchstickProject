@@ -1,49 +1,65 @@
 
-<div class="centered" style="margin: 100px; height: 100%; width: 100%; overflow: auto;">
+<div class="centered" style="margin: 0 10%; height: 100%; width: 100%;">
 
-	<h1 id="m_title" style="margin: 50px;">Main project personnel</h1>
+<div style="height: 15%;">
+	<div style="height: 30px;"></div>
+	<div>
+		<div id="selectTaskButton" class="blueBallButton" onclick="goToSelectTask()">
+			<img src="images/baseline_arrow_back_ios_white_48dp.png" alt="Back" style="width: 50px; margin-left: 12px;" />
+		</div>
+	</div>
+	<div style="height: 20px;"></div>
+</div>	
+	
+<div class="white" style="height: 80%; width: 90%; overflow-y: scroll;">
+
+	<div style="height: 10px;"></div>
+
+	<h1 id="m_title">Main project personnel</h1>
 	<br />
 	
 	<div class="vertical-layout" style="justify-content: space-between; width: 100%;">
 		<div style="text-align: center;" class="horizontal-layout">
 			<span style="cursor: default;"><img src="images/credits/NejcGrenc.jpg" alt="Nejc Grenc" id="NejcGrenc" class="circle-nohover" style="width:200px;"/></span>
 			<div class="buffer" style="width: 50px;"></div>
-			<p style="width: 300px;"> <br /> Nejc Grenc </p>
+			<p style="width: 400px;"> <br /> <b> Nejc Grenc </b> </p>
 		</div>
 		<div class="buffer" style="height: 20px;"></div>	
 		<div style="text-align: center;" class="horizontal-layout">
 			<span>
-				<a href="google.com">
+				<a href="https://www.sav.sk/?lang=en&doc=user-org-user&user_no=10185">
 					<img src="images/credits/Grezo_photo.jpg" alt="Matúš Grežo" id="MatusGrezo" class="circle-nohover" style="width:200px;"/>
 				</a>
 			</span>
 			<div class="buffer" style="width: 50px;"></div>	
-			<p style="width: 300px;"> <br /> dr. Matúš Grežo </p>
+			<p style="width: 400px;"> <b> dr. Matúš Grežo </b> <br /> Researcher at Institute of Experimental Psychology <br /> Slovak Academy of Sciences <br />  Bratislava, Slovakia </p>
 		</div>
 		<div class="buffer" style="height: 20px;"></div>	
 		<div style="text-align: center;" class="horizontal-layout">
 			<span>
-				<a href="http://google.com">
+				<a href="http://psy.ff.uni-lj.si/en/people/Grega.Repov%C5%A1">
 					<img src="images/credits/GregaRepovs.png" alt="Grega Repovš" id="GregaRepovs" class="circle-nohover cursor-pointer" style="width:200px;"/>
 				</a>
 			</span>
 			<div class="buffer" style="width: 50px;"></div>		
-			<p style="width: 300px;"> <br /> dr. Grega Repovš </p>
+			<p style="width: 400px;"> <b> dr. Grega Repovš </b> <br /> Associate Professor in cognitive psychology <br /> Faculty of Arts <br /> Ljubljana, Slovenia </p>
 		</div>
-		<div style="width: 10%;"></div>
+		<div style="height: 20px;"></div>
 		
 	</div>
-	<div style="height: 40px;"></div>
+	<div style="height: 60px;"></div>
 	
 	<div>
-		<h1 id="m_othertitle" style="margin: 50px;">Other people, who helped a lot</h1>
+		<h1 id="m_othertitle">Special thanks to</h1>
 		<br />
 		<div class="horizontal-layout-start">
 			<div style="margin-left: 100px;">
 			<ul>
 				<li>Karina Rerichova</li>
 				<li>dr. Paolo Petta</li>
-				<li></li>
+				<li>prof. ing. dr. Igor Farkaš</li>
+				<li>Nikola Ondrikova</li>
+				<li>Grenc family</li>
 			</ul>
 			
 			<!-- 
@@ -73,12 +89,27 @@
 				<table>
 				  <tr><td>https://material.io/icons/</td></tr>
 				  <tr><td>http://all-free-download.com/free-vector/download/set-of-world-flags-icons-mix-design-vector_527121.html</td></tr>
-				</table> 
+				</table> <br />
+				Eclipse IDE from Eclipse Foundation, Inc. <br />
+				Server renting from Hukot.net <br />
 				</div>
 		</div>
 	</div>
-
+	<div style="height: 80px;"></div>
+	
 </div>
-
+<div style="height: 5%;"></div>
+</div>
+<script>
+	function goToSelectTask()
+	{		
+		if (post)
+		{
+			post("/selectTask");
+		}
+		else
+		{ console.log("Failed at forward to /selectTask. Post function missing."); }
+	}
+</script>
 
 

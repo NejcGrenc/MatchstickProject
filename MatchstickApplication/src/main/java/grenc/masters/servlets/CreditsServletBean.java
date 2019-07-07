@@ -46,7 +46,9 @@ public class CreditsServletBean extends BasePageServlet
 		builder.setBodyStyle("background");
 		builder.addStyle(Style.background);
 		
+		builder.addStyle(Style.style);
 		builder.addStyle(Style.buttons);
+		builder.addStyle(Style.buttons_credits);
 		builder.addStyle(Style.centered);
 		builder.addStyle(Style.layout);
 		builder.addStyle(Style.table);
