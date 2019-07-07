@@ -49,6 +49,7 @@ public class TaskWrapupServletBean extends BasePageServlet
 		builder.addStyle(Style.background);
 		builder.setBodyStyle("background");
 		
+		builder.addStyle(Style.style);
 		builder.addStyle(Style.centered);
 		builder.addStyle(Style.layout);
 		builder.addStyle(Style.buttons);
