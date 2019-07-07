@@ -20,6 +20,9 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -35,6 +38,9 @@ public class TaskWrapupServletBean extends BasePageServlet
 	@InsertBean
 	private AccountBall accountBall;
 
+	@InsertBean
+	private TranslationProcessor translateProcessor;
+	
 	@Override
 	public String url()
 	{
@@ -63,7 +69,9 @@ public class TaskWrapupServletBean extends BasePageServlet
 		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 
-		builder.appendPageElementFile(PageElement.task_wrapup);
+		builder.appendOnlyAssociatedPageElements(PageElement.task_wrapup);
+		builder.appendPageElement(translateProcessor.process(new TaskWrapupPage(servletContext), session.getLang()));
+
 		
 		boolean noFinishedMatchstickTask = taskSessionDAO.findAllTaskForSessionIdAndTaskTypeAndComplete(session.getId(), TaskType.matchstick.name(), true).isEmpty();
 		boolean noFinishedImagesTask = taskSessionDAO.findAllTaskForSessionIdAndTaskTypeAndComplete(session.getId(), ImagesTaskServletBean.imagesTaskType, true).isEmpty();
@@ -90,6 +98,22 @@ public class TaskWrapupServletBean extends BasePageServlet
 			System.out.println("Updating task session " + taskSession);
 			System.out.println("    -- with notes: '" + comment + "'");
 			taskSessionDAO.updateNotes(taskSession.getId(), comment);
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	private class TaskWrapupPage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment thanks = new SimpleTranslatableSegment(context, "translations/task-wrapup/thanks.json");
+		private SimpleTranslatableSegment comment = new SimpleTranslatableSegment(context, "translations/task-wrapup/comment.json");
+		private SimpleTranslatableSegment encouragement = new SimpleTranslatableSegment(context, "translations/task-wrapup/encouragement.json");
+		private SimpleTranslatableSegment matchsticktask = new SimpleTranslatableSegment(context, "translations/task-wrapup/matchstick-task.json");
+		private SimpleTranslatableSegment familiarfigurestask = new SimpleTranslatableSegment(context, "translations/task-wrapup/familiar-figures-task.json");
+		private SimpleTranslatableSegment credits = new SimpleTranslatableSegment(context, "translations/task-wrapup/credits.json");
+
+		public TaskWrapupPage(ServletContext context)
+		{
+			super(context, PageElement.task_wrapup);
 		}
 	}
 

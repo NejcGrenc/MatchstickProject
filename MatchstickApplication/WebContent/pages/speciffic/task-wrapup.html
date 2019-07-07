@@ -6,9 +6,9 @@
 	
 		<div>
 			<br />
-			<p id="m_thanks">Thank you for participating in the task. <br /> Feel free to leave any comments and remarks.</p>
+			<p>{{thanks}}</p>
 			<br />
-			<h2 id="m_comment">Comment</h2>
+			<h2>{{comment}}</h2>
 			<div>
 				<textarea id="commentField" rows="8" cols="60" maxlength="480"
 					onkeypress="return blockSpecialCharForTextArea(event)"></textarea> 
@@ -17,7 +17,7 @@
 			<div id="buffer-zone1" style="height: 50px;"></div>
 			
 			<div id="request_show" style="display:none;">
-				<p id="m_request">We encourage you to continue with the second part of the experiment</p>
+				<p>{{encouragement}}</p>
 				<div style="height: 20px;"></div>
 			</div>
 
@@ -25,14 +25,14 @@
 				<div class="horizontal-layout" style="justify-content: flex-start;">
 				
 					<div id="matchstickTask" class="greenRectangularButton" onclick="goToMatchstickTask()" style="margin-right:50px; display:none;">
-						<p id="m_matchsticktask" style="margin: 10px 0;">Matchstick <br /> task</p>
+						<p id="m_matchsticktask" style="margin: 10px 0;">{{matchsticktask}}</p>
 					</div>
 					<div id="imagesTask" class="greenRectangularButton" onclick="goToImagesTask()" style="margin-right:50px; display:none;">
-						<p id="m_familiarfigures" style="margin: 0;">Familiar <br /> figures <br /> task</p>
+						<p id="m_familiarfigures" style="margin: 0;">{{familiarfigurestask}}</p>
 					</div>
 										
 					<div id="credits" class="blueBallButton" onclick="goToCredits()">
-						<p id="m_creditsk">Credits</p>
+						<p id="m_creditsk">{{credits}}</p>
 					</div>
 				
 				</div>

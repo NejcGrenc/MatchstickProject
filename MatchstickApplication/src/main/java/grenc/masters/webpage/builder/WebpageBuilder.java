@@ -72,6 +72,13 @@ public class WebpageBuilder
 		for (Script script : page.getDependentScripts())
 			addScript(script);
 	}
+	public void appendOnlyAssociatedPageElements(PageElement page)
+	{
+		for (Style style : page.getDependentStyles())
+			addStyle(style);
+		for (Script script : page.getDependentScripts())
+			addScript(script);
+	}
 	
 	public void appendPageElement(String element)
 	{
