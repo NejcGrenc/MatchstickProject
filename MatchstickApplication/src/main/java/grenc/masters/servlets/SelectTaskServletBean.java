@@ -23,6 +23,9 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -42,6 +45,9 @@ public class SelectTaskServletBean extends BasePageServlet
 	@InsertBean
 	private AccountBall accountBall;
 	
+	@InsertBean
+	private TranslationProcessor translateProcessor;
+	
 	@Override
 	public String url()
 	{
@@ -55,7 +61,6 @@ public class SelectTaskServletBean extends BasePageServlet
 
 		builder.addStyle(Style.split_page);
 		builder.addScript(Script.send);
-		builder.appendPageElementFile(PageElement.select_task);
 		
 		if (new BrowserDetails(request).isIEorSafari())
 			builder.addStyle(Style.split_page_ie);
@@ -66,7 +71,11 @@ public class SelectTaskServletBean extends BasePageServlet
 		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 
-		new CreditsBall(builder).set();
+		new CreditsBall(builder, translateProcessor).set(servletContext, session.getLang());
+		
+		builder.appendOnlyAssociatedPageElements(PageElement.select_task);
+		builder.appendPageElement(translateProcessor.process(new SelectTaskPage(servletContext), session.getLang()));
+
 	}
 	
 	
@@ -97,5 +106,18 @@ public class SelectTaskServletBean extends BasePageServlet
 	{
 		return TaskType.matchstick.equals(selectedTaskType) && 
 				(taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyA) || taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyB));
+	}
+	
+	
+	@SuppressWarnings("unused")
+	private class SelectTaskPage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment images_task = new SimpleTranslatableSegment(context, "translations/select-task/images_task.json");
+		private SimpleTranslatableSegment matchstick_task = new SimpleTranslatableSegment(context, "translations/select-task/matchstick_task.json");
+
+		public SelectTaskPage(ServletContext servletContext)
+		{
+			super(servletContext, PageElement.select_task);
+		}
 	}
 }

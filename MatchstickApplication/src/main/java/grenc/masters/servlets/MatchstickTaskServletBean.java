@@ -24,6 +24,9 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -46,6 +49,9 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	
 	@InsertBean
 	private AccountBall accountBall;
+	
+	@InsertBean
+	private TranslationProcessor translateProcessor;
 	
 	@Override
 	public String url()
@@ -87,7 +93,8 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		builder.addScript(Script.matchstick_calculator);
 		builder.addScript(Script.delayed_start);
 		
-		builder.appendPageElementFile(PageElement.matchstick_task);
+		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task);
+		builder.appendPageElement(translateProcessor.process(new MatchstickTaskMainPage(servletContext), session.getLang()));
 		
 		
 		// Setup current task number
@@ -156,6 +163,18 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		if (taskBuilder.newTaskNumber(taskSession) == 1)
 		{
 			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	private class MatchstickTaskMainPage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment headertext = new SimpleTranslatableSegment(context, "translations/matchstick-task/headertext.json");
+		private SimpleTranslatableSegment solving_task = new SimpleTranslatableSegment(context, "translations/matchstick-task/solving_task.json");
+
+		public MatchstickTaskMainPage(ServletContext context)
+		{
+			super(context, PageElement.matchstick_task);
 		}
 	}
 }

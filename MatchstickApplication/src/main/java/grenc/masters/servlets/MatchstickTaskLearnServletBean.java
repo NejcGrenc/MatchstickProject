@@ -22,6 +22,9 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -45,6 +48,9 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 	@InsertBean
 	private AccountBall accountBall;
 
+	@InsertBean
+	private TranslationProcessor translateProcessor;
+	
 	@Override
 	public String url()
 	{
@@ -66,7 +72,8 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 		new DataPresentBall(builder, session).set().withMatchstickGroup(group);
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, true);
 
-		builder.appendPageElementFile(PageElement.matchstick_task_learn);
+		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task_learn);
+		builder.appendPageElement(translateProcessor.process(new MatchstickTaskLearnPage(servletContext), session.getLang()));
 		
 		// Setup current task number
 		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
@@ -119,4 +126,16 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 		System.out.println("Change forwarding request url to: " + forwardUrl);	
 	}
 	
+	
+	@SuppressWarnings("unused")
+	private class MatchstickTaskLearnPage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment headertext = new SimpleTranslatableSegment(context, "translations/matchstick-task/headertext.json");
+		private SimpleTranslatableSegment learning_task = new SimpleTranslatableSegment(context, "translations/matchstick-task/learning_task.json");
+
+		public MatchstickTaskLearnPage(ServletContext context)
+		{
+			super(context, PageElement.matchstick_task_learn);
+		}
+	}
 }

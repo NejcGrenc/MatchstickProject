@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import grenc.growscript.base.conditional.ConditionalParameters;
 import grenc.growscript.base.interfaces.ConditionalGrowSegment;
 import grenc.growscript.base.interfaces.GrowSegment;
-import grenc.growscript.service.GrowScriptProcessor;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
@@ -24,6 +23,9 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -37,6 +39,9 @@ public class LoginServletBean extends BasePageServlet
 	private SubjectDAO subjectDAO;
 	@InsertBean
 	private ValidateUserSession validator;
+	
+	@InsertBean
+	private TranslationProcessor translateProcessor;
 
 	@Override
 	public String url()
@@ -71,10 +76,10 @@ public class LoginServletBean extends BasePageServlet
 
 		new DataPresentBall(builder, session).set();
 		
-		LoginPage loginPage = new LoginPage(servletContext, PageElement.login.path());	
+		
+		builder.appendOnlyAssociatedPageElements(PageElement.login);
 		ConditionalParameters params = ConditionalParameters.single(AgreementPage.class, new PageArguments(session.getLang(), servletContext));
-		String content = new GrowScriptProcessor().process(loginPage, params);
-		builder.appendPageElement(content);
+		builder.appendPageElement(translateProcessor.process(new LoginPage(servletContext), session.getLang(), params));
 	}
 	
 	@Override
@@ -143,27 +148,18 @@ public class LoginServletBean extends BasePageServlet
 		sessionDAO.updateSessionRisk(session.getId(), newRisk);
 	}
 	
-	
-	private class LoginPage extends ReadFileBuilderAbstract implements GrowSegment {
-		
-		@SuppressWarnings("unused")
-		GrowSegment agreement = new AgreementPage();
-		
-		ServletContext servletContext;
-		String filePath;
-		
-		public LoginPage(ServletContext servletContext, String filePath)
-		{
-			this.servletContext = servletContext;
-			this.filePath = filePath;
-		}
+	@SuppressWarnings("unused")
+	private class LoginPage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment headertext = new SimpleTranslatableSegment(context, "translations/matchstick-task/headertext.json");
+		private SimpleTranslatableSegment learning_task = new SimpleTranslatableSegment(context, "translations/matchstick-task/learning_task.json");
+		private GrowSegment agreement = new AgreementPage();
 
-		@Override
-		public String getBaseText()
-		{
-			return readFile(servletContext, filePath);
-		}
 		
+		public LoginPage(ServletContext context)
+		{
+			super(context, PageElement.login);
+		}
 	}
 	
 	private class AgreementPage extends ReadFileBuilderAbstract implements ConditionalGrowSegment<PageArguments> {

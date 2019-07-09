@@ -1,30 +1,30 @@
 <div class="centered">
 	<div class="vertical-layout">
 		<div>
-	    	<p id="m_userdata_intro" class="white">Please input data</p>
+	    	<p class="white">{{userdata_intro}}</p>
 	    </div>
 	    
 	    <div style="padding: 8px 0px;"><!-- Buffer --></div>
 	    <div>
-		    <p id="m_userdata_label_sex" class="white">Please input sex</p>
+		    <p class="white">{{userdata_label_sex}}</p>
 		</div>	
 	    <div class="horizontal-layout-line"> 
 			<div style="padding: 0px 10px;"><!-- Buffer --></div> 
 		    <div>
 			    <form>
 				  <input id="m_userdata_input_sex_m" class="white" type="radio" name="sex" onclick="changeDetected();" value="male">
-				  		<label class="white" id="m_userdata_input_sex_label_m" for="m_userdata_input_sex_m">Male</label><br />
+				  		<label class="white" for="m_userdata_input_sex_m">{{userdata_input_sex_m}}</label><br />
 				  <input id="m_userdata_input_sex_f" class="white" type="radio" name="sex" onclick="changeDetected();" value="female">
-				  		<label class="white" id="m_userdata_input_sex_label_f" for="m_userdata_input_sex_f">Female</label><br />
+				  		<label class="white" for="m_userdata_input_sex_f">{{userdata_input_sex_f}}</label><br />
 				  <input id="m_userdata_input_sex_o" class="white" type="radio" name="sex" onclick="changeDetected();" value="other">
-				  		<label class="white" id="m_userdata_input_sex_label_o" for="m_userdata_input_sex_o">Other</label>
+				  		<label class="white" for="m_userdata_input_sex_o">{{userdata_input_sex_o}}</label>
 				</form> 
 		    </div>
 	    </div>
 	    
 	    <div style="padding: 8px 0px;"><!-- Buffer --></div>
 	   	<div>
-		    <p id="m_userdata_label_age" class="white">Please input age</p>
+		    <p class="white">{{userdata_label_age}}</p>
 		</div>	
 	    <div class="horizontal-layout-line">
 	    	<div style="padding: 0px 10px;"><!-- Buffer --></div> 

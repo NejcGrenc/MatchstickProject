@@ -24,6 +24,9 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -47,6 +50,9 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 	@InsertBean
 	private AccountBall accountBall;
 	
+	@InsertBean
+	private TranslationProcessor translateProcessor;
+	
 	@Override
 	public String url()
 	{
@@ -69,7 +75,8 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		new DataPresentBall(builder, session).set().withMatchstickGroup(group);
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, true);
 
-		builder.appendPageElementFile(PageElement.matchstick_task_observe);
+		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task_observe);
+		builder.appendPageElement(translateProcessor.process(new MatchstickTaskObservePage(servletContext), session.getLang()));
 		
 		// Setup current task number
 		builder.appendBodyScriptCommand("setObservingTaskNumber("+matchstickTaskProcessor.newTaskNumberForLocalPhase(taskSession)+", "+matchstickTaskProcessor.totalNumberOfTasksForNextPhase(taskSession)+");");
@@ -123,6 +130,18 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		if (matchstickTaskProcessor.newTaskNumber(taskSession) == 1)
 		{
 			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	private class MatchstickTaskObservePage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment headertext = new SimpleTranslatableSegment(context, "translations/matchstick-task/headertext.json");
+		private SimpleTranslatableSegment observing_task = new SimpleTranslatableSegment(context, "translations/matchstick-task/observing_task.json");
+
+		public MatchstickTaskObservePage(ServletContext context)
+		{
+			super(context, PageElement.matchstick_task_observe);
 		}
 	}
 }

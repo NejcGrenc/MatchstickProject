@@ -28,6 +28,9 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -48,6 +51,9 @@ public class ImagesTaskServletBean extends BasePageServlet
 	private ImageTaskInfoPopup imageTaskInfoPopup;
 	@InsertBean
 	private AccountBall accountBall;
+
+	@InsertBean
+	private TranslationProcessor translateProcessor;
 	
 	@Override
 	public String url()
@@ -86,8 +92,9 @@ public class ImagesTaskServletBean extends BasePageServlet
 		new DataPresentBall(builder, session).set();
 		imageTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 
-		builder.appendPageElementFile(PageElement.image_task);
-
+		builder.appendOnlyAssociatedPageElements(PageElement.image_task);
+		builder.appendPageElement(translateProcessor.process(new ImagesTaskMainPage(servletContext), session.getLang()));
+		
 		openInfoPopupBeforeStart(builder);
 		
 		if (session.isTestTasksOnly())
@@ -172,5 +179,17 @@ public class ImagesTaskServletBean extends BasePageServlet
 		builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
 	}
 
+	
+	@SuppressWarnings("unused")
+	private class ImagesTaskMainPage extends ApplicationFileSegment
+	{
+		private SimpleTranslatableSegment headertext = new SimpleTranslatableSegment(context, "translations/images-task/headertext.json");
+		private SimpleTranslatableSegment solving_task = new SimpleTranslatableSegment(context, "translations/images-task/solving_task.json");
+
+		public ImagesTaskMainPage(ServletContext context)
+		{
+			super(context, PageElement.image_task);
+		}
+	}
 
 }

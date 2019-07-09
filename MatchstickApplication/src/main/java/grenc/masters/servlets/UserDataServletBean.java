@@ -7,9 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import grenc.growscript.base.FileGrowSegment;
 import grenc.growscript.base.SimpleGrowSegment;
-import grenc.growscript.service.GrowScriptProcessor;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
@@ -27,6 +25,9 @@ import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.DropdownSelection;
 import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.translations.ApplicationFileSegment;
+import grenc.masters.webpage.translations.SimpleTranslatableSegment;
+import grenc.masters.webpage.translations.TranslationProcessor;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -44,6 +45,9 @@ public class UserDataServletBean extends BasePageServlet
 	
 	@InsertBean
 	private CountryList countryList;
+	
+	@InsertBean
+	private TranslationProcessor translateProcessor;
 
 	@Override
 	public String url()
@@ -79,11 +83,13 @@ public class UserDataServletBean extends BasePageServlet
 
 		
 		Map<String, Country> countryMap = countryList.getListOfCountriesInLanguage(session.getLang());
-		UserDataPage userDataPage = new UserDataPage(servletContext, PageElement.user_data)
-										.withCountries(countryMap, session.getLang())
-										.withEducation(EducationLevel.descriptionMap(), EducationLevel.SELECT.name());
-		String content = new GrowScriptProcessor().process(userDataPage);
-		builder.appendPageElement(content);
+		UserDataPage userDataPage = new UserDataPage(servletContext)
+				.withCountries(countryMap, session.getLang())
+				.withEducation(EducationLevel.descriptionMap(), EducationLevel.SELECT.name());
+		
+		builder.appendOnlyAssociatedPageElements(PageElement.task_wrapup);
+		builder.appendPageElement(translateProcessor.process(userDataPage, session.getLang()));
+
 	}
 	
 	@Override
@@ -112,21 +118,25 @@ public class UserDataServletBean extends BasePageServlet
 	}
 	
 	
-	private class UserDataPage extends FileGrowSegment
+	@SuppressWarnings("unused")
+	private class UserDataPage extends ApplicationFileSegment
 	{
-		@SuppressWarnings("unused")
+		private SimpleTranslatableSegment userdata_intro = new SimpleTranslatableSegment(context, "translations/user-data/userdata_intro.json");
+		private SimpleTranslatableSegment userdata_label_sex = new SimpleTranslatableSegment(context, "translations/user-data/userdata_label_sex.json");
+		private SimpleTranslatableSegment userdata_input_sex_f = new SimpleTranslatableSegment(context, "translations/user-data/userdata_input_sex_f.json");
+		private SimpleTranslatableSegment userdata_input_sex_m = new SimpleTranslatableSegment(context, "translations/user-data/userdata_input_sex_m.json");
+		private SimpleTranslatableSegment userdata_input_sex_o = new SimpleTranslatableSegment(context, "translations/user-data/userdata_input_sex_o.json");
+		private SimpleTranslatableSegment userdata_label_age = new SimpleTranslatableSegment(context, "translations/user-data/userdata_label_age.json");
+
 		private SimpleGrowSegment country_title = new SimpleGrowSegment("Country");
-		@SuppressWarnings("unused")
 		private DropdownSelection<String, Country> country_selection;
 		
-		@SuppressWarnings("unused")
 		private SimpleGrowSegment education_title = new SimpleGrowSegment("Education");
-		@SuppressWarnings("unused")
 		private DropdownSelection<String, String> education_selection;
 		
-		public UserDataPage(ServletContext servletContext, PageElement pageElement)
+		public UserDataPage(ServletContext servletContext)
 		{
-			super(servletContext.getRealPath("/") + pageElement.path());
+			super(servletContext, PageElement.user_data);
 		}
 		
 		public UserDataPage withCountries(Map<String, Country> countryMap, String defaultCountry)

@@ -3,7 +3,7 @@
 	<div class="vertical-layout" style="height: inherit;">
 		<div style="height: 50px;"></div>
 		<div>
-	    	<h1 id="m_welcome" class="white">Welcome</h1>
+	    	<h1 class="white">{{welcome}}</h1>
 	    </div>
 	    <div style="height: 25px;"></div>
 	    <div class="vertical-layout white" style="height: 60%; overflow-y: scroll;">
@@ -12,8 +12,7 @@
 	    <div style="height: 60px;"></div>
 	    
 		<div class="horizontal-layout">
-			<p id="m_acknowledgement" class="white">By pressing the green continue button, 
-											<br /> you agree to participate in the study.</p>			
+			<p class="white">{{acknowledgement}}</p>			
 			<div id="buffer-zone" style="padding: 0px 10px;"></div>
 	    	<div>
 	    		<span id="loginButton" class="greenButton" onclick="sendLogin()" ><span class="permanentLabel"></span></span>
