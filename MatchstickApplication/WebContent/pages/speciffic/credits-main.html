@@ -15,7 +15,7 @@
 
 	<div style="height: 10px;"></div>
 
-	<h1 id="m_title">Main project personnel</h1>
+	<h1>{{title}}</h1>
 	<br />
 	
 	<div class="vertical-layout" style="justify-content: space-between; width: 100%;">
@@ -32,7 +32,7 @@
 				</a>
 			</span>
 			<div class="buffer" style="width: 50px;"></div>	
-			<p style="width: 400px;"> <b> dr. Matúš Grežo </b> <br /> Researcher at Institute of Experimental Psychology <br /> Slovak Academy of Sciences <br />  Bratislava, Slovakia </p>
+			<p style="width: 400px;"> <b> dr. Matúš Grežo </b> <br /> {{matus}} </p>
 		</div>
 		<div class="buffer" style="height: 20px;"></div>	
 		<div style="text-align: center;" class="horizontal-layout">
@@ -42,7 +42,7 @@
 				</a>
 			</span>
 			<div class="buffer" style="width: 50px;"></div>		
-			<p style="width: 400px;"> <b> dr. Grega Repovš </b> <br /> Associate Professor in cognitive psychology <br /> Faculty of Arts <br /> Ljubljana, Slovenia </p>
+			<p style="width: 400px;"> <b> dr. Grega Repovš </b> <br /> {{grega}} </p>
 		</div>
 		<div style="height: 20px;"></div>
 		
@@ -50,7 +50,7 @@
 	<div style="height: 60px;"></div>
 	
 	<div>
-		<h1 id="m_othertitle">Special thanks to</h1>
+		<h1>{{specialthanks}}</h1>
 		<br />
 		<div class="horizontal-layout-start">
 			<div style="margin-left: 100px;">
@@ -59,7 +59,7 @@
 				<li>dr. Paolo Petta</li>
 				<li>prof. ing. dr. Igor Farkaš</li>
 				<li>Nikola Ondrikova</li>
-				<li>Grenc family</li>
+				{{specialthankspeople}}
 			</ul>
 			
 			<!-- 
@@ -79,20 +79,18 @@
 	</div>
 	<div style="height: 40px;"></div>
 	<div>
-		<h1 id="m_resourcestitle">Resources</h1>
+		<h1>{{resources}}</h1>
 		<br />
 		<div class="vertical-layout-start" style="padding: 0 40px">
-			<div style="width: 100px;"></div>
-				All images are used under the Apache Licence Version 2.0.<br />
-				Generous contributors are:<br />
-				<div>
-				<table>
-				  <tr><td>https://material.io/icons/</td></tr>
-				  <tr><td>http://all-free-download.com/free-vector/download/set-of-world-flags-icons-mix-design-vector_527121.html</td></tr>
-				</table> <br />
-				Eclipse IDE from Eclipse Foundation, Inc. <br />
-				Server renting from Hukot.net <br />
-				</div>
+			<div style="width: 100px;">{{resources_data}}</div>
+<!-- 			   "All images are used under the Apache Licence Version 2.0.<br /> -->
+<!-- 				Generous contributors are:<br /> -->
+<!-- 				<table> -->
+<!-- 				  <tr><td>https://material.io/icons/</td></tr> -->
+<!-- 				  <tr><td>http://all-free-download.com/free-vector/download/set-of-world-flags-icons-mix-design-vector_527121.html</td></tr> -->
+<!-- 				</table> <br /> -->
+<!-- 				Eclipse IDE from Eclipse Foundation, Inc. <br /> -->
+<!-- 				Server renting from Hukot.net <br />" -->
 		</div>
 	</div>
 	<div style="height: 80px;"></div>
