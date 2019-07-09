@@ -46,7 +46,7 @@
         console.log();
     	console.log("Done");
 
-        // Get data from action, like action.report()
+        /* Get data from action, like action.report() */
         var data = mapScoresToJson(totalScore, totalTimer);
 
         post(taskWrapup_url, {scores: JSON.stringify(data)});

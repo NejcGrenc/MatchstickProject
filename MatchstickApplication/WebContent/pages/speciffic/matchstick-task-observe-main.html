@@ -52,6 +52,14 @@
 	    post(forward_url);    
 		console.log();
 	}
+			  
+    function setObservingTaskNumber(currentNumber, totalNumber)
+    {
+    	var observingTaskString = "{{observing_task}}";
+        if (observingTaskText !== undefined)
+        	observingTaskString = observingTaskText();
+    	 document.getElementById('taskCounter').innerHTML = observingTaskString + ": " + currentNumber + " / " + totalNumber;
+    }
 	
 	function addSource(src, type)
 	{
@@ -93,18 +101,19 @@
 		
 		finishOberving(false);
 		
-		// Finish observing handlers
+		/* Finish observing handlers */
 		document.getElementById('matchstick_video').addEventListener('ended', function(e) { console.log("finishOberving 1"); finishOberving(true); }, false);
 		document.getElementById('matchstick_video').onended = function(e) { console.log("finishOberving 2"); finishOberving(true); };
 		
-		// Error handlers
+		/* Error handlers */
 		var errorCount = 0;
 		document.getElementById('matchstick_video').addEventListener('error', errorHandler, true);
-		//	 	var videoSources = document.querySelector('video#matchstick_video').querySelectorAll('source');
+		/*	 	var videoSources = document.querySelector('video#matchstick_video').querySelectorAll('source');
 		//	 	for (videoSource in videoSources) 
 		//	 	{
 		//	 		videoSources[videoSource].addEventListener('error', function() { console.log("error2"); errorHandler(null); });
 		//	 	}
+		*/
 		function errorHandler(e) 
 		{ 
 			errorCount++;
@@ -116,13 +125,5 @@
 		}
 	}
 	
-    function setObservingTaskNumber(currentNumber, totalNumber)
-    {
-    	var observingTaskString = "{{observing_task}}";
-        if (observingTaskText !== undefined)
-        	observingTaskString = observingTaskText();
-    	 document.getElementById('taskCounter').innerHTML = observingTaskString + ": " + currentNumber + " / " + totalNumber;
-    }
-    
 </script>
 

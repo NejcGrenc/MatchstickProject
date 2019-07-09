@@ -151,8 +151,8 @@ public class LoginServletBean extends BasePageServlet
 	@SuppressWarnings("unused")
 	private class LoginPage extends ApplicationFileSegment
 	{
-		private SimpleTranslatableSegment headertext = new SimpleTranslatableSegment(context, "translations/matchstick-task/headertext.json");
-		private SimpleTranslatableSegment learning_task = new SimpleTranslatableSegment(context, "translations/matchstick-task/learning_task.json");
+		private SimpleTranslatableSegment welcome = new SimpleTranslatableSegment(context, "translations/login/welcome.json");
+		private SimpleTranslatableSegment acknowledgement = new SimpleTranslatableSegment(context, "translations/login/acknowledgement.json");
 		private GrowSegment agreement = new AgreementPage();
 
 		
