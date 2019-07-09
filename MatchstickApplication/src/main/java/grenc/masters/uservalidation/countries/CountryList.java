@@ -21,10 +21,7 @@ public class CountryList
 	// For our 4 languages this is not a problem, but for others, this might be!
 	public Map<String, Country> getListOfCountriesInLanguage(String lang)
 	{
-		lang = ("en".equals(lang)) ? "gb" : lang;
-		lang = ("si".equals(lang)) ? "si" : lang;
-		lang = ("de".equals(lang)) ? "de" : lang;
-		lang = ("sk".equals(lang)) ? "sk" : lang;
+		lang = mapLanguage(lang);
 		
 		Locale languageLocale = getLocaleForCountry(lang);
 		
@@ -36,6 +33,14 @@ public class CountryList
 			countryMap.put(obj.getCountry(), new Country(obj.getCountry(), obj.getDisplayCountry(languageLocale)));
 		}
 		return countryMap;
+	}
+	
+	public String mapLanguage(String lang) {
+		lang = ("en".equals(lang)) ? "gb" : lang;
+		lang = ("si".equals(lang)) ? "si" : lang;
+		lang = ("de".equals(lang)) ? "at" : lang;
+		lang = ("sk".equals(lang)) ? "sk" : lang;
+		return lang;
 	}
 	
 	public Locale getLocaleForCountry(String countryCode)

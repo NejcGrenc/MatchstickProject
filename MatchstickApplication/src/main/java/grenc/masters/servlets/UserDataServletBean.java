@@ -131,7 +131,7 @@ public class UserDataServletBean extends BasePageServlet
 		
 		public UserDataPage withCountries(Map<String, Country> countryMap, String defaultCountry)
 		{
-			country_selection = new DropdownSelection<>(countryMap, defaultCountry.toUpperCase());
+			country_selection = new DropdownSelection<>(countryMap, countryList.mapLanguage(defaultCountry).toUpperCase());
 			return this;
 		}
 		
