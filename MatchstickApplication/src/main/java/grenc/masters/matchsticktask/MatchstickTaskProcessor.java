@@ -51,7 +51,10 @@ public class MatchstickTaskProcessor
 	public MatchstickTaskProcessorReturn prepareNewMatchstickTask(TaskSession taskSession)
 	{
 		MatchstickTaskProcessorReturn newTaskResult = new MatchstickTaskProcessorReturn();
-		newTaskResult.newTaskNumber = newTaskNumber(taskSession) - totalNumberOfTasksForObervingAndLearning(taskSession);
+		int fullTaskNumber = newTaskNumber(taskSession);
+		int testTaskNumber = fullTaskNumber - totalNumberOfTasksForObervingAndLearning(taskSession);
+		
+		newTaskResult.newTaskNumber = testTaskNumber;
 		newTaskResult.totalNumberOfTasks = totalNumberOfTasks(taskSession) - totalNumberOfTasksForObervingAndLearning(taskSession);
 		
 		if (newTaskResult.newTaskNumber == 1)
@@ -73,7 +76,7 @@ public class MatchstickTaskProcessor
 				newTaskResult.pauseAtStart = true;
 			}
 			
-			MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, newTaskResult.newTaskNumber);
+			MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, fullTaskNumber);
 			if (MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy.equals(experimentPhase) 
 				|| MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy.equals(experimentPhase))
 				newTaskResult.restriction = SolvableRestriction.ONE_MOVE_ONLY;

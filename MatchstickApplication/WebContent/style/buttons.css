@@ -161,6 +161,9 @@ span
 .redButton .label:after {
 	content: url("../images/ic_clear_white_48px.svg");
 }
+.redButtonRestart .label:after {
+	content: url("../images/baseline_replay_white_48dp.png");
+}
 
 
 .lang_ball {

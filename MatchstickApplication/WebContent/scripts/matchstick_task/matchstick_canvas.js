@@ -6,6 +6,8 @@ var ctx;
 var currentAction;
 var actionList = [];
 
+var restrictionOnlyOne = false;
+
 
 //
 // Main function
@@ -52,6 +54,8 @@ function calculateEquation()
     var greenButton = document.getElementById("button-done");
     var redButtonContainer = document.getElementById("failureButton");
     var redButton = document.getElementById("button-notDone");
+    var redButtonRestartContainer = document.getElementById("failureRestartButton");
+    var redButtonRestart = document.getElementById("button-notDoneRestart");
     var done = false;
     
     var eqStr = equation.toString();
@@ -87,19 +91,59 @@ function calculateEquation()
     	
         greenButtonContainer.style.display = 'inline';
         redButtonContainer.style.display = 'none';
+        redButtonRestartContainer.style.display = 'none';
         
         greenButton.title = "Contine to next equation";
         if (tooltipContinueText !== undefined)  greenButton.title = tooltipContinueText();
     }
-    else
+    else if (restrictionOnlyOne && actionList.length === 1)
+    {
+    	timer.stopTimer();
+    	blockAll();
+    	
+        greenButtonContainer.style.display = 'none';
+        redButtonContainer.style.display = 'none';
+        redButtonRestartContainer.style.display = 'inline';
+        redButtonRestart.title = "Restart";
+    }
+    else 
     {
     	timer.continueTimer();
     	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'inline';
+        redButtonRestartContainer.style.display = 'none';
         redButton.title = tooltip;
     }
 }
+
+function blockAllExceptStartAndEndOnes()
+{
+	var lastAction = actionList[0];
+	var matchStart = lastAction.startMatchstickLoc;
+	var matchEnd   = lastAction.endMatchstickLoc;
+	
+	// block all shadows except start and end plan ones
+	for (var i = 0; i < allShadows.length; i++)
+	{
+		if (i == matchStart || i == matchEnd)
+			continue;
+		allShadows[i].setBlocked(true);
+	}	
+}
+
+function blockAll()
+{
+	for (var i = 0; i < allShadows.length; i++)
+		allShadows[i].setBlocked(true);
+}
+
+function unblockAll()
+{
+	for (var i = 0; i < allShadows.length; i++)
+		allShadows[i].setBlocked(false);	
+}
+
 
 
 //
@@ -178,7 +222,7 @@ function endAction(action)
 //
 
 function mouseDownListener(mouseEvent) 
-{			
+{
     var mousePoint = getMousePoint(mouseEvent);
     
     // Is grab action underway

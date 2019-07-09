@@ -37,8 +37,11 @@
                 <div id="sucessButton" style="display: none">
                 <span id="button-done" class="greenButton" onclick="onSucessSend()" ><span class="label"></span></span>
                 </div>
-                 <div id="failureButton">
+                <div id="failureButton">
                 <span id="button-notDone" class="redButton" title=""><span class="label"></span></span>
+                </div>
+                <div id="failureRestartButton" style="display: none;">
+                <span id="button-notDoneRestart" class="redButton redButtonRestart" onclick="onRestartSend()" title=""><span class="label"></span></span>
                 </div>
             </div>
         </div>
@@ -57,11 +60,14 @@
     	 document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + currentNumber + " / " + totalNumber;
     }
 
-    function setRestriction(restrictionOnlyOne)
+    function setRestriction(restriction)
     {
-    	console.log("restriction ", restrictionOnlyOne);
-    	document.getElementById('restriction').innerHTML = restrictionsText(restrictionOnlyOne);
+    	console.log("restriction ", restriction);
+    	document.getElementById('restriction').innerHTML = restrictionsText(restriction);
+    	restrictionOnlyOne = restriction;
     }
+    
+    
     
 </script>
 

@@ -144,3 +144,5 @@ function getAllEmptyShadows()
     }
     return allEmptyShadows;
 }
+
+

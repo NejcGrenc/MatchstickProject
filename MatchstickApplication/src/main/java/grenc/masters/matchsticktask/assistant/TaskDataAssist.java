@@ -49,7 +49,7 @@ public class TaskDataAssist {
 	
 	private boolean shouldBeFinished(TaskSession taskSession)
 	{
-		return (newTaskNumber(taskSession) >= totalNumberOfTasks(taskSession));
+		return (newTaskNumber(taskSession) > totalNumberOfTasks(taskSession));
 	}
 	
 	public int newTaskNumber(TaskSession taskSession)
