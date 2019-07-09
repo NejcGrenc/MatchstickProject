@@ -17,7 +17,7 @@ function onSucessSend()
 
     var data = mapAllActionsToJson();
     var totalTime = timer.timeNumber();
-    post(forward_url, {task_data: JSON.stringify({time: totalTime, actions: data})});
+    post(forward_url, {task_data: JSON.stringify({task_number: taskSequenceNumber, time: totalTime, actions: data})});
     
 	console.log();
 

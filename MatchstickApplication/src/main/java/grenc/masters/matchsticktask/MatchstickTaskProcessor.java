@@ -76,18 +76,19 @@ public class MatchstickTaskProcessor
 				newTaskResult.pauseAtStart = true;
 			}
 			
-			MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, fullTaskNumber);
-			if (MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy.equals(experimentPhase) 
-				|| MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy.equals(experimentPhase))
-				newTaskResult.restriction = SolvableRestriction.ONE_MOVE_ONLY;
-			else
-				newTaskResult.restriction = SolvableRestriction.MINIMUM_MOVES;
-			
 			EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, newTaskNumber(taskSession));
 			int taskNumber = newTaskNumberForLocalPhase(taskSession);
 			System.out.println("New equation for task number '" + newTaskResult.newTaskNumber + " (" + newTaskNumber(taskSession) + ")" + "' [" + equationType + ", " + taskNumber + "]");
 			newTaskResult.newEquation = equationAssist.getNextEquation(equationType, taskNumber);
 		}
+		
+		MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, fullTaskNumber);
+		if (MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy.equals(experimentPhase) 
+			|| MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy.equals(experimentPhase))
+			newTaskResult.restriction = SolvableRestriction.ONE_MOVE_ONLY;
+		else
+			newTaskResult.restriction = SolvableRestriction.MINIMUM_MOVES;
+		
 		
 		return newTaskResult;
 	}

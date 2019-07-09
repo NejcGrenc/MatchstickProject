@@ -11,6 +11,8 @@ var allMatchsticks = [];
 var allShadows = [];
 var equation;
 var timer;
+var taskSequenceNumber;
+
 
 function start()
 {

@@ -54,10 +54,12 @@
     
     function setSolvingTaskNumber(currentNumber, totalNumber)
     {
+    	taskSequenceNumber = currentNumber;
+    	
     	var solvingTaskString = "{{solving_task}}";
         if (solvingTaskText !== undefined)
         	solvingTaskString = solvingTaskText();
-    	 document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + currentNumber + " / " + totalNumber;
+    	document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + currentNumber + " / " + totalNumber;
     }
 
     function setRestriction(restriction)
@@ -66,8 +68,6 @@
     	document.getElementById('restriction').innerHTML = restrictionsText(restriction);
     	restrictionOnlyOne = restriction;
     }
-    
-    
     
 </script>
 

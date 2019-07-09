@@ -32,19 +32,14 @@ public class ResponseProcessor
 		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber);
 		matchstickTaskDataDAO.update(taskData.getId(), MatchstickTaskStatus.solved.name(), "", "", 0, 0, 0, 0);	
 	}
-	
-	public void storeData(TaskSession taskSession, String stringData)
-	{
-		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(taskSession);
-		storeData(taskSession, stringData, newTaskNumber);
-	}
 		
 	// TODO make tests for building data properly
-	public void storeData(TaskSession taskSession, String stringData, int newTaskNumber)
+	public void storeData(TaskSession taskSession, String stringData)
 	{
 		JSONTokener tokener = new JSONTokener(stringData);
 		JSONObject allData = new JSONObject(tokener);
 
+		Integer task_number = allData.getInt("task_number");
 		Long time = allData.getLong("time");
 		JSONArray actions = allData.getJSONArray("actions");
 		
@@ -52,7 +47,8 @@ public class ResponseProcessor
 		{
 			System.out.println(actions.getJSONObject(i));
 		}
-
+		
+		int newTaskNumber = (task_number != null) ? task_number : matchstickTaskProcessor.newTaskNumber(taskSession);
 		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber);
  
 		InProcessing dataInProcessing = new InProcessing();	
