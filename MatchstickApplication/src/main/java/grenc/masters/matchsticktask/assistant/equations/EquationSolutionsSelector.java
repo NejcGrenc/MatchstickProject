@@ -40,31 +40,52 @@ public class EquationSolutionsSelector
 		switch (group)
 		{
 			case group_A:
-			case group_AB_strategyA:
-			case group_0_strategyA:
 				switch (phase)
 				{
 					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1N;
 					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1N;
-					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1N_2N;
+					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1N_2N;
+					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1N;
 					case TestingPhase_BothStrategiesOptimal: 	   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1O_2O;
+					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1O;
+					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1O_2O;
+
+				}
+			case group_AB_strategyA:
+			case group_0_strategyA:
+				switch (phase)
+				{
+					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1MO;
+					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1N_2N;
+					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1N;
+					case TestingPhase_BothStrategiesOptimal: 	   return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1O;
 					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1O_2O;
 
 				}
 			case group_B:
-			case group_AB_strategyB:
-			case group_0_strategyB:
 				switch (phase)
 				{
 					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1O;
 					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1O;
-					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1N_2N;
+					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1O_2O;
+					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1O;
 					case TestingPhase_BothStrategiesOptimal: 	   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1O_2O;
-					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1O_2O;
+					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1N;
+					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1N_2N;
+				}
+			case group_AB_strategyB:
+			case group_0_strategyB:
+				switch (phase)
+				{
+					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1MO;
+					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1O_2O;
+					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1O;
+					case TestingPhase_BothStrategiesOptimal: 	   return EquationSolutionsGroupType.group_1MO;
+					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1N;
+					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1N_2N;
 				}
 			case test:
 				switch (phase)

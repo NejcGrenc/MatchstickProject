@@ -33,7 +33,7 @@ CREATE TABLE task_session (
 	session_id			integer NOT NULL,
 	task_type			varchar(40),
 	start_time			bigint,
-	matchstick_group	varchar(8),
+	matchstick_group	varchar(20),
 	complete			boolean,
 	notes				varchar(500)		-- Larger notes are cut off
 );

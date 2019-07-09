@@ -62,6 +62,7 @@ public class TaskSessionAssist
 			else
 				newGroup = groupSelectAssist.selectNewGroup();
 		}
+		newGroup = MatchstickGroup.group_AB_strategyA;
 		String newGroupName = (newGroup != null) ? newGroup.toString() : null;
 			
 		return taskSessionDAO.insert(session.getId(), taskType.name(), 

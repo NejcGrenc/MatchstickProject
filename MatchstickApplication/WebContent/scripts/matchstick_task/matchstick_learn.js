@@ -74,9 +74,9 @@ function drawArrowToShadow(shadow, revert)
 	var center_y = shadow.point.y;
 
 	if (revert)
-		drawSimpleArrow(ctx, center_x+100, center_y-100, center_x+20, center_y-20);
+		drawSimpleArrow(ctx, center_x+100, center_y-100, center_x+30, center_y-30);
 	else
-		drawSimpleArrow(ctx, center_x-100, center_y-100, center_x-20, center_y-20);
+		drawSimpleArrow(ctx, center_x-100, center_y-100, center_x-30, center_y-30);
 }
 
 function drawSimpleArrow(ctx, fromx, fromy, tox, toy){

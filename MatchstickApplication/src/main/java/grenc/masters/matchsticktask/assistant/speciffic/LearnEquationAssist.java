@@ -79,17 +79,17 @@ public class LearnEquationAssist
 	{
 		StringBuilder commandBuilder = new StringBuilder();
 		commandBuilder.append("var originalEquation = '" + "3*3/7=5" + "';");
-		commandBuilder.append("setPlanStartShadow(4, 0, true);");
-		commandBuilder.append("setPlanEndShadow(6, 2, false);");
+		commandBuilder.append("setPlanStartShadow(4, 0, false);");
+		commandBuilder.append("setPlanEndShadow(6, 2, true);");
 		return commandBuilder.toString();
 	}
 	
 	private String task1_withinN()
 	{
 		StringBuilder commandBuilder = new StringBuilder();
-		commandBuilder.append("var originalEquation = '" + "3*5/5=2" + "';");
-		commandBuilder.append("setPlanStartShadow(0, 5, false);");
-		commandBuilder.append("setPlanEndShadow(0, 4, true);");
+		commandBuilder.append("var originalEquation = '" + "5*5/5=3" + "';");
+		commandBuilder.append("setPlanStartShadow(2, 1, false);");
+		commandBuilder.append("setPlanEndShadow(2, 2, true);");
 		return commandBuilder.toString();
 	}
 	
@@ -98,7 +98,7 @@ public class LearnEquationAssist
 		StringBuilder commandBuilder = new StringBuilder();
 		commandBuilder.append("var originalEquation = '" + "2/3*2=3" + "';");
 		commandBuilder.append("setPlanStartShadow(3, 1, false);");
-		commandBuilder.append("setPlanEndShadow(1, 1, true);");
+		commandBuilder.append("setPlanEndShadow(1, 1, false);");
 		return commandBuilder.toString();
 	}
 	
@@ -106,8 +106,8 @@ public class LearnEquationAssist
 	{
 		StringBuilder commandBuilder = new StringBuilder();
 		commandBuilder.append("var originalEquation = '" + "2+5/2=5" + "';");
-		commandBuilder.append("setPlanStartShadow(3, 2, false);");
-		commandBuilder.append("setPlanEndShadow(3, 3, true);");
+		commandBuilder.append("setPlanStartShadow(3, 2, true);");
+		commandBuilder.append("setPlanEndShadow(3, 3, false);");
 		return commandBuilder.toString();
 	}
 	
