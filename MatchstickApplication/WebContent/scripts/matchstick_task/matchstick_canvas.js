@@ -355,12 +355,23 @@ function mouseScrollListener(mouseEvent)
 	
     var deltaFirefox = mouseEvent.detail; // Firefox
 	var scrollDirectionFirefox = (deltaFirefox === 0) ? 0 : ((deltaFirefox > 0) ? 1 : -1); 
-	rotate(currentAction.matchstick, scrollDirectionFirefox * degrees);
 
 	var delta = mouseEvent.wheelDelta; // Chrome
 	var scrollDirectionChrome = (delta === 0) ? 0 : ((delta > 0) ? -1 : 1); 
-	rotate(currentAction.matchstick, scrollDirectionChrome * degrees);
   
+	var scrollDirection = 0; // Combined scroll direction
+	if (deltaFirefox !== 'undefined' && deltaFirefox !== 0)
+	{
+		scrollDirection = scrollDirectionFirefox;
+	}
+	else if (delta !== 'undefined' && delta !== 0)
+	{
+		scrollDirection = scrollDirectionChrome;
+	}
+	
+	// Rotate
+	rotate(currentAction.matchstick, scrollDirection * degrees);
+
     refreshCanvas();
 
     // Prevent default action (page scroll)
