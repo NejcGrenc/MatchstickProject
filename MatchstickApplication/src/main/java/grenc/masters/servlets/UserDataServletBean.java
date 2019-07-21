@@ -24,7 +24,6 @@ import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.DropdownSelection;
 import grenc.masters.webpage.common.LanguageBall;
-import grenc.masters.webpage.common.Translate;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -75,9 +74,6 @@ public class UserDataServletBean extends BasePageServlet
 
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), url()).set();
-		new Translate(builder, Script.translate_userdata)
-			.translateAll()
-			.translateSpecial("m_userdata_input_age", "placeholder");
 		accountBall.set(builder, servletContext);
 		new DataPresentBall(builder, session).set();
 

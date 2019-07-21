@@ -11,7 +11,7 @@ var popupTranslationMap =
 	},
 	'de': {
 		'm_popup_firstline': "Performing experiments as: ",
-		'm_closeButton': "Done"
+		'm_closeButton': "Erledigt"
 	},
 	'sk': {
 		'm_popup_firstline': "Vykonávanie experimentov ako: ",

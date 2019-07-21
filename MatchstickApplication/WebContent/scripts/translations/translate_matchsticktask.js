@@ -6,7 +6,7 @@ function pleaseWaitText()
 	if (lang == "si")
 		return "Prosimo počakajte";
 	if (lang == "de")
-		return "Please wait";
+		return "Bitte warten";
 	if (lang == "sk")
 		return "Prosím čakajte";
 }
@@ -19,7 +19,7 @@ function solvingTaskText()
 	if (lang == "si")
 		return "Reševanje naloge";
 	if (lang == "de")
-		return "Solving task";
+		return "Aufgabe lösen";
 	if (lang == "sk")
 		return "Riešenie úlohy";
 }
@@ -32,7 +32,7 @@ function learningTaskText()
 	if (lang == "si")
 		return "Učenje naloge";
 	if (lang == "de")
-		return "Learning task";
+		return "Lernaufgabe";
 	if (lang == "sk")
 		return "Učenie úlohy";
 }
@@ -45,26 +45,9 @@ function observingTaskText()
 	if (lang == "si")
 		return "Opazovanje naloge";
 	if (lang == "de")
-		return "Observing task";
+		return "Beobachtungsaufgabe";
 	if (lang == "sk")
 		return "Pozorovanie úlohy";
-}
-
-
-var translationMap =
-{
-	'en': {
-		'm_headerText': "Matchstick experiment"
-	},
-	'si': {
-		'm_headerText': "Vžigalični eksperiment"
-	},
-	'de': {
-		'm_headerText': "Matchstick experiment"
-	},
-	'sk': {
-		'm_headerText': "Experiment so zápalkami"
-	}
 }
 
 function tooltipEquationText()
@@ -75,7 +58,7 @@ function tooltipEquationText()
 	if (lang == "si")
 		return "Enačba";
 	if (lang == "de")
-		return "Equation";
+		return "Gleichung";
 	if (lang == "sk")
 		return "Rovnica";
 }
@@ -88,7 +71,7 @@ function tooltipSolvedText()
 	if (lang == "si")
 		return "je pravilna.";
 	if (lang == "de")
-		return "is correct.";
+		return "ist richtig.";
 	if (lang == "sk")
 		return "je správna.";
 }
@@ -101,7 +84,7 @@ function tooltipOnlyValidText()
 	if (lang == "si")
 		return "je veljavna, a ni pravilna.";
 	if (lang == "de")
-		return "is valid, but not correct.";
+		return "ist gültig, aber nicht korrekt.";
 	if (lang == "sk")
 		return "je platná, ale nie je správna.";
 }
@@ -112,11 +95,11 @@ function tooltipContinueText()
 	if (lang == "en")
 		return "Contine to next equation";
 	if (lang == "si")
-		return "Nadaljuj z naslednjo enačbo";
+		return "Nadaljujte z naslednjo enačbo";
 	if (lang == "de")
-		return "Contine to next equation";
+		return "Weiter zur nächsten Gleichung";
 	if (lang == "sk")
-		return "Pokračujte ďalej";
+		return "Pokračujte na nasledujúcu rovnicu";
 }
 
 function restrictionsText(onlyOneMoveRestricted)
@@ -127,22 +110,22 @@ function restrictionsText(onlyOneMoveRestricted)
 		if (lang == "en")
 			return "Correct the equation by USING ONLY ONE MOVE";
 		if (lang == "si")
-			return "Correct the equation by USING ONLY ONE MOVE";
+			return "Popravite enačbo z UPORABO LE ENE POZTEZE";
 		if (lang == "de")
-			return "Correct the equation by USING ONLY ONE MOVE";
+			return "Korrigieren Sie die Gleichung, indem Sie NUR EINEN ZUG VERWENDEN";
 		if (lang == "sk")
-			return "Correct the equation by USING ONLY ONE MOVE";
+			return "Opravte rovnicu tak, že POUŽIJETE IBA JEDEN ŤAH";
 	}
 	else
 	{
 		if (lang == "en")
 			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
 		if (lang == "si")
-			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+			return "Popravite enačbo z UPORABO NAJMANJŠEGA ŠTEVILA POTEZ";
 		if (lang == "de")
-			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+			return "Korrigieren Sie die Gleichung, indem Sie DIE LETZTE ANZAHL VON ZÜGEN VERWENDEN";
 		if (lang == "sk")
-			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+			return "Opravte rovnicu tak, že POUŽIJETE NIŽŠÍ POČET ŤAHOV";
 	}
 }
 

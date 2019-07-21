@@ -45,7 +45,7 @@ function averageText()
 	if (lang == "si")
 		return "Povprečen čas na nalogo";
 	if (lang == "de")
-		return "Average time per figure";
+		return "Durchschnittliche Zeit pro Aufgabe";
 	if (lang == "sk")
 		return "Priemerný čas strávený pri jednom obrázku";
 }
@@ -58,7 +58,7 @@ function finalText()
 	if (lang == "si")
 		return "Konec.";
 	if (lang == "de")
-		return "Done.";
+		return "Fertig.";
 	if (lang == "sk")
 		return "Done.";
 }
@@ -70,23 +70,8 @@ function finalText2()
 	if (lang == "si")
 		return "Hvala za sodelovanje.";
 	if (lang == "de")
-		return "Thank you for your participation.";
+		return "Danke für Ihre Teilnahme.";
 	if (lang == "sk")
-		return "Thank you for your participation.";
+		return "Ďakujeme za vašu účasť.";
 }
 
-var translationMap =
-{
-	'en': {
-		'm_headerText': "Matching familiar figures test"
-	},
-	'si': {
-		'm_headerText': "Eksperiment podobnih slik"
-	},
-	'de': {
-		'm_headerText': "Matching familiar figures test"
-	},
-	'sk': {
-		'm_headerText': "Test mapovania podobných obrázkov"
-	}
-}

@@ -22,7 +22,6 @@ import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.LanguageBall;
-import grenc.masters.webpage.common.Translate;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -70,9 +69,6 @@ public class LoginServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
 		new LanguageBall(builder, session.getLang(), url()).set();
-		new Translate(builder, Script.translate_login)
-			.translateAll()
-			.translateSpecial("m_nameInput", "placeholder");
 
 		new DataPresentBall(builder, session).set();
 		

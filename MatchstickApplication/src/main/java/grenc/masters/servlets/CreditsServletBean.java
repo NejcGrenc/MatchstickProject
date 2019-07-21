@@ -16,7 +16,6 @@ import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.AccountBall;
 import grenc.masters.webpage.common.LanguageBall;
-import grenc.masters.webpage.common.Translate;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -69,8 +68,6 @@ public class CreditsServletBean extends BasePageServlet
 		builder.appendOnlyAssociatedPageElements(PageElement.credits);
 		builder.appendPageElement(translateProcessor.process(new CreditsPage(servletContext), session.getLang()));
 
-		
-		new Translate(builder, Script.translate_credits).translateAll();
 	}
 
 	@Override
