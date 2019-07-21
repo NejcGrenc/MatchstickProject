@@ -98,7 +98,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		
 		
 		// Setup current task number
-		builder.appendBodyScriptCommand("setSolvingTaskNumber("+newTask.newTaskNumber+", "+newTask.totalNumberOfTasks+");");
+		builder.appendBodyScriptCommand("setSolvingTaskNumber("+newTask.newTaskLocalNumber+", "+newTask.newTaskNumber+", "+newTask.totalNumberOfTasks+");");
 		
 		System.out.println(" | For session " + sessionTag);
 		System.out.println(" | and task session " + session.getId());
@@ -130,16 +130,24 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		System.out.println("Main session: " + session);
 		
-		String actions = (String) request.getAttribute("task_data");
-		System.out.println("Value of 'actions' is " + actions);
-		if (actions == null || actions.isEmpty())
+		String taskData = (String) request.getAttribute("task_data");
+		System.out.println("Value of 'task_data' is " + taskData);
+		if (taskData == null || taskData.isEmpty())
 		{
 			System.out.println("Did not send task data! (probably clicked one of the up-right buttons)");
 			return;
 		}
-
+		
 		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
-		responseProcessor.storeData(taskSession, actions);
+		
+		Boolean isBrowserRefreshButton = null;
+		if (responseProcessor.isPageRefresh(taskSession, taskData))
+		{
+			System.out.println("It was page refresh! Do not do anything!");
+			isBrowserRefreshButton = true;
+		}
+		
+		responseProcessor.storeData(taskSession, taskData, isBrowserRefreshButton);
 		System.out.println();
 		System.out.println();
 		

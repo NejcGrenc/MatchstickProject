@@ -52,9 +52,9 @@
 
 	setForwardUrl("/matchstickTask");
     
-    function setSolvingTaskNumber(currentNumber, totalNumber)
+    function setSolvingTaskNumber(currentNumber, fullNumber, totalNumber)
     {
-    	taskSequenceNumber = currentNumber;
+    	taskSequenceNumber = fullNumber;
     	
     	var solvingTaskString = "{{solving_task}}";
         if (solvingTaskText !== undefined)

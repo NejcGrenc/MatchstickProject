@@ -79,7 +79,7 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		builder.appendPageElement(translateProcessor.process(new MatchstickTaskObservePage(servletContext), session.getLang()));
 		
 		// Setup current task number
-		builder.appendBodyScriptCommand("setObservingTaskNumber("+matchstickTaskProcessor.newTaskNumberForLocalPhase(taskSession)+", "+matchstickTaskProcessor.totalNumberOfTasksForNextPhase(taskSession)+");");
+		builder.appendBodyScriptCommand("setObservingTaskNumber("+matchstickTaskProcessor.newTaskNumberForLocalPhase(taskSession)+", "+matchstickTaskProcessor.newTaskNumber(taskSession)+", "+matchstickTaskProcessor.totalNumberOfTasksForNextPhase(taskSession)+");");
 
 		prepareObserveTask(builder, taskSession);
 

@@ -49,6 +49,18 @@ public enum MatchstickGroup
 		return total;
 	}
 	
+	public MatchstickExperimentPhase getPhaseForTaskNumber(int globalTaskNumber) {
+		for (MatchstickExperimentPhase currPhase : MatchstickExperimentPhase.orderedAll())
+		{			
+			globalTaskNumber -= tasksForPhase.get(currPhase);
+			if (globalTaskNumber <= 0)
+			{			
+				return currPhase;
+			}
+		}
+		return null;
+	}
+	
 	public int getNoTasksUpToPhase(MatchstickExperimentPhase phase)
 	{
 		int total = 0;

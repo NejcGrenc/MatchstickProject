@@ -77,7 +77,7 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 		
 		// Setup current task number
 		TaskSession taskSession = taskBuilder.taskSessionToUse(session);
-		builder.appendBodyScriptCommand("setLearningTaskNumber("+taskBuilder.newTaskNumberForLocalPhase(taskSession)+", "+taskBuilder.totalNumberOfTasksForNextPhase(taskSession)+");");
+		builder.appendBodyScriptCommand("setLearningTaskNumber("+taskBuilder.newTaskNumberForLocalPhase(taskSession)+", "+taskBuilder.newTaskNumber(taskSession)+", "+taskBuilder.totalNumberOfTasksForNextPhase(taskSession)+");");
 		builder.appendBodyScriptCommand("setRestriction("+true+");");
 		
 		loadLearningTask(builder, session);

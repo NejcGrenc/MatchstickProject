@@ -38,7 +38,7 @@ public class MatchstickTaskDataDAOTest extends DatabaseTestConfiguraton
 	@Ignore
 	public void insertAndFetchAll()
 	{
-		matchstickTaskDataDAO.insert(45, 5, "type", "2+2=7", "5+2=7", 1234, 2, 2.66);
+		matchstickTaskDataDAO.insert(45, 5, 5, "type", "2+2=7", "5+2=7", 1234, 2, 2.66);
 		
 		List<MatchstickTaskData> taskData = matchstickTaskDataDAO.findAllTaskForSessionId(45);
 		

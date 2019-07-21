@@ -55,8 +55,10 @@
         return data;
     }
     
-    function setLearningTaskNumber(currentNumber, totalNumber)
+    function setLearningTaskNumber(currentNumber, fullNumber, totalNumber)
     {
+    	taskSequenceNumber = fullNumber;
+    	
     	var learningTaskString = "{{learning_task}}";
         if (learningTaskText !== undefined)
         	learningTaskString = learningTaskText();

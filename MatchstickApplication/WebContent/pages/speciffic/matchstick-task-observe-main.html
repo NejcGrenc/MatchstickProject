@@ -53,8 +53,10 @@
 		console.log();
 	}
 			  
-    function setObservingTaskNumber(currentNumber, totalNumber)
+    function setObservingTaskNumber(currentNumber, fullNumber, totalNumber)
     {
+    	taskSequenceNumber = fullNumber;
+    	
     	var observingTaskString = "{{observing_task}}";
         if (observingTaskText !== undefined)
         	observingTaskString = observingTaskText();

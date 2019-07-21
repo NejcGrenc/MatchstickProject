@@ -2,11 +2,13 @@ package grenc.masters.matchsticktask;
 
 import java.util.List;
 
+import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.masters.matchsticktask.assistant.EquationAssist;
 import grenc.masters.matchsticktask.assistant.TaskDataAssist;
+import grenc.masters.matchsticktask.assistant.TaskNumberAssist;
 import grenc.masters.matchsticktask.assistant.TaskSessionAssist;
 import grenc.masters.matchsticktask.assistant.equations.EquationSolutionsSelector;
 import grenc.masters.matchsticktask.assistant.speciffic.LearnEquationAssist;
@@ -28,6 +30,8 @@ public class MatchstickTaskProcessor
 	private TaskSessionAssist taskSessionAssist;
 	@InsertBean
 	private TaskDataAssist taskDataAssist;
+	@InsertBean
+	private TaskNumberAssist taskNumberAssist;
 	@InsertBean
 	private EquationAssist equationAssist;
 	@InsertBean
@@ -51,13 +55,11 @@ public class MatchstickTaskProcessor
 	public MatchstickTaskProcessorReturn prepareNewMatchstickTask(TaskSession taskSession)
 	{
 		MatchstickTaskProcessorReturn newTaskResult = new MatchstickTaskProcessorReturn();
-		int fullTaskNumber = newTaskNumber(taskSession);
-		int testTaskNumber = fullTaskNumber - totalNumberOfTasksForObervingAndLearning(taskSession);
-		
-		newTaskResult.newTaskNumber = testTaskNumber;
+		newTaskResult.newTaskNumber = newTaskNumber(taskSession);
+		newTaskResult.newTaskLocalNumber = newTaskLocalNumber(taskSession);
 		newTaskResult.totalNumberOfTasks = totalNumberOfTasks(taskSession) - totalNumberOfTasksForObervingAndLearning(taskSession);
 		
-		if (newTaskResult.newTaskNumber == 1)
+		if (newTaskResult.newTaskLocalNumber == 1)
 			newTaskResult.pauseAtStart = true;
 		else
 			newTaskResult.pauseAtStart = false;
@@ -78,11 +80,11 @@ public class MatchstickTaskProcessor
 			
 			EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, newTaskNumber(taskSession));
 			int taskNumber = newTaskNumberForLocalPhase(taskSession);
-			System.out.println("New equation for task number '" + newTaskResult.newTaskNumber + " (" + newTaskNumber(taskSession) + ")" + "' [" + equationType + ", " + taskNumber + "]");
+			System.out.println("New equation for task number '" + newTaskResult.newTaskLocalNumber + " (" + newTaskNumber(taskSession) + ")" + "' [" + equationType + ", " + taskNumber + "]");
 			newTaskResult.newEquation = equationAssist.getNextEquation(equationType, taskNumber);
 		}
 		
-		MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, fullTaskNumber);
+		MatchstickExperimentPhase experimentPhase = equationTypeSelector.phaseForTaskNumber(taskSession, newTaskResult.newTaskNumber);
 		if (MatchstickExperimentPhase.TestingPhase_OnlyOriginalStrategy.equals(experimentPhase) 
 			|| MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy.equals(experimentPhase))
 			newTaskResult.restriction = SolvableRestriction.ONE_MOVE_ONLY;
@@ -111,25 +113,33 @@ public class MatchstickTaskProcessor
 	
 	public int newTaskNumber(TaskSession taskSession)
 	{
-		return taskDataAssist.newTaskNumber(taskSession);
+		return taskNumberAssist.newTaskNumber(taskSession);
+	}
+	public int newTaskLocalNumber(TaskSession taskSession)
+	{
+		return taskNumberAssist.newTaskLocalNumber(taskSession);
+	}
+	public MatchstickTaskData lastStoredTaskData(TaskSession taskSession)
+	{
+		return taskDataAssist.lastStoredTaskData(taskSession);
 	}
 	public int totalNumberOfTasks(TaskSession taskSession)
 	{
-		return taskDataAssist.totalNumberOfTasks(taskSession);
+		return taskNumberAssist.totalNumberOfTasks(taskSession);
 	}
 	public int totalNumberOfTasksForObervingAndLearning(TaskSession taskSession)
 	{
-		return taskDataAssist.getNoTasksForPhase(taskSession, MatchstickExperimentPhase.LearningPhase_Showing) + 
-				taskDataAssist.getNoTasksForPhase(taskSession, MatchstickExperimentPhase.LearningPhase_Solving);
+		return taskNumberAssist.getNoTasksForPhase(taskSession, MatchstickExperimentPhase.LearningPhase_Showing) + 
+				taskNumberAssist.getNoTasksForPhase(taskSession, MatchstickExperimentPhase.LearningPhase_Solving);
 	}
 	
 	public int newTaskNumberForLocalPhase(TaskSession taskSession)
 	{
-		return taskDataAssist.newTaskNumber(taskSession) - taskDataAssist.getNoTasksUpToPhase(taskSession, nextPhase(taskSession));
+		return taskNumberAssist.newTaskNumber(taskSession) - taskNumberAssist.getNoTasksUpToPhase(taskSession, nextPhase(taskSession));
 	}
 	public int totalNumberOfTasksForNextPhase(TaskSession taskSession)
 	{
-		return taskDataAssist.getNoTasksForPhase(taskSession, nextPhase(taskSession));
+		return taskNumberAssist.getNoTasksForPhase(taskSession, nextPhase(taskSession));
 	}
 	
 	public boolean isCurrentTaskSessionFinished(TaskSession taskSession)
@@ -145,6 +155,7 @@ public class MatchstickTaskProcessor
 	
 	public class MatchstickTaskProcessorReturn
 	{
+		public int newTaskLocalNumber;
 		public int newTaskNumber;
 		public int totalNumberOfTasks;
 		public String newEquation;

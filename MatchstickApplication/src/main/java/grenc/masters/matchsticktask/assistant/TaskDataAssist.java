@@ -8,7 +8,6 @@ import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.assistant.model.OrderedTaskData;
-import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
@@ -20,6 +19,9 @@ public class TaskDataAssist {
 	private TaskSessionDAO taskSessionDAO;
 	@InsertBean
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
+
+	@InsertBean
+	private TaskNumberAssist taskNumberAssist;
 
 	
 	public OrderedTaskData getOrderedTaskData(TaskSession taskSession)
@@ -49,26 +51,16 @@ public class TaskDataAssist {
 	
 	private boolean shouldBeFinished(TaskSession taskSession)
 	{
-		return (newTaskNumber(taskSession) > totalNumberOfTasks(taskSession));
+		return (taskNumberAssist.newTaskNumber(taskSession) > taskNumberAssist.totalNumberOfTasks(taskSession));
 	}
+
 	
-	public int newTaskNumber(TaskSession taskSession)
+	public MatchstickTaskData lastStoredTaskData(TaskSession taskSession)
 	{
 		Optional<MatchstickTaskData> lastTaskDataOptional = getOrderedTaskData(taskSession).lastTaskData();
 		if (! lastTaskDataOptional.isPresent())
-			return 1;
-		
-		MatchstickTaskData lastTaskData = lastTaskDataOptional.get();
-		switch (lastTaskData.getStatus())
-		{
-			case stopped:
-			case restarted:
-				return lastTaskData.getNumber();
-
-			case solved:
-			default:
-				return lastTaskData.getNumber() + 1;
-		}
+			return null;	
+		return lastTaskDataOptional.get();
 	}
 	
 	public MatchstickTaskStatus statusOfLastTask(TaskSession taskSession)
@@ -84,18 +76,5 @@ public class TaskDataAssist {
 		if (! lastTaskDataOptional.isPresent())
 			return 0l;
 		return lastTaskDataOptional.get().getTime();
-	}
-	
-	public int getNoTasksForPhase(TaskSession taskSession, MatchstickExperimentPhase phase)
-	{
-		return taskSession.getMatchstickGroup().getNoTasksForPhase(phase);
-	}
-	public int getNoTasksUpToPhase(TaskSession taskSession, MatchstickExperimentPhase phase)
-	{
-		return taskSession.getMatchstickGroup().getNoTasksUpToPhase(phase);
-	}
-	public int totalNumberOfTasks(TaskSession taskSession)
-	{
-		 return taskSession.getMatchstickGroup().getNoTasks();
 	}
 }

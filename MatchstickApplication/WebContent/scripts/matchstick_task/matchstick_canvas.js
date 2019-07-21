@@ -91,7 +91,8 @@ function calculateEquation()
     	
         greenButtonContainer.style.display = 'inline';
         redButtonContainer.style.display = 'none';
-        redButtonRestartContainer.style.display = 'none';
+        if (redButtonRestartContainer)
+        	redButtonRestartContainer.style.display = 'none';
         
         greenButton.title = "Contine to next equation";
         if (tooltipContinueText !== undefined)  greenButton.title = tooltipContinueText();
@@ -103,7 +104,8 @@ function calculateEquation()
     	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'none';
-        redButtonRestartContainer.style.display = 'inline';
+        if (redButtonRestartContainer)
+        	redButtonRestartContainer.style.display = 'inline';
         redButtonRestart.title = "Restart";
     }
     else 
@@ -112,7 +114,8 @@ function calculateEquation()
     	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'inline';
-        redButtonRestartContainer.style.display = 'none';
+        if (redButtonRestartContainer)
+        	redButtonRestartContainer.style.display = 'none';
         redButton.title = tooltip;
     }
 }

@@ -24,11 +24,12 @@ public class MatchstickTaskDataDAO
 	}
 	
 	@ResetCache
-	public synchronized MatchstickTaskData insert(int taskSessionId, int number, String status, String originalEq, String solvedEq, long time, int moves, double transfer)
+	public synchronized MatchstickTaskData insert(int taskSessionId, int number, int phaseNumber, String status, String originalEq, String solvedEq, long time, int moves, double transfer)
 	{
 		QueryBuilder.newInsert().intoTable("matchstick_task")
 					.setField("task_session_id", taskSessionId)
 					.setField("number", number)
+					.setField("phase_number", phaseNumber)
 					.setField("status", status)
 					.setField("original_eq", originalEq)
 					.setField("solved_eq", solvedEq)
@@ -41,11 +42,12 @@ public class MatchstickTaskDataDAO
 	}
 	
 	@ResetCache
-	public synchronized MatchstickTaskData insertInitial(int taskSessionId, int number)
+	public synchronized MatchstickTaskData insertInitial(int taskSessionId, int number, int phaseNumber)
 	{
 		QueryBuilder.newInsert().intoTable("matchstick_task")
 					.setField("task_session_id", taskSessionId)
 					.setField("number", number)
+					.setField("phase_number", phaseNumber)
 					.execute();
 		
 		return QueryBuilder.newSelect(MatchstickTaskData::new)
@@ -53,6 +55,7 @@ public class MatchstickTaskDataDAO
 				  .getField("id", Integer.class, MatchstickTaskData::setId)
 				  .getField("task_session_id", Integer.class, MatchstickTaskData::setTaskSessionId)
 				  .getField("number", Integer.class, MatchstickTaskData::setNumber)
+				  .getField("phase_number", Integer.class, MatchstickTaskData::setPhaseNumber)
 				  .where("task_session_id", taskSessionId)
 				  .orderByDesc("id", true)
 				  .execute()
@@ -101,6 +104,7 @@ public class MatchstickTaskDataDAO
 				  .getField("id", Integer.class, MatchstickTaskData::setId)
 				  .getField("task_session_id", Integer.class, MatchstickTaskData::setTaskSessionId)
 				  .getField("number", Integer.class, MatchstickTaskData::setNumber)
+				  .getField("phase_number", Integer.class, MatchstickTaskData::setPhaseNumber)
 				  .getField("status", String.class, MatchstickTaskData::setStatus)
 				  .getField("original_eq", String.class, MatchstickTaskData::setOriginalEq)
 				  .getField("solved_eq", String.class, MatchstickTaskData::setSolvedEq)

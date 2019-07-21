@@ -7,6 +7,7 @@ public class MatchstickTaskData
 	private int id;
 	private int taskSessionId;
 	private int number;
+	private int phaseNumber;
 	
 	private MatchstickTaskStatus status;
 	
@@ -44,6 +45,15 @@ public class MatchstickTaskData
 	public void setNumber(int number)
 	{
 		this.number = number;
+	}
+	
+	public int getPhaseNumber()
+	{
+		return phaseNumber;
+	}
+	public void setPhaseNumber(int phaseNumber)
+	{
+		this.phaseNumber = phaseNumber;
 	}
 	
 	public MatchstickTaskStatus getStatus()
@@ -113,10 +123,12 @@ public class MatchstickTaskData
 	}
 	
 	@Override
-	public String toString() {
-		return "MatchstickTaskData [id=" + id + ", taskSessionId=" + taskSessionId + ", number=" + number + ", status="
-				+ status + ", originalEq=" + originalEq + ", solvedEq=" + solvedEq + ", time=" + time + ", moves="
-				+ moves + ", transfer=" + transfer + "]";
+	public String toString()
+	{
+		return "MatchstickTaskData [id=" + id + ", taskSessionId=" + taskSessionId + ", number=" + number
+				+ ", phaseNumber=" + phaseNumber + ", status=" + status + ", originalEq=" + originalEq + ", solvedEq="
+				+ solvedEq + ", time=" + time + ", totalActivityTime=" + totalActivityTime + ", moves=" + moves
+				+ ", transfer=" + transfer + "]";
 	}
-
+	
 }

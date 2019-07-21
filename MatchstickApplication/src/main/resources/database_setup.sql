@@ -43,6 +43,7 @@ CREATE TABLE matchstick_task (
 	id  				SERIAL PRIMARY KEY,
 	task_session_id		integer NOT NULL,
 	number				integer,
+	phase_number		integer,
 	status				varchar(10),
 	original_eq	 		varchar(12),
 	solved_eq	 		varchar(12),

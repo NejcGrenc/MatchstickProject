@@ -1,6 +1,7 @@
 package grenc.masters.matchsticktask;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -29,12 +30,38 @@ public class ResponseProcessor
 	public void storeEmptyTask(TaskSession taskSession) // Used for Observe & Learn task-parts
 	{
 		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(taskSession);
-		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber);
+		int newTaskLocalNumber = matchstickTaskProcessor.newTaskLocalNumber(taskSession);
+
+		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber, newTaskLocalNumber);
 		matchstickTaskDataDAO.update(taskData.getId(), MatchstickTaskStatus.solved.name(), "", "", 0, 0, 0, 0);	
+	}
+	
+	/**
+	 * This function will return <b>true</b> in case we try to store a task
+	 * that has been successfully completed and stored.
+	 */
+	public boolean isPageRefresh(TaskSession taskSession, String stringData)
+	{
+		int task_number;
+		try 
+		{
+			JSONTokener tokener = new JSONTokener(stringData);
+			JSONObject allData = new JSONObject(tokener);
+			task_number = allData.getInt("task_number");
+		}
+		catch (JSONException e) { return false; }
+
+		MatchstickTaskData lastStoredTask = matchstickTaskProcessor.lastStoredTaskData(taskSession);
+		if (lastStoredTask == null) 
+			return false;
+		
+		System.out.println("Page refresh details: " + task_number + " " + lastStoredTask.getNumber() + "-" + lastStoredTask.getStatus());
+		// Only if the last stored task is already solved and the received task data contains the same (or higher) task number
+		return (lastStoredTask.getNumber() >= task_number);
 	}
 		
 	// TODO make tests for building data properly
-	public void storeData(TaskSession taskSession, String stringData)
+	public void storeData(TaskSession taskSession, String stringData, Boolean restartedViaButton)
 	{
 		JSONTokener tokener = new JSONTokener(stringData);
 		JSONObject allData = new JSONObject(tokener);
@@ -47,9 +74,10 @@ public class ResponseProcessor
 		{
 			System.out.println(actions.getJSONObject(i));
 		}
-		
-		int newTaskNumber = (task_number != null) ? task_number : matchstickTaskProcessor.newTaskNumber(taskSession);
-		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber);
+				
+		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(taskSession);
+		int newTaskLocalNumber = matchstickTaskProcessor.newTaskLocalNumber(taskSession);
+		MatchstickTaskData taskData = matchstickTaskDataDAO.insertInitial(taskSession.getId(), newTaskNumber, newTaskLocalNumber);
  
 		InProcessing dataInProcessing = new InProcessing();	
 		for (int i = 0; i < actions.length(); i++)
@@ -74,6 +102,9 @@ public class ResponseProcessor
 			dataInProcessing.totalActivityTime += (savedAction.getEndTime() - savedAction.getStartTime());
 			dataInProcessing.moves++;
 		}
+		
+		if (restartedViaButton != null)
+			dataInProcessing.restarted = restartedViaButton;
 		
 		// Transfer is yet unknown
 		
