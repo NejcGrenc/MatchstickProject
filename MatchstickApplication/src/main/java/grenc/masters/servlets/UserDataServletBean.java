@@ -74,7 +74,7 @@ public class UserDataServletBean extends BasePageServlet
 
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), url()).set();
-		accountBall.set(builder, servletContext);
+		accountBall.set(builder, servletContext, session.getLang());
 		new DataPresentBall(builder, session).set();
 
 		

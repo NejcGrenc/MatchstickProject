@@ -88,7 +88,7 @@ public class ImagesTaskServletBean extends BasePageServlet
 		
 		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
-		accountBall.set(builder, servletContext);
+		accountBall.set(builder, servletContext, session.getLang());
 		new DataPresentBall(builder, session).set();
 		imageTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 

@@ -2,19 +2,15 @@
 var popupTranslationMap =
 {
 	'en': {
-		'm_popup_firstline': "Performing experiments as: ",
 		'm_closeButton': "Done"
 	},
 	'si': {
-		'm_popup_firstline': "Izvajanje eksperimenta kot: ",
 		'm_closeButton': "Zaključi"
 	},
 	'de': {
-		'm_popup_firstline': "Performing experiments as: ",
 		'm_closeButton': "Erledigt"
 	},
 	'sk': {
-		'm_popup_firstline': "Vykonávanie experimentov ako: ",
 		'm_closeButton': "Ukonči"
 	}
 }

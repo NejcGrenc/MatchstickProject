@@ -63,7 +63,7 @@ public class CreditsServletBean extends BasePageServlet
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		new LanguageBall(builder, session.getLang(), url()).set();
-		accountBall.set(builder, servletContext);
+		accountBall.set(builder, servletContext, session.getLang());
 		
 		builder.appendOnlyAssociatedPageElements(PageElement.credits);
 		builder.appendPageElement(translateProcessor.process(new CreditsPage(servletContext), session.getLang()));
