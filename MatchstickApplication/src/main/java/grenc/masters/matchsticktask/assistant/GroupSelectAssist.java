@@ -16,11 +16,15 @@ public class GroupSelectAssist
 	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
 	
+	public GroupSelectAssist() {}
+	public GroupSelectAssist(TaskSessionDAO taskSessionDao) { this.taskSessionDAO = taskSessionDao; }
+	
+	
 	// Find least used group
 	public synchronized MatchstickGroup selectNewGroup()
 	{
 		MatchstickGroup minUsedGroup = MatchstickGroup.group_A;  // Just some default
-		int minUsedGroupParticipants = 0;
+		int minUsedGroupParticipants = Integer.MAX_VALUE;
 
 		HashMap<MatchstickGroup, Integer> previousGroups = countPreviousGroups();
 		
@@ -36,7 +40,7 @@ public class GroupSelectAssist
 		}
 		if ((previousGroups.get(MatchstickGroup.group_AB_strategyA) + previousGroups.get(MatchstickGroup.group_AB_strategyB)) < minUsedGroupParticipants)
 		{
-			if (previousGroups.get(MatchstickGroup.group_AB_strategyA) < previousGroups.get(MatchstickGroup.group_AB_strategyB))
+			if (previousGroups.get(MatchstickGroup.group_AB_strategyA) <= previousGroups.get(MatchstickGroup.group_AB_strategyB))
 			{
 				minUsedGroup = MatchstickGroup.group_AB_strategyA;
 				minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_AB_strategyA);
@@ -49,7 +53,7 @@ public class GroupSelectAssist
 		}
 		if ((previousGroups.get(MatchstickGroup.group_0_strategyA) + previousGroups.get(MatchstickGroup.group_0_strategyB)) < minUsedGroupParticipants)
 		{
-			if (previousGroups.get(MatchstickGroup.group_0_strategyA) < previousGroups.get(MatchstickGroup.group_0_strategyB))
+			if (previousGroups.get(MatchstickGroup.group_0_strategyA) <= previousGroups.get(MatchstickGroup.group_0_strategyB))
 			{
 				minUsedGroup = MatchstickGroup.group_0_strategyA;
 				minUsedGroupParticipants = previousGroups.get(MatchstickGroup.group_0_strategyA);
