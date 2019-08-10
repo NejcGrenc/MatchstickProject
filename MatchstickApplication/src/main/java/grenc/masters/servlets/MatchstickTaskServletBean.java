@@ -79,7 +79,6 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		MatchstickGroup group = taskBuilder.matchstickGroupType(session);
 		
 		new LanguageBall(builder, session.getLang(), url()).set();
-		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		accountBall.set(builder, servletContext, session.getLang());
 		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType(session));
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, false);

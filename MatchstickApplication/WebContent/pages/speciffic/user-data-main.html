@@ -29,7 +29,7 @@
 	    <div class="horizontal-layout-line">
 	    	<div style="padding: 0px 10px;"><!-- Buffer --></div> 
 			<div>
-				<input type="number" id="m_userdata_input_age" placeholder="Select your age"
+				<input type="number" title="" id="m_userdata_input_age" placeholder="{{userdata_select_age}}"
 						required pattern="[0-9]{1,4}"
 						oninput="changeDetected()" onclick="changeDetected()" onchange="changeDetected()">
 						<!-- Maybe needed also onpropertychange="nameInputChange()"  -->				
@@ -66,7 +66,8 @@
 	hideElementWithId("sendButton");
 	document.getElementsByTagName('select')[0].onchange = function() { changeDetected(); };
 	document.getElementsByTagName('select')[1].onchange = function() { changeDetected(); };
-
+	changeDetected();
+	
 	function changeDetected()
 	{
 		if (isDone()){
@@ -87,7 +88,6 @@
 		var age = document.getElementById("m_userdata_input_age").value;
 		var country = document.getElementsByTagName('select')[0].value;
 		var education = document.getElementsByTagName('select')[1].value;
-
 		
 		var data = {};
 		data.userdata_sex = sex;

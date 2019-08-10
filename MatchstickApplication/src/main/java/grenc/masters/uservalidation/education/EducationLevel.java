@@ -10,32 +10,51 @@ import java.util.Map;
  */
 public enum EducationLevel
 {
-	SELECT    ("Please select"),
-	Level_O   ("None"),
-	Level_1   ("Primary"),
-	Level_2_3 ("Secondary"),
-	Level_4_5 ("Tertiary"),
-	Level_6   ("Bachelor"),
-	Level_7   ("Master"),
-	Level_8   ("Doctor");
+	SELECT    ("Please select",		"Prosimo izberite",		"Prosímo vyberte",		"Bitte auswählen"	),
+	Level_O   ("None", 				"Brez", 				"Bez", 					"Keiner"			),
+	Level_1   ("Primary school",	"Osnovna šola",			"Základná škola",		"Grundschule"		),
+	Level_2_3 ("Secondary school",	"Srednja šola",			"Stredná škola",		"Weiterführende Schule"		),
+	Level_4_5 ("Tertiary school",	"Višja šola",			"Vyššia škola",			"Höhere Schule"		),
+	Level_6   ("Bachelor degree",	"Univerzitetna diploma","Bakalárske štúdium",	"Bachelor-Studium" 	),
+	Level_7   ("Master degree",		"Magisterij",			"Magisterský titul",	"Master-Abschluss"	),
+	Level_8   ("Doctorate", 		"Doktorat", 			"Doktorát", 			"Doktor"			);
 	
-	private String description;
+	private String descriptionEN;
+	private String descriptionSI;
+	private String descriptionSK;
+	private String descriptionDE;
 	
-	private EducationLevel(String description)
+	private EducationLevel(String descriptionEN, String descriptionSI, String descriptionSK, String descriptionDE)
 	{
-		this.description = description;
-	}
-
-	public String getDescription()
-	{
-		return description;
+		this.descriptionEN = descriptionEN;
+		this.descriptionSI = descriptionSI;
+		this.descriptionSK = descriptionSK;
+		this.descriptionDE = descriptionDE;
 	}
 	
-	public static Map<String, String> descriptionMap()
+	
+	public static Map<String, String> descriptionMap(String lang)
 	{
 		Map<String, String> descriptionMap = new HashMap<>();
 		for (EducationLevel el : EducationLevel.values())
-			descriptionMap.put(el.name(), el.description);
+		{
+			String desc;
+			switch (lang) 
+			{
+				default:
+				case "en":
+					desc = el.descriptionEN; break;
+				case "si":
+					desc = el.descriptionSI; break;
+				case "sk":
+					desc = el.descriptionSK; break;
+				case "de":
+					desc = el.descriptionDE; break;
+			}
+			
+			descriptionMap.put(el.name(), desc);
+		}			
 		return descriptionMap;
 	}
+	
 }

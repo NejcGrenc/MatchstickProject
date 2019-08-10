@@ -81,7 +81,7 @@ public class UserDataServletBean extends BasePageServlet
 		Map<String, Country> countryMap = countryList.getListOfCountriesInLanguage(session.getLang());
 		UserDataPage userDataPage = new UserDataPage(servletContext)
 				.withCountries(countryMap, session.getLang())
-				.withEducation(EducationLevel.descriptionMap(), EducationLevel.SELECT.name());
+				.withEducation(EducationLevel.descriptionMap(session.getLang()), EducationLevel.SELECT.name());
 		
 		builder.appendOnlyAssociatedPageElements(PageElement.task_wrapup);
 		builder.appendPageElement(translateProcessor.process(userDataPage, session.getLang()));
@@ -123,11 +123,11 @@ public class UserDataServletBean extends BasePageServlet
 		private SimpleTranslatableSegment userdata_input_sex_m = new SimpleTranslatableSegment(context, "translations/user-data/userdata_input_sex_m.json");
 		private SimpleTranslatableSegment userdata_input_sex_o = new SimpleTranslatableSegment(context, "translations/user-data/userdata_input_sex_o.json");
 		private SimpleTranslatableSegment userdata_label_age = new SimpleTranslatableSegment(context, "translations/user-data/userdata_label_age.json");
+		private SimpleTranslatableSegment userdata_select_age = new SimpleTranslatableSegment(context, "translations/user-data/userdata_select_age.json");
+		private SimpleTranslatableSegment country_title = new SimpleTranslatableSegment(context, "translations/user-data/country_title.json");
+		private SimpleTranslatableSegment education_title = new SimpleTranslatableSegment(context, "translations/user-data/education_title.json");
 
-		private SimpleGrowSegment country_title = new SimpleGrowSegment("Country");
 		private DropdownSelection<String, Country> country_selection;
-		
-		private SimpleGrowSegment education_title = new SimpleGrowSegment("Education");
 		private DropdownSelection<String, String> education_selection;
 		
 		public UserDataPage(ServletContext servletContext)

@@ -2,8 +2,11 @@
 
 function getTranslationMap()
 {
-	if (translationMap === undefined || translationMap === null)
+	if (typeof translationMap === 'undefined' || translationMap === null) 
+	{
 		console.log("Cannot load translation map!");
+		return null;
+	}
 	return translationMap;
 }
 
@@ -21,6 +24,9 @@ function getLanguage()
 
 function translate(message, attribute)
 {
+	if (getTranslationMap() === null)
+		return;
+	
 	console.log("Translating:", message, getLanguage());
 	
 	var locAttr = "innerHTML";
@@ -43,6 +49,9 @@ function translate(message, attribute)
 
 function translateAll()
 {
+	if (getTranslationMap() === null)
+		return;
+	
 	var lang = getLanguage();
 	var translatable = getTranslationMap()[lang];
 	for (var elementId in translatable) {

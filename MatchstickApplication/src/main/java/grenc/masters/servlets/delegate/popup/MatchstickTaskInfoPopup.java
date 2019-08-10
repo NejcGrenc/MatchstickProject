@@ -110,11 +110,11 @@ public class MatchstickTaskInfoPopup
 			case "en":
 				return "For instance, the matchstick tasks can be solved by <br />moving matches from one number to another number or within that number.";			
 			case "si":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one number to another number or within that number.";			
+				return "Na primer, naloge vigaliène enaèbe lahko rešite <br />s premikanjem vigalic iz ene številke v drugo številko ali znotraj te številke.";			
 			case "sk":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one number to another number or within that number.";			
+				return "Napríklad úlohy matchsticku môu by vyriešené <br /> presunutím zápasov z jedného èísla na druhé èíslo alebo v rámci tohto èísla.";			
 			case "de":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one number to another number or within that number.";
+				return "Zum Beispiel können die Matchstick-Aufgaben gelöst werden, <br /> indem Übereinstimmungen von einer Nummer zu einer anderen Nummer oder innerhalb dieser Nummer verschoben werden.";
 		}
 	}
 	private String getTextForStrategyB(String language)
@@ -125,11 +125,11 @@ public class MatchstickTaskInfoPopup
 			case "en":
 				return "For instance, the matchstick tasks can be solved by <br />moving matches from one operator to another operator or within that operator.";			
 			case "si":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one operator to another operator or within that operator.";			
+				return "Na primer, naloge vigaliène enaèbe lahko rešite s <br /> premikanjem vigalic od enega operatorja do drugega operatorja ali znotraj tega operatorja.";			
 			case "sk":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one operator to another operator or within that operator.";			
+				return "Napríklad úlohy matchsticku môu by riešené <br /> presunutím zápasov od jedného operátora k inému operátorovi alebo v rámci tohto operátora.";			
 			case "de":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one operator to another operator or within that operator.";
+				return "Zum Beispiel können die Matchstick-Aufgaben gelöst werden, <br /> indem Streichhölzer von einem Operator zu einem anderen Operator oder innerhalb dieses Operators verschoben werden.";
 		}
 	}
 	
