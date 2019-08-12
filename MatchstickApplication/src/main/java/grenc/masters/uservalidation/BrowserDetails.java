@@ -52,7 +52,11 @@ public class BrowserDetails
 	                browser=(userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0]+"-"+(userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
 	            else if(user.contains("opr"))
 	                browser=((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
-	        } else if (user.contains("chrome"))
+	        } else if (user.contains("edge"))
+	        {
+	            browser=userAgent.substring(userAgent.indexOf("Edge")).replace("/", "-");
+	        }
+	        else if (user.contains("chrome"))
 	        {
 	            browser=(userAgent.substring(userAgent.indexOf("Chrome")).split(" ")[0]).replace("/", "-");
 	        } else if ((user.indexOf("mozilla/7.0") > -1) || (user.indexOf("netscape6") != -1)  || (user.indexOf("mozilla/4.7") != -1) || (user.indexOf("mozilla/4.78") != -1) || (user.indexOf("mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1) )
@@ -84,8 +88,8 @@ public class BrowserDetails
 		return browser;
 	}
 	
-	public boolean isIEorSafari() 
+	public boolean isIEorSafariorEdge() 
 	{
-		return (browser.contains("IE") || browser.contains("Opera"));
+		return (browser.contains("IE") || browser.contains("Safari") || browser.contains("Edge"));
 	}
 }
