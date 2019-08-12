@@ -183,6 +183,7 @@ public class LoginServletBean extends BasePageServlet
 					return PageElement.agreement_si;
 				case "sk":
 					return PageElement.agreement_sk;
+				case "de":
 				case "at":
 					return PageElement.agreement_at;
 			}

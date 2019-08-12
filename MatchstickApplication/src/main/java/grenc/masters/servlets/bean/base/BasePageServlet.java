@@ -16,7 +16,9 @@ public abstract class BasePageServlet implements ServletBean
 	public void processRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext)
 			throws IOException, ServletException
 	{
+        request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		try (PrintWriter out = response.getWriter())
 		{
 			String basePath = servletContext.getRealPath("/");
