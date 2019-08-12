@@ -50,6 +50,23 @@ public class SessionDAO
 		return findSessionWhere("tag", sessionTag);
 	}
 	
+	public List<Session> findAllSessions()
+	{
+		List<Session> sessions = QueryBuilder.newSelect(Session::new)
+				  .fromTable("session")
+				  .getField("id", Integer.class, Session::setId)
+				  .getField("tag", String.class, Session::setTag)
+				  .getField("risk", Integer.class, Session::setRisk)
+				  .getField("lang", String.class, Session::setLang)
+				  .getField("subject_id", Integer.class, Session::setSubjectId)
+				  .getField("test_tasks_only", Boolean.class, Session::setTestTasksOnly)
+				  .getField("snoop_enabled", Boolean.class, Session::setSnoopEnabled)
+				  .orderByDesc("id", false)
+				  .execute();
+		
+		return sessions;
+	}
+	
 	protected <T> Session findSessionWhere(String conditionField, T conditionValue)
 	{
 		List<Session> sessions = QueryBuilder.newSelect(Session::new)

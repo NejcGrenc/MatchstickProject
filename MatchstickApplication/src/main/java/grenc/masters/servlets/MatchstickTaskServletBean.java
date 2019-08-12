@@ -90,6 +90,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		builder.addScript(Script.matchstick_matchstick);
 		builder.addScript(Script.matchstick_equation);
 		builder.addScript(Script.matchstick_calculator);
+		builder.addScript(Script.translate_matchsticktask);
 		builder.addScript(Script.delayed_start);
 		
 		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task);

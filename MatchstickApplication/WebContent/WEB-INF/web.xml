@@ -62,6 +62,11 @@
 		<servlet-name>TaskWrapupServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.TaskWrapupServlet</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>RetrieveDataServlet</servlet-name>
+		<servlet-class>grenc.masters.servlets.RetrieveDataServlet</servlet-class>
+	</servlet>
+	
 	
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
@@ -111,6 +116,10 @@
 		<servlet-name>TaskWrapupServlet</servlet-name>
 		<url-pattern>/taskWrapup</url-pattern>
 	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>RetrieveDataServlet</servlet-name>
+		<url-pattern>/data</url-pattern>
+	</servlet-mapping>
 	
 	<resource-ref>
 	  <res-ref-name>jdbc/matchstickdb</res-ref-name>
@@ -129,5 +138,23 @@
         </user-data-constraint>
     </security-constraint>
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Data - auth</web-resource-name>
+			<url-pattern>/data</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>experimentator</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
 </web-app>
+
 

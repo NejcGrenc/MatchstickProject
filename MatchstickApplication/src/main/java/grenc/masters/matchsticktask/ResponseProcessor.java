@@ -57,7 +57,7 @@ public class ResponseProcessor
 		
 		System.out.println("Page refresh details: " + task_number + " " + lastStoredTask.getNumber() + "-" + lastStoredTask.getStatus());
 		// Only if the last stored task is already solved and the received task data contains the same (or higher) task number
-		return (lastStoredTask.getNumber() >= task_number);
+		return (lastStoredTask.getStatus() == MatchstickTaskStatus.solved && lastStoredTask.getNumber() >= task_number);
 	}
 		
 	// TODO make tests for building data properly

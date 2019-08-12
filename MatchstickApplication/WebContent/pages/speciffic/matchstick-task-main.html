@@ -57,7 +57,7 @@
     	taskSequenceNumber = fullNumber;
     	
     	var solvingTaskString = "{{solving_task}}";
-        if (solvingTaskText !== undefined)
+        if (typeof solvingTaskText !== 'undefined')
         	solvingTaskString = solvingTaskText();
     	document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + currentNumber + " / " + totalNumber;
     }
