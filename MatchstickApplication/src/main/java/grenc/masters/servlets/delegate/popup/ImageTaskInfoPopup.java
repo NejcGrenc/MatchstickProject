@@ -32,6 +32,7 @@ public class ImageTaskInfoPopup extends ReadFileBuilderAbstract
 				break;
 				
 			case "at":
+			case "de":
 				popupContentFile = PageElement.image_info_at;
 				break;
 		}

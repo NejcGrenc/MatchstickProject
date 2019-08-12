@@ -73,6 +73,8 @@ public class ImagesTaskServletBean extends BasePageServlet
 		builder.addScript(Script.send);
 		builder.addScript(Script.translate);
 		builder.addScript(Script.familiar_figures);
+		builder.addScript(Script.translate_familiarfigures);
+
 		
 		
 		String sessionTag = (String) request.getAttribute("session");

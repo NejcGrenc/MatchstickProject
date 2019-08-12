@@ -145,9 +145,9 @@ function drawImage(image, startX, startY, imgWidth, imgHeight)
 function incrementTaskCounter() 
 {
 	var solvingTaskString = "Solving task";
-    if (solvingTaskText !== undefined)
+    if (typeof solvingTaskText !== 'undefined')
     	solvingTaskString = solvingTaskText();
-	
+
     taskInstance++;
     document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + taskInstance + " / " + tasks.length;
 }
@@ -262,11 +262,11 @@ function drawTaskImages(taskData)
 {
     clearCanvas();
     
-    var canvasMiddleWidth = canvas.width/2;
+    var canvasMiddleWidth = canvas.width * 2/5;
     
     drawImage(taskData.figure, 0, 0, canvasMiddleWidth - 1, canvas.height);
     drawTaskImagesSeparator(canvasMiddleWidth);
-    drawImage(taskData.resolution, canvasMiddleWidth + 1, 0, canvasMiddleWidth, canvas.height);
+    drawImage(taskData.resolution, canvasMiddleWidth + 1, 0, canvas.width - canvasMiddleWidth, canvas.height);
 }
 function drawTaskImagesSeparator(canvasMiddleWidth)
 {
@@ -282,11 +282,13 @@ function solutionListener(mouseEvent)
     var mouseX = (mouseEvent.clientX - bRect.left)*(canvas.width/bRect.width);
     var mouseY = (mouseEvent.clientY - bRect.top)*(canvas.height/bRect.height);
 
-    var figureZoneClick = (mouseX < canvas.width/2 + 2);
+    var canvasMiddleWidth = canvas.width * 2/5;
+    
+    var figureZoneClick = (mouseX < canvasMiddleWidth + 2);
     if (figureZoneClick)
         return;
 
-    var sextant = claculateSextant(mouseX, mouseY, canvas.width/2 + 2, canvas.width / 2, canvas.height);
+    var sextant = claculateSextant(mouseX, mouseY, canvasMiddleWidth + 2, canvas.width - canvasMiddleWidth, canvas.height);
     if (sextant !== null)
         finishTask(sextant);
 }
