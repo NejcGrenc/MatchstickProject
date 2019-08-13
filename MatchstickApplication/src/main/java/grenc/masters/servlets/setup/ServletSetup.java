@@ -1,4 +1,7 @@
+
 package grenc.masters.servlets.setup;
+
+import java.nio.charset.Charset;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,6 +18,8 @@ public class ServletSetup implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         // Webapp startup.
     	System.out.println("MatchstickApplication startup!");
+    	System.out.println(Charset.defaultCharset().displayName());
+
     	BeanProcessor.processPath("grenc.masters");
     }
 
