@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import grenc.masters.Encoding;
 import grenc.masters.webpage.builder.WebpageBuilder;
 
 public abstract class BasePageServlet implements ServletBean
@@ -16,9 +17,8 @@ public abstract class BasePageServlet implements ServletBean
 	public void processRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext)
 			throws IOException, ServletException
 	{
-        request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding(Encoding.common);
+		response.setCharacterEncoding(Encoding.common);
 		try (PrintWriter out = response.getWriter())
 		{
 			String basePath = servletContext.getRealPath("/");

@@ -1,11 +1,13 @@
 package grenc.masters.webpage.builder;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import grenc.masters.Encoding;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
@@ -121,7 +123,7 @@ public class WebpageBuilder
 		public void write(PrintWriter out)
 		{
 			out.println("<head>");
-			out.println("<meta charset=\"UTF-8\">");
+			out.println("<meta charset=\"" + Encoding.common + "\">");
 			out.println("<title>" + title + "</title>");
 			for (String style : styles)
 				out.println(writeStyle(style));
@@ -207,7 +209,7 @@ public class WebpageBuilder
 		{
 			try 
 			{
-			    BufferedReader in = new BufferedReader(new FileReader(basePath + file));
+			    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(basePath + file), Encoding.common));
 			    String str;
 			    while ((str = in.readLine()) != null) 
 			    {

@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import grenc.masters.Encoding;
 import grenc.masters.database.dao.ImageTaskDataDAO;
 import grenc.masters.database.dao.MatchstickActionDataDAO;
 import grenc.masters.database.dao.MatchstickTaskDataDAO;
@@ -75,6 +76,7 @@ public class RetrieveDataServletBean implements ServletBean
 
 		
 		response.setContentType("text/html");
+		response.setCharacterEncoding(Encoding.common);
 		PrintWriter out = response.getWriter();
 		out.println("<span><a href=\"" + matchstickFilePath + "\"><h3>Matchstick task data</h3></a></span>");
 		out.println("<span><a href=\"" + imageFilePath + "\"><h3>Familiar figures task data</h3></a></span>");

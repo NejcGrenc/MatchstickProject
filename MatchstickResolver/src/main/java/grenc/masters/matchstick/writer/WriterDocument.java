@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import grenc.masters.Encoding;
 import grenc.masters.matchstick.run.main.ResolverProperties;
 
 
@@ -19,7 +20,7 @@ public class WriterDocument extends Writer
 	{
 		try
 		{
-			writer = new PrintWriter(makeFullFileName(group.name()), "UTF-8");
+			writer = new PrintWriter(makeFullFileName(group.name()), Encoding.common);
 		} 
 		catch (FileNotFoundException | UnsupportedEncodingException e)
 		{

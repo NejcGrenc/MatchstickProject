@@ -2,10 +2,13 @@ package grenc.growscript.service.utils.reader;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 
 import grenc.growscript.service.exception.GrowScriptException;
+import grenc.growscript.service.utils.Encoding;
 
 
 public class FileReaderString
@@ -43,9 +46,8 @@ public class FileReaderString
 		BufferedReader in = null;
 		try 
 		{
-			java.io.FileReader reader = new java.io.FileReader(fullFilename);
-
-		    in = new BufferedReader(reader);
+			in = new BufferedReader(new InputStreamReader(new FileInputStream(fullFilename), Encoding.common));
+			
 		    String str;
 		    while ((str = in.readLine()) != null) 
 		    {
