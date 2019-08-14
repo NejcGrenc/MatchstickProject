@@ -114,11 +114,14 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		
 		// Start the task when all is properly set
 		if (newTask.pauseAtStart)
+		{
 			builder.appendBodyScriptCommand("startWithPause();");
+			openInfoPopupBeforeStart(builder, taskSession);
+		}
 		else
+		{
 			builder.appendBodyScriptCommand("start();");
-		
-		openInfoPopupBeforeStart(builder, taskSession);
+		}
 
 	}
 
@@ -168,10 +171,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	
 	private void openInfoPopupBeforeStart(WebpageBuilder builder, TaskSession taskSession)
 	{
-		if (taskBuilder.newTaskNumber(taskSession) == 1)
-		{
-			builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
-		}
+		builder.appendBodyScriptCommand("document.getElementById('button-info').click();");
 	}
 	
 	@SuppressWarnings("unused")
