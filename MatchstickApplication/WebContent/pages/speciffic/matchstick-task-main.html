@@ -16,10 +16,10 @@
     <!-- Application space -->
     <div class="centered horizontal-layout" style="align-items: normal;">
     	<div class="vertical-layout">
+    		<h2 id="restriction"></h2>    
 	        <div id="canvas-container">
 	            <canvas id="canvas" width="1000" height="500"></canvas>	
-	        </div>
-	        <h2 id="restriction"></h2>                
+	        </div>            
         </div>
         <div id="buffer-zone" style="width: 20px;"></div>
         <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center;">
@@ -62,10 +62,10 @@
     	document.getElementById('taskCounter').innerHTML = solvingTaskString + ": " + currentNumber + " / " + totalNumber;
     }
 
-    function setRestriction(restriction)
+    function setRestriction(restriction, blocked = false)
     {
     	console.log("restriction ", restriction);
-    	document.getElementById('restriction').innerHTML = restrictionsText(restriction);
+    	document.getElementById('restriction').innerHTML = restrictionsText(restriction, blocked);
     	restrictionOnlyOne = restriction;
     }
     

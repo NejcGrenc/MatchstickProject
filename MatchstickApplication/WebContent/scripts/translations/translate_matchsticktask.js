@@ -102,30 +102,45 @@ function tooltipContinueText()
 		return "Pokračujte na nasledujúcu rovnicu";
 }
 
-function restrictionsText(onlyOneMoveRestricted)
+function restrictionsText(onlyOneMoveRestricted, blocked)
 {
+	console.log("restrictionsText", onlyOneMoveRestricted, blocked);
 	var lang = getLanguage();
 	if (onlyOneMoveRestricted)
 	{
-		if (lang == "en")
-			return "Correct the equation by USING ONLY ONE MOVE";
-		if (lang == "si")
-			return "Popravite enačbo z UPORABO LE ENE POZTEZE";
-		if (lang == "de")
-			return "Korrigieren Sie die Gleichung, indem Sie NUR EINEN ZUG VERWENDEN";
-		if (lang == "sk")
-			return "Opravte rovnicu tak, že POUŽIJETE IBA JEDEN ŤAH";
+		if (blocked)
+		{
+			if (lang == "en")
+				return "Wrong move. PLEASE START AGAIN.";
+			if (lang == "si")
+				return "Napačna poteza. PROSIMO ZAČNITE PONOVNO.";
+			if (lang == "de")
+				return "Falscher Zug. BITTE BEGINNEN SIE WIEDER.";
+			if (lang == "sk")
+				return "Nesprávny ťah. PROSÍM ZAČÍNAJTE ZNOVA.";
+		}
+		else
+		{
+			if (lang == "en")
+				return "Correct the equation by USING ONLY ONE MOVE.";
+			if (lang == "si")
+				return "Popravite enačbo z UPORABO LE ENE POZTEZE.";
+			if (lang == "de")
+				return "Korrigieren Sie die Gleichung, indem Sie NUR EINEN ZUG VERWENDEN.";
+			if (lang == "sk")
+				return "Opravte rovnicu tak, že POUŽIJETE IBA JEDEN ŤAH.";
+		}
 	}
 	else
 	{
 		if (lang == "en")
-			return "Correct the equation by USING THE LEAST NUMBER OF MOVES";
+			return "Correct the equation by USING THE LEAST NUMBER OF MOVES.";
 		if (lang == "si")
-			return "Popravite enačbo z UPORABO NAJMANJŠEGA ŠTEVILA POTEZ";
+			return "Popravite enačbo z UPORABO NAJMANJŠEGA ŠTEVILA POTEZ.";
 		if (lang == "de")
-			return "Korrigieren Sie die Gleichung, indem Sie DIE LETZTE ANZAHL VON ZÜGEN VERWENDEN";
+			return "Korrigieren Sie die Gleichung, indem Sie DIE LETZTE ANZAHL VON ZÜGEN VERWENDEN.";
 		if (lang == "sk")
-			return "Opravte rovnicu tak, že POUŽIJETE NIŽŠÍ POČET ŤAHOV";
+			return "Opravte rovnicu tak, že POUŽIJETE NIŽŠÍ POČET ŤAHOV.";
 	}
 }
 

@@ -102,6 +102,10 @@ function calculateEquation()
     	timer.stopTimer();
     	blockAll();
     	
+    	console.log(setRestriction);
+    	if (typeof setRestriction !== 'undefined')
+    		setRestriction(restrictionOnlyOne, true);
+    	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'none';
         if (redButtonRestartContainer)
