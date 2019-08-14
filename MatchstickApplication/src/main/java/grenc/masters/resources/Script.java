@@ -20,7 +20,6 @@ public enum Script {
 	
 	collapsible ("collapsible.js"),
 	data_present ("data_present.js"),
-	input_security ("input_security.js"),
 	page_functions ("page_functions.js"),
 	popup ("popup.js"),
 	send ("send.js"),
