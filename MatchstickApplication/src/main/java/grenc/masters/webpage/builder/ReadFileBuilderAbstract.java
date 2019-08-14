@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 
 import javax.servlet.ServletContext;
 
+import grenc.masters.Encoding;
+
 public class ReadFileBuilderAbstract
 {
 	
@@ -22,7 +24,7 @@ public class ReadFileBuilderAbstract
 		try 
 		{
 			String basePath = getBasePath(servletContext);
-		    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(new File(basePath + fileName)), "windows-1250"));
+		    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(new File(basePath + fileName)), Encoding.common));
 
 		    String line;
 		    while ((line = in.readLine()) != null) 

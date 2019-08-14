@@ -2,5 +2,5 @@ package grenc.masters;
 
 public class Encoding
 {
-	public static final String common = "windows-1250";
+	public static final String common = "UTF-8";
 }
