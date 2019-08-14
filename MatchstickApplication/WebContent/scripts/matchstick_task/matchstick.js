@@ -6,8 +6,12 @@ var matchstick_standard_width = 10;
 var matchstick_standard_height = 50;
 
 var standard_matchstickImageLocation = "images/matchstick_original.png";
-var matchstickStickColor = "#007777";
-var matchstickBallColor = "#FF6699";
+var matchstickStickColor = "#F79447";
+var matchstickBallColor = "#D80A0A";
+
+// Old values
+//var matchstickStickColor = "#007777";
+//var matchstickBallColor = "#FF6699";
 
 //
 // Constructor
