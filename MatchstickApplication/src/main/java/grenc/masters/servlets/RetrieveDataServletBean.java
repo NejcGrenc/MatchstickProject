@@ -1,18 +1,8 @@
 package grenc.masters.servlets;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,21 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.Encoding;
-import grenc.masters.database.dao.ImageTaskDataDAO;
-import grenc.masters.database.dao.MatchstickActionDataDAO;
-import grenc.masters.database.dao.MatchstickTaskDataDAO;
-import grenc.masters.database.dao.SessionDAO;
-import grenc.masters.database.dao.SubjectDAO;
-import grenc.masters.database.dao.TaskSessionDAO;
-import grenc.masters.database.entities.MatchstickTaskData;
-import grenc.masters.database.entities.Session;
-import grenc.masters.database.entities.TaskSession;
-import grenc.masters.matchsticktask.TaskSessionProperty;
-import grenc.masters.matchsticktask.type.MatchstickGroup;
-import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
-import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.servlets.bean.base.ServletBean;
+import grenc.masters.servlets.finalreports.FamiliarFiguresTaskFileCreator;
 import grenc.masters.servlets.finalreports.MatchstickTaskFileCreator;
+import grenc.masters.servlets.finalreports.UsersFileCreator;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -44,6 +23,7 @@ public class RetrieveDataServletBean implements ServletBean
 {
 	public static final String delimiter = ",";
 	
+	private static final String directory = "data";
 	private static final String matchstickFilePath = "data/matchsticktask.csv";
 	private static final String imageFilePath = "data/imagetask.csv";
 	private static final String usersFilePath = "data/users.csv";
@@ -51,8 +31,10 @@ public class RetrieveDataServletBean implements ServletBean
 	
 	@InsertBean
 	private MatchstickTaskFileCreator matchstickTaskFileCreator;
-
-	
+	@InsertBean
+	private FamiliarFiguresTaskFileCreator familiarFiguresTaskFileCreator;
+	@InsertBean
+	private UsersFileCreator usersFileCreator;
 	
 	@Override
 	public String url()
@@ -71,9 +53,14 @@ public class RetrieveDataServletBean implements ServletBean
 	public void processRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext)
 			throws IOException, ServletException
 	{
+		new File(directory).mkdirs();
 		File matchstickFile = createNewFile(servletContext, matchstickFilePath); 
 		matchstickTaskFileCreator.prepareFile(matchstickFile);
-
+		File familiarFiguresFile = createNewFile(servletContext, imageFilePath); 
+		familiarFiguresTaskFileCreator.prepareFile(familiarFiguresFile);
+		File usersFile = createNewFile(servletContext, usersFilePath); 
+		usersFileCreator.prepareFile(usersFile);
+		
 		
 		response.setContentType("text/html");
 		response.setCharacterEncoding(Encoding.common);

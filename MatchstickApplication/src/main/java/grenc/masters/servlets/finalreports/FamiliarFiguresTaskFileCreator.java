@@ -43,8 +43,8 @@ public class FamiliarFiguresTaskFileCreator
 
 		for (Session session : sessionDAO.findAllSessions()) 
 		{
-			if (session.getRisk() > 1)
-				continue;
+//			if (session.getRisk() > 1)
+//				continue;
 
 			for (TaskSession taskSession : taskSessionDAO.findAllTaskForSessionIdAndTaskType(session.getId(), TaskType.images.name()))
 			{	
@@ -61,7 +61,7 @@ public class FamiliarFiguresTaskFileCreator
 				}
 				
 				List<ImageTaskPresentableData> orderedList = new ArrayList<>();
-				for (int i = 1; i <= totalNumberOfImageTasks; i++)
+				for (int i = 0; i < totalNumberOfImageTasks; i++)
 					orderedList.add(orderedList.size(), (tasksData.get(i) != null) ? tasksData.get(i) : ImageTaskPresentableData.empty());
 				
 				String data = joinString(session.getId(), session.getSubjectId(), session.getLang(), joinString(orderedList));

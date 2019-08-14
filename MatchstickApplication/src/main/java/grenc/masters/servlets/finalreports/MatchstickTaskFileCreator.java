@@ -31,8 +31,6 @@ public class MatchstickTaskFileCreator
 	@InsertBean
 	private SessionDAO sessionDAO;
 	@InsertBean
-	private SubjectDAO subjectDAO;
-	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
 	@InsertBean
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
@@ -66,9 +64,13 @@ public class MatchstickTaskFileCreator
 						tasksData.put(taskNumber, new MatchstickTaskPresentableData());
 					MatchstickTaskPresentableData currentData = tasksData.get(taskNumber);
 										
+	
 					currentData.taskTime += matchstickTaskData.getTotalActivityTime();
+					
 					if (matchstickTaskData.getStatus() == MatchstickTaskStatus.solved)
-						currentData.taskMoves = matchstickTaskData.getMoves();
+						currentData.taskMoves += matchstickTaskData.getMoves();
+					else
+						currentData.taskMoves += 1;
 				}
 				
 				List<MatchstickTaskPresentableData> orderedList = new ArrayList<>();
