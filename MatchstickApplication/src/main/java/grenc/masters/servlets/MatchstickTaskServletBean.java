@@ -20,10 +20,9 @@ import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.delegate.popup.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.AccountBall;
-import grenc.masters.webpage.common.DataPresentBall;
-import grenc.masters.webpage.common.LanguageBall;
-import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.element.AccountBall;
+import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -49,6 +48,10 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	
 	@InsertBean
 	private AccountBall accountBall;
+	@InsertBean
+	private DataPresentBall dataPresentBall;	
+	@InsertBean
+	private LanguageBall languageBall;
 	
 	@InsertBean
 	private TranslationProcessor translateProcessor;
@@ -78,9 +81,9 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		MatchstickTaskProcessorReturn newTask = taskBuilder.prepareNewMatchstickTask(taskSession);
 		MatchstickGroup group = taskBuilder.matchstickGroupType(session);
 		
-		new LanguageBall(builder, session.getLang(), url()).set();
+		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
-		new DataPresentBall(builder, session).set().withMatchstickGroup(taskBuilder.matchstickGroupType(session));
+		dataPresentBall.set(builder, session).withMatchstickGroup(builder, session, taskBuilder.matchstickGroupType(session));
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, false);
 
 	    

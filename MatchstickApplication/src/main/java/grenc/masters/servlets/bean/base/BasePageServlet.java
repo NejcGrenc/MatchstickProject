@@ -9,10 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.Encoding;
+import grenc.masters.servlets.developtools.RefreshCache;
 import grenc.masters.webpage.builder.WebpageBuilder;
+import grenc.simpleton.Beans;
 
 public abstract class BasePageServlet implements ServletBean
 {
+	private RefreshCache refreshCache;
+	
 	@Override
 	public void processRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext)
 			throws IOException, ServletException
@@ -28,6 +32,8 @@ public abstract class BasePageServlet implements ServletBean
 			createWebPage(builder, request, servletContext);
 			
 			builder.writePage(out);
+			
+			cacheResponse(request, builder);
 		} 
 		catch (IOException e)
 		{
@@ -45,6 +51,14 @@ public abstract class BasePageServlet implements ServletBean
 	private void includeCurrentCall(WebpageBuilder builder)
 	{
 		builder.appendHeadScriptCommand("var currUrl = '" + url() + "';");
+	}
+	
+	private void cacheResponse(HttpServletRequest request, WebpageBuilder responseBuilder)
+	{
+		// Lazy load
+		if (refreshCache == null)
+			refreshCache = Beans.get(RefreshCache.class);
+		refreshCache.cacheResponse(request, responseBuilder);
 	}
 	
 	protected abstract void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext);

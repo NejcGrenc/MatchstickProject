@@ -7,7 +7,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import grenc.growscript.base.SimpleGrowSegment;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.entities.Session;
@@ -20,10 +19,10 @@ import grenc.masters.uservalidation.countries.Country;
 import grenc.masters.uservalidation.countries.CountryList;
 import grenc.masters.uservalidation.education.EducationLevel;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.AccountBall;
-import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.DropdownSelection;
-import grenc.masters.webpage.common.LanguageBall;
+import grenc.masters.webpage.element.AccountBall;
+import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -41,6 +40,10 @@ public class UserDataServletBean extends BasePageServlet
 	
 	@InsertBean
 	private AccountBall accountBall;
+	@InsertBean
+	private LanguageBall languageBall;
+	@InsertBean
+	private DataPresentBall dataPresentBall;
 	
 	@InsertBean
 	private CountryList countryList;
@@ -73,9 +76,9 @@ public class UserDataServletBean extends BasePageServlet
 		builder.addScript(Script.send);
 
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
-		new LanguageBall(builder, session.getLang(), url()).set();
+		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
-		new DataPresentBall(builder, session).set();
+		dataPresentBall.set(builder, session);
 
 		
 		Map<String, Country> countryMap = countryList.getListOfCountriesInLanguage(session.getLang());

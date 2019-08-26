@@ -83,6 +83,7 @@ public class BeanProcessor
 		
 		try
 		{
+			// System.out.println("Setting bean " + insertedBeanInstance.getClass() + " into bean " + recievingBeanInstance.getClass());
 			field.set(recievingBeanInstance, insertedBeanInstance);
 		} 
 		catch (IllegalArgumentException | IllegalAccessException e)

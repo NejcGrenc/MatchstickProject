@@ -13,7 +13,8 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.DataPresentBall;
+import grenc.masters.webpage.common.ReturnableBean;
+import grenc.masters.webpage.element.DataPresentBall;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -23,6 +24,11 @@ public class LanguageServletBean extends BasePageServlet
 {
 	@InsertBean
 	private SessionDAO sessionDAO;
+	
+	@InsertBean
+	private ReturnableBean returnableBean;
+	@InsertBean
+	private DataPresentBall dataPresentBall;
 	
 	@Override
 	public String url()
@@ -40,17 +46,14 @@ public class LanguageServletBean extends BasePageServlet
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
-		String returnUrl = (String) request.getAttribute("returnUrl");
-		returnUrl = (returnUrl != null) ? returnUrl : "/";
+		returnableBean.prepareReturnTo(builder, request);
 		
-		builder.addScript(Script.send);
-		builder.appendHeadScriptCommand("var returnUrl = '" + returnUrl + "';");
-		
+		builder.addScript(Script.send);		
 		builder.addStyle(Style.language_page);
 		builder.addStyle(Style.buttons);	
 		builder.appendPageElementFile(PageElement.select_language);		
 		
-		new DataPresentBall(builder, session).set();
+		dataPresentBall.set(builder, session);
 	}
 	
 	

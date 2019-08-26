@@ -1,4 +1,4 @@
-package grenc.masters.webpage.common;
+package grenc.masters.webpage.element;
 
 import grenc.masters.database.entities.Session;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
@@ -6,27 +6,20 @@ import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.webpage.builder.WebpageBuilder;
+import grenc.simpleton.annotation.Bean;
 
-public class DataPresentBall extends CommonElement
+@Bean
+public class DataPresentBall
 {
-	private Session session;
-	
-	// We do not have a return button (browser return works ok)
-	public DataPresentBall(WebpageBuilder builder, Session session)
-	{
-		super(builder);
-		this.session = session;
-	}
-
-	private boolean allowed()
+	private boolean allowed(Session session)
 	{
 		return session.isSnoopEnabled();
 	}
 	
 	
-	public DataPresentBall set()
+	public DataPresentBall set(WebpageBuilder builder, Session session)
 	{
-		if (allowed())
+		if (allowed(session))
 		{
 			builder.addStyle(Style.buttons);
 			builder.addScript(Script.send);
@@ -38,9 +31,9 @@ public class DataPresentBall extends CommonElement
 		return this;
 	}
 	
-	public DataPresentBall withMatchstickGroup(MatchstickGroup group)
+	public DataPresentBall withMatchstickGroup(WebpageBuilder builder, Session session, MatchstickGroup group)
 	{
-		if (allowed())
+		if (allowed(session))
 		{
 			builder.appendBodyScriptCommand("setMatchstickGroup('" + group.name() + "');");
 		}

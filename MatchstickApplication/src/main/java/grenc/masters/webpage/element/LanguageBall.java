@@ -1,31 +1,15 @@
-package grenc.masters.webpage.common;
+package grenc.masters.webpage.element;
 
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.webpage.builder.WebpageBuilder;
+import grenc.simpleton.annotation.Bean;
 
-public class LanguageBall extends CommonElement
+@Bean
+public class LanguageBall
 {
-	
-	private String userLang;
-	private String currentPage;
-	
-	@Deprecated
-	public LanguageBall(WebpageBuilder builder, String userLang)
-	{
-		super(builder);
-		this.userLang = userLang;
-	}
-	
-	public LanguageBall(WebpageBuilder builder, String userLang, String currentPage)
-	{
-		super(builder);
-		this.userLang = userLang;
-		this.currentPage = currentPage;
-	}
-
-	public void set()
+	public void set(WebpageBuilder builder, String userLang, String currentPage)
 	{
 		builder.addStyle(Style.buttons);
 		builder.addScript(Script.translate);

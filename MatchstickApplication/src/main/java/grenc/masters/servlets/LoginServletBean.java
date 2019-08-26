@@ -20,8 +20,8 @@ import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.DataPresentBall;
-import grenc.masters.webpage.common.LanguageBall;
+import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -41,6 +41,10 @@ public class LoginServletBean extends BasePageServlet
 	
 	@InsertBean
 	private TranslationProcessor translateProcessor;
+	@InsertBean
+	private DataPresentBall dataPresentBall;
+	@InsertBean
+	private LanguageBall languageBall;
 
 	@Override
 	public String url()
@@ -68,9 +72,9 @@ public class LoginServletBean extends BasePageServlet
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
-		new LanguageBall(builder, session.getLang(), url()).set();
+		languageBall.set(builder, session.getLang(), url());
 
-		new DataPresentBall(builder, session).set();
+		dataPresentBall.set(builder, session);
 		
 		
 		builder.appendOnlyAssociatedPageElements(PageElement.login);

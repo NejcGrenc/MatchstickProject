@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.masters.servlets.developtools.InitialCallHandler;
+import grenc.masters.servlets.developtools.RefreshCache;
+import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -20,6 +22,8 @@ import grenc.simpleton.annotation.InsertBean;
 @Bean
 public class DispatcherServletBean
 {
+	@InsertBean
+	private RefreshCache refreshCache;
 	@InsertBean
 	private ServletBeanProcessor servletBeanProcessor;
 	@InsertBean
@@ -41,6 +45,15 @@ public class DispatcherServletBean
 		System.out.println();
 		
 		mapParametersAsAttributes(request);
+		
+		// In case a page refresh occurred, return cached data
+		refreshCache.deleteTimeoutedData();
+		if (refreshCache.isEligibleForRefresh(request))
+		{
+			System.out.println("New request has been determined to be a page refresh. Returning previous cached data.");
+			outputExistingResponse(response, refreshCache.getCachedResponse(request));
+			return;
+		}
 		
 		// Process client's previous response phase
 		String previousUrl = getPreviousUrl(request);
@@ -87,5 +100,10 @@ public class DispatcherServletBean
 	public RequestDispatcher buildDispatcher(String forwardUrl, ServletContext servletContext)
 	{
 		return servletContext.getRequestDispatcher(forwardUrl);
+	}
+	
+	private void outputExistingResponse(HttpServletResponse response, WebpageBuilder cachedResponse) throws IOException
+	{
+		cachedResponse.writePage(response.getWriter());
 	}
 }

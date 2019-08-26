@@ -35,6 +35,8 @@ public class Beans
 	@SuppressWarnings("unchecked")
 	public static <T> T getExact(Class<T> type)
 	{
+		if (! beans.containsKey(type))
+			throw new BeanProcessorException("Attempting to get bean of exact type [" + type + "], but there is no such bean.");
 		return (T) beans.get(type);
 	}
 	

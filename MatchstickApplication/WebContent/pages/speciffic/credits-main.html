@@ -4,7 +4,7 @@
 <div style="height: 15%;">
 	<div style="height: 30px;"></div>
 	<div>
-		<div id="selectTaskButton" class="blueBallButton" onclick="goToSelectTask()">
+		<div id="selectTaskButton" class="blueBallButton" onclick="postReturn()">
 			<img src="images/baseline_arrow_back_ios_white_48dp.png" alt="Back" style="width: 50px; margin-left: 12px;" />
 		</div>
 	</div>
@@ -98,16 +98,4 @@
 </div>
 <div style="height: 5%;"></div>
 </div>
-<script>
-	function goToSelectTask()
-	{		
-		if (post)
-		{
-			post("/selectTask");
-		}
-		else
-		{ console.log("Failed at forward to /selectTask. Post function missing."); }
-	}
-</script>
-
 

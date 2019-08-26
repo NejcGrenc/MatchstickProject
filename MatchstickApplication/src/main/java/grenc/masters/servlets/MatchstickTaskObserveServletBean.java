@@ -20,10 +20,10 @@ import grenc.masters.resources.Video;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.delegate.popup.MatchstickTaskInfoPopup;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.AccountBall;
-import grenc.masters.webpage.common.DataPresentBall;
-import grenc.masters.webpage.common.LanguageBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.element.AccountBall;
+import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -49,6 +49,10 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 	
 	@InsertBean
 	private AccountBall accountBall;
+	@InsertBean
+	private DataPresentBall dataPresentBall;
+	@InsertBean
+	private LanguageBall languageBall;
 	
 	@InsertBean
 	private TranslationProcessor translateProcessor;
@@ -69,10 +73,10 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 		TaskSession taskSession = matchstickTaskProcessor.taskSessionToUse(session);
 		MatchstickGroup group = matchstickTaskProcessor.matchstickGroupType(session);
 		
-		new LanguageBall(builder, session.getLang(), url()).set();
+		languageBall.set(builder, session.getLang(), url());
 		new Translate(builder, Script.translate_matchsticktask).translateAll();
 		accountBall.set(builder, servletContext, session.getLang());
-		new DataPresentBall(builder, session).set().withMatchstickGroup(group);
+		dataPresentBall.set(builder, session).withMatchstickGroup(builder, session, group);
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, true);
 
 		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task_observe);

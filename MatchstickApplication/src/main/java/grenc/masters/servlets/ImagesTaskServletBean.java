@@ -25,9 +25,9 @@ import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.delegate.popup.ImageTaskInfoPopup;
 import grenc.masters.utils.PrintUtils;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.AccountBall;
-import grenc.masters.webpage.common.DataPresentBall;
 import grenc.masters.webpage.common.Translate;
+import grenc.masters.webpage.element.AccountBall;
+import grenc.masters.webpage.element.DataPresentBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -51,6 +51,9 @@ public class ImagesTaskServletBean extends BasePageServlet
 	private ImageTaskInfoPopup imageTaskInfoPopup;
 	@InsertBean
 	private AccountBall accountBall;
+	@InsertBean
+	private DataPresentBall dataPresentBall;	
+
 
 	@InsertBean
 	private TranslationProcessor translateProcessor;
@@ -91,7 +94,7 @@ public class ImagesTaskServletBean extends BasePageServlet
 		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
 		accountBall.set(builder, servletContext, session.getLang());
-		new DataPresentBall(builder, session).set();
+		dataPresentBall.set(builder, session);
 		imageTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 
 		builder.appendOnlyAssociatedPageElements(PageElement.image_task);

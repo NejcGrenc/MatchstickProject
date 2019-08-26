@@ -16,9 +16,9 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
-import grenc.masters.webpage.common.AccountBall;
-import grenc.masters.webpage.common.DataPresentBall;
-import grenc.masters.webpage.common.LanguageBall;
+import grenc.masters.webpage.element.AccountBall;
+import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -36,6 +36,10 @@ public class TaskWrapupServletBean extends BasePageServlet
 	
 	@InsertBean
 	private AccountBall accountBall;
+	@InsertBean
+	private DataPresentBall dataPresentBall;
+	@InsertBean
+	private LanguageBall languageBall;
 
 	@InsertBean
 	private TranslationProcessor translateProcessor;
@@ -63,9 +67,9 @@ public class TaskWrapupServletBean extends BasePageServlet
 
 		
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
-		new LanguageBall(builder, session.getLang(), url()).set();
+		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
-		new DataPresentBall(builder, session).set();
+		dataPresentBall.set(builder, session);
 
 		builder.appendOnlyAssociatedPageElements(PageElement.task_wrapup);
 		builder.appendPageElement(translateProcessor.process(new TaskWrapupPage(servletContext), session.getLang()));

@@ -22,6 +22,7 @@ public enum Script {
 	data_present ("data_present.js"),
 	page_functions ("page_functions.js"),
 	popup ("popup.js"),
+	send_return ("send_return.js"),
 	send ("send.js"),
 	timer ("timer.js"),
 	
