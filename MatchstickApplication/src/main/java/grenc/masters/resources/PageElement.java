@@ -16,6 +16,7 @@ public enum PageElement {
 	matchstick_task ("speciffic/", "matchstick-task-main.html"),
 	select_language ("speciffic/", "select-language-main.html"),
 	select_task ("speciffic/", "select-task-main.html"),
+	select_single_task ("speciffic/", "select-task-singe-main.html"),
 	task_wrapup ("speciffic/", "task-wrapup.html"),
 	user_data ("speciffic/", "user-data-main.html"),
 	

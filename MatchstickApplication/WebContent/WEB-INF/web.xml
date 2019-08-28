@@ -35,6 +35,14 @@
 		<servlet-class>grenc.masters.servlets.SelectTaskServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>SelectTaskMatchstickServlet</servlet-name>
+		<servlet-class>grenc.masters.servlets.SelectTaskMatchstickServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SelectTaskImagesServlet</servlet-name>
+		<servlet-class>grenc.masters.servlets.SelectTaskImagesServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>MatchstickTaskLearnServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.MatchstickTaskLearnServlet</servlet-class>
 	</servlet>
@@ -66,7 +74,10 @@
 		<servlet-name>RetrieveDataServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.RetrieveDataServlet</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>DoneServlet</servlet-name>
+		<servlet-class>grenc.masters.servlets.DoneServlet</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
@@ -88,6 +99,14 @@
 		<servlet-name>SelectTaskServlet</servlet-name>
 		<url-pattern>/selectTask</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SelectTaskMatchstickServlet</servlet-name>
+		<url-pattern>/selectTaskMatchstick</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SelectTaskImagesServlet</servlet-name>
+		<url-pattern>/selectTaskImages</url-pattern>
+	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>MatchstickTaskLearnServlet</servlet-name>
 		<url-pattern>/matchstickTaskLearn</url-pattern>
@@ -116,11 +135,15 @@
 		<servlet-name>TaskWrapupServlet</servlet-name>
 		<url-pattern>/taskWrapup</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>RetrieveDataServlet</servlet-name>
 		<url-pattern>/data</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>DoneServlet</servlet-name>
+		<url-pattern>/done</url-pattern>
+	</servlet-mapping>
+		
 	<resource-ref>
 	  <res-ref-name>jdbc/matchstickdb</res-ref-name>
 	  <res-type>javax.sql.DataSource</res-type>

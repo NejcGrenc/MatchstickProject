@@ -18,6 +18,7 @@ public enum PageStyleDependency
 	matchstick_task (Script.send_action_json, Script.timer),
 	select_language (),
 	select_task (),
+	select_single_task (),
 	task_wrapup (),
 	user_data (), // This one will not be processed
 	
