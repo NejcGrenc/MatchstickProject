@@ -17,7 +17,7 @@ public class EquationHardcodedFetcher
 		equationMap.put(EquationSolutionsGroupType.group_1N, 	array("5+5-5=3", "2/2*3=2"));
 		equationMap.put(EquationSolutionsGroupType.group_1MO, 	array("5-5+2=3", "3*2/3=3"));
 		equationMap.put(EquationSolutionsGroupType.group_1O, 	array("3+3-5=5", "3*3-2=3"));
-		equationMap.put(EquationSolutionsGroupType.group_1O_2O, array("2/5+5=2", "5/5+5=5"));
+		equationMap.put(EquationSolutionsGroupType.group_1O_2O, array("5/5+5=5", "2/5+5=2"));
 	}
 	
 	private String[] array(String... equations) {

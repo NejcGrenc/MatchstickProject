@@ -23,7 +23,7 @@
 			<div class="horizontal-layout" style="justify-content: space-between; align-items: center;">	
 				<div class="horizontal-layout" style="justify-content: flex-start;">
 				
-					<div id="done" class="greenRectangularButton" onclick="finish()" style="margin-right:50px; display:none;">
+					<div id="done" class="greenRectangularButton" onclick="finish()" style="width: 150px; margin-right:50px; display:none;">
 						<p id="m_done" style="margin: 10px 0;"></p>
 					</div>
 					<div id="matchstickTask" class="greenRectangularButton" onclick="goToMatchstickTask()" style="margin-right:50px; display:none;">
@@ -51,7 +51,7 @@
 	}
 	function goToCredits()
 	{
-		forwardMe("/credits");
+		forwardMe("/credits", {returnUrl: "/taskWrapup"});
 	}
 	function goToMatchstickTask()
 	{
@@ -62,14 +62,17 @@
 		forwardMe("/selectTaskImages");
 	}
 	
-	function forwardMe(location)
+	function forwardMe(location, data)
 	{		
 		/* Get comment (textarea) value */
-		var commentData = document.getElementById("commentField").value; 
+		var commentData = document.getElementById("commentField").value;
+		
+		if (typeof data === 'undefined') { data = {}; }
+		data.comment = commentData;
 		
 		if (post)
 		{
-			post(location, {comment: commentData});
+			post(location, data);
 		}
 		else
 		{ console.log("Failed at forwarding. Post function missing."); }

@@ -39,7 +39,7 @@ public class RefreshCache
 	
 	public WebpageBuilder getCachedResponse(HttpServletRequest latestRequest)
 	{
-		String sessionTag = (String) latestRequest.getAttribute("session");
+		String sessionTag = (String) latestRequest.getParameter("session");
 		if (sessionTag == null)
 			return null;
 		
@@ -52,7 +52,7 @@ public class RefreshCache
 	
 	public void cacheResponse(HttpServletRequest request, WebpageBuilder responseBuilder)
 	{
-		String sessionTag = (String) request.getAttribute("session");
+		String sessionTag = (String) request.getParameter("session");
 		if (sessionTag == null)
 			return;
 		
@@ -66,22 +66,25 @@ public class RefreshCache
 	
 	
 	public boolean isEligibleForRefresh(HttpServletRequest latestRequest)
-	{
-		String sessionTag = (String) latestRequest.getAttribute("session");
+	{		
+		String sessionTag = (String) latestRequest.getParameter("session");
 		if (sessionTag == null)
 			return false;
 		
 		RefreshCacheData cachedData = cache.get(sessionTag);
 		if (cachedData == null)
 			return false;
-		
-		List<String> allAttributes = Collections.list(latestRequest.getAttributeNames());
-		return allAttributes.stream().allMatch(attribute -> attributeMatch(attribute, latestRequest, cachedData.originalRequest));
+
+		// Compare original parameters
+		// For some reason, attributes are not being properly stored in cache...
+		List<String> allParameters = Collections.list(latestRequest.getParameterNames());
+		return allParameters.stream().allMatch(parameter -> parameterMatch(parameter, latestRequest, cachedData.originalRequest));
 	}
 	
-	private boolean attributeMatch(String attribute, HttpServletRequest latestRequest, HttpServletRequest oldRequest)
+	private boolean parameterMatch(String attribute, HttpServletRequest latestRequest, HttpServletRequest oldRequest)
 	{
-		return ((String) latestRequest.getAttribute(attribute)).equals((String) oldRequest.getAttribute(attribute));
+		// System.out.println(attribute + " " + latestRequest.getParameter(attribute) + " " + oldRequest.getParameter(attribute) );
+		return (latestRequest.getParameter(attribute)).equals(oldRequest.getParameter(attribute));
 	}
 	
 	

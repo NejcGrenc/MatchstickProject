@@ -51,25 +51,25 @@ public class RefreshCacheTest
 	public void shouldDetemineRefreshDataRelevance()
 	{
 		// given: an original request cached
-		HashMap<String, String> attributes = new HashMap<>();
-		attributes.put("session", "session123");
-		attributes.put("data", "123");
-		HttpServletRequest mockedRequest = mockRequest(attributes);
+		HashMap<String, String> parameters = new HashMap<>();
+		parameters.put("session", "session123");
+		parameters.put("data", "123");
+		HttpServletRequest mockedRequest = mockRequest(parameters);
 		WebpageBuilder mockedResponse = Mockito.mock(WebpageBuilder.class);		
 		refreshCache.cacheResponse(mockedRequest, mockedResponse);
 		
 		// and: a repeated request
-		HashMap<String, String> repeatedAttributes = new HashMap<>();
-		repeatedAttributes.put("session", "session123");
-		repeatedAttributes.put("data", "123");
-		HttpServletRequest repeatedRequest = mockRequest(repeatedAttributes);
+		HashMap<String, String> repeatedParameters = new HashMap<>();
+		repeatedParameters.put("session", "session123");
+		repeatedParameters.put("data", "123");
+		HttpServletRequest repeatedRequest = mockRequest(repeatedParameters);
 		
 		// and: a different request
-		HashMap<String, String> differentAttributes = new HashMap<>();
-		differentAttributes.put("session", "session123");
-		differentAttributes.put("data", "555");
-		differentAttributes.put("additional_data", "333");
-		HttpServletRequest differentRequest = mockRequest(differentAttributes);
+		HashMap<String, String> differentParameters = new HashMap<>();
+		differentParameters.put("session", "session123");
+		differentParameters.put("data", "555");
+		differentParameters.put("additional_data", "333");
+		HttpServletRequest differentRequest = mockRequest(differentParameters);
 		
 		// then: repeated request should have the same response
 		assertTrue(refreshCache.isEligibleForRefresh(repeatedRequest));
@@ -78,15 +78,15 @@ public class RefreshCacheTest
 		assertFalse(refreshCache.isEligibleForRefresh(differentRequest));
 	}
 	
-	private HttpServletRequest mockRequest(HashMap<String, String> attributes)
+	private HttpServletRequest mockRequest(HashMap<String, String> parameters)
 	{
 		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		
-	    Enumeration<String> attributeNames = Collections.enumeration(attributes.keySet());
-		Mockito.doReturn(attributeNames).when(request).getAttributeNames();
+	    Enumeration<String> parameterNames = Collections.enumeration(parameters.keySet());
+		Mockito.doReturn(parameterNames).when(request).getParameterNames();
 		
-		for (String key: attributes.keySet())
-			Mockito.doReturn(attributes.get(key)).when(request).getAttribute(key);
+		for (String key: parameters.keySet())
+			Mockito.doReturn(parameters.get(key)).when(request).getParameter(key);
 		
 		return request;
 	}

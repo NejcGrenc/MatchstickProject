@@ -8,12 +8,13 @@ html, body {
 
 h1 {
     font-family:Arial;
-    width: 200px;
+    font-size: 50px;
+    width: 300px;
     height: 50px;
-    margin-left: -100px;
-    margin-top: -25px;
-    -webkit-margin-after: -25px;
-    -webkit-margin-before: -25px;
+    margin-left: -150px;
+    margin-top: -50px;
+    -webkit-margin-after: -50px;
+    -webkit-margin-before: -50px;
     -webkit-margin-end: -100px;
     -webkit-margin-start: -100px;
 }
@@ -30,10 +31,11 @@ a {
 
 #selecttask_txt_center {
     position: absolute;
-    top: 25%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
     pointer-events: none;
     color: white;
+    text-align: center;
 }
 
 #selecttask_txt1 {
@@ -65,8 +67,8 @@ a {
 /* } */
 
 #whole_page {
-    -webkit-clip-path: polygon(0 0, 0 100vh, 100% 0, 100% 100vh);
-    clip-path: polygon(0 0, 0 100vh, 100% 0, 100% 100vh);
+    -webkit-clip-path: polygon(0 0, 0 100vh, 100% 100vh, 100% 0);
+    clip-path: polygon(0 0, 0 100vh, 100% 100vh, 100% 0);
     background: #378de5;
 }
 

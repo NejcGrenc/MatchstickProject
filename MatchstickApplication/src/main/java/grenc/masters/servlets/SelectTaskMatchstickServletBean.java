@@ -86,26 +86,20 @@ public class SelectTaskMatchstickServletBean extends BasePageServlet
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		
-		TaskType selectedTaskType;
-		if ("/imagesTask".equals((String) request.getAttribute("forwardUrl"))) 
-			selectedTaskType = TaskType.images;
-		else
-			selectedTaskType = TaskType.matchstick;	
-		
 		// TaskSession automatically builds itself when you try to fetch it and it doesn't exist yet
-		TaskSession taskSession = taskSessionAssist.getTaskSessionToUse(session, selectedTaskType);
+		TaskSession taskSession = taskSessionAssist.getTaskSessionToUse(session, TaskType.matchstick);
 		
 		// Skip learning if we are part of matchstick task group 0
-		if (isMatchstickGroup0(selectedTaskType, taskSession))
+		if (isMatchstickGroup0(taskSession))
 		{
 			request.setAttribute("forwardUrl", matchstickTaskServlet.url());
 		}
 	}
 
-	private boolean isMatchstickGroup0(TaskType selectedTaskType, TaskSession taskSession)
+	private boolean isMatchstickGroup0(TaskSession taskSession)
 	{
-		return TaskType.matchstick.equals(selectedTaskType) && 
-				(taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyA) || taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyB));
+		return (taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyA) 
+				|| taskSession.getMatchstickGroup().equals(MatchstickGroup.group_0_strategyB));
 	}
 
 	

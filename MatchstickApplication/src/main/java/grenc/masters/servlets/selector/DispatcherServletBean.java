@@ -46,6 +46,11 @@ public class DispatcherServletBean
 		
 		mapParametersAsAttributes(request);
 		
+		String forwardUrl2 = (String) request.getAttribute("forwardUrl");
+		String previousUrl2 = (String) request.getAttribute("previousUrl");
+		String sessionTag2 = (String) request.getAttribute("session");
+		System.out.println(forwardUrl2 + " " + previousUrl2 + " " + sessionTag2 + " ");
+		
 		// In case a page refresh occurred, return cached data
 		refreshCache.deleteTimeoutedData();
 		if (refreshCache.isEligibleForRefresh(request))

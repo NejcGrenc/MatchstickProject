@@ -85,6 +85,10 @@ public class TaskWrapupServletBean extends BasePageServlet
 		{
 			builder.appendBodyScriptCommand("presentImagesTaskButton();");
 		}
+		if (!noFinishedMatchstickTask && !noFinishedImagesTask)
+		{
+			builder.appendBodyScriptCommand("presentDoneButton();");
+		}
 	}
 	
 	@Override
