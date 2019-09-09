@@ -6,6 +6,9 @@ import java.util.Random;
 import grenc.masters.database.equationgroups.EquationSolutionsGroupType;
 import grenc.simpleton.annotation.Bean;
 
+// We have decided on a fixed set of equations, so this should no longer be used.
+// Deprecated in favor of EquationHardcodedFetcher
+@Deprecated
 @Bean
 public class EquationDatabaseFetcher
 {

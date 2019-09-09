@@ -71,7 +71,7 @@ public class GroupSelectAssist
 	private HashMap<MatchstickGroup, Integer> countPreviousGroups()
 	{
 		HashMap<MatchstickGroup, Integer> previousGroups = new HashMap<>();
-		for (MatchstickGroup group : MatchstickGroup.nonTestGroups())
+		for (MatchstickGroup group : MatchstickGroup.values())
 			previousGroups.put(group, 0);
 
 		List<TaskSession> allMatchstickSessions = taskSessionDAO.findAllTaskForType(TaskType.matchstick.name());

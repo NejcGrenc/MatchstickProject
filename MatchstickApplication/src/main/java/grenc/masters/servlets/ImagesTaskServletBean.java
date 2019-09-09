@@ -102,10 +102,6 @@ public class ImagesTaskServletBean extends BasePageServlet
 		
 		openInfoPopupBeforeStart(builder);
 		
-		if (session.isTestTasksOnly())
-		{
-			builder.appendBodyScriptCommand("limitTasks(2);");
-		}
 		builder.appendBodyScriptCommand("start();");
 
 		taskSessionDAO.insert(session.getId(), imagesTaskType, new Date().getTime(), null, false, null);	

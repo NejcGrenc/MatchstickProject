@@ -59,7 +59,6 @@ public class SessionDAO
 				  .getField("risk", Integer.class, Session::setRisk)
 				  .getField("lang", String.class, Session::setLang)
 				  .getField("subject_id", Integer.class, Session::setSubjectId)
-				  .getField("test_tasks_only", Boolean.class, Session::setTestTasksOnly)
 				  .getField("snoop_enabled", Boolean.class, Session::setSnoopEnabled)
 				  .orderByDesc("id", false)
 				  .execute();
@@ -76,7 +75,6 @@ public class SessionDAO
 				  .getField("risk", Integer.class, Session::setRisk)
 				  .getField("lang", String.class, Session::setLang)
 				  .getField("subject_id", Integer.class, Session::setSubjectId)
-				  .getField("test_tasks_only", Boolean.class, Session::setTestTasksOnly)
 				  .getField("snoop_enabled", Boolean.class, Session::setSnoopEnabled)
 				  .where(conditionField, conditionValue)
 				  .orderByDesc("id", true)

@@ -6,7 +6,6 @@ CREATE TABLE session (
 	risk		integer,  		 -- bigger than 0 means not to be trusted
 	lang		varchar(20),
 	subject_id	integer,
-	test_tasks_only boolean,
 	snoop_enabled   boolean
 );
 

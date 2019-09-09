@@ -87,17 +87,6 @@ public class EquationSolutionsSelector
 					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1N;
 					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1N_2N;
 				}
-			case test:
-				switch (phase)
-				{
-					case LearningPhase_Showing: 				   return EquationSolutionsGroupType.group_1O;
-					case LearningPhase_Solving: 				   return EquationSolutionsGroupType.group_1O;
-					case TestingPhase_OnlyOriginalStrategy: 	   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OriginalStrategyOptimal:     return EquationSolutionsGroupType.group_1N_2N;
-					case TestingPhase_BothStrategiesOptimal: 	   return EquationSolutionsGroupType.group_1MO;
-					case TestingPhase_OppositeStrategyOptimal:     return EquationSolutionsGroupType.group_1O_2O;
-					case TestingPhase_OnlyOppositeStrategy:        return EquationSolutionsGroupType.group_1O_2O;
-				}
 		}
 		return null;
 	}

@@ -1,8 +1,6 @@
 package grenc.masters.matchsticktask.type;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public enum MatchstickGroup
 {
@@ -12,7 +10,6 @@ public enum MatchstickGroup
 	group_AB_strategyB (4, 4, 2, 2, 2, 2, 2),
 	group_0_strategyA  (0, 0, 2, 2, 2, 2, 2),
 	group_0_strategyB  (0, 0, 2, 2, 2, 2, 2),
-	test	 (1, 1, 1, 1, 1, 1, 1)
 	;
 	
 
@@ -29,11 +26,6 @@ public enum MatchstickGroup
 		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_BothStrategiesOptimal, noTasksForEachPhase[i++]);
 		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OppositeStrategyOptimal, noTasksForEachPhase[i++]);
 		this.tasksForPhase.put(MatchstickExperimentPhase.TestingPhase_OnlyOppositeStrategy, noTasksForEachPhase[i++]);
-	}
-	
-	public static List<MatchstickGroup> nonTestGroups()
-	{
-		return Arrays.asList(group_A, group_B, group_AB_strategyA, group_AB_strategyB, group_0_strategyA, group_0_strategyB);
 	}
 	
 	public int getNoTasksForPhase(MatchstickExperimentPhase phase)

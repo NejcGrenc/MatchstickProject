@@ -32,20 +32,12 @@ public class TaskDataAssist {
 
 	public boolean isFinished(TaskSession taskSession)
 	{
-		if (taskSession.isComplete())
-			return true;
-		
-		if (shouldBeFinished(taskSession)) 
-		{
-			System.out.println("Should be finished, but it doesn't have 'complete' flag set!");
-			return true;
-		}
-		return false;
+		return taskSession.isComplete();
 	}
 	
 	public void finishItIfApplicable(TaskSession taskSession)
 	{
-		if (! taskSession.isComplete() && shouldBeFinished(taskSession))
+		if (! isFinished(taskSession) && shouldBeFinished(taskSession))
 			taskSessionDAO.updateComplete(taskSession.getId(), true);
 	}
 	

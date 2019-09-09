@@ -65,11 +65,7 @@ public class DataPresentServletBean extends BasePageServlet
 	protected void createWebPage(WebpageBuilder builder, HttpServletRequest request, ServletContext servletContext)
 	{
 		builder.setTitle("Experiments - Data from database");
-		
-//		String sessionTag = ((SessionGeneratorServlet) Servlet.SessionGeneratorServlet.getServletInstance()).generateRandomString();
 
-//		new RandomDataGenerator(sessionTag);
-		
 		String sessionTag = (String) request.getAttribute("session");
 		if (sessionTag == null)
 			sessionTag = (String) request.getParameter("session");
@@ -80,7 +76,6 @@ public class DataPresentServletBean extends BasePageServlet
 	}
 	
 	
-	// TODO: Test all corner cases !!!
 	/**
 	 *  Depends heavily on toString() functions of objects as they are used to present their content in user friendly way. <br>
 	 *  This function builds an object tree, where each node presents data form one table and it is linked to one parent

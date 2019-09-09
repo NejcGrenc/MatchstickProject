@@ -8,7 +8,6 @@ public class Session
 	private String lang;
 	private int subjectId;
 	
-	private boolean testTasksOnly;
 	private boolean snoopEnabled;
 	
 	public int getId()
@@ -55,14 +54,7 @@ public class Session
 	{
 		this.subjectId = subjectId;
 	}
-	
-	public boolean isTestTasksOnly() {
-		return testTasksOnly;
-	}
-	public void setTestTasksOnly(boolean testTasksOnly) {
-		this.testTasksOnly = testTasksOnly;
-	}
-	
+
 	public boolean isSnoopEnabled() {
 		return snoopEnabled;
 	}
@@ -73,7 +65,7 @@ public class Session
 	@Override
 	public String toString() {
 		return "Session [id=" + id + ", tag=" + tag + ", risk=" + risk + ", lang=" + lang + ", subjectId=" + subjectId
-				+ ", testTasksOnly=" + testTasksOnly + ", snoopEnabled=" + snoopEnabled + "]";
+				+ ", snoopEnabled=" + snoopEnabled + "]";
 	}
 	
 }
