@@ -84,7 +84,7 @@
 		<dependency>
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
-		    <version>20180130</version>
+		    <version>20190722</version>
 		</dependency>
 
 		<!-- Servlet dependencies -->
@@ -119,7 +119,6 @@
 		    <groupId>junit-addons</groupId>
 		    <artifactId>junit-addons</artifactId>
 		    <version>1.4</version>
-		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 	

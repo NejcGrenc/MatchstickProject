@@ -14,7 +14,6 @@ public class InitialCallHandler
 {
 	private static final String sessionCookieName = "sessionCookie";
 	
-	private static final String testTasksParam = "testTasks";
 	private static final String snoopParam = "snoop";
 
 	@InsertBean
@@ -65,7 +64,6 @@ public class InitialCallHandler
 			request.setAttribute("forwardUrl", forwardUrl);
 		}
 		
-		testTasks(request);
 		snoop(request);
 	}
 	
@@ -94,18 +92,6 @@ public class InitialCallHandler
 	private static boolean isRestartAnew(HttpServletRequest request)
 	{
 		return request.getAttribute("restart_anew") != null;
-	}
-	
-	
-	private void testTasks(HttpServletRequest request)
-	{
-		String testTasks = (String) request.getAttribute(testTasksParam);
-		if (testTasks != null)
-		{
-			System.out.println("Setting up only test tasks!");
-			Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
-			sessionDAO.updateSessionTestTasksOnly(session.getId(), true);
-		}
 	}
 	
 	private void snoop(HttpServletRequest request)

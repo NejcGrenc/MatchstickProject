@@ -26,11 +26,14 @@ public class EquationHardcodedFetcher
 	
 	
 	public String equationForGroupAndTaskNo(EquationSolutionsGroupType type, int taskNo) {
-		if (! equationMap.containsKey(type))
-			throw new RuntimeException("Unknown EquationSolutionsGroupType: " + type.name());
-		if (taskNo < 1 || taskNo > 2) 
-			throw new RuntimeException("Only two equations per group type. Requested equation number: " + taskNo);
-
-		return equationMap.get(type)[taskNo-1];
+		
+		return "7*5/2=3";
+		
+//		if (! equationMap.containsKey(type))
+//			throw new RuntimeException("Unknown EquationSolutionsGroupType: " + type.name());
+//		if (taskNo < 1 || taskNo > 2) 
+//			throw new RuntimeException("Only two equations per group type. Requested equation number: " + taskNo);
+//
+//		return equationMap.get(type)[taskNo-1];
 	}
 }

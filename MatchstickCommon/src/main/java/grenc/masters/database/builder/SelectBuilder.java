@@ -81,13 +81,14 @@ public class SelectBuilder <T>
 				Condition<?> condition = conditions.get(i);
 				statement.setObject(i+1, condition.value);
 			}
+			System.out.println(statement);
 			
 			ResultSet rs = statement.executeQuery();
 			while (rs.next())
 			{
 				T entity = buildEntity(rs);
 				allData.add(entity);
-			}	
+			}
 			rs.close();
 		} 
 		catch (SQLException e)

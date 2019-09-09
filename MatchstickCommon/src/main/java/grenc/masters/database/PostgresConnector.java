@@ -25,7 +25,7 @@ public class PostgresConnector
     
     private Connection connection = null;
     
-    public Connection open() 
+    public Connection open() throws SQLException 
     {
     	try
 		{

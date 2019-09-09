@@ -159,13 +159,6 @@ public class DataFileCreatorTest
     
     private ImageTaskData createTestImageTaskData(int taskSessionId, int phaseNo, boolean correct)
     {
-//    	private int id;
-//    	private int taskSessionId;
-//    	private int number;
-//    	private String imageId;
-//    	private long time;
-//    	private boolean correct;
-    	
     	ImageTaskData imageTaskData = new ImageTaskData();
     	imageTaskData.setId(phaseNo);
     	imageTaskData.setTaskSessionId(taskSessionId);

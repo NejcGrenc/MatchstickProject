@@ -11,7 +11,7 @@ CREATE TABLE session (
 
 DROP TABLE IF EXISTS subject;
 CREATE TABLE subject (
-	id  			SERIAL PRIMARY KEY,
+	id  			SERIAL PRIMARY KEY,y
 	session_id		integer NOT NULL,
 	age				integer,
 	sex				varchar(8),

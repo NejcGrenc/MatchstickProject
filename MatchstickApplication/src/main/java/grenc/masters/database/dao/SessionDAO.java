@@ -29,7 +29,6 @@ public class SessionDAO
 					.setField("risk", risk)
 					.setField("lang", lang)
 					.setField("subject_id", subjectId)
-					.setField("test_tasks_only", false)
 					.setField("snoop_enabled", false)
 					.execute();
 
@@ -102,13 +101,6 @@ public class SessionDAO
 	public synchronized Session updateSessionSubjectId(int sessionId, int newSubjectId)
 	{
 		updateSessionField(sessionId, "subject_id", newSubjectId);
-		return findSessionById(sessionId);
-	}
-	
-	@ResetCache
-	public Session updateSessionTestTasksOnly(int sessionId, boolean testTasksOnly)
-	{
-		updateSessionField(sessionId, "test_tasks_only", testTasksOnly);
 		return findSessionById(sessionId);
 	}
 	
