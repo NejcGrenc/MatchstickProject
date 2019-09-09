@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.Encoding;
 import grenc.masters.servlets.bean.base.ServletBean;
-import grenc.masters.servlets.finalreports.FamiliarFiguresTaskFileCreator;
-import grenc.masters.servlets.finalreports.MatchstickTaskFileCreator;
-import grenc.masters.servlets.finalreports.UsersFileCreator;
+import grenc.masters.servlets.finalreports.DataFileCreator;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -24,17 +22,10 @@ public class RetrieveDataServletBean implements ServletBean
 	public static final String delimiter = ",";
 	
 	private static final String directory = "data";
-	private static final String matchstickFilePath = "data/matchsticktask.csv";
-	private static final String imageFilePath = "data/imagetask.csv";
-	private static final String usersFilePath = "data/users.csv";
+	private static final String taskDataPath = "data/taskData.csv";
 		
-	
 	@InsertBean
-	private MatchstickTaskFileCreator matchstickTaskFileCreator;
-	@InsertBean
-	private FamiliarFiguresTaskFileCreator familiarFiguresTaskFileCreator;
-	@InsertBean
-	private UsersFileCreator usersFileCreator;
+	private DataFileCreator dataFileCreator;
 	
 	@Override
 	public String url()
@@ -54,20 +45,13 @@ public class RetrieveDataServletBean implements ServletBean
 			throws IOException, ServletException
 	{
 		new File(directory).mkdirs();
-		File matchstickFile = createNewFile(servletContext, matchstickFilePath); 
-		matchstickTaskFileCreator.prepareFile(matchstickFile);
-		File familiarFiguresFile = createNewFile(servletContext, imageFilePath); 
-		familiarFiguresTaskFileCreator.prepareFile(familiarFiguresFile);
-		File usersFile = createNewFile(servletContext, usersFilePath); 
-		usersFileCreator.prepareFile(usersFile);
-		
+		File file = createNewFile(servletContext, taskDataPath); 
+		dataFileCreator.prepareFile(file);
 		
 		response.setContentType("text/html");
 		response.setCharacterEncoding(Encoding.common);
 		PrintWriter out = response.getWriter();
-		out.println("<span><a href=\"" + matchstickFilePath + "\"><h3>Matchstick task data</h3></a></span>");
-		out.println("<span><a href=\"" + imageFilePath + "\"><h3>Familiar figures task data</h3></a></span>");
-		out.println("<span><a href=\"" + usersFilePath + "\"><h3>User data</h3></a></span>");
+		out.println("<span><a href=\"" + taskDataPath + "\"><h3>Complete task data</h3></a></span>");
 
 	}
 
