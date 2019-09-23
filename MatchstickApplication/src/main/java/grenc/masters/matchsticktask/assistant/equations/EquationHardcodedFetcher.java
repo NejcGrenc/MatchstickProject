@@ -27,8 +27,18 @@ public class EquationHardcodedFetcher
 	
 	public String equationForGroupAndTaskNo(EquationSolutionsGroupType type, int taskNo) {
 		
+//		// Between N
 //		return "7*5/2=3";
 		
+//		// Between O
+//		return "5*5-2=3";
+		
+//		// Within N
+//		return "3*2-3=5";
+		
+//		// Within O
+//		return "2*5/5=5";
+			
 		if (! equationMap.containsKey(type))
 			throw new RuntimeException("Unknown EquationSolutionsGroupType: " + type.name());
 		if (taskNo < 1 || taskNo > 2) 
