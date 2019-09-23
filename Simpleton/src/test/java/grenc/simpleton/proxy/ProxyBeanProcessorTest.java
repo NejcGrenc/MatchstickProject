@@ -2,7 +2,7 @@ package grenc.simpleton.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import grenc.simpleton.Beans;
+import grenc.simpleton.processor.exception.BeanProcessorException;
 import grenc.simpleton.proxy.annotation.ProxyBean;
 
 
@@ -35,8 +36,12 @@ public class ProxyBeanProcessorTest
 		
 		ProxyBeanProcessor.processProxyBeans("grenc.simpleton.proxy");
 		
-		TestInterface originalBeanRemoved = Beans.getExact(OriginalTestBean.class);
-		assertNull(originalBeanRemoved);
+		try {
+			Beans.getExact(OriginalTestBean.class);
+			fail("Bean OriginalTestBean.class is not expected to be registered, but it somehow is.");
+		} catch (BeanProcessorException e) {
+			// Exception is thrown in case bean is not found
+		}
 		
 		TestInterface proxyBeanCreated = Beans.getExact(TestInterface.class);
 		assertNotNull(proxyBeanCreated);

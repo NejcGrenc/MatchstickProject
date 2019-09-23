@@ -3,15 +3,15 @@ DROP TABLE IF EXISTS session;
 CREATE TABLE session (
 	id  		SERIAL PRIMARY KEY,
 	tag  		varchar(40) NOT NULL,
-	risk		integer,  		 -- bigger than 0 means not to be trusted
+	risk		int,  		 -- bigger than 0 means not to be trusted
 	lang		varchar(20),
-	subject_id	integer,
+	subject_id	int,
 	snoop_enabled   boolean
 );
 
 DROP TABLE IF EXISTS subject;
 CREATE TABLE subject (
-	id  			SERIAL PRIMARY KEY,y
+	id  			SERIAL PRIMARY KEY,
 	session_id		integer NOT NULL,
 	age				integer,
 	sex				varchar(8),

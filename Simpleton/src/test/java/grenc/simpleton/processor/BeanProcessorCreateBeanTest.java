@@ -67,7 +67,13 @@ public class BeanProcessorCreateBeanTest
 		
 		assertTrue(Beans.getExact(TestClass.class) != null);
 		assertTrue(Beans.getExact(TestClassWithConstructor.class) != null);
-		assertTrue(Beans.getExact(TestClass2.class) == null);
+		
+		try {
+			Beans.getExact(TestClass2.class);
+			fail("Bean TestClass2.class is not expected to be registered, but it somehow is.");
+		} catch (BeanProcessorException e) {
+			// Exception is thrown in case bean is not found
+		}
 	}
 	
 	
