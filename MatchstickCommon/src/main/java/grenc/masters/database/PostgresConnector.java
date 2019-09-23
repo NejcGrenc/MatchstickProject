@@ -23,6 +23,7 @@ public class PostgresConnector
 //    private static String database = "matchstickdb";
 //    private static String testDatabase = "matchstickdbtest";
     
+    
     private Connection connection = null;
     
     public Connection open() throws SQLException 
