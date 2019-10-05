@@ -72,12 +72,14 @@ function calculateEquation()
                 done = true;
                 
                 addInfo = "is correct.";
-                if (tooltipSolvedText !== undefined) addInfo = tooltipSolvedText();
+                if (tooltipSolvedText !== undefined) 
+                	addInfo = tooltipSolvedText();
             }
             else
             {
                 addInfo = "is valid, but not correct.";
-                if (tooltipOnlyValidText !== undefined) addInfo = tooltipOnlyValidText();
+                if (tooltipOnlyValidText !== undefined) 
+                	addInfo = tooltipOnlyValidText();
             }
         }
     }
@@ -86,6 +88,14 @@ function calculateEquation()
     if (tooltipEquationText !== undefined) equationString = tooltipEquationText();
 
     var tooltip = equationString + ":  " + eqStr + "  " + addInfo;
+    
+    
+    if (restrictionOnlyOne && actionList.length >= 1 && currentAction == null)
+	{
+    	blockAll();
+	}
+    
+
     if (done) 
     {
     	timer.stopTimer();
@@ -96,16 +106,16 @@ function calculateEquation()
         	redButtonRestartContainer.style.display = 'none';
         
         greenButton.title = "Contine to next equation";
-        if (tooltipContinueText !== undefined)  greenButton.title = tooltipContinueText();
+        if (tooltipContinueText !== undefined)  
+        	greenButton.title = tooltipContinueText();
     }
-    else if (restrictionOnlyOne && actionList.length === 1)
+    else if (restrictionOnlyOne && actionList.length >= 1)
     {
     	timer.stopTimer();
-    	blockAll();
+    	drawRestartPointingArrow();
     	
-    	console.log(setRestriction);
     	if (typeof setRestriction !== 'undefined')
-    		setRestriction(restrictionOnlyOne, true);
+    		setRestriction(true, true);
     	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'none';
@@ -121,23 +131,9 @@ function calculateEquation()
         redButtonContainer.style.display = 'inline';
         if (redButtonRestartContainer)
         	redButtonRestartContainer.style.display = 'none';
+        
         redButton.title = tooltip;
     }
-}
-
-function blockAllExceptStartAndEndOnes()
-{
-	var lastAction = actionList[0];
-	var matchStart = lastAction.startMatchstickLoc;
-	var matchEnd   = lastAction.endMatchstickLoc;
-	
-	// block all shadows except start and end plan ones
-	for (var i = 0; i < allShadows.length; i++)
-	{
-		if (i == matchStart || i == matchEnd)
-			continue;
-		allShadows[i].setBlocked(true);
-	}	
 }
 
 function blockAll()

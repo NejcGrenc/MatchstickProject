@@ -148,3 +148,13 @@ function getAllEmptyShadows()
 }
 
 
+/* Arrow that points to red restart button */
+function drawRestartPointingArrow()
+{
+	var arrow_start_x = canvas.width - 150;
+	var arrow_end_x = canvas.width - 30;
+	var arrow_y = canvas.height * 9 / 10;
+
+	drawSimpleArrow(ctx, arrow_start_x, arrow_y, arrow_end_x, arrow_y);
+}
+

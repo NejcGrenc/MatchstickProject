@@ -72,7 +72,8 @@ public enum PageStyleDependency
 	private static Script[] addMatchstickAssortment()
 	{
 		return new Script[] {Script.matchstick_main, Script.matchstick_canvas, Script.matchstick_matchstick,
-				Script.matchstick_equation,Script.matchstick_calculator, Script.send_action_json, Script.timer};	
+				Script.matchstick_equation,Script.matchstick_calculator, Script.send_action_json, 
+				Script.canvas_arrows, Script.timer};	
 	}
 	
 	private static <T> T[] concatenate(T[] a, T[] b) {
