@@ -141,15 +141,10 @@ public class MatchstickTaskProcessor
 	{
 		return taskNumberAssist.getNoTasksForPhase(taskSession, nextPhase(taskSession));
 	}
-	
-	public boolean isCurrentTaskSessionFinished(TaskSession taskSession)
+
+	public TaskSession finishCurrentTaskSessionIfApplicable(TaskSession taskSession)
 	{
-		return taskDataAssist.isFinished(taskSession);
-	}
-	
-	public void finishCurrentTaskSessionIfApplicable(TaskSession taskSession)
-	{
-		taskDataAssist.finishItIfApplicable(taskSession);
+		return taskDataAssist.finishItIfApplicable(taskSession);
 	}
 	
 	

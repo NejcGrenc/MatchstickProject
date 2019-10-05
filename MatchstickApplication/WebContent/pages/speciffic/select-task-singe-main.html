@@ -1,6 +1,13 @@
 <div>    
     <a id="whole_page" onClick=selectAndGoToTask()>  </a>
-    <h1 id="selecttask_txt_center" > {{start_task}} </h1>
+    <div id="selecttask_txt_center" class="full_center">	
+    
+	    <div>
+	    	<h1> {{start_task}} </h1>
+	    </div>
+	    <br />
+	    <p><b> {{to_continue}} </b></p>
+    </div>
 </div>
 <script>
 	function selectAndGoToTask()

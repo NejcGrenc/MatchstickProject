@@ -56,3 +56,4 @@ encoding//WebContent/translations/user-data/userdata_intro.json=UTF-8
 encoding//WebContent/translations/user-data/userdata_label_age.json=UTF-8
 encoding//WebContent/translations/user-data/userdata_label_sex.json=UTF-8
 encoding//WebContent/translations/user-data/userdata_select_age.json=UTF-8
+encoding//src/main/java/grenc/masters/servlets/delegate/popup/MatchstickTaskInfoPopup.java=UTF-8

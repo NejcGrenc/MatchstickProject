@@ -20,6 +20,7 @@ public enum PageStyleDependency
 	select_task (),
 	select_single_task (),
 	task_wrapup (),
+	task_done (),
 	user_data (), // This one will not be processed
 	
 	agreement_en(),

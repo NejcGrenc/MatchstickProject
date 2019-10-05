@@ -86,7 +86,8 @@ function calculateEquation()
     if (tooltipEquationText !== undefined) equationString = tooltipEquationText();
 
     var tooltip = equationString + ":  " + eqStr + "  " + addInfo;
-    if (done) {
+    if (done) 
+    {
     	timer.stopTimer();
     	
         greenButtonContainer.style.display = 'inline';
@@ -108,8 +109,8 @@ function calculateEquation()
     	
         greenButtonContainer.style.display = 'none';
         redButtonContainer.style.display = 'none';
-        if (redButtonRestartContainer)
-        	redButtonRestartContainer.style.display = 'inline';
+        redButtonRestartContainer.style.display = 'inline';
+            
         redButtonRestart.title = "Restart";
     }
     else 

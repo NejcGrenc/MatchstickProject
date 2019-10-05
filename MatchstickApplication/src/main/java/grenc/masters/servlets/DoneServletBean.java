@@ -7,7 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.entities.Session;
 import grenc.masters.resources.PageElement;
+import grenc.masters.resources.Script;
+import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.element.AccountBall;
@@ -50,7 +53,27 @@ public class DoneServletBean extends BasePageServlet
 	{
 		builder.setTitle("Experiments - Done");
 
-		builder.appendPageElement("<p>Done</p>");
+		builder.addStyle(Style.background);
+		builder.setBodyStyle("background");
+		
+		builder.addStyle(Style.style);
+		builder.addStyle(Style.centered);
+		builder.addStyle(Style.layout);
+		builder.addStyle(Style.buttons);
+		builder.addStyle(Style.buttons_credits);
+		builder.addScript(Script.send);
+		builder.addStyle(Style.split_page);
+
+
+		
+		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
+		languageBall.set(builder, session.getLang(), url());
+		accountBall.set(builder, servletContext, session.getLang());
+		dataPresentBall.set(builder, session);
+		creditsBall.set(builder, servletContext, session.getLang(), url());
+		
+		builder.appendPageElement(translateProcessor.process(new TaskDonePage(servletContext), session.getLang()));
+
 	}
 	
 	
@@ -62,13 +85,13 @@ public class DoneServletBean extends BasePageServlet
 	
 	
 	@SuppressWarnings("unused")
-	private class SelectTaskPage extends ApplicationFileSegment
+	private class TaskDonePage extends ApplicationFileSegment
 	{
-		private SimpleTranslatableSegment start_task = new SimpleTranslatableSegment(context, "translations/select-task/images_task.json");
+		private SimpleTranslatableSegment thanks = new SimpleTranslatableSegment(context, "translations/task-done/thanks.json");
 
-		public SelectTaskPage(ServletContext servletContext)
+		public TaskDonePage(ServletContext context)
 		{
-			super(servletContext, PageElement.select_single_task);
+			super(context, PageElement.task_done);
 		}
 	}
 }

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import grenc.masters.Encoding;
 import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.masters.servlets.developtools.InitialCallHandler;
@@ -45,11 +46,6 @@ public class DispatcherServletBean
 		System.out.println();
 		
 		mapParametersAsAttributes(request);
-		
-		String forwardUrl2 = (String) request.getAttribute("forwardUrl");
-		String previousUrl2 = (String) request.getAttribute("previousUrl");
-		String sessionTag2 = (String) request.getAttribute("session");
-		System.out.println(forwardUrl2 + " " + previousUrl2 + " " + sessionTag2 + " ");
 		
 		// In case a page refresh occurred, return cached data
 		refreshCache.deleteTimeoutedData();
@@ -109,6 +105,7 @@ public class DispatcherServletBean
 	
 	private void outputExistingResponse(HttpServletResponse response, WebpageBuilder cachedResponse) throws IOException
 	{
+		response.setCharacterEncoding(Encoding.common);
 		cachedResponse.writePage(response.getWriter());
 	}
 }

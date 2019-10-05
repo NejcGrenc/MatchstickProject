@@ -19,12 +19,17 @@
 				<p>{{encouragement}}</p>
 				<div style="height: 20px;"></div>
 			</div>
+			
+			<div id="request_finish" style="display:none;">
+				<p>{{encouragement_finish}}</p>
+				<div style="height: 20px;"></div>
+			</div>
 
 			<div class="horizontal-layout" style="justify-content: space-between; align-items: center;">	
 				<div class="horizontal-layout" style="justify-content: flex-start;">
 				
 					<div id="done" class="greenRectangularButton" onclick="finish()" style="width: 150px; margin-right:50px; display:none;">
-						<p id="m_done" style="margin: 10px 0;"></p>
+						<p id="m_done" style="margin: 10px 0;">{{done}}</p>
 					</div>
 					<div id="matchstickTask" class="greenRectangularButton" onclick="goToMatchstickTask()" style="width: 150px; margin-right:50px; display:none;">
 						<p id="m_matchsticktask" style="margin: 10px 0;">{{matchsticktask}}</p>
@@ -83,8 +88,8 @@
 	    var doneContainer = document.getElementById("done");
 	    doneContainer.style.display = 'inline';
 	    
-	    var requestSContainer = document.getElementById("request_show");
-	    requestSContainer.style.display = 'inline';
+	    var requestContainer = document.getElementById("request_finish");
+	    requestContainer.style.display = 'inline';
 	}
 	
 	function presentMatchstickTaskButton()

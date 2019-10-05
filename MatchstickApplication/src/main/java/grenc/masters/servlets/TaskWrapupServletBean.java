@@ -113,8 +113,10 @@ public class TaskWrapupServletBean extends BasePageServlet
 		private SimpleTranslatableSegment thanks = new SimpleTranslatableSegment(context, "translations/task-wrapup/thanks.json");
 		private SimpleTranslatableSegment comment = new SimpleTranslatableSegment(context, "translations/task-wrapup/comment.json");
 		private SimpleTranslatableSegment encouragement = new SimpleTranslatableSegment(context, "translations/task-wrapup/encouragement.json");
+		private SimpleTranslatableSegment encouragement_finish = new SimpleTranslatableSegment(context, "translations/task-wrapup/encouragement-finish.json");
 		private SimpleTranslatableSegment matchsticktask = new SimpleTranslatableSegment(context, "translations/task-wrapup/matchstick-task.json");
 		private SimpleTranslatableSegment familiarfigurestask = new SimpleTranslatableSegment(context, "translations/task-wrapup/familiar-figures-task.json");
+		private SimpleTranslatableSegment done = new SimpleTranslatableSegment(context, "translations/task-wrapup/done.json");
 		private SimpleTranslatableSegment credits = new SimpleTranslatableSegment(context, "translations/task-wrapup/credits.json");
 
 		public TaskWrapupPage(ServletContext context)

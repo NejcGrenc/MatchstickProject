@@ -29,20 +29,20 @@ public class TaskDataAssist {
 		List<MatchstickTaskData> taskDataList = matchstickTaskDataDAO.findAllTaskForSessionId(taskSession.getId());
 		return new OrderedTaskData(taskDataList);
 	}
-
-	public boolean isFinished(TaskSession taskSession)
-	{
-		return taskSession.isComplete();
-	}
 	
-	public void finishItIfApplicable(TaskSession taskSession)
+	public TaskSession finishItIfApplicable(TaskSession taskSession)
 	{
-		if (! isFinished(taskSession) && shouldBeFinished(taskSession))
+		if (! taskSession.isComplete() && shouldBeFinished(taskSession))
+		{
 			taskSessionDAO.updateComplete(taskSession.getId(), true);
+			taskSession = taskSessionDAO.findTaskForTaskSessionId(taskSession.getId());
+		}
+		return taskSession;
 	}
 	
 	private boolean shouldBeFinished(TaskSession taskSession)
 	{
+		System.out.println("Should be finished "+ taskNumberAssist.newTaskNumber(taskSession) + " / " + taskNumberAssist.totalNumberOfTasks(taskSession));
 		return (taskNumberAssist.newTaskNumber(taskSession) > taskNumberAssist.totalNumberOfTasks(taskSession));
 	}
 

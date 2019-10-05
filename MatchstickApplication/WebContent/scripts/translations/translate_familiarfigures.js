@@ -50,28 +50,3 @@ function averageText()
 		return "Priemerný čas strávený pri jednom obrázku";
 }
 
-function finalText()
-{
-	var lang = getLanguage();
-	if (lang == "en")
-		return "Done.";
-	if (lang == "si")
-		return "Konec.";
-	if (lang == "de")
-		return "Fertig.";
-	if (lang == "sk")
-		return "Done.";
-}
-function finalText2()
-{
-	var lang = getLanguage();
-	if (lang == "en")
-		return "Thank you for your participation.";
-	if (lang == "si")
-		return "Hvala za sodelovanje.";
-	if (lang == "de")
-		return "Danke für Ihre Teilnahme.";
-	if (lang == "sk")
-		return "Ďakujeme za vašu účasť.";
-}
-

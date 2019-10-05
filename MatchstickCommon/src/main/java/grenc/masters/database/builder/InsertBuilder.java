@@ -45,7 +45,6 @@ public class InsertBuilder <T>
 				FieldMapper<?> field = fields.get(i);
 				statement.setObject(i+1, field.value);
 			}
-			System.out.println(statement);
 
 			statement.execute();
 		} 

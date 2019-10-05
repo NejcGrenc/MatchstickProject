@@ -129,15 +129,9 @@ public class ResponseProcessor
 		//		MatchstickActionDataDAO.parseLocationJson(action.getJSONObject("endMatchstickLoc")), 
 	}
 	
-
-	public boolean isFinished(TaskSession taskSession)
+	public TaskSession perhapsFinishLastTaskSession(TaskSession taskSession)
 	{
-		return matchstickTaskProcessor.isCurrentTaskSessionFinished(taskSession);
-	}
-	
-	public void perhapsFinishLastTaskSession(TaskSession taskSession)
-	{
-		matchstickTaskProcessor.finishCurrentTaskSessionIfApplicable(taskSession);
+		return matchstickTaskProcessor.finishCurrentTaskSessionIfApplicable(taskSession);
 	}
 
 	

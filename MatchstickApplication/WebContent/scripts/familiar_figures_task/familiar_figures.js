@@ -24,7 +24,8 @@ var failImage;
 var sucessImage;
 var focusImage;
 
-var resolutionMapBufferZone = 0.04;
+var resolutionHorisontalMapBufferZone = 0.12;
+var resolutionVerticalMapBufferZone = 0.05;
 
 
 //
@@ -294,12 +295,12 @@ function solutionListener(mouseEvent)
 }
 function claculateSextant(pointX, pointY, startX, width, height)
 {
-    var buffer01 = (pointY > height / 2 - height * resolutionMapBufferZone 
-                    && pointY < height / 2 + height * resolutionMapBufferZone);
-    var buffer02 = (pointX > startX + width / 3 - width * resolutionMapBufferZone 
-                    && pointX < startX + width / 3 + width * resolutionMapBufferZone);
-    var buffer03 = (pointX > startX + 2 * width / 3 - width * resolutionMapBufferZone 
-                    && pointX < startX + 2 * width / 3 + width * resolutionMapBufferZone);
+    var buffer01 = (pointY > height / 2 - height * resolutionHorisontalMapBufferZone 
+                    && pointY < height / 2 + height * resolutionHorisontalMapBufferZone);
+    var buffer02 = (pointX > startX + width / 3 - width * resolutionVerticalMapBufferZone 
+                    && pointX < startX + width / 3 + width * resolutionVerticalMapBufferZone);
+    var buffer03 = (pointX > startX + 2 * width / 3 - width * resolutionVerticalMapBufferZone 
+                    && pointX < startX + 2 * width / 3 + width * resolutionVerticalMapBufferZone);
     if (buffer01 || buffer02 || buffer03)
         return null;
     
@@ -350,17 +351,7 @@ function finish()
     done = true;
     
     clearCanvas();
-    ctx.beginPath();
-    ctx.font = "20px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(finalText(), canvas.width/2, canvas.height/2 - 23); 
-    ctx.fillText(finalText2(), canvas.width/2, canvas.height/2 + 23); 
-    ctx.closePath();
-    
-    var greenButtonContainer = document.getElementById("sucessButton");
-    var greenButton = document.getElementById("button-done");
-    greenButtonContainer.style.display = 'inline';
-    greenButton.title = "Finish";
+    onSucessSend();
 }
 
 

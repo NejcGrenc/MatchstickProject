@@ -10,14 +10,14 @@ import java.util.Map;
  */
 public enum EducationLevel
 {
-	SELECT    ("Please select",		"Prosimo izberite",		"Prosímo vyberte",		"Bitte auswählen"	),
+	SELECT    ("Please select",		"Prosimo izberite",		"ProsÃ­mo vyberte",		"Bitte auswÃ¤hlen"	),
 	Level_O   ("None", 				"Brez", 				"Bez", 					"Keiner"			),
-	Level_1   ("Primary school",	"Osnovna šola",			"Základná škola",		"Grundschule"		),
-	Level_2_3 ("Secondary school",	"Srednja šola",			"Stredná škola",		"Weiterführende Schule"		),
-	Level_4_5 ("Tertiary school",	"Višja šola",			"Vyššia škola",			"Höhere Schule"		),
-	Level_6   ("Bachelor degree",	"Univerzitetna diploma","Bakalárske štúdium",	"Bachelor-Studium" 	),
-	Level_7   ("Master degree",		"Magisterij",			"Magisterský titul",	"Master-Abschluss"	),
-	Level_8   ("Doctorate", 		"Doktorat", 			"Doktorát", 			"Doktor"			);
+	Level_1   ("Primary school",	"Osnovna Å¡ola",			"ZÃ¡kladnÃ¡ Å¡kola",		"Grundschule"		),
+	Level_2_3 ("Secondary school",	"Srednja Å¡ola",			"StrednÃ¡ Å¡kola",		"WeiterfÃ¼hrende Schule"		),
+	Level_4_5 ("Tertiary school / Academy",	"ViÅ¡ja Å¡ola / Akademija",	"AkadÃ©mie", "Hochschule / Akademie"		),
+	Level_6   ("Bachelor degree",	"Univerzitetna diploma","BakalÃ¡rske titul",		"Bachelor-Abschluss"),
+	Level_7   ("Master degree",		"Magisterij",			"MagisterskÃ½ titul",	"Master-Abschluss"	),
+	Level_8   ("Doctorate", 		"Doktorat", 			"DoktorÃ¡t", 			"Doktor"			);
 	
 	private String descriptionEN;
 	private String descriptionSI;

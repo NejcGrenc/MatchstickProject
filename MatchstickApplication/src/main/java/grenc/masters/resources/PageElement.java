@@ -18,6 +18,7 @@ public enum PageElement {
 	select_task ("speciffic/", "select-task-main.html"),
 	select_single_task ("speciffic/", "select-task-singe-main.html"),
 	task_wrapup ("speciffic/", "task-wrapup.html"),
+	task_done ("speciffic/", "task-done.html"),
 	user_data ("speciffic/", "user-data-main.html"),
 	
 	agreement_en ("speciffic/agreement/", "agreement-en.html"),

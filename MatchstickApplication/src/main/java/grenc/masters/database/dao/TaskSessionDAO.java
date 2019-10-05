@@ -39,6 +39,17 @@ public class TaskSessionDAO
 	}
 	
 	@Cached
+	public TaskSession findTaskForTaskSessionId(int taskSessionId)
+	{
+		List<TaskSession> taskSessions = buildFullEntry(QueryBuilder.newSelect(TaskSession::new))
+					  .where("id", taskSessionId)
+					  .orderByDesc("id", true)
+					  .execute();
+		
+		return (taskSessions == null) ? null : taskSessions.get(0);
+	}
+	
+	@Cached
 	public List<TaskSession> findAllTaskForSessionId(int sessionId)
 	{
 		return buildFullEntry(QueryBuilder.newSelect(TaskSession::new))
@@ -90,20 +101,22 @@ public class TaskSessionDAO
 	}
 	
 	@ResetCache
-	public synchronized void updateComplete(int id, boolean complete)
+	public synchronized TaskSession updateComplete(int id, boolean complete)
 	{
 		QueryBuilder.newUpdate().inTable("task_session")
 					.setCondition("id", id)
 					.setField("complete", complete)
 					.execute();
+		return findTaskForTaskSessionId(id);
 	}
 	
 	@ResetCache
-	public synchronized void updateNotes(int id, String notes)
+	public synchronized TaskSession updateNotes(int id, String notes)
 	{
 		QueryBuilder.newUpdate().inTable("task_session")
 					.setCondition("id", id)
 					.setField("notes", notes)
 					.execute();
+		return findTaskForTaskSessionId(id);
 	}
 }

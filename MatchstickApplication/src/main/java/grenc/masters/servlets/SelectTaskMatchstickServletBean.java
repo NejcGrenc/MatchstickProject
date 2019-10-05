@@ -107,6 +107,7 @@ public class SelectTaskMatchstickServletBean extends BasePageServlet
 	private class SelectTaskPage extends ApplicationFileSegment
 	{
 		private SimpleTranslatableSegment start_task = new SimpleTranslatableSegment(context, "translations/select-task/matchstick_task.json");
+		private SimpleTranslatableSegment to_continue = new SimpleTranslatableSegment(context, "translations/select-task/to_continue.json");
 
 		public SelectTaskPage(ServletContext servletContext)
 		{

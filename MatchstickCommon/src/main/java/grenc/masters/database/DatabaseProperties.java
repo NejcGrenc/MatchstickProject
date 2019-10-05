@@ -19,11 +19,6 @@ public class DatabaseProperties
 		if (classLoader == null)
 		{
 			System.out.println("Class loader is null");
-			classLoader = Thread.currentThread().getContextClassLoader();
-			if (classLoader == null)
-			{
-				System.out.println("Class loader (by thread) is null");
-			}
 		}
 				
 		try (InputStream inputStream = new DatabaseProperties().getClass().getClassLoader().getResourceAsStream(filePath)) 
@@ -47,7 +42,7 @@ public class DatabaseProperties
 			System.out.println("Local properties cannot be found on path: " + localProperties);
 		}
 		
-		 printOutAllProperties();
+		 // printOutAllProperties();
 	}
 	
 	public static String getProperty(String name)
