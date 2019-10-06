@@ -42,37 +42,51 @@ public class DispatcherServletBean
 	
 	public void process(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws IOException, ServletException
 	{
-		// New call
-		System.out.println();
-		
-		mapParametersAsAttributes(request);
-		
-		// In case a page refresh occurred, return cached data
-		refreshCache.deleteTimeoutedData();
-		if (refreshCache.isEligibleForRefresh(request))
+		try 
 		{
-			System.out.println("New request has been determined to be a page refresh. Returning previous cached data.");
-			outputExistingResponse(response, refreshCache.getCachedResponse(request));
-			return;
-		}
-		
-		// Process client's previous response phase
-		String previousUrl = getPreviousUrl(request);
-		ServletBean previousServlet = servletBeanProcessor.servletBeanByUrl(previousUrl);
-		
-		System.out.println("Processing client's response for: " + previousUrl);
-		if (previousServlet != null)
-			previousServlet.processClientsResponse(request, servletContext);
-		
-		
-		if (initialCallHandler.isInitial(request))
-			initialCallHandler.handle(request, response);
-		
-		String forwardUrl = selectNewForwardUrl(request);
+			// New call
+			System.out.println();
 			
-		System.out.println("Forwarding request to: " + forwardUrl);
-		RequestDispatcher dispatcher = buildDispatcher(forwardUrl, servletContext);
-		dispatcher.forward(request, response);
+			mapParametersAsAttributes(request);
+			
+			// In case a page refresh occurred, return cached data
+			refreshCache.deleteTimeoutedData();
+			if (refreshCache.isEligibleForRefresh(request))
+			{
+				System.out.println("New request has been determined to be a page refresh. Returning previous cached data.");
+				outputExistingResponse(response, refreshCache.getCachedResponse(request));
+				return;
+			}
+			
+			// Process client's previous response phase
+			String previousUrl = getPreviousUrl(request);
+			ServletBean previousServlet = servletBeanProcessor.servletBeanByUrl(previousUrl);
+			
+			System.out.println("Processing client's response for: " + previousUrl);
+			if (previousServlet != null)
+				previousServlet.processClientsResponse(request, servletContext);
+			
+			
+			if (initialCallHandler.isInitial(request))
+				initialCallHandler.handle(request, response);
+			
+			String forwardUrl = selectNewForwardUrl(request);
+				
+			System.out.println("Forwarding request to: " + forwardUrl);
+			RequestDispatcher dispatcher = buildDispatcher(forwardUrl, servletContext);
+			dispatcher.forward(request, response);
+			
+		}
+		catch (Throwable ex)
+		{
+			System.out.println();
+			System.out.println("Exception occoured: " + ex.getMessage());
+			System.out.println();
+
+			System.out.println("Forwarding request to: /error");
+			RequestDispatcher dispatcher = buildDispatcher("/error", servletContext);
+			dispatcher.forward(request, response);
+		}
 	}
 	
 	private void mapParametersAsAttributes(HttpServletRequest request) 

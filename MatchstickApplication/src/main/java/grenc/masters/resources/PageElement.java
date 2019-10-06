@@ -2,6 +2,8 @@ package grenc.masters.resources;
 
 public enum PageElement {
 
+	error ("error/", "error.html"),
+	
 	account_ball ("common/", "account-ball.html"),
 	account_ball_popup ("common/", "account-ball-popup.html"),
 	data_present_ball ("common/", "data-present-ball.html"),

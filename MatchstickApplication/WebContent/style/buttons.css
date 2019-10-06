@@ -165,6 +165,10 @@ span
 	content: url("../images/baseline_replay_white_48dp.png");
 }
 
+.replayLabel:after {
+	content: url("../images/baseline_replay_white_48dp.png");
+}
+
 
 .lang_ball {
 	position: relative;

@@ -23,23 +23,21 @@ public abstract class BasePageServlet implements ServletBean
 	{
         request.setCharacterEncoding(Encoding.common);
 		response.setCharacterEncoding(Encoding.common);
+		
+		String basePath = servletContext.getRealPath("/");
+		WebpageBuilder builder = new WebpageBuilder(basePath);
+		includeUserSession(builder, request);
+		includeCurrentCall(builder);
+		createWebPage(builder, request, servletContext);
+		
 		try (PrintWriter out = response.getWriter())
 		{
-			String basePath = servletContext.getRealPath("/");
-			WebpageBuilder builder = new WebpageBuilder(basePath);
-			includeUserSession(builder, request);
-			includeCurrentCall(builder);
-			createWebPage(builder, request, servletContext);
-			
 			builder.writePage(out);
-			
-			cacheResponse(request, builder);
-		} 
-		catch (IOException e)
-		{
-			e.printStackTrace();
 		}
-		System.out.println("Creaded page");	
+		
+		cacheResponse(request, builder);
+
+		System.out.println("Created page");	
 	}
 	
 	private void includeUserSession(WebpageBuilder builder, HttpServletRequest request)
