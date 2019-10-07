@@ -85,20 +85,21 @@ public class LoginServletBean extends BasePageServlet
 	@Override
 	public void processClientsResponse(HttpServletRequest request, ServletContext servletContext) throws IOException, ServletException
 	{
+		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		String agreementAccepted = (String) request.getAttribute("agreement_accepted");
 		if (agreementAccepted == null || agreementAccepted.isEmpty())
 		{
-			System.out.println("Did not login while on Login page! (probably clicked one of the up-right buttons)");
+			logger.log(session, "Did not login while on Login page! (probably clicked one of the up-right buttons)");
 			return;
 		}
 		
 		if (Boolean.valueOf(agreementAccepted))
 		{
-			System.out.println("User has accepted the agreement.");
+			logger.log(session, "User has accepted the agreement.");
 			createLoginSubject(request);
 		}
 		else
-			System.out.println("User has NOT accepted the agreement.");
+			logger.log(session, "User has NOT accepted the agreement.");
 	}
 
 	private void createLoginSubject(HttpServletRequest request)
@@ -123,13 +124,12 @@ public class LoginServletBean extends BasePageServlet
 	
 	private Subject createNewSubject(HttpServletRequest request)
 	{
-		String sessionTag = (String) request.getAttribute("session");
-		
-		System.out.println("Create a new subject");
-		System.out.println(" - for session: " + sessionTag);
-		
+		String sessionTag = (String) request.getAttribute("session");		
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		Subject subject = subjectDAO.insertSubject(session.getId());
+		
+		logger.log(session, "Create a new subject");
+		logger.log(session, " - for session: " + sessionTag);
 		
 		sessionDAO.updateSessionSubjectId(session.getId(), subject.getId());
 		
@@ -141,9 +141,9 @@ public class LoginServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		int previousRisk = session.getRisk();
 		int newRisk = previousRisk + increasedRisk;
-		System.out.println("Upsert");
-		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - increasing risk to: " + newRisk);
+		logger.log(session, "Upsert");
+		logger.log(session, " - for session: " + sessionTag);
+		logger.log(session, " - increasing risk to: " + newRisk);
 
 		sessionDAO.updateSessionRisk(session.getId(), newRisk);
 	}

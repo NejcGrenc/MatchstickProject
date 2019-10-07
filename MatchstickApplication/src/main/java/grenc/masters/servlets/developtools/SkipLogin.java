@@ -12,6 +12,7 @@ import grenc.masters.servlets.SelectTaskServletBean;
 import grenc.masters.servlets.UserDataServletBean;
 import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -39,6 +40,9 @@ public class SkipLogin
 	private UserDataServletBean userDataServlet;
 	@InsertBean
 	private SelectTaskServletBean selectTaskServlet;
+	
+	private Logger logger = new Logger(SkipLogin.class.getSimpleName());
+
 
 	
 	public static boolean shouldSkip(HttpServletRequest request)
@@ -51,16 +55,16 @@ public class SkipLogin
 
 	public String skip(HttpServletRequest request) {
 		
-		System.out.println("Skipping!");
+		logger.log("Skipping!");
 
 		ServletBean forwardServlet = forwardTo(request);
-		System.out.println("Skipping to " + forwardServlet.url());
+		logger.log("Skipping to " + forwardServlet.url());
 		
 		if (forwardServlet == languageServlet)
 		{
 			Session session = sessionGenerator.generateSession();
 			request.setAttribute("session", session.getTag());
-			System.out.println("Skipping with session " + session.getTag());
+			logger.log("Skipping with session " + session.getTag());
 		}
 		if (forwardServlet == loginServlet)
 		{
@@ -71,7 +75,7 @@ public class SkipLogin
 			request.setAttribute("session", session.getTag());
 			request.setAttribute("lang", lang);
 			
-			System.out.println("Skipping with session: " + session.getTag() + " and lang: " + lang);
+			logger.log("Skipping with session: " + session.getTag() + " and lang: " + lang);
 		}
 		if (forwardServlet == userDataServlet)
 		{
@@ -87,7 +91,7 @@ public class SkipLogin
 			request.setAttribute("lang", lang);
 			request.setAttribute("subjectName", subjectName);
 			
-			System.out.println("Skipping with session: " + session.getTag() + " and lang: " + lang + " and subjName: " + subjectName);
+			logger.log("Skipping with session: " + session.getTag() + " and lang: " + lang + " and subjName: " + subjectName);
 		}
 		if (forwardServlet == selectTaskServlet)
 		{
@@ -105,7 +109,7 @@ public class SkipLogin
 			request.setAttribute("lang", lang);
 			request.setAttribute("subjectName", subjectName);
 			
-			System.out.println("Skipping with session: " + session.getTag() + " and lang: " + lang + " and subjName: " + subjectName);
+			logger.log("Skipping with session: " + session.getTag() + " and lang: " + lang + " and subjName: " + subjectName);
 		}
 
 		return forwardServlet.url();

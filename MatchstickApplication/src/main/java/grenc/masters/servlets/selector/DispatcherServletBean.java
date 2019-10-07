@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.Encoding;
+import grenc.masters.database.dao.SessionDAO;
+import grenc.masters.database.entities.Session;
 import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.masters.servlets.developtools.InitialCallHandler;
 import grenc.masters.servlets.developtools.RefreshCache;
+import grenc.masters.utils.Logger;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
@@ -32,6 +35,12 @@ public class DispatcherServletBean
 	@InsertBean
 	private Selector selector;
 	
+	@InsertBean
+	private SessionDAO sessionDao;
+	
+	private Logger logger = new Logger(DispatcherServletBean.class.getSimpleName());
+
+	
 	public DispatcherServletBean() {};
 	
 	public DispatcherServletBean(ServletBeanProcessor servletBeanProcessor)
@@ -42,10 +51,15 @@ public class DispatcherServletBean
 	
 	public void process(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws IOException, ServletException
 	{
+		Session session = null;
 		try 
 		{
+			String sessionTag = (String) request.getAttribute("session");
+			if (sessionTag != null)
+				session = sessionDao.findSessionByTag(sessionTag);
+			
 			// New call
-			System.out.println();
+			logger.log(session);
 			
 			mapParametersAsAttributes(request);
 			
@@ -53,7 +67,7 @@ public class DispatcherServletBean
 			refreshCache.deleteTimeoutedData();
 			if (refreshCache.isEligibleForRefresh(request))
 			{
-				System.out.println("New request has been determined to be a page refresh. Returning previous cached data.");
+				logger.log(session, "New request has been determined to be a page refresh. Returning previous cached data.");
 				outputExistingResponse(response, refreshCache.getCachedResponse(request));
 				return;
 			}
@@ -62,7 +76,7 @@ public class DispatcherServletBean
 			String previousUrl = getPreviousUrl(request);
 			ServletBean previousServlet = servletBeanProcessor.servletBeanByUrl(previousUrl);
 			
-			System.out.println("Processing client's response for: " + previousUrl);
+			logger.log(session, "Processing client's response for: " + previousUrl);
 			if (previousServlet != null)
 				previousServlet.processClientsResponse(request, servletContext);
 			
@@ -72,18 +86,18 @@ public class DispatcherServletBean
 			
 			String forwardUrl = selectNewForwardUrl(request);
 				
-			System.out.println("Forwarding request to: " + forwardUrl);
+			logger.log(session, "Forwarding request to: " + forwardUrl);
 			RequestDispatcher dispatcher = buildDispatcher(forwardUrl, servletContext);
 			dispatcher.forward(request, response);
 			
 		}
 		catch (Throwable ex)
 		{
-			System.out.println();
-			System.out.println("Exception occoured: " + ex.getMessage());
-			System.out.println();
+			logger.log(session);
+			logger.log(session, "Exception occoured: " + ex.getMessage());
+			logger.log(session);
 
-			System.out.println("Forwarding request to: /error");
+			logger.log(session, "Forwarding request to: /error");
 			RequestDispatcher dispatcher = buildDispatcher("/error", servletContext);
 			dispatcher.forward(request, response);
 		}

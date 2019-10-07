@@ -65,9 +65,10 @@ public class LanguageServletBean extends BasePageServlet
 		String sessionTag = (String) request.getAttribute("session");
 		String lang = (String) request.getAttribute("lang");
 		
-		System.out.println("Upsert");
-		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - with lang: " + lang);
+		Session session = sessionDAO.findSessionByTag(sessionTag);
+		logger.log(session, "Upsert");
+		logger.log(session, " - for session: " + sessionTag);
+		logger.log(session, " - with lang: " + lang);
 		
 		setLanguage(sessionTag, lang);
 	}

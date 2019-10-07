@@ -83,7 +83,6 @@ public class RefreshCache
 	
 	private boolean parameterMatch(String attribute, HttpServletRequest latestRequest, HttpServletRequest oldRequest)
 	{
-		// System.out.println(attribute + " " + latestRequest.getParameter(attribute) + " " + oldRequest.getParameter(attribute) );
 		return (latestRequest.getParameter(attribute)).equals(oldRequest.getParameter(attribute));
 	}
 	

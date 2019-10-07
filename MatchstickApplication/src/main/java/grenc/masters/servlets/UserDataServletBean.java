@@ -107,12 +107,13 @@ public class UserDataServletBean extends BasePageServlet
 		String countryType = (String) request.getAttribute("userdata_country");
 		String education = (String) request.getAttribute("userdata_education");
 
-		System.out.println("Upsert");
-		System.out.println(" - for session: " + sessionTag);
-		System.out.println(" - update subject data: {" + age + ", " + sex + ", " + countryType + ", " + education + "}");
-
 		Session session = sessionDAO.findSessionByTag(sessionTag);
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
+		
+		logger.log(session, "Upsert");
+		logger.log(session, " - for session: " + sessionTag);
+		logger.log(session, " - update subject data: {" + age + ", " + sex + ", " + countryType + ", " + education + "}");
+
 		subjectDAO.updateSubject(subject.getId(), age, sex, countryType, education);
 	}
 	

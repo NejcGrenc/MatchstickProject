@@ -101,8 +101,8 @@ public class TaskWrapupServletBean extends BasePageServlet
 			Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 			TaskSession taskSession = taskSessionDAO.findAllTaskForSessionId(session.getId()).get(0);  // Possible null pointers
 			
-			System.out.println("Updating task session " + taskSession);
-			System.out.println("    -- with notes: '" + comment + "'");
+			logger.log(session, "Updating task session " + taskSession);
+			logger.log(session, "    -- with notes: '" + comment + "'");
 			taskSessionDAO.updateNotes(taskSession.getId(), comment);
 		}
 	}

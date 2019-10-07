@@ -110,7 +110,7 @@ public class MatchstickTaskObserveServletBean extends BasePageServlet
 			// Task is completed, forward to Learn-page
 			String forwardUrl = matchstickTaskLearnServlet.url();
 			request.setAttribute("forwardUrl", forwardUrl);
-			System.out.println("Change forwarding request url to: " + forwardUrl);	
+			logger.log(session, "Change forwarding request url to: " + forwardUrl);	
 		}
 	}
 

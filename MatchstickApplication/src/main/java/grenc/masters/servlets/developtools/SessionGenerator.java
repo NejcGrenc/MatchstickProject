@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -12,6 +13,8 @@ public class SessionGenerator
 {	
 	@InsertBean
 	private SessionDAO sessionDAO;
+	
+	private Logger logger = new Logger(SessionGenerator.class.getSimpleName());
 
 	public Session generateSession()
 	{
@@ -27,7 +30,7 @@ public class SessionGenerator
 		}
 		
 		Session session = sessionDAO.insertSession(randomString, 0, null, 0);
-		System.out.println("Generated session: " + session);
+		logger.log(session, "Generated session: " + session);
 		
 		return session;
 	}

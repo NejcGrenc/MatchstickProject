@@ -10,6 +10,7 @@ import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.assistant.model.OrderedTaskSessions;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.matchsticktask.type.TaskType;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -21,6 +22,9 @@ public class TaskSessionAssist
 	private TaskSessionDAO taskSessionDAO;
 	@InsertBean
 	private GroupSelectAssist groupSelectAssist;
+	
+	private Logger logger = new Logger(TaskSessionAssist.class.getSimpleName());
+
 
 	
 	public OrderedTaskSessions getOrderedTaskSessions(Session session, TaskType taskType)
@@ -37,16 +41,16 @@ public class TaskSessionAssist
 		if (! lastTaskSession.isPresent())
 		{
 			taskSessionToUse = createNewTaskSession(session, taskType);
-			System.out.println("Creating first session: " + taskSessionToUse);
+			logger.log(session, "Creating first session: " + taskSessionToUse);
 		}	
 		else if (lastTaskSession.get().isComplete())
 		{
 			taskSessionToUse = createNewTaskSession(session, taskType);
-			System.out.println("Creating new session: " + taskSessionToUse);
+			logger.log(session, "Creating new session: " + taskSessionToUse);
 		}
 		else {
 			taskSessionToUse = lastTaskSession.get();
-			System.out.println("Selecting unfinished session: " + taskSessionToUse);
+			logger.log(session, "Selecting unfinished session: " + taskSessionToUse);
 		}
 		
 		return taskSessionToUse;

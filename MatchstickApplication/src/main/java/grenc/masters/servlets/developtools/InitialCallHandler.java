@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.entities.Session;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -22,6 +23,8 @@ public class InitialCallHandler
 	private SessionGenerator sessionGenerator;
 	@InsertBean
 	private SkipLogin skipLogin;
+	
+	private Logger logger = new Logger(InitialCallHandler.class.getSimpleName());
 
 	
 	public boolean isInitial(HttpServletRequest request)
@@ -99,9 +102,9 @@ public class InitialCallHandler
 		String snoop = (String) request.getAttribute(snoopParam);
 		if (snoop != null)
 		{
-			System.out.println("Setting up snooping!");
 			Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 			sessionDAO.updateSessionSnoopEnabled(session.getId(), true);
+			logger.log(session, "Setting up snooping!");
 		}
 	}
 	

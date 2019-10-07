@@ -19,6 +19,7 @@ import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
 import grenc.masters.matchsticktask.type.SolvableRestriction;
 import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.resources.Video;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -37,6 +38,8 @@ public class MatchstickTaskProcessor
 	@InsertBean
 	private EquationSolutionsSelector equationTypeSelector;
 	
+	private Logger logger = new Logger(MatchstickTaskProcessor.class.getSimpleName());
+
 	
 	public TaskSession taskSessionToUse(Session session)
 	{
@@ -80,7 +83,7 @@ public class MatchstickTaskProcessor
 			
 			EquationSolutionsGroupType equationType = equationTypeSelector.findNextSolutionGroup(taskSession, newTaskNumber(taskSession));
 			int taskNumber = newTaskNumberForLocalPhase(taskSession);
-			System.out.println("New equation for task number '" + newTaskResult.newTaskLocalNumber + " (" + newTaskNumber(taskSession) + ")" + "' [" + equationType + ", " + taskNumber + "]");
+			logger.log("New equation for task number '" + newTaskResult.newTaskLocalNumber + " (" + newTaskNumber(taskSession) + ")" + "' [" + equationType + ", " + taskNumber + "]");
 			newTaskResult.newEquation = equationAssist.getNextEquation(equationType, taskNumber);
 		}
 		

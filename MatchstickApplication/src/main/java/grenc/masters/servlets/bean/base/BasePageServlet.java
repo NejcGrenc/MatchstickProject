@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import grenc.masters.Encoding;
 import grenc.masters.servlets.developtools.RefreshCache;
+import grenc.masters.utils.Logger;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.simpleton.Beans;
 
 public abstract class BasePageServlet implements ServletBean
 {
+	protected Logger logger = new Logger(this);
+
 	private RefreshCache refreshCache;
-	
+		
 	@Override
 	public void processRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext)
 			throws IOException, ServletException
@@ -37,7 +40,7 @@ public abstract class BasePageServlet implements ServletBean
 		
 		cacheResponse(request, builder);
 
-		System.out.println("Created page");	
+		logger.log("Created page");	
 	}
 	
 	private void includeUserSession(WebpageBuilder builder, HttpServletRequest request)

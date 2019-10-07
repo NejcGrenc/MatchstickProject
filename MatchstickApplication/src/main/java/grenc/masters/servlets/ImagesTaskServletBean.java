@@ -23,7 +23,6 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.delegate.popup.ImageTaskInfoPopup;
-import grenc.masters.utils.PrintUtils;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Translate;
 import grenc.masters.webpage.element.AccountBall;
@@ -114,34 +113,33 @@ public class ImagesTaskServletBean extends BasePageServlet
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		System.out.println("Main session: " + session);
+		logger.log(session, "Main session: " + session);
 		
 		List<TaskSession> taskSessions = taskSessionDAO.findAllTaskForSessionIdAndTaskTypeAndComplete(session.getId(), imagesTaskType, false);
 		if (taskSessions == null || taskSessions.isEmpty())
 		{
 			throw new RuntimeException("No valid task session found");
 		}
-		PrintUtils.printList("Task Sesions", taskSessions);
+		logger.printList(session, "Task Sesions", taskSessions);
 		TaskSession taskSession = taskSessions.get(0);
 		
 		String scores = (String) request.getAttribute("scores");
-		System.out.println("Value of 'scores' is " + scores);
+		logger.log(session, "Value of 'scores' is " + scores);
 		if (scores == null || scores.isEmpty())
 		{
-			System.out.println("Did not send task data! (probably clicked one of the up-right buttons)");
+			logger.log(session, "Did not send task data! (probably clicked one of the up-right buttons)");
 			return;
 		}
 
-		System.out.println("Returned data " + scores);
+		logger.log(session, "Returned data " + scores);
 
-		storeData(taskSession, scores);
+		storeData(session, taskSession, scores);
 		finishTaskSession(taskSession);
-		System.out.println();
-		System.out.println();
+		logger.log(session, "");
 	}
 	
 	// TODO make tests for building data properly
-	void storeData(TaskSession taskSession, String stringData)
+	void storeData(Session session, TaskSession taskSession, String stringData)
 	{
 		JSONTokener tokener = new JSONTokener(stringData);
 		JSONObject data = new JSONObject(tokener);
@@ -153,7 +151,7 @@ public class ImagesTaskServletBean extends BasePageServlet
 		for (int i = 0; i < scores.length(); i++)
 		{
 			buildTaskData(taskSession.getId(), i, shortenImageId(images.getString(i)), times.getLong(i), scores.getBoolean(i));
-			System.out.println(i + ". " + scores.getBoolean(i) + " - " + times.getLong(i) + " -> " + images.getString(i));
+			logger.log(session, i + ". " + scores.getBoolean(i) + " - " + times.getLong(i) + " -> " + images.getString(i));
 		}
 	}
 	

@@ -105,9 +105,9 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		// Setup current task number
 		builder.appendBodyScriptCommand("setSolvingTaskNumber("+newTask.newTaskLocalNumber+", "+newTask.newTaskNumber+", "+newTask.totalNumberOfTasks+");");
 		
-		System.out.println(" | For session " + sessionTag);
-		System.out.println(" | and task session " + session.getId());
-		System.out.println(" | - Created new equation: " + newTask.newEquation);
+		logger.log(session, " | For session " + sessionTag);
+		logger.log(session, " | and task session " + session.getId());
+		logger.log(session, " | - Created new equation: " + newTask.newEquation);
 		builder.appendBodyScriptCommand("var originalEquation = '" + newTask.newEquation + "';");
 
 		if (newTask.continueWithTime != 0l)
@@ -136,13 +136,13 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	{
 		String sessionTag = (String) request.getAttribute("session");
 		Session session = sessionDAO.findSessionByTag(sessionTag);
-		System.out.println("Main session: " + session);
+		logger.log(session, "Main session: " + session);
 		
 		String taskData = (String) request.getAttribute("task_data");
-		System.out.println("Value of 'task_data' is " + taskData);
+		logger.log(session, "Value of 'task_data' is " + taskData);
 		if (taskData == null || taskData.isEmpty())
 		{
-			System.out.println("Did not send task data! (probably clicked one of the up-right buttons)");
+			logger.log(session, "Did not send task data! (probably clicked one of the up-right buttons)");
 			return;
 		}
 		
@@ -160,19 +160,20 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		taskSession = responseProcessor.perhapsFinishLastTaskSession(taskSession);	
 		if (taskSession.isComplete())
 		{
-			System.out.println();
-			System.out.println("Last task is finished!");
-			processFinished(request);
+			logger.log(session);
+			logger.log(session, "Last task is finished!");
+			String forwardUrl = processFinished(request);
+			logger.log(session, "Change forwarding request url to: " + forwardUrl);
 		}
-		System.out.println();
+		logger.log(session);
 	}
 	
-	public void processFinished(HttpServletRequest request)
+	public String processFinished(HttpServletRequest request)
 	{
 		// Task is completed, forward to after-page
 		String forwardUrl = taskWrapupServlet.url();
 		request.setAttribute("forwardUrl", forwardUrl);
-		System.out.println("Change forwarding request url to: " + forwardUrl);	
+		return forwardUrl;
 	}
 	
 	private void openInfoPopupBeforeStart(WebpageBuilder builder, TaskSession taskSession)

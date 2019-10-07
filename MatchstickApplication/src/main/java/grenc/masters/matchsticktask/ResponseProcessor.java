@@ -11,6 +11,7 @@ import grenc.masters.database.entities.MatchstickActionData;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -25,6 +26,9 @@ public class ResponseProcessor
 	
 	@InsertBean
 	private MatchstickTaskProcessor matchstickTaskProcessor;
+	
+	private Logger logger = new Logger(ResponseProcessor.class.getSimpleName());
+
 	
 
 	public void storeEmptyTask(TaskSession taskSession) // Used for Observe & Learn task-parts
@@ -55,7 +59,7 @@ public class ResponseProcessor
 		if (lastStoredTask == null) 
 			return false;
 		
-		System.out.println("Page refresh details: " + task_number + " " + lastStoredTask.getNumber() + "-" + lastStoredTask.getStatus());
+		logger.log("Page refresh details: " + task_number + " " + lastStoredTask.getNumber() + "-" + lastStoredTask.getStatus());
 		// Only if the last stored task is already solved and the received task data contains the same (or higher) task number
 		return (lastStoredTask.getStatus() == MatchstickTaskStatus.solved && lastStoredTask.getNumber() >= task_number);
 	}
@@ -72,7 +76,7 @@ public class ResponseProcessor
 		
 		for (int i = 0; i < actions.length(); i++)
 		{
-			System.out.println(actions.getJSONObject(i));
+			logger.log(actions.getJSONObject(i).toString());
 		}
 				
 		int newTaskNumber = matchstickTaskProcessor.newTaskNumber(taskSession);

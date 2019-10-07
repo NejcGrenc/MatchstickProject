@@ -9,6 +9,7 @@ import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.TaskSession;
 import grenc.masters.matchsticktask.assistant.model.OrderedTaskData;
 import grenc.masters.matchsticktask.type.MatchstickTaskStatus;
+import grenc.masters.utils.Logger;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
 
@@ -22,6 +23,8 @@ public class TaskDataAssist {
 
 	@InsertBean
 	private TaskNumberAssist taskNumberAssist;
+	
+	private Logger logger = new Logger(TaskDataAssist.class.getSimpleName());
 
 	
 	public OrderedTaskData getOrderedTaskData(TaskSession taskSession)
@@ -42,7 +45,7 @@ public class TaskDataAssist {
 	
 	private boolean shouldBeFinished(TaskSession taskSession)
 	{
-		System.out.println("Should be finished "+ taskNumberAssist.newTaskNumber(taskSession) + " / " + taskNumberAssist.totalNumberOfTasks(taskSession));
+		logger.log("Should be finished "+ taskNumberAssist.newTaskNumber(taskSession) + " / " + taskNumberAssist.totalNumberOfTasks(taskSession));
 		return (taskNumberAssist.newTaskNumber(taskSession) > taskNumberAssist.totalNumberOfTasks(taskSession));
 	}
 

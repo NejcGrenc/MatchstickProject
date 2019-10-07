@@ -71,10 +71,11 @@ public class SelectTaskServletBean extends BasePageServlet
 		builder.addStyle(Style.split_page);
 		builder.addScript(Script.send);
 		
-		if (new BrowserDetails(request).isIEorSafariorEdge())
+		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
+
+		if (new BrowserDetails(session, request).isIEorSafariorEdge())
 			builder.addStyle(Style.split_page_ie);
 			
-		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
 		dataPresentBall.set(builder, session);

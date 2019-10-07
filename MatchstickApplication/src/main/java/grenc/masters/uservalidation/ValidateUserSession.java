@@ -2,7 +2,9 @@ package grenc.masters.uservalidation;
 
 import javax.servlet.http.HttpServletRequest;
 
+import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
 import grenc.simpleton.annotation.Bean;
 import grenc.simpleton.annotation.InsertBean;
@@ -12,6 +14,8 @@ public class ValidateUserSession
 {
 	@InsertBean
 	private SubjectDAO subjectDao;
+	@InsertBean
+	private SessionDAO sessionDao;
 	
 	public boolean isFreshIP(HttpServletRequest request)
 	{
@@ -28,7 +32,9 @@ public class ValidateUserSession
 	
 	public Subject updateSubject(Subject subject, HttpServletRequest request)
 	{
-		BrowserDetails browserData = new BrowserDetails(request);
+		Session session = sessionDao.findSessionById(subject.getSessionId());
+		
+		BrowserDetails browserData = new BrowserDetails(session, request);
 		String ip = IpAddress.getClientIpAddress(request);
 		Geolocation geolocation = new Geolocation(ip);
 		

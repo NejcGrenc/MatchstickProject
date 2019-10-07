@@ -9,6 +9,8 @@ import com.maxmind.geoip2.exception.AddressNotFoundException;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
 
+import grenc.masters.utils.Logger;
+
 public class Geolocation
 {
 	private static final String geoDatabase = "GeoLite2-City_20190212/GeoLite2-City.mmdb";
@@ -22,6 +24,9 @@ public class Geolocation
 	private String cityName;
 	private String postal;
 	private String state;
+	
+	private Logger logger = new Logger(Geolocation.class.getSimpleName());
+
 	
 	public Geolocation(String ip)
 	{
@@ -51,18 +56,18 @@ public class Geolocation
 		}
 		catch (AddressNotFoundException e)
 		{
-	    	System.out.println("No data found for provided IP: " + ip);
-			System.out.println(e);
+			logger.log("No data found for provided IP: " + ip);
+			logger.log(e.getMessage());
 		}
 		catch (IOException e)
 		{
-			System.out.println("Unable to open Geolocation database");
-			System.out.println(e);
+			logger.log("Unable to open Geolocation database");
+			logger.log(e.getMessage());
 		}
 	    catch (GeoIp2Exception e)
 		{
-	    	System.out.println("No data found for provided IP: " + ip);
-			System.out.println(e);
+	    	logger.log("No data found for provided IP: " + ip);
+	    	logger.log(e.getMessage());
 		}
 	}
 	
