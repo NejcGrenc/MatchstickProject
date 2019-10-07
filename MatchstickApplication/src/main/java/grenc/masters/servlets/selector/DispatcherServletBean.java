@@ -84,7 +84,7 @@ public class DispatcherServletBean
 			if (initialCallHandler.isInitial(request))
 				initialCallHandler.handle(request, response);
 			
-			String forwardUrl = selectNewForwardUrl(request);
+			String forwardUrl = selectNewForwardUrl(request, response);
 				
 			logger.log(session, "Forwarding request to: " + forwardUrl);
 			RequestDispatcher dispatcher = buildDispatcher(forwardUrl, servletContext);
@@ -118,12 +118,20 @@ public class DispatcherServletBean
 		return previous;
 	}
 	
-	private String selectNewForwardUrl(HttpServletRequest request)
+	private String selectNewForwardUrl(HttpServletRequest request, HttpServletResponse response)
 	{
 		String forwardUrl = (String) request.getAttribute("forwardUrl");
 		String previousUrl = (String) request.getAttribute("previousUrl");
 		String sessionTag = (String) request.getAttribute("session");
-		return selector.select(forwardUrl, previousUrl, sessionTag);
+		
+		String newForwardUrl = selector.select(forwardUrl, previousUrl, sessionTag);
+		if (newForwardUrl == "UNKNOWN")
+		{
+			request.setAttribute("restart_anew", true);
+			initialCallHandler.handle(request, response);
+			return selector.select(forwardUrl, previousUrl, sessionTag);
+		}
+		return newForwardUrl;
 	}
 	
 	public RequestDispatcher buildDispatcher(String forwardUrl, ServletContext servletContext)

@@ -1,11 +1,18 @@
 package grenc.masters.servlets.selector;
 
+import java.util.List;
+
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
+import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
+import grenc.masters.database.entities.TaskSession;
+import grenc.masters.matchsticktask.type.TaskType;
 import grenc.masters.servlets.LanguageServletBean;
 import grenc.masters.servlets.LoginServletBean;
+import grenc.masters.servlets.SelectTaskImagesServletBean;
+import grenc.masters.servlets.SelectTaskMatchstickServletBean;
 import grenc.masters.servlets.SelectTaskServletBean;
 import grenc.masters.servlets.UserDataServletBean;
 import grenc.simpleton.annotation.Bean;
@@ -19,7 +26,9 @@ public class Selector
 	private SessionDAO sessionDAO;
 	@InsertBean
 	private SubjectDAO subjectDAO;
-
+	@InsertBean
+	private TaskSessionDAO taskSessionDao;
+	
 	@InsertBean
 	private LanguageServletBean languageServlet;
 	@InsertBean
@@ -28,7 +37,10 @@ public class Selector
 	private UserDataServletBean userDataServlet;
 	@InsertBean
 	private SelectTaskServletBean selectTaskServlet;
-	
+	@InsertBean
+	private SelectTaskMatchstickServletBean selectTaskMatchstickServletBean;
+	@InsertBean
+	private SelectTaskImagesServletBean selectTaskImagesServletBean;
 	
 	/*
 	 * Endpoint priorities:
@@ -75,9 +87,22 @@ public class Selector
 			return userDataServlet.url();
 		}
 		
-		return selectTaskServlet.url();
-
-//		throw new SelectorException(forwardUrl);
+		List<TaskSession> taskSessions = taskSessionDao.findAllTaskForSessionId(session.getId());
+		
+		// MATCHSTICK TASK
+		if (taskSessions.stream().anyMatch(s -> TaskType.matchstick == s.getTaskType()))
+		{
+			return selectTaskMatchstickServletBean.url();
+		}
+		
+		// IMAGES TASK
+		if (taskSessions.stream().anyMatch(s -> TaskType.images == s.getTaskType()))
+		{
+			return selectTaskImagesServletBean.url();
+		}
+		
+		// UNKNOWN - have to handle separately
+		return "UNKNOWN";
 	}
 	
 	private boolean isNullOrEmpty(String str)
@@ -85,15 +110,4 @@ public class Selector
 		return str == null || str.isEmpty();
 	}
 	
-	
-	
-//	private class SelectorException extends RuntimeException
-//	{
-//		private static final long serialVersionUID = -5272689905626652282L;
-//
-//		public SelectorException(String forwardUrl)
-//		{
-//			super ("No servlet found for forward url: " + forwardUrl);
-//		}
-//	}
 }
