@@ -67,9 +67,10 @@ public class DataFileCreator
 		writer.write("sep=" + RetrieveDataServletBean.delimiter + "\n");
 		
 		List<String> headers = new ArrayList<>();
+		headers.add("session_id");
 		headers.addAll(headerPart_users());
 		headers.addAll(headerPart_matchstick());
-		headers.addAll( headerPart_familiarFigures());
+		headers.addAll(headerPart_familiarFigures());
 		writer.write(joinString(headers) + "\n");
 	
 		for (Session session : sessionDAO.findAllSessions()) 
@@ -78,9 +79,15 @@ public class DataFileCreator
 				continue;
 			
 			List<Object> sessionData = new ArrayList<>();
-			sessionData.addAll(dataPart_users(session));
-			sessionData.addAll(dataPart_matchstick(session));
-			sessionData.addAll(dataPart_familiarFigures(session));
+			try
+			{
+				sessionData.add(session.getId());
+				sessionData.addAll(dataPart_users(session));
+				sessionData.addAll(dataPart_matchstick(session));
+				sessionData.addAll(dataPart_familiarFigures(session));
+			}
+			catch (SessionDataProcessingException ex) {}
+
 			writer.write(joinString(sessionData) + "\n");
 		}
 			
@@ -90,17 +97,16 @@ public class DataFileCreator
 	
 	List<String> headerPart_users() 
 	{
-		return Arrays.asList("session_id", "subject_id", "language", "age", "sex", "country", "education");
+		return Arrays.asList("subject_id", "language", "age", "sex", "country", "education");
 	}
 	
 	List<Object> dataPart_users(Session session)
 	{
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
 		if (subject == null)
-			return emptyFields(7);
+			return emptyFields(6);
 			
 		return Arrays.asList(
-				session.getId(), 
 				session.getSubjectId(), 
 				session.getLang(), 
 				subject.getAge(), 
