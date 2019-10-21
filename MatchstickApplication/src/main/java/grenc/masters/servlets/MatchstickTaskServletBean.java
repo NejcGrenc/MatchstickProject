@@ -119,14 +119,13 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		
 		// Start the task when all is properly set
 		if (newTask.pauseAtStart)
-		{
 			builder.appendBodyScriptCommand("startWithPause();");
-			openInfoPopupBeforeStart(builder, taskSession);
-		}
 		else
-		{
 			builder.appendBodyScriptCommand("start();");
-		}
+
+		// If it is the first global task, show the instructions
+		if (newTask.newTaskNumber <= 1)
+			openInfoPopupBeforeStart(builder, taskSession);
 
 	}
 
