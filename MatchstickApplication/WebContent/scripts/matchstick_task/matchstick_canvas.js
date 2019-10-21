@@ -90,7 +90,7 @@ function calculateEquation()
     var tooltip = equationString + ":  " + eqStr + "  " + addInfo;
     
     
-    if (restrictionOnlyOne && actionList.length >= 1 && currentAction == null)
+    if (restrictionOnlyOne_moveWasMade() && currentAction == null)
 	{
     	blockAll();
 	}
@@ -109,7 +109,7 @@ function calculateEquation()
         if (tooltipContinueText !== undefined)  
         	greenButton.title = tooltipContinueText();
     }
-    else if (restrictionOnlyOne && actionList.length >= 1)
+    else if (restrictionOnlyOne_moveWasMade())
     {
     	timer.stopTimer();
     	drawRestartPointingArrow();
@@ -134,6 +134,11 @@ function calculateEquation()
         
         redButton.title = tooltip;
     }
+}
+
+function restrictionOnlyOne_moveWasMade()
+{
+	return restrictionOnlyOne && actionList.length >= 1 && ! actionList[actionList.length-1].isUselessAction();
 }
 
 function blockAll()
@@ -191,6 +196,12 @@ function Action()
         				"It transformed the equation from " + this.startEquation + " to " + this.endEquation + ".";
         return reportStr;
     };
+    
+    /* Matchstick was returned to original place */
+    this.isUselessAction = function()
+    {
+    	return this.startEquation == this.endEquation;
+    }
     
 }
 
