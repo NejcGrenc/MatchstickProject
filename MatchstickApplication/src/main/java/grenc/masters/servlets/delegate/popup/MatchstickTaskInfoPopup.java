@@ -27,17 +27,20 @@ public class MatchstickTaskInfoPopup
 		
 		ConditionalParameters params = new ConditionalParameters();
 		params.addParameter(Page.class, lang);
+		params.addParameter(AdditionalArgumentText.class, argParam);
+		params.addParameter(AdditionalArgumentGif.class, argParam);
 		params.addParameter(AdditionalArgument.class, argParam);
 		
 		String content = new GrowScriptProcessor().process(matchstickTaskInfoPopupPage, params);
 		new Popup(builder, "infoPopup").setOpenButton("button-info").setWidth("45%").setText(content).addBottomCloseButton("m_closeButton", "Done").set();
 	}
-
 	
+	@SuppressWarnings("unused")
 	private class Page extends ReadFileBuilderAbstract implements ConditionalGrowSegment<String> 
 	{
-		@SuppressWarnings("unused")
 		private AdditionalArgument additional_argument = new AdditionalArgument();
+		private AdditionalArgumentGif additional_argument_gif = new AdditionalArgumentGif();
+		private AdditionalArgumentText additional_argument_text = new AdditionalArgumentText();
 	
 		private ServletContext servletContext;
 		public Page(ServletContext servletContext)
@@ -83,6 +86,36 @@ public class MatchstickTaskInfoPopup
 	private class AdditionalArgument implements ConditionalGrowSegment<AdditionalArgumentData>
 	{
 		@Override
+		public String getBaseText() { return "Additional missing!"; }
+	
+		@Override
+		public String getConditionalText(AdditionalArgumentData param)
+		{
+			return (param.shouldAddAdditionalArgumant) ? "block" : "none";
+		}		
+	}
+	
+	private class AdditionalArgumentGif implements ConditionalGrowSegment<AdditionalArgumentData>
+	{
+		@Override
+		public String getBaseText() { return "AdditionalArgument missing!"; }
+	
+		@Override
+		public String getConditionalText(AdditionalArgumentData param)
+		{
+			if (! param.shouldAddAdditionalArgumant)
+				return "";
+
+			if (isStrategyA(param.group))
+				return "number_move.gif";
+			else
+				return "operator_move.gif";
+		}
+	}
+	
+	private class AdditionalArgumentText implements ConditionalGrowSegment<AdditionalArgumentData>
+	{
+		@Override
 		public String getBaseText() { return "AdditionalArgument missing!"; }
 	
 		@Override
@@ -108,13 +141,13 @@ public class MatchstickTaskInfoPopup
 		{
 			default:
 			case "en":
-				return "For instance, the matchstick tasks can be solved by <br /> moving matches from one number to another number or within that number.";			
+				return "For instance, the matchstick tasks can be solved by moving matches from one number to another number or within that number.";			
 			case "si":
-				return "Na primer, naloge vžigalične enačbe lahko rešite <br /> s premikanjem vžigalic iz ene številke v drugo številko ali znotreaj te številke.";			
+				return "Na primer, naloge vžigalične enačbe lahko rešite s premikanjem vžigalic iz ene številke v drugo številko ali znotreaj te številke.";			
 			case "sk":
-				return "Napríklad matchstick úlohy môžu byť vyriešené <br /> presunutím zápaliek z jedného čísla na iné číslo alebo v rámci toho istého čísla.";			
+				return "Napríklad matchstick úlohy môžu byť vyriešené presunutím zápaliek z jedného čísla na iné číslo alebo v rámci toho istého čísla.";			
 			case "de":
-				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, <br /> indem Streichhölzern von einer Nummer zu einer anderen Nummer oder innerhalb dieser Nummer verschoben werden.";
+				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, indem Streichhölzern von einer Nummer zu einer anderen Nummer oder innerhalb dieser Nummer verschoben werden.";
 		}
 	}
 	private String getTextForStrategyB(String language)
@@ -123,13 +156,13 @@ public class MatchstickTaskInfoPopup
 		{
 			default:
 			case "en":
-				return "For instance, the matchstick tasks can be solved by <br /> moving matches from one operator (sign symbol) <br /> to another operator or within that operator.";			
+				return "For instance, the matchstick tasks can be solved by moving matches from one operator (sign symbol) to another operator or within that operator.";			
 			case "si":
-				return "Na primer, naloge vžigalične enačbe lahko rešite <br /> s premikanjem vžigalic iz enega operatorja (računskega simbola) <br /> v drugega operatorja ali znotreaj tega operatorja.";			
+				return "Na primer, naloge vžigalične enačbe lahko rešite s premikanjem vžigalic iz enega operatorja (računskega simbola) v drug operatorj ali znotraj tega operatorja.";			
 			case "sk":
-				return "Napríklad matchstick úlohy môžu byť vyriešené <br /> presunutím zápaliek z jedného znamienka (operátora) <br /> na iné znamienko alebo v rámci tohto istého znamienka.";			
+				return "Napríklad matchstick úlohy môžu byť vyriešené presunutím zápaliek z jedného znamienka (operátora) na iné znamienko alebo v rámci tohto istého znamienka.";			
 			case "de":
-				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, <br /> indem Streichhölzern von einem Operator (Zeichensymbol) <br /> zu einem anderen Operator oder innerhalb dieses Operators verschoben werden.";
+				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, indem Streichhölzern von einem Operator (Zeichensymbol) zu einem anderen Operator oder innerhalb dieses Operators verschoben werden.";
 		}
 	}
 	
