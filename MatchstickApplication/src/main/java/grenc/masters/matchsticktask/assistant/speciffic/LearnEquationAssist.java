@@ -60,7 +60,7 @@ public class LearnEquationAssist
 	 * sequentialElementNo ->
 	 *
 				//  Visual representation of 	//  Visual representation of 	//
-			    //  the numeral frame			//  the operator frame			//
+			    //  the numeral frame			//  the operator/symbol frame	//
 			    //      _____					//  							//
 			    //   _ |__0__| _				//								//
 			    //  | |       | |				//   	      _0  				//

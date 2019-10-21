@@ -108,11 +108,11 @@ public class MatchstickTaskInfoPopup
 		{
 			default:
 			case "en":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one number to another number or within that number.";			
+				return "For instance, the matchstick tasks can be solved by <br /> moving matches from one number to another number or within that number.";			
 			case "si":
 				return "Na primer, naloge vžigalične enačbe lahko rešite <br /> s premikanjem vžigalic iz ene številke v drugo številko ali znotreaj te številke.";			
 			case "sk":
-				return "Napríklad matchstick úlohy môžu byť vyriešené <br /> presunutím zápaliek z jedného čísla na druhé číslo alebo v rámci toho istého čísla.";			
+				return "Napríklad matchstick úlohy môžu byť vyriešené <br /> presunutím zápaliek z jedného čísla na iné číslo alebo v rámci toho istého čísla.";			
 			case "de":
 				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, <br /> indem Streichhölzern von einer Nummer zu einer anderen Nummer oder innerhalb dieser Nummer verschoben werden.";
 		}
@@ -123,13 +123,13 @@ public class MatchstickTaskInfoPopup
 		{
 			default:
 			case "en":
-				return "For instance, the matchstick tasks can be solved by <br />moving matches from one operator to another operator or within that operator.";			
+				return "For instance, the matchstick tasks can be solved by <br /> moving matches from one operator (sign symbol) <br /> to another operator or within that operator.";			
 			case "si":
-				return "Na primer, naloge vžigalične enačbe lahko rešite <br /> s premikanjem vžigalic iz enega operatorja v drugega operatorja ali znotreaj tega operatorja.";			
+				return "Na primer, naloge vžigalične enačbe lahko rešite <br /> s premikanjem vžigalic iz enega operatorja (računskega simbola) <br /> v drugega operatorja ali znotreaj tega operatorja.";			
 			case "sk":
-				return "Napríklad matchstick úlohy môžu byť vyriešené <br /> presunutím zápaliek z jedného operátora k inému operátorovi alebo v rámci tohto operátora.";			
+				return "Napríklad matchstick úlohy môžu byť vyriešené <br /> presunutím zápaliek z jedného znamienka (operátora) <br /> na iné znamienko alebo v rámci tohto istého znamienka.";			
 			case "de":
-				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, <br /> indem Streichhölzern von einem Operator zu einem anderen Operator oder innerhalb dieses Operators verschoben werden.";
+				return "Zum Beispiel können die Streichhölzern-Aufgaben gelöst werden, <br /> indem Streichhölzern von einem Operator (Zeichensymbol) <br /> zu einem anderen Operator oder innerhalb dieses Operators verschoben werden.";
 		}
 	}
 	

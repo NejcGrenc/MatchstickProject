@@ -140,7 +140,7 @@ function restrictionsText(onlyOneMoveRestricted, blocked)
 		if (lang == "de")
 			return "Korrigieren Sie die Gleichung, indem Sie DIE LETZTE ANZAHL VON ZÜGEN VERWENDEN.";
 		if (lang == "sk")
-			return "Opravte rovnicu tak, že POUŽIJETE NIŽŠÍ POČET ŤAHOV.";
+			return "Opravte rovnicu tak, že POUŽIJETE ČO NAJNIŽŠÍ POČET ŤAHOV.";
 	}
 }
 
