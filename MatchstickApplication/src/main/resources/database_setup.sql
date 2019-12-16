@@ -14,9 +14,9 @@ CREATE TABLE subject (
 	id  			SERIAL PRIMARY KEY,
 	session_id		integer NOT NULL,
 	age				integer,
-	sex				varchar(8),
+	sex				varchar(10),
 	country_code	varchar(3),
-	education		varchar(10),
+	education		varchar(15),
 	
 	ip				varchar(40),
 	address			varchar(100),

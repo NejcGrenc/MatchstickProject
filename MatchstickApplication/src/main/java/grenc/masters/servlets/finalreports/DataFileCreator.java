@@ -188,10 +188,12 @@ public class DataFileCreator
 		for (int i = 1; i <= totalNumberOfMatchstickTasks; i++)
 			orderedList_orderType.add(orderedList_orderType.size(), (tasksData_orderType.get(i) != null) ? tasksData_orderType.get(i) : MatchstickTaskPresentableData.empty());
 		
-		List<MatchstickTaskPresentableData> orderedList = new ArrayList<>();
-		orderedList.addAll(orderedList.size(), orderedList_orderExecution);
-		orderedList.addAll(orderedList.size(), orderedList_orderType);
-		return (List<Object>)(List<?>) orderedList;
+		List<Object> orderedList = new ArrayList<>();
+		orderedList.add(taskSession.isComplete());
+		orderedList.add(taskSession.getMatchstickGroup().toString());
+		orderedList.addAll(orderedList.size(),  (List<Object>)(List<?>) orderedList_orderExecution);
+		orderedList.addAll(orderedList.size(),  (List<Object>)(List<?>) orderedList_orderType);
+		return orderedList;
 	}
 	
 	
