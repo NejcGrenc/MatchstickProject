@@ -97,17 +97,18 @@ public class DataFileCreator
 	
 	List<String> headerPart_users() 
 	{
-		return Arrays.asList("subject_id", "language", "age", "sex", "country", "education");
+		return Arrays.asList("subject_id", "risk", "language", "age", "sex", "country", "education");
 	}
 	
 	List<Object> dataPart_users(Session session)
 	{
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
 		if (subject == null)
-			return emptyFields(6);
+			return emptyFields(7);
 			
 		return Arrays.asList(
 				session.getSubjectId(), 
+				session.getRisk(), 
 				session.getLang(), 
 				subject.getAge(), 
 				subject.getSex(), 
