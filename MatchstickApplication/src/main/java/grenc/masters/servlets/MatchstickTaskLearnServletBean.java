@@ -15,8 +15,10 @@ import grenc.masters.matchsticktask.type.MatchstickExperimentPhase;
 import grenc.masters.matchsticktask.type.MatchstickGroup;
 import grenc.masters.resources.PageElement;
 import grenc.masters.resources.Script;
+import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.delegate.popup.MatchstickTaskInfoPopup;
+import grenc.masters.uservalidation.BrowserDetails;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Translate;
 import grenc.masters.webpage.element.AccountBall;
@@ -76,7 +78,10 @@ public class MatchstickTaskLearnServletBean extends BasePageServlet
 		accountBall.set(builder, servletContext, session.getLang());
 		dataPresentBall.set(builder, session).withMatchstickGroup(builder, session, group);
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, true);
-
+		
+		if (new BrowserDetails(session, request).isIEorSafariorEdge())
+			builder.addStyle(Style.split_page_ie);
+		
 		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task_learn);
 		builder.appendPageElement(translateProcessor.process(new MatchstickTaskLearnPage(servletContext), session.getLang()));
 		

@@ -21,3 +21,10 @@ h1#selecttask_txt1 {
 h1#selecttask_txt2 {
     top: 50%;
 }
+
+.possible_fixed_height {
+	height: 560px;
+}
+.possible_full_height {
+	height: 100%;
+}

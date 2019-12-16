@@ -19,6 +19,7 @@ import grenc.masters.resources.Script;
 import grenc.masters.resources.Style;
 import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.servlets.delegate.popup.MatchstickTaskInfoPopup;
+import grenc.masters.uservalidation.BrowserDetails;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.element.AccountBall;
 import grenc.masters.webpage.element.DataPresentBall;
@@ -97,6 +98,8 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		builder.addScript(Script.delayed_start);
 		builder.addScript(Script.canvas_arrows);
 
+		if (new BrowserDetails(session, request).isIEorSafariorEdge())
+			builder.addStyle(Style.split_page_ie);
 		
 		builder.appendOnlyAssociatedPageElements(PageElement.matchstick_task);
 		builder.appendPageElement(translateProcessor.process(new MatchstickTaskMainPage(servletContext), session.getLang()));
