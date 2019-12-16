@@ -17,6 +17,7 @@ import grenc.masters.servlets.bean.base.ServletBean;
 import grenc.masters.servlets.bean.service.ServletBeanProcessor;
 import grenc.masters.servlets.developtools.InitialCallHandler;
 import grenc.masters.servlets.developtools.RefreshCache;
+import grenc.masters.servlets.developtools.UAgentInfo;
 import grenc.masters.utils.Logger;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.simpleton.annotation.Bean;
@@ -69,6 +70,14 @@ public class DispatcherServletBean
 			{
 				logger.log(session, "New request has been determined to be a page refresh. Returning previous cached data.");
 				outputExistingResponse(response, refreshCache.getCachedResponse(request));
+				return;
+			}
+			
+			// In case a mobile is used, return error-info page
+			if (isRequestComingFromAMobileDevice(request)) {
+				logger.log(session, "Forwarding request to: /errorMobile");
+				RequestDispatcher dispatcher = buildDispatcher("/errorMobile", servletContext);
+				dispatcher.forward(request, response);
 				return;
 			}
 			
@@ -143,5 +152,16 @@ public class DispatcherServletBean
 	{
 		response.setCharacterEncoding(Encoding.common);
 		cachedResponse.writePage(response.getWriter());
+	}
+	
+	private boolean isRequestComingFromAMobileDevice(final HttpServletRequest request){
+
+	    // http://www.hand-interactive.com/m/resources/detect-mobile-java.htm
+	    final String userAgent = request.getHeader("User-Agent");
+	    final String httpAccept = request.getHeader("Accept");
+
+	    final UAgentInfo detector = new UAgentInfo(userAgent, httpAccept);
+
+	    return detector.detectMobileQuick();
 	}
 }

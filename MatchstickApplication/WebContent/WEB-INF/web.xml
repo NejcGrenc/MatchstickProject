@@ -22,6 +22,10 @@
 		<servlet-name>ErrorServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.selector.ErrorServlet</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>ErrorMobileServlet</servlet-name>
+		<servlet-class>grenc.masters.servlets.selector.ErrorMobileServlet</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>grenc.masters.servlets.LoginServlet</servlet-class>
@@ -87,9 +91,13 @@
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern></url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>ErrorServlet</servlet-name>
 		<url-pattern>/error</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ErrorMobileServlet</servlet-name>
+		<url-pattern>/errorMobile</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
