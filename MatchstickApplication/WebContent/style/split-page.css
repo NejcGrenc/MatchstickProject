@@ -26,10 +26,10 @@ a {
     height: 300px;
     margin-left: -150px;
     margin-top: -150px;
-    -webkit-margin-after: -50px;
-    -webkit-margin-before: -50px;
-    -webkit-margin-end: -100px;
-    -webkit-margin-start: -100px;
+    -webkit-margin-after: -150px;
+    -webkit-margin-before: -150px;
+    -webkit-margin-end: -150px;
+    -webkit-margin-start: -150px;
 }
 
 #selecttask_txt_center {
