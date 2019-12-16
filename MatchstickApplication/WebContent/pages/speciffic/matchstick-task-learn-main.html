@@ -14,7 +14,7 @@
     </div>
 
     <!-- Application space -->
-    <div class="centered horizontal-layout" style="align-items: normal;">
+    <div class="centered horizontal-layout" style="align-items: normal; height: 500px;">
     	<div class="vertical-layout">
     		<h2 id="restriction"></h2>    
 	        <div id="canvas-container">
@@ -22,7 +22,7 @@
 	        </div>
         </div>
         <div id="buffer-zone" style="width: 20px;"></div>
-        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center;">
+        <div id="side-buttons" class="vertical-layout" style="justify-content: space-between; align-items: center; height: 100%;">
             <div>                
             	<h3 id="timer">00:00,0</h3>      
                 <span id="button-info" class="blueButton"><img src="images/baseline_info_white_48dp.png" alt="Info" /></span> 
@@ -65,8 +65,9 @@
     	 document.getElementById('taskCounter').innerHTML = learningTaskString + ": " + currentNumber + " / " + totalNumber;
     }
     
-    function setRestriction(restrictionOnlyOne, blocked = false)
+    function setRestriction(restrictionOnlyOne, blocked)
     {
+    	if (!blocked) blocked = false;
     	console.log("restriction ", restrictionOnlyOne);
     	document.getElementById('restriction').innerHTML = restrictionsText(restrictionOnlyOne, blocked);
     }
