@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public enum EducationLevel
 {
-	SELECT      ("Please select",		"Prosimo izberite",		"Prosímo vyberte",		"Bitte auswählen"	),
+	SELECT      ("Please select",		"Prosimo izberite",		"Prosíme vyberte",		"Bitte auswählen"	),
 	Level_O     ("No education",		"Brez izobrazbe",		"Bez vzdelania",		"Ohne Ausbildung"	),
 	Level_1     ("Primary school",		"Osnovna šola",			"Základná škola",		"Grundschule"		),
 	Level_2_3   ("Secondary school",	"Srednja šola",			"Stredná škola",		"Weiterführende Schule"		),

@@ -89,6 +89,7 @@ public class CreditsServletBean extends BasePageServlet
 	private class CreditsPage extends ApplicationFileSegment
 	{
 		private SimpleTranslatableSegment title = new SimpleTranslatableSegment(context, "translations/credits/title.json");
+		private SimpleTranslatableSegment nejc = new SimpleTranslatableSegment(context, "translations/credits/nejc.json");
 		private SimpleTranslatableSegment matus = new SimpleTranslatableSegment(context, "translations/credits/matus.json");
 		private SimpleTranslatableSegment grega = new SimpleTranslatableSegment(context, "translations/credits/grega.json");
 		private SimpleTranslatableSegment specialthanks = new SimpleTranslatableSegment(context, "translations/credits/specialthanks.json");
