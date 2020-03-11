@@ -17,7 +17,7 @@ function solvingTaskText()
 	if (lang == "en")
 		return "Solving task";
 	if (lang == "si")
-		return "Preševanje naloge";
+		return "Reševanje naloge";
 	if (lang == "de")
 		return "Lösenaufgabe";
 	if (lang == "sk")
