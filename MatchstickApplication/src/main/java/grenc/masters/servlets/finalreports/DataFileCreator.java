@@ -78,6 +78,9 @@ public class DataFileCreator
 			if (!includeRisky && session.getRisk() > 0)
 				continue;
 			
+			if (skipEmpty(session)) 
+				continue;
+			
 			List<Object> sessionData = new ArrayList<>();
 			try
 			{
@@ -93,18 +96,25 @@ public class DataFileCreator
 			
 		writer.close();
 	}
+	
+	private boolean skipEmpty(Session session) {
+		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
+		return (subject == null);
+	}
 
 	
 	List<String> headerPart_users() 
 	{
-		return Arrays.asList("subject_id", "risk", "language", "age", "sex", "country", "education");
+		return Arrays.asList("subject_id", "risk", "language", "age", "sex", "country", "education", "ip", "address");
 	}
 	
 	List<Object> dataPart_users(Session session)
 	{
 		Subject subject = subjectDAO.findSubjectById(session.getSubjectId());
 		if (subject == null)
-			return emptyFields(7);
+			return emptyFields(9);
+		
+		String address = (subject.getAddress() == null) ? null : subject.getAddress().replace(",", ";");
 			
 		return Arrays.asList(
 				session.getSubjectId(), 
@@ -113,13 +123,15 @@ public class DataFileCreator
 				subject.getAge(), 
 				subject.getSex(), 
 				subject.getCountryCode(), 
-				subject.getEducation());
+				subject.getEducation(),
+				subject.getIp(),
+				address);
 	}
 	
 	
 	List<String> headerPart_matchstick() 
 	{
-		List<String> matchstickHeaders = new ArrayList<String>(Arrays.asList("is_complete", "group_type"));
+		List<String> matchstickHeaders = new ArrayList<String>(Arrays.asList("startTime", "is_complete", "group_type"));
 		matchstickHeaders.addAll(headersForMatchstickTasks_orderedInExecution());
 		matchstickHeaders.addAll(headersForMatchstickTasks_orderedInType());
 		return matchstickHeaders;
@@ -189,6 +201,7 @@ public class DataFileCreator
 			orderedList_orderType.add(orderedList_orderType.size(), (tasksData_orderType.get(i) != null) ? tasksData_orderType.get(i) : MatchstickTaskPresentableData.empty());
 		
 		List<Object> orderedList = new ArrayList<>();
+		orderedList.add(taskSession.getStartTime());
 		orderedList.add(taskSession.isComplete());
 		orderedList.add(taskSession.getMatchstickGroup().toString());
 		orderedList.addAll(orderedList.size(),  (List<Object>)(List<?>) orderedList_orderExecution);
