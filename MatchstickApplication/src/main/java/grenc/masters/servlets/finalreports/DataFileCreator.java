@@ -214,6 +214,10 @@ public class DataFileCreator
 				MatchstickActionLocation startLoc = MatchstickLocationProcessor.parseLocationString(actionData.getStartMatchstickLoc());
 				MatchstickActionLocation endLoc = MatchstickLocationProcessor.parseLocationString(actionData.getEndMatchstickLoc());
 				
+				if (startLoc.getFrameType() == null || startLoc.getFrameType() == null) {
+					continue;
+				}
+				
 				// Skip if matchstick was placed in the same place as it was taken from
 				if (startLoc.getPosFrameInEquation() == endLoc.getPosFrameInEquation()
 					&& startLoc.getPosShadowInFrame() == endLoc.getPosShadowInFrame()
