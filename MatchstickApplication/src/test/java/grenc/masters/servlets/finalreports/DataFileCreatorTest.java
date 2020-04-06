@@ -12,11 +12,14 @@ import org.junit.rules.TemporaryFolder;
 import org.mockito.Mockito;
 
 import grenc.masters.database.dao.ImageTaskDataDAO;
+import grenc.masters.database.dao.MatchstickActionDataDAO;
 import grenc.masters.database.dao.MatchstickTaskDataDAO;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.ImageTaskData;
+import grenc.masters.database.entities.MatchstickActionData;
+import grenc.masters.database.entities.MatchstickActionLocation;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
@@ -34,9 +37,11 @@ public class DataFileCreatorTest
 	private TaskSessionDAO taskSessionDAO = Mockito.mock(TaskSessionDAO.class);
 	private MatchstickTaskDataDAO matchstickTaskDataDAO = Mockito.mock(MatchstickTaskDataDAO.class);
 	private ImageTaskDataDAO imageTaskDataDAO = Mockito.mock(ImageTaskDataDAO.class);
+	private MatchstickActionDataDAO matchstickActionDataDAO = Mockito.mock(MatchstickActionDataDAO.class);
+
 	
 	// Subject
-	final DataFileCreator dataFileCreator = new DataFileCreator(subjectDAO, sessionDAO, taskSessionDAO, matchstickTaskDataDAO, imageTaskDataDAO);
+	final DataFileCreator dataFileCreator = new DataFileCreator(subjectDAO, sessionDAO, taskSessionDAO, matchstickTaskDataDAO, imageTaskDataDAO, matchstickActionDataDAO);
 			
 	
     @Rule
@@ -112,6 +117,12 @@ public class DataFileCreatorTest
     	matchstickDataList.add(createTestMatchstickTaskData(taskSessionMatchstick.getId(), phaseNo));
     	matchstickDataList.add(createTestMatchstickTaskData(taskSessionMatchstick.getId(), phaseNo, MatchstickTaskStatus.restarted, 4));
     	Mockito.doReturn(matchstickDataList).when(matchstickTaskDataDAO).findAllTaskForSessionId(taskSessionMatchstick.getId());
+    	
+    	phaseNo = 1;
+    	List<MatchstickActionData> matchstickActionDataList = new ArrayList<>();
+    	matchstickActionDataList.add(createTestMatchstickAction(1, phaseNo++));
+    	Mockito.doReturn(matchstickActionDataList).when(matchstickActionDataDAO).findAllDataForMatchstickTaskId(1);
+
 
     	int phaseNoImage = 0;
     	List<ImageTaskData> imagesDataList = new ArrayList<>();
@@ -156,6 +167,17 @@ public class DataFileCreatorTest
     	matchstickTaskData.setTransfer(0);
     	return matchstickTaskData;
     }
+    
+    private MatchstickActionData createTestMatchstickAction(int taskDataId, int phaseNo)
+    {
+    	MatchstickActionData matchstickActionData = new MatchstickActionData();
+    	matchstickActionData.setId(phaseNo);
+    	matchstickActionData.setMatchstickTaskId(taskDataId);
+    	matchstickActionData.setStartMatchstickLoc("{\"posShadowInFrame\":3,\"frameType\":\"N\",\"posFrameInEquation\":6}");
+    	matchstickActionData.setEndMatchstickLoc("{\"posShadowInFrame\":3,\"frameType\":\"N\",\"posFrameInEquation\":4}");
+    	return matchstickActionData;
+    }
+    
     
     private ImageTaskData createTestImageTaskData(int taskSessionId, int phaseNo, boolean correct)
     {

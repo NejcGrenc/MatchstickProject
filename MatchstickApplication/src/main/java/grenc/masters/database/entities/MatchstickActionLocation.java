@@ -2,15 +2,15 @@ package grenc.masters.database.entities;
 
 public class MatchstickActionLocation
 {
-	private String posShadowInFrame;
+	private int posShadowInFrame;
 	private String frameType;
 	private int posFrameInEquation;
 	
-	public String getPosShadowInFrame()
+	public int getPosShadowInFrame()
 	{
 		return posShadowInFrame;
 	}
-	public void setPosShadowInFrame(String posShadowInFrame)
+	public void setPosShadowInFrame(int posShadowInFrame)
 	{
 		this.posShadowInFrame = posShadowInFrame;
 	}
@@ -37,4 +37,5 @@ public class MatchstickActionLocation
 		return "MatchstickActionLocation [posShadowInFrame=" + posShadowInFrame + ", frameType=" + frameType
 				+ ", posFrameInEquation=" + posFrameInEquation + "]";
 	}
+
 }

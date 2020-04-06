@@ -65,11 +65,17 @@ public class MatchstickActionDataDAO
 	{
 		//{"posShadowInFrame":1,"frameType":"N","posFrameInEquation":2}
 		MatchstickActionLocation location = new MatchstickActionLocation();
-		location.setPosShadowInFrame(loc.getString("posShadowInFrame"));
+		location.setPosShadowInFrame(loc.getInt("posShadowInFrame"));
 		location.setFrameType(loc.getString("frameType"));
 		location.setPosFrameInEquation(loc.getInt("posFrameInEquation"));
 		return location;
 	}
+	
+	public MatchstickActionLocation parseLocationString(String locationString)
+	{
+		return parseLocationJson(new JSONObject(locationString));
+	}
+	
 	
 	public JSONObject locationToJson(MatchstickActionLocation location)
 	{
@@ -79,5 +85,6 @@ public class MatchstickActionDataDAO
 		loc.append("posFrameInEquation", location.getPosFrameInEquation());
 		return loc;
 	}
+	
 	
 }

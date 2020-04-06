@@ -10,12 +10,17 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.json.JSONObject;
+
 import grenc.masters.database.dao.ImageTaskDataDAO;
+import grenc.masters.database.dao.MatchstickActionDataDAO;
 import grenc.masters.database.dao.MatchstickTaskDataDAO;
 import grenc.masters.database.dao.SessionDAO;
 import grenc.masters.database.dao.SubjectDAO;
 import grenc.masters.database.dao.TaskSessionDAO;
 import grenc.masters.database.entities.ImageTaskData;
+import grenc.masters.database.entities.MatchstickActionData;
+import grenc.masters.database.entities.MatchstickActionLocation;
 import grenc.masters.database.entities.MatchstickTaskData;
 import grenc.masters.database.entities.Session;
 import grenc.masters.database.entities.Subject;
@@ -47,17 +52,21 @@ public class DataFileCreator
 	private MatchstickTaskDataDAO matchstickTaskDataDAO;
 	@InsertBean
 	private ImageTaskDataDAO imageTaskDataDAO;
+	@InsertBean
+	private MatchstickActionDataDAO matchstickActionDataDAO;
 	
 	
 	public DataFileCreator() {}
 	public DataFileCreator(SubjectDAO subjectDAO, SessionDAO sessionDAO, TaskSessionDAO taskSessionDAO, 
-							MatchstickTaskDataDAO matchstickTaskDataDAO, ImageTaskDataDAO imageTaskDataDAO) 
+							MatchstickTaskDataDAO matchstickTaskDataDAO, ImageTaskDataDAO imageTaskDataDAO,
+							MatchstickActionDataDAO matchstickActionDataDAO) 
 	{
 		this.subjectDAO = subjectDAO;
 		this.sessionDAO = sessionDAO;
 		this.taskSessionDAO = taskSessionDAO;
 		this.matchstickTaskDataDAO = matchstickTaskDataDAO;
 		this.imageTaskDataDAO = imageTaskDataDAO;
+		this.matchstickActionDataDAO = matchstickActionDataDAO;
 	}
 
 
@@ -78,8 +87,8 @@ public class DataFileCreator
 			if (!includeRisky && session.getRisk() > 0)
 				continue;
 			
-			if (skipEmpty(session)) 
-				continue;
+			//if (skipEmpty(session)) 
+			//	continue;
 			
 			List<Object> sessionData = new ArrayList<>();
 			try
@@ -144,6 +153,10 @@ public class DataFileCreator
 		{
 			taskHeadersList.add("matchstick_task_"+i+"_moves");
 			taskHeadersList.add("matchstick_task_"+i+"_time");
+			taskHeadersList.add("matchstick_task_"+i+"_NtoN_moves");
+			taskHeadersList.add("matchstick_task_"+i+"_OtoO_moves");
+			taskHeadersList.add("matchstick_task_"+i+"_NtoO_moves");
+			taskHeadersList.add("matchstick_task_"+i+"_OtoN_moves");
 		}
 		return taskHeadersList;
 	}
@@ -151,10 +164,14 @@ public class DataFileCreator
 	private List<String> headersForMatchstickTasks_orderedInType()
 	{
 		List<String> taskHeadersList = new ArrayList<>();
-		for (String latinNum : Arrays.asList("i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"))
+		for (String latinNum : Arrays.asList("i1", "i2", "ii1", "ii2", "iii1", "iii2", "iv1", "iv2", "v1", "v2"))
 		{
 			taskHeadersList.add("matchstick_task_"+latinNum+"_moves");
-			taskHeadersList.add("matchstick_task_"+latinNum+"_time");
+			taskHeadersList.add("matchstick_task_"+latinNum+"_time");			
+			taskHeadersList.add("matchstick_task_"+latinNum+"_NtoN_moves");
+			taskHeadersList.add("matchstick_task_"+latinNum+"_OtoO_moves");
+			taskHeadersList.add("matchstick_task_"+latinNum+"_NtoO_moves");
+			taskHeadersList.add("matchstick_task_"+latinNum+"_OtoN_moves");
 		}
 		return taskHeadersList;
 	}
@@ -190,6 +207,34 @@ public class DataFileCreator
 				currentMatchstickDataObject.taskMoves += matchstickTaskData.getMoves();
 			else
 				currentMatchstickDataObject.taskMoves += 1;
+			
+			// Calculate all matchstick_location data
+			List<MatchstickActionData> actionDataList = matchstickActionDataDAO.findAllDataForMatchstickTaskId(matchstickTaskData.getId());
+			for (MatchstickActionData actionData : actionDataList) {
+				MatchstickActionLocation startLoc = MatchstickLocationProcessor.parseLocationString(actionData.getStartMatchstickLoc());
+				MatchstickActionLocation endLoc = MatchstickLocationProcessor.parseLocationString(actionData.getEndMatchstickLoc());
+				
+				// Skip if matchstick was placed in the same place as it was taken from
+				if (startLoc.getPosFrameInEquation() == endLoc.getPosFrameInEquation()
+					&& startLoc.getPosShadowInFrame() == endLoc.getPosShadowInFrame()
+					&& startLoc.getFrameType().equals(endLoc.getFrameType())) {
+					continue;
+				}
+				
+				if ("N".equals(startLoc.getFrameType()) && "N".equals(endLoc.getFrameType())) {
+					currentMatchstickDataObject.n_nMoves += 1;
+				}
+				if ("O".equals(startLoc.getFrameType()) && "O".equals(endLoc.getFrameType())) {
+					currentMatchstickDataObject.o_oMoves += 1;
+				}
+				if ("N".equals(startLoc.getFrameType()) && "O".equals(endLoc.getFrameType())) {
+					currentMatchstickDataObject.n_oMoves += 1;
+				}
+				if ("O".equals(startLoc.getFrameType()) && "N".equals(endLoc.getFrameType())) {
+					currentMatchstickDataObject.o_nMoves += 1;
+				}
+			}
+		
 		}
 		
 		List<MatchstickTaskPresentableData> orderedList_orderExecution = new ArrayList<>();
@@ -286,11 +331,20 @@ class MatchstickTaskPresentableData
 {
 	Long taskTime;
 	Integer taskMoves;
+	Integer n_nMoves;
+	Integer o_oMoves;
+	Integer n_oMoves;
+	Integer o_nMoves;
+
 	
 	MatchstickTaskPresentableData()
 	{
 		taskTime = 0l;
 		taskMoves = 0;
+		n_nMoves = 0;
+		o_oMoves = 0;
+		n_oMoves = 0;
+		o_nMoves = 0;
 	}
 	
 	static MatchstickTaskPresentableData empty()
@@ -298,6 +352,10 @@ class MatchstickTaskPresentableData
 		MatchstickTaskPresentableData presentableData = new MatchstickTaskPresentableData();
 		presentableData.taskTime = null;
 		presentableData.taskMoves = null;
+		presentableData.n_nMoves = null;
+		presentableData.o_oMoves = null;
+		presentableData.n_oMoves = null;
+		presentableData.o_nMoves = null;
 		return presentableData;
 	}
 	
@@ -306,7 +364,11 @@ class MatchstickTaskPresentableData
 	{
 		return String.join(RetrieveDataServletBean.delimiter, 
 				(taskMoves == null) ? "" : String.valueOf(taskMoves), 
-				(taskTime == null)  ? "" : String.valueOf(taskTime)
+				(taskTime == null)  ? "" : String.valueOf(taskTime),
+				(n_nMoves == null)  ? "" : String.valueOf(n_nMoves),
+				(o_oMoves == null)  ? "" : String.valueOf(o_oMoves),
+				(n_oMoves == null)  ? "" : String.valueOf(n_oMoves),
+				(o_nMoves == null)  ? "" : String.valueOf(o_nMoves)
 				); 
 	}
 }
@@ -337,6 +399,30 @@ class ImageTaskPresentableData
 				(taskCorrect == null) ? "" : String.valueOf(taskCorrect), 
 				(taskTime == null)  ? "" : String.valueOf(taskTime)
 				); 
+	}
+}
+
+class MatchstickLocationProcessor {
+	
+	public static MatchstickActionLocation parseLocationJson(JSONObject loc)
+	{
+		//{"posShadowInFrame":1,"frameType":"N","posFrameInEquation":2}
+		MatchstickActionLocation location = new MatchstickActionLocation();
+		if (loc.has("posShadowInFrame")) {
+			location.setPosShadowInFrame(loc.getInt("posShadowInFrame"));
+		}
+		if (loc.has("frameType")) {
+			location.setFrameType(loc.getString("frameType"));
+		}
+		if (loc.has("posFrameInEquation")) {
+			location.setPosFrameInEquation(loc.getInt("posFrameInEquation"));
+		}
+		return location;
+	}
+	
+	public static MatchstickActionLocation parseLocationString(String locationString)
+	{
+		return parseLocationJson(new JSONObject(locationString));
 	}
 }
 
