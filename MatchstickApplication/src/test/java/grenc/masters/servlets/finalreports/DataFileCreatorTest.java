@@ -161,8 +161,8 @@ public class DataFileCreatorTest
     	matchstickTaskData.setStatus(status.name());
     	matchstickTaskData.setOriginalEq("1+1+1=2");
     	matchstickTaskData.setSolvedEq("1+1+1=3");
-    	matchstickTaskData.setTime(1000l);
-    	matchstickTaskData.setTotalActivityTime(1200l);
+    	matchstickTaskData.setTime(1200l);
+    	matchstickTaskData.setTotalActivityTime(1000l);
     	matchstickTaskData.setMoves(moves);
     	matchstickTaskData.setTransfer(0);
     	return matchstickTaskData;

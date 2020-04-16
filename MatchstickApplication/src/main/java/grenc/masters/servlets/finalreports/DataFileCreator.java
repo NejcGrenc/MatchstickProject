@@ -201,12 +201,17 @@ public class DataFileCreator
 			}
 			MatchstickTaskPresentableData currentMatchstickDataObject = tasksData_orderExecution.get(taskNumber_execution);
 								
-			currentMatchstickDataObject.taskTime += matchstickTaskData.getTotalActivityTime();
+			// Use the latest time
+			if (matchstickTaskData.getTime() > currentMatchstickDataObject.taskTime) {
+				currentMatchstickDataObject.taskTime = matchstickTaskData.getTime();
+			}
 			
-			if (matchstickTaskData.getStatus() == MatchstickTaskStatus.solved)
-				currentMatchstickDataObject.taskMoves += matchstickTaskData.getMoves();
-			else
-				currentMatchstickDataObject.taskMoves += 1;
+			// Count all moves made
+			currentMatchstickDataObject.taskMoves += matchstickTaskData.getMoves();
+			//if (matchstickTaskData.getStatus() != MatchstickTaskStatus.solved)
+			//	// Add one move for restart
+			//	currentMatchstickDataObject.taskMoves += 1;
+			
 			
 			// Calculate all matchstick_location data
 			List<MatchstickActionData> actionDataList = matchstickActionDataDAO.findAllDataForMatchstickTaskId(matchstickTaskData.getId());
