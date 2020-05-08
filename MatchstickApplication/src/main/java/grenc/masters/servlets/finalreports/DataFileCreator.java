@@ -191,7 +191,7 @@ public class DataFileCreator
 				continue;
 			
 			int taskNumber_execution = matchstickTaskData.getPhaseNumber();
-			int taskNumber_type = isBGroup(taskSession.getMatchstickGroup()) ? ((totalNumberOfMatchstickTasks+1) - matchstickTaskData.getPhaseNumber()) : matchstickTaskData.getPhaseNumber();
+			int taskNumber_type = isBGroup(taskSession.getMatchstickGroup()) ? mapToBphaseNumber(matchstickTaskData.getPhaseNumber()) : matchstickTaskData.getPhaseNumber();
 
 			if (! tasksData_orderExecution.containsKey(taskNumber_execution))
 			{
@@ -333,6 +333,22 @@ public class DataFileCreator
 	private List<Object> emptyFields(int noEmptyFields)
 	{
 		return Stream.generate(() -> noData).limit(noEmptyFields).collect(Collectors.toList());    
+	}
+	
+	private int mapToBphaseNumber(int phase) {
+		switch (phase) {
+			case  9: return  1;
+			case 10: return  2;
+			case  7: return  3;
+			case  8: return  4;
+			case  5: return  5;
+			case  6: return  6;
+			case  3: return  7;
+			case  4: return  8;
+			case  1: return  9;
+			case  2: return 10;
+			default: return  0;
+		}
 	}
 }
 
