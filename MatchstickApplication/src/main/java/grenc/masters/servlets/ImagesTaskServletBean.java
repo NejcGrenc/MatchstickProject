@@ -27,6 +27,7 @@ import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.Translate;
 import grenc.masters.webpage.element.AccountBall;
 import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.ExperimentFinishedBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
 import grenc.masters.webpage.translations.TranslationProcessor;
@@ -48,6 +49,9 @@ public class ImagesTaskServletBean extends BasePageServlet
 	
 	@InsertBean
 	private ImageTaskInfoPopup imageTaskInfoPopup;
+	
+	@InsertBean
+	private ExperimentFinishedBall experimentFinishedBall;
 	@InsertBean
 	private AccountBall accountBall;
 	@InsertBean
@@ -93,6 +97,7 @@ public class ImagesTaskServletBean extends BasePageServlet
 		
 		new Translate(builder, Script.translate_familiarfigures).translateAll();
 		accountBall.set(builder, servletContext, session.getLang());
+		experimentFinishedBall.set(builder, servletContext, session.getLang());
 		dataPresentBall.set(builder, session);
 		imageTaskInfoPopup.createPopup(builder, servletContext, session.getLang());
 

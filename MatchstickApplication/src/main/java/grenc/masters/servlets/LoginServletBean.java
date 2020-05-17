@@ -21,6 +21,7 @@ import grenc.masters.uservalidation.ValidateUserSession;
 import grenc.masters.webpage.builder.ReadFileBuilderAbstract;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.ExperimentFinishedBall;
 import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
@@ -39,6 +40,8 @@ public class LoginServletBean extends BasePageServlet
 	@InsertBean
 	private ValidateUserSession validator;
 	
+	@InsertBean
+	private ExperimentFinishedBall experimentFinishedBall;
 	@InsertBean
 	private TranslationProcessor translateProcessor;
 	@InsertBean
@@ -73,7 +76,7 @@ public class LoginServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		
 		languageBall.set(builder, session.getLang(), url());
-
+		experimentFinishedBall.set(builder, servletContext, session.getLang());
 		dataPresentBall.set(builder, session);
 		
 		

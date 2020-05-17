@@ -16,6 +16,7 @@ import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.common.ReturnableBean;
 import grenc.masters.webpage.element.AccountBall;
+import grenc.masters.webpage.element.ExperimentFinishedBall;
 import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
@@ -32,6 +33,8 @@ public class CreditsServletBean extends BasePageServlet
 	@InsertBean
 	private SubjectDAO subjectDAO;
 	
+	@InsertBean
+	private ExperimentFinishedBall experimentFinishedBall;
 	@InsertBean
 	private AccountBall accountBall;
 	@InsertBean
@@ -71,7 +74,8 @@ public class CreditsServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
-		
+		experimentFinishedBall.set(builder, servletContext, session.getLang());
+
 		builder.appendOnlyAssociatedPageElements(PageElement.credits);
 		builder.appendPageElement(translateProcessor.process(new CreditsPage(servletContext), session.getLang()));
 

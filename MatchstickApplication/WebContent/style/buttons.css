@@ -34,6 +34,10 @@ span
 	padding: 1px 1px;
 	border-radius:100%;
 }
+#concludedButton {
+	padding: 1px 1px;
+	border-radius:100%;
+}
 
 .blueButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
@@ -177,6 +181,12 @@ span
 	float: right;
 }
 .account_ball {
+	position: relative;
+	margin-top: 10px;
+	margin-right: 10px;
+	float: right;
+}
+.concluded_ball {
 	position: relative;
 	margin-top: 10px;
 	margin-right: 10px;

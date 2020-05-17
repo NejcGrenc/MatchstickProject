@@ -23,6 +23,7 @@ import grenc.masters.uservalidation.BrowserDetails;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.element.AccountBall;
 import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.ExperimentFinishedBall;
 import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
@@ -47,6 +48,8 @@ public class MatchstickTaskServletBean extends BasePageServlet
 	@InsertBean
 	private ResponseProcessor responseProcessor;
 	
+	@InsertBean
+	private ExperimentFinishedBall experimentFinishedBall;
 	@InsertBean
 	private AccountBall accountBall;
 	@InsertBean
@@ -84,6 +87,7 @@ public class MatchstickTaskServletBean extends BasePageServlet
 		
 		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
+		experimentFinishedBall.set(builder, servletContext, session.getLang());
 		dataPresentBall.set(builder, session).withMatchstickGroup(builder, session, taskBuilder.matchstickGroupType(session));
 		matchstickTaskInfoPopup.createPopup(builder, servletContext, session.getLang(), group, false);
 

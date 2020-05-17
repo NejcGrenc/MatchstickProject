@@ -8,6 +8,8 @@ public enum PageElement {
 	account_ball ("common/", "account-ball.html"),
 	account_ball_popup ("common/", "account-ball-popup.html"),
 	data_present_ball ("common/", "data-present-ball.html"),
+	experiment_finished_ball ("common/", "experiment-finished-ball.html"),
+	experiment_finished_ball_popup ("common/", "experiment-finished-ball-popup.html"),
 	language_ball ("common/", "language-ball.html"),
 
 	credits_ball ("speciffic/", "credits-ball.html"),

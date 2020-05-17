@@ -18,6 +18,7 @@ import grenc.masters.servlets.bean.base.BasePageServlet;
 import grenc.masters.webpage.builder.WebpageBuilder;
 import grenc.masters.webpage.element.AccountBall;
 import grenc.masters.webpage.element.DataPresentBall;
+import grenc.masters.webpage.element.ExperimentFinishedBall;
 import grenc.masters.webpage.element.LanguageBall;
 import grenc.masters.webpage.translations.ApplicationFileSegment;
 import grenc.masters.webpage.translations.SimpleTranslatableSegment;
@@ -34,6 +35,8 @@ public class TaskWrapupServletBean extends BasePageServlet
 	@InsertBean
 	private TaskSessionDAO taskSessionDAO;
 	
+	@InsertBean
+	private ExperimentFinishedBall experimentFinishedBall;
 	@InsertBean
 	private AccountBall accountBall;
 	@InsertBean
@@ -69,6 +72,7 @@ public class TaskWrapupServletBean extends BasePageServlet
 		Session session = sessionDAO.findSessionByTag((String) request.getAttribute("session"));
 		languageBall.set(builder, session.getLang(), url());
 		accountBall.set(builder, servletContext, session.getLang());
+		experimentFinishedBall.set(builder, servletContext, session.getLang());
 		dataPresentBall.set(builder, session);
 
 		builder.appendOnlyAssociatedPageElements(PageElement.task_wrapup);
